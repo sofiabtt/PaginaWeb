@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Admin</title>
+
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+
+<style>
+
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+
+
+body{
+
+    font-family:Arial, Helvetica, sans-serif;
+
+    background:#f7f4f1;
+
+}
+
+
+
+/* NAVBAR */
+
+
+.navbar{
+
+    height:80px;
+
+    background:white;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    padding:0 40px;
+
+    box-shadow:0 3px 15px #0002;
+
+}
+
+
+
+.logo{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+}
+
+
+
+.logo span{
+
+    font-size:25px;
+
+    font-weight:bold;
+
+    color:#684028;
+
+}
+
+
+
+
+
+/* PERFIL */
+
+
+.usuario{
+
+    background:white;
+
+    border:none;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    color:#684028;
+
+    font-size:16px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+}
+
+
+
+.usuario i{
+
+    font-size:25px;
+
+}
+
+
+
+.dropdown-menu{
+
+    border:none;
+
+    border-radius:15px;
+
+    box-shadow:0 8px 25px #0003;
+
+}
+
+
+
+.dropdown-item{
+
+    color:#684028;
+
+    padding:12px 20px;
+
+}
+
+
+
+.dropdown-item:hover{
+
+    background:#b8d8e8;
+
+}
+
+
+
+
+
+/* CONTENEDOR */
+
+
+.contenedor{
+
+    display:flex;
+
+    height:calc(100vh - 80px);
+
+}
+
+
+
+
+
+/* SIDEBAR */
+
+
+.sidebar{
+
+    width:260px;
+
+    background:#b8d8e8;
+
+    padding:30px 20px;
+
+}
+
+
+
+.sidebar h3{
+
+    color:#684028;
+
+    margin-bottom:30px;
+
+}
+
+
+
+.menu{
+
+    list-style:none;
+
+}
+
+
+
+.menu li{
+
+    color:#684028;
+
+    padding:18px;
+
+    margin-bottom:10px;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    font-weight:bold;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+}
+
+
+
+.menu li i{
+
+    font-size:22px;
+
+}
+
+
+
+.menu li:hover{
+
+    background:white;
+
+}
+
+
+
+
+
+.menu .activo{
+
+    background:white;
+
+}
+
+
+
+
+
+
+
+/* CONTENIDO */
+
+
+.contenido{
+
+    flex:1;
+
+    padding:40px;
+
+}
+
+
+
+.titulo{
+
+    color:#333;
+
+    font-size:32px;
+
+    margin-bottom:30px;
+
+}
+
+
+
+
+
+
+
+/* TARJETAS */
+
+
+.tarjetas{
+
+    display:flex;
+
+    gap:25px;
+
+    flex-wrap:wrap;
+
+}
+
+
+
+.tarjeta{
+
+    background:white;
+
+    width:220px;
+
+    height:150px;
+
+    border-radius:20px;
+
+    box-shadow:0 8px 25px #0002;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    cursor:pointer;
+
+}
+
+
+
+.tarjeta:hover{
+
+    transform:translateY(-5px);
+
+}
+
+
+
+.icono{
+
+    font-size:35px;
+
+    color:#684028;
+
+    margin-bottom:15px;
+
+}
+
+
+
+.tarjeta h4{
+
+    color:#684028;
+
+}
+
+
+
+
+
+/* TABLA */
+
+
+.tabla{
+
+    margin-top:40px;
+
+    background:white;
+
+    border-radius:20px;
+
+    padding:25px;
+
+    box-shadow:0 8px 25px #0002;
+
+}
+
+
+
+</style>
+
+</head>
+
+
+<body>
+
+
+
+<!-- NAVBAR -->
+
+<header class="navbar">
+
+
+    <div class="logo">
+
+        <img src="/imagenes/logov1.png" width="60" height="60">
+
+        <span>
+            AeroFly Admin
+        </span>
+
+    </div>
+
+
+
+
+
+    <div class="dropdown">
+
+
+        <button class="usuario" 
+        data-bs-toggle="dropdown">
+
+
+            <i class="bi bi-person-circle"></i>
+
+
+            Administrador
+
+
+            <i class="bi bi-chevron-down"></i>
+
+
+        </button>
+
+
+
+
+
+        <ul class="dropdown-menu dropdown-menu-end">
+
+
+            <li>
+
+                <a class="dropdown-item">
+
+                    <i class="bi bi-person"></i>
+
+                    Ver perfil
+
+                </a>
+
+            </li>
+
+
+
+            <li>
+
+                <a class="dropdown-item">
+
+                    <i class="bi bi-box-arrow-right"></i>
+
+                    Cerrar sesión
+
+                </a>
+
+            </li>
+
+
+        </ul>
+
+
+    </div>
+
+
+</header>
+
+
+
+
+
+
+
+<div class="contenedor">
+
+
+
+
+
+<!-- SIDEBAR -->
+
+
+<aside class="sidebar">
+
+
+<h3>
+Panel
+</h3>
+
+
+
+<ul class="menu">
+
+
+
+<li class="activo" onclick="mostrarSeccion('aerolineas',this)">
+
+<i class="bi bi-airplane"></i>
+
+Aerolíneas
+
+</li>
+
+
+
+
+
+<li onclick="mostrarSeccion('promociones',this)">
+
+<i class="bi bi-ticket-perforated"></i>
+
+Promociones
+
+</li>
+
+
+
+
+
+<li onclick="mostrarSeccion('novedades',this)">
+
+<i class="bi bi-newspaper"></i>
+
+Novedades
+
+</li>
+
+
+
+
+
+<li onclick="mostrarSeccion('reportes',this)">
+
+<i class="bi bi-bar-chart"></i>
+
+Reportes
+
+</li>
+
+
+
+
+
+<li onclick="mostrarSeccion('ceos',this)">
+
+<i class="bi bi-person-badge"></i>
+
+CEOs
+
+</li>
+
+
+
+</ul>
+
+
+
+</aside>
+
+
+
+
+
+
+
+
+
+<!-- CONTENIDO -->
+
+
+<main class="contenido">
+
+
+
+
+
+<!-- AEROLINEAS -->
+
+
+<section id="aerolineas">
+
+
+<h1 class="titulo">
+
+Gestión de Aerolíneas
+
+</h1>
+
+
+
+<div class="tarjetas">
+
+
+
+<div class="tarjeta">
+
+<i class="bi bi-plus-circle icono"></i>
+
+<h4>
+Crear Aerolínea
+</h4>
+
+</div>
+
+
+
+
+
+<div class="tarjeta">
+
+<i class="bi bi-pencil-square icono"></i>
+
+<h4>
+Modificar Aerolínea
+</h4>
+
+</div>
+
+
+
+
+
+<div class="tarjeta">
+
+<i class="bi bi-trash icono"></i>
+
+<h4>
+Eliminar Aerolínea
+</h4>
+
+</div>
+
+
+
+</div>
+
+
+
+<div class="tabla">
+
+<h3>
+Aerolíneas registradas
+</h3>
+
+<br>
+
+<p>
+Aquí aparecería la tabla con las aerolíneas cargadas.
+</p>
+
+
+</div>
+
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<!-- PROMOCIONES -->
+
+
+<section id="promociones" style="display:none;">
+
+
+<h1 class="titulo">
+
+Gestión de Promociones
+
+</h1>
+
+
+
+<div class="tarjetas">
+
+
+
+<div class="tarjeta">
+
+<i class="bi bi-check-circle icono"></i>
+
+<h4>
+Aprobar promoción
+</h4>
+
+</div>
+
+
+
+
+
+<div class="tarjeta">
+
+<i class="bi bi-x-circle icono"></i>
+
+<h4>
+Denegar promoción
+</h4>
+
+</div>
+
+
+
+</div>
+
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<!-- NOVEDADES -->
+
+
+<section id="novedades" style="display:none;">
+
+
+<h1 class="titulo">
+
+Gestión de Novedades
+
+</h1>
+
+
+
+<div class="tarjetas">
+
+
+
+<div class="tarjeta">
+
+<i class="bi bi-plus-circle icono"></i>
+
+<h4>
+Crear Novedad
+</h4>
+
+</div>
+
+
+
+
+<div class="tarjeta">
+
+<i class="bi bi-pencil-square icono"></i>
+
+<h4>
+Modificar Novedad
+</h4>
+
+</div>
+
+
+
+
+
+<div class="tarjeta">
+
+<i class="bi bi-trash icono"></i>
+
+<h4>
+Eliminar Novedad
+</h4>
+
+</div>
+
+
+
+
+
+<div class="tarjeta">
+
+<i class="bi bi-eye icono"></i>
+
+<h4>
+Ver Novedades
+</h4>
+
+</div>
+
+
+
+</div>
+
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<!-- REPORTES -->
+
+
+<section id="reportes" style="display:none;">
+
+
+<h1 class="titulo">
+
+Reportes
+
+</h1>
+
+
+
+<div class="tarjetas">
+
+
+
+<div class="tarjeta">
+
+<i class="bi bi-cash-stack icono"></i>
+
+<h4>
+Reporte de Ventas
+</h4>
+
+</div>
+
+
+
+
+
+<div class="tarjeta">
+
+<i class="bi bi-airplane icono"></i>
+
+<h4>
+Reporte de Vuelos
+</h4>
+
+</div>
+
+
+
+
+
+<div class="tarjeta">
+
+<i class="bi bi-people icono"></i>
+
+<h4>
+Reporte de Usuarios
+</h4>
+
+</div>
+
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<!-- CEOs -->
+
+
+<section id="ceos" style="display:none;">
+
+
+<h1 class="titulo">
+
+Gestión de CEOs
+
+</h1>
+
+
+
+<div class="tarjetas">
+
+
+
+<div class="tarjeta">
+
+<i class="bi bi-person-plus icono"></i>
+
+<h4>
+Alta CEO
+</h4>
+
+</div>
+
+
+
+
+
+<div class="tarjeta">
+
+<i class="bi bi-pencil-square icono"></i>
+
+<h4>
+Modificar CEO
+</h4>
+
+</div>
+
+
+
+
+
+<div class="tarjeta">
+
+<i class="bi bi-person-x icono"></i>
+
+<h4>
+Eliminar CEO
+</h4>
+
+</div>
+
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+</main>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- JAVASCRIPT -->
+
+
+<script>
+
+
+function mostrarSeccion(id, elemento){
+
+
+
+    let secciones = document.querySelectorAll(".contenido section");
+
+
+    secciones.forEach(function(seccion){
+
+        seccion.style.display="none";
+
+    });
+
+
+
+    document.getElementById(id).style.display="block";
+
+
+
+
+
+    let opciones = document.querySelectorAll(".menu li");
+
+
+    opciones.forEach(function(opcion){
+
+        opcion.classList.remove("activo");
+
+    });
+
+
+
+    elemento.classList.add("activo");
+
+
+
+}
+
+
+
+</script>
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
+</body>
+
+</html>
