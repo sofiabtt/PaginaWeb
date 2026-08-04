@@ -1,0 +1,68 @@
+body {
+    background-image: url("fotofondo2.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+}
+.logo-empresa {
+    width: 80px;
+    height: auto;
+}
+.barra-superior {
+    background-color: rgb(245, 252, 252);
+    padding: 15px 30px;
+
+    border-bottom-left-radius: 45px;
+    border-bottom-right-radius: 45px;
+
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+
+    position: relative;
+    z-index: 10;
+}
+
+.logo-barra {
+    width: 50px;
+    height: auto;
+}
+
+.barra-superior .nav-link {
+    color: #222;
+    font-weight: 500;
+}
+
+.barra-superior .nav-link:hover {
+    color: #97b8e9;
+}
+.login-contenedor {
+    width: 100%;
+    max-width: 450px;
+    padding: 35px;
+    border: 1px solid #dddddd;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.login-contenedor h1 {
+    font-size: 28px;
+}
+
+.texto-registro {
+    font-size: 13px;
+    color: #6c757d;
+}
+.titulo-iniciosesion{
+    color:white
+}
+.texto-blanco{
+    color:white;
+}
+
+/*  body -Selecciona todo el contenido visible de la página.
+
+    background-size: cover; -hace que la imagen cubra toda la pantalla.
+
+    padding: 15px 30px; -agrega espacio interno dentro de la barra.
+
+*/
