@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!--Hace que la página se adapte al ancho de celulares, tablets y computadoras.-->
+        <title>Aerolinea</title>
+        
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+        crossorigin="anonymous">
+        <!--Esto descarga los estilos de Bootstrap desde Internet.-->
+
+        <link rel="stylesheet" href="../css/estilos.css">
+
+        <link rel="icon" type="image/png" href="../imagenes/logo.png">
+
+    </head>
+    <body>
+        
+        <main class="d-flex justify-content-center align-items-center">
+
+        <section class="rectangulo-formulario">
+
+            <h1 class="text-center mb-4 texto-negro">
+                Inicio de sesión
+            </h1>
+
+            <form>
+                <!--aún no está conectado con PHP-->
+
+                <div class="mb-4">
+                    <label for="contraseña" class="form-label texto-negro">
+                        Ingrese Contraseña:
+                    </label>
+
+                    <input
+                        type="password"
+                        class="form-control"
+                        id="contraseña"
+                        name="contraseña"
+                        required
+                    >
+                    <!--con type password los caracteres se ocultan mientras la persona escribe.-->
+                </div>
+
+                <div class="d-flex justify-content-between align-items-end gap-3">
+                <!--lo de arriba coloca dos sectores en una misma fila.-->
+
+                    <div>
+                        <p class="texto-registro mb-1 texto-negro">
+                            Olvidé la contraseña
+                        </p>
+
+                        <a href="#" class="btn btn-outline-primary">
+                            Recuperar
+                        </a>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">
+                        Continuar
+                    </button>
+
+                </div>
+
+            </form>
+
+        </section>
+
+    </main>
+
+    </body>
+
+</html>
