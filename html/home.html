@@ -12,267 +12,7 @@
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 
-
-    <style>
-
-        *{
-            margin:0;
-            padding:0;
-            box-sizing:border-box;
-        }
-
-
-        body{
-
-            font-family:Arial, Helvetica, sans-serif;
-
-        }
-
-
-        /* HERO */
-
-        .hero{
-
-            height:100vh;
-
-            background-image:url("/imagenes/avion2.jpg");
-
-            background-size:140%;
-
-            background-position:70% bottom;
-
-            position:relative;
-
-        }
-
-
-        /* CAPA BLANCA TRANSPARENTE */
-
-        .hero::before{
-
-            content:"";
-
-            position:absolute;
-
-            inset:0;
-
-            background:linear-gradient(
-                90deg,
-                rgba(255,255,255,.85),
-                rgba(255,255,255,.15)
-            );
-
-        }
-
-
-
-        /* NAVBAR */
-
-        .navbar{
-
-            position:absolute;
-
-            width:100%;
-
-            z-index:10;
-
-            padding:25px 60px;
-
-        }
-
-
-        .navbar-brand img{
-
-            object-fit:contain;
-
-        }
-
-
-        .nav-link{
-
-            color:#222;
-
-            font-weight:600;
-
-            margin-left:25px;
-
-        }
-
-
-        .btn-menu{
-
-            background:#684028;
-
-            color:white;
-
-            border:none;
-
-            border-radius:25px;
-
-            padding:12px 30px;
-
-            font-weight:bold;
-
-        }
-
-
-        .btn-menu:hover{
-
-            background:#72472c;
-
-        }
-
-
-
-        /* TEXTO */
-
-        .contenido{
-
-            position:absolute;
-
-            top:20%;
-
-            left:60px;
-
-            z-index:2;
-
-        }
-
-
-        .contenido h1{
-
-            font-size:60px;
-
-            font-weight:900;
-
-            color:#222;
-
-            line-height:1;
-
-        }
-
-
-        .contenido span{
-
-            font-weight:300;
-
-        }
-
-
-
-        /* BUSCADOR */
-
-        .buscador{
-
-            position:absolute;
-
-            z-index:3;
-
-            bottom:20%;
-
-            left:60px;
-
-            width:75%;
-
-            background:white;
-
-            box-shadow:0 10px 30px rgba(0,0,0,.15);
-            overflow:hidden;
-
-        }
-
-
-
-
-
-        /* TIPO DE VIAJE */
-
-        .tipo-viaje{
-
-            padding:15px;
-
-            border-bottom:1px solid #ddd;
-
-        }
-
-
-        .tipo-viaje label{
-
-            margin-right:25px;
-
-            font-weight:bold;
-
-        }
-
-
-
-        /* INPUTS */
-
-        .form-control{
-            border:none;
-            border-right:1px solid #ddd;
-            height:70px;
-            min-width:140px;
-        }
-
-
-        .form-control:focus{
-
-            box-shadow:none;
-
-        }
-
-
-
-        /* BOTON BUSCAR */
-
-        .buscar{
-
-            height:70px;
-
-            width:100%;
-
-            background:#684028;
-
-            color:white;
-
-            border:none;
-
-            font-size:25px;
-
-        }
-
-
-        .buscar:hover{
-
-            background:#72472c;
-
-        }
-
-
-
-        /* RESPONSIVE */
-
-        @media(max-width:900px){
-
-
-            .contenido h1{
-
-                font-size:45px;
-
-            }
-
-
-            .buscador{
-
-                width:85%;
-
-            }
-
-        }
-
-
-    </style>
+    <link rel="stylesheet" href="../css/estiloshome.css">
 
 </head>
 
@@ -354,9 +94,8 @@
     <!-- BUSCADOR -->
 
 
-    <div class="buscador rounded">
 
-
+    <div class="contenedor-buscador">
         <div class="tipo-viaje">
 
 
@@ -367,12 +106,12 @@
             onclick="mostrarVuelta()">
 
 
-
+            
             <label>
 
                 Ida y vuelta
 
-            </label>
+            </label> 
 
 
 
@@ -394,68 +133,55 @@
 
 
         </div>
+        <div id ="buscador-ing-datos">
+            <div class="row g-0">
+
+                <div class="col-md-3">
 
 
+                    <input 
+                    class="form-control"
+                    placeholder="Desde">
 
 
+                </div>
 
-        <div class="row g-0">
-
-
-
-            <div class="col-md-3">
+                <div class="col-md-3">
 
 
-                <input 
-                class="form-control"
-                placeholder="Desde">
+                    <input 
+                    class="form-control"
+                    placeholder="Hacia">
 
 
-            </div>
+                </div>
 
 
+                <div class="col-md-2" id="fecha-ida">
 
 
-
-            <div class="col-md-3">
-
-
-                <input 
-                class="form-control"
-                placeholder="Hacia">
+                    <input 
+                    type="date"
+                    class="form-control">
 
 
-            </div>
-
-
-
-
-
-            <div class="col-md-2" id="fecha-ida">
-
-
-                <input 
-                type="date"
-                class="form-control">
-
-
-            </div>
+                </div>
 
 
 
 
 
 
-            <div class="col-md-2"
-            id="fecha-vuelta">
+                <div class="col-md-2"
+                id="fecha-vuelta">
 
 
-                <input 
-                type="date"
-                class="form-control">
+                    <input 
+                    type="date"
+                    class="form-control">
 
 
-            </div>
+                </div>
 
 
 
@@ -463,64 +189,48 @@
 
 
 
-            <div class="col-md-2">
+                <div class="col-md-2">
 
 
-                <button class="buscar">
+                    <button class="buscar">
 
 
-                    →
+                        →
 
-                </button>
+                    </button>
+
+
+                </div>
 
 
             </div>
-
-
-
 
         </div>
-
-
+        <br>
 
     </div>
-
     <!-- TITULO -->
-
 
     <div class="contenido">
 
 
-        <h1>
-
-            DONDE<br>
-
-            QUIERAS<br>
-
+        <h2>
             <span>
-
-                VIAJAR
-
+                ENCONTRÁ EL <br>
             </span>
 
+            VUELO IDEAL<br>
+            <span>
 
-        </h1>
+                PARA TU PROXIMO VIAJE
+            </span>
+            
+
+
+        </h2>
 
 
     </div>
-
-
-
-
-
-
-
-    
-
-
-
-
-
 
 
 </section>
