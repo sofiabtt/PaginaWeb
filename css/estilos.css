@@ -1,14 +1,23 @@
 body {
-    background-image: url("fotofondo2.jpg");
+    background-image: url("../imagenes/aver1.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     min-height: 100vh;
+    margin:0;
+
+    display: flex;
+    flex-direction: column;
 }
+/*este main es para centrar bien el formulario junto con display y flez-direction de body*/
+main {
+    flex:1;
+}
+/*
 .logo-empresa {
     width: 80px;
     height: auto;
-}
+}*/
 .barra-superior {
     background-color: rgb(245, 252, 252);
     padding: 15px 30px;
@@ -17,6 +26,7 @@ body {
     border-bottom-right-radius: 45px;
 
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    /*0-Sin desplazamiento horizontal; 4px-La sombra baja 4 píxeles; 12px- Nivel de desenfoque.*/
 
     position: relative;
     z-index: 10;
@@ -28,35 +38,56 @@ body {
 }
 
 .barra-superior .nav-link {
-    color: #222;
+    color: #684028;
     font-weight: 500;
 }
 
-.barra-superior .nav-link:hover {
-    color: #97b8e9;
+
+.btn-primary {
+    background-color: #684028;
+    border-color: #684028;
+    border-radius: 30px;
+    padding: 10px 28px;
 }
-.login-contenedor {
+.btn-outline-primary {
+    --bs-btn-color: #684028;
+    --bs-btn-border-color: #684028;
+
+    --bs-btn-hover-color: white;
+    --bs-btn-hover-bg: #684028;
+    --bs-btn-hover-border-color: #684028;
+
+    --bs-btn-active-color: white;
+    --bs-btn-active-bg: #4f2f1d;
+    --bs-btn-active-border-color: #4f2f1d;
+
+    border-radius: 30px;
+    padding: 10px 28px;
+}
+
+.barra-superior .nav-link:hover {
+    color: #c5d3e9;
+}
+.rectangulo-formulario {
     width: 100%;
     max-width: 450px;
     padding: 35px;
+    background-color: white;
     border: 1px solid #dddddd;
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-.login-contenedor h1 {
+.rectangulo-formulario h1 {
     font-size: 28px;
 }
 
 .texto-registro {
     font-size: 13px;
-    color: #6c757d;
 }
-.titulo-iniciosesion{
-    color:white
-}
-.texto-blanco{
-    color:white;
+
+.texto-negro{
+    color:black;
 }
 
 /*  body -Selecciona todo el contenido visible de la página.
