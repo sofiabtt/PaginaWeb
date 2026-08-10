@@ -1,262 +1,241 @@
-        *{
-            margin:0;
-            padding:0;
-            box-sizing:border-box;
-        }
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
 
-        body{
+body{
 
-            font-family:Arial, Helvetica, sans-serif;
+    font-family:Arial, Helvetica, sans-serif;
 
-        }
+}
 
 
-        /* HERO */
+/* HERO */
 
-        .hero{
+.hero{
 
-            height:100vh;
+    height:100vh;
 
-            background-image:url("../imagenes/avion2.jpg");
+    background-image:url("../imagenes/avion2.jpg");
 
-            background-size:140%;
+    background-size:140%;
 
-            background-position:right 85%;
+    background-position:right 65%;
 
-            position:relative;
+    position:relative;
 
-        }
-        .text-marron{
-            color: #684028;
-        }
+}
 
+.text-marron{
+    color: #684028;
+}
 
-        /* CAPA BLANCA TRANSPARENTE */
 
-        .hero::before{
+/* CAPA BLANCA TRANSPARENTE */
 
-            content:"";
+.hero::before{
 
-            position:absolute;
+    content:"";
 
-            inset:0;
+    position:absolute;
 
-            background:linear-gradient(
-                90deg,
-                rgba(255,255,255,.85),
-                rgba(255,255,255,.15)
-            );
+    inset:0;
 
-        }
+    background: rgba(255,255,255,0.4);
 
+}
 
 
-        /* NAVBAR */
 
-        .navbar{
+/* NAVBAR */
 
-            position:absolute;
+.navbar{
 
-            width:100%;
+    position:fixed;
 
-            z-index:10;
+    width:100%;
 
-            padding:25px 60px;
+    z-index:10;
 
-        }
+    padding: 5px 60px;
+    background: white;
 
+}
 
-        .navbar-brand img{
 
-            object-fit:contain;
+.navbar-brand img{
 
-        }
+    object-fit:contain;
 
+}
 
-        .nav-link{
 
-            color:#222;
+.nav-link{
 
-            font-weight:600;
+    color:#222;
 
-            margin-left:25px;
+    font-weight:600;
 
-        }
+    margin-left:25px;
 
+}
 
-        .btn-menu{
 
-            background:#684028;
+.btn-menu{
 
-            color:white;
+    background:#684028;
 
-            border:none;
+    color:white;
 
-            border-radius:25px;
+    border:none;
 
-            padding:12px 30px;
+    border-radius:25px;
 
-            font-weight:bold;
+    padding:12px 30px;
 
-        }
+    font-weight:bold;
 
+    text-decoration: none;
 
-        .btn-menu:hover{
+}
 
-            background:#72472c;
 
-        }
+.btn-menu:hover{
 
+    background:#72472c;
 
+}
 
-        /* TEXTO */
 
-        .contenido{
 
-            position:absolute;
+/* TEXTO */
 
-            top:40%;
+.contenido{
 
-            left:60px;
+    position:absolute;
 
-            z-index:2;
+    top:45%;
 
-        }
+    left:60px;
 
+    z-index:2;
 
-        .contenido h2{
+}
 
-            font-size:40px;
 
-            font-weight:900;
+.contenido h2{
 
-            color:black;
+    font-size:40px;
 
-            line-height:1;
+    font-weight:900;
 
-        }
+    color:black;
 
+    line-height:1;
 
-        .contenido span{
+}
 
-            font-weight:300;
 
-        }
+.contenido span{
 
+    font-weight:300;
 
+}
 
-        /* BUSCADOR */
 
-        .contenedor-buscador{
 
-            position:absolute;
+/* BUSCADOR */
 
-            z-index:3;
+.contenedor-buscador{
 
-            top:90px;
-            left:50%;
-            transform:translateX(-50%);
+    position:absolute;
 
-            width:75%;
+    z-index:3;
 
-        }
-        #buscador-ing-datos{
-            background:white;
+    top:160px;
+    left:50%;
+    transform:translateX(-50%);
 
-            box-shadow:0 10px 30px rgba(0,0,0,.15);
-            overflow:hidden;
-            border-radius: 20px;
-            
-        }
+    width:75%;
 
+}
+#buscador-ing-datos{
+    background:white;
 
+    box-shadow:0 10px 30px rgba(0,0,0,.15);
+    overflow:hidden;
+    border-radius: 20px;
+    
+}
 
 
-        /* TIPO DE VIAJE */
 
-        .tipo-viaje{
 
-            padding:10px;
-            background: transparent;
-            font-size: 13px;
-            padding-bottom: 10px;
-            margin-left: 55%;
-            border: none;
-        }
+/* TIPO DE VIAJE */
 
+.tipo-viaje{
 
-        .tipo-viaje label{
+    padding:10px;
+    background: transparent;
+    font-size: 13px;
+    padding-bottom: 10px;
+    margin-left: 55%;
+    border: none;
+}
 
-            margin-right:25px;
-            font-size: 13px;
-            font-weight:bold;
 
-        }
+.tipo-viaje label{
 
+    margin-right:25px;
+    font-size: 13px;
+    font-weight:bold;
 
+}
 
-        /* INPUTS */
 
-        .form-control{
-            border:none;
-            border-right:1px solid #ddd;
-            height:60px;
-            min-width:140px;
-        }
 
+/* INPUTS */
 
-        .form-control:focus{
+.form-control{
+    border:none;
+    border-right:1px solid #ddd;
+    height:60px;
+    min-width:140px;
+}
 
-            box-shadow:none;
 
-        }
+.form-control:focus{
 
+    box-shadow:none;
 
+}
 
-        /* BOTON BUSCAR */
 
-        .buscar{
 
-            height:60px;
+/* BOTON BUSCAR */
 
-            width:100%;
+.buscar{
 
-            background:#684028;
+    height:60px;
 
-            color:white;
+    width:100%;
 
-            border:none;
+    background:#684028;
 
-            font-size:25px;
+    color:white;
 
-        }
+    border:none;
 
+    font-size:25px;
 
-        .buscar:hover{
+}
 
-            background:#72472c;
 
-        }
+.buscar:hover{
 
+    background:#72472c;
 
+}
 
-        /* RESPONSIVE */
-
-        @media(max-width:900px){
-
-
-            .contenido h1{
-
-                font-size:45px;
-
-            }
-
-
-            .buscador{
-
-                width:85%;
-
-            }
-
-        }
