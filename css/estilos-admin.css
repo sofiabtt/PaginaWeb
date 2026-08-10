@@ -10,30 +10,33 @@
 
 body {
     font-family: Arial, Helvetica, sans-serif;
-    background: #f7f4f1;
+    background: #daf2f7;
     min-height: 100vh;
 }
 
 
 /* =========================
-   BARRA SUPERIOR
+   NAVBAR
 ========================= */
 
-.barra-admin {
+.navbar {
+
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+
     height: 80px;
+
+    z-index: 10;
+
+    padding: 5px 60px;
 
     background: white;
 
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    padding: 0 40px;
-
-    box-shadow: 0 3px 15px #0002;
-
-    position: relative;
-    z-index: 10;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.12);
 }
 
 
@@ -41,258 +44,362 @@ body {
    LOGO
 ========================= */
 
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+.navbar-brand {
+
+    margin: 0;
+    padding: 0;
+
 }
 
-.logo img {
+.navbar-brand img {
+
     object-fit: contain;
-}
 
-.logo span {
-    font-size: 25px;
-    font-weight: bold;
-    color: #684028;
 }
 
 
 /* =========================
-   USUARIO
+   MENÚ DEL NAVBAR
 ========================= */
 
-.usuario {
-    position: relative;
+.menu-admin-navbar {
 
-    background: white;
+    margin-left: auto;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 25px;
+
+}
+
+
+/* =========================
+   LINKS
+========================= */
+
+.menu-admin-navbar .nav-link {
+
+    color: #222;
+
+    font-weight: 600;
+
+    text-decoration: none;
+
+    margin: 0;
+
+    padding: 10px 0;
+
+    white-space: nowrap;
+
+}
+
+
+.menu-admin-navbar .nav-link:hover {
+
+    color: #684028;
+
+}
+
+
+/* LINK ACTIVO */
+
+.menu-admin-navbar .nav-link.activo {
+
+    color: #684028;
+
+}
+
+
+/* =========================
+   USUARIO ADMINISTRADOR
+========================= */
+
+.usuario-admin {
+
+    background: transparent;
+
     border: none;
 
     display: flex;
+
     align-items: center;
-    gap: 10px;
+
+    gap: 8px;
 
     color: #684028;
 
     font-size: 16px;
+
     font-weight: bold;
+
+    padding: 10px;
 
     cursor: pointer;
 
-    padding: 10px;
+    white-space: nowrap;
+
 }
 
-.usuario i {
+
+.usuario-admin:hover {
+
+    color: #72472c;
+
+}
+
+
+.usuario-admin i {
+
     font-size: 22px;
+
 }
 
 
 /* =========================
-   MENÚ DEL USUARIO
+   MENÚ DEL ADMINISTRADOR
 ========================= */
 
-.menu-usuario {
-    display: none;
+.menu-admin {
 
-    position: absolute;
+    min-width: 190px;
 
-    top: 50px;
-    right: 0;
-
-    width: 190px;
-
-    background: white;
+    border: none;
 
     border-radius: 15px;
 
-    box-shadow: 0 8px 25px #0003;
+    padding: 8px;
 
-    overflow: hidden;
+    background: white;
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+
 }
 
 
-/*
-   Al pasar el mouse sobre Administrador
-   aparece el menú.
-*/
+/* OPCIONES */
 
-.usuario:hover .menu-usuario {
-    display: block;
-}
+.menu-admin .dropdown-item {
 
+    color: #684028;
 
-.menu-usuario a {
+    padding: 12px 15px;
+
+    border-radius: 10px;
+
     display: flex;
 
     align-items: center;
 
     gap: 10px;
 
-    padding: 12px 20px;
+    font-size: 14px;
 
-    color: #684028;
+    font-weight: 600;
 
-    text-decoration: none;
-
-    font-weight: normal;
 }
 
 
-.menu-usuario a:hover {
-    background: #b8d8e8;
-}
+/* ICONOS */
 
-
-/* =========================
-   PANEL PRINCIPAL
-========================= */
-
-.panel-admin {
-    display: flex;
-
-    min-height: calc(100vh - 80px);
-}
-
-
-/* =========================
-   SIDEBAR
-========================= */
-
-.sidebar {
-    width: 260px;
-
-    background: #b8d8e8;
-
-    padding: 30px 20px;
-
-    flex-shrink: 0;
-}
-
-
-.sidebar h5 {
-    color: #684028;
-
-    margin-bottom: 30px;
+.menu-admin .dropdown-item i {
 
     font-size: 18px;
+
+}
+
+
+/* AL PASAR EL MOUSE */
+
+.menu-admin .dropdown-item:hover {
+
+    background: #b8d8e8;
+
+    color: #684028;
+
+}
+
+
+/* SEPARADOR */
+
+.menu-admin .dropdown-divider {
+
+    margin: 6px 0;
+
+    border-color: #eee;
+
+}
+
+
+/* ESPACIO ANTES DEL PERFIL */
+
+.menu-admin-navbar .dropdown {
+
+    margin-left: 5px;
+
 }
 
 
 /* =========================
-   OPCIONES DEL PANEL
-========================= */
-
-.opcion-panel {
-    display: flex;
-
-    align-items: center;
-
-    gap: 15px;
-
-    color: #684028;
-
-    padding: 18px;
-
-    margin-bottom: 10px;
-
-    border-radius: 12px;
-
-    font-weight: bold;
-
-    text-decoration: none;
-}
-
-
-.opcion-panel i {
-    font-size: 22px;
-}
-
-
-/* Cuando pasás el mouse */
-
-.opcion-panel:hover {
-    background: white;
-
-    color: #684028;
-}
-
-
-/* Página en la que estamos */
-
-.opcion-panel.activa {
-    background: white;
-
-    color: #684028;
-}
-
-
-/* =========================
-   CONTENIDO
+   CONTENIDO PRINCIPAL
 ========================= */
 
 .contenido-admin {
-    flex: 1;
 
-    padding: 40px;
+    padding: 120px 60px 50px;
+
+    max-width: 1400px;
+
+    margin: auto;
+
 }
 
 
 /* =========================
-   ENCABEZADO DEL CONTENIDO
+   BIENVENIDA
 ========================= */
 
-.encabezado-contenido {
-    display: flex;
+.bienvenida-admin {
 
-    justify-content: space-between;
+    margin-bottom: 45px;
+
+}
+
+
+.bienvenida-admin h1 {
+
+    color: #684028;
+
+    font-size: 36px;
+
+    font-weight: 700;
+
+    margin-bottom: 10px;
+
+}
+
+
+.bienvenida-admin p {
+
+    color: #666;
+
+    font-size: 17px;
+
+    margin: 0;
+
+}
+
+
+/* =========================
+   RESUMEN
+========================= */
+
+.resumen-admin {
+
+    margin-bottom: 45px;
+
+}
+
+
+.resumen-admin h2,
+.actividad-admin h2 {
+
+    color: #333;
+
+    font-size: 26px;
+
+    margin-bottom: 25px;
+
+}
+
+
+/* GRID */
+
+.resumen-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 20px;
+
+}
+
+
+/* ELEMENTO DEL RESUMEN */
+
+.resumen-item {
+
+    background: white;
+
+    min-height: 120px;
+
+    padding: 25px;
+
+    border-radius: 18px;
+
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+
+    display: flex;
 
     align-items: center;
 
-    margin-bottom: 30px;
+    gap: 18px;
+
 }
 
 
-.encabezado-contenido h1 {
-    color: #333;
+.resumen-item > i {
 
     font-size: 32px;
 
-    margin-bottom: 8px;
+    color: #684028;
+
 }
 
 
-.encabezado-contenido p {
-    color: #666;
+.resumen-item h3 {
+
+    font-size: 15px;
+
+    color: #555;
+
+    margin-bottom: 8px;
+
+}
+
+
+.numero-resumen {
+
+    color: #684028;
+
+    font-size: 28px;
+
+    font-weight: bold;
 
     margin: 0;
+
 }
 
 
 /* =========================
-   BOTÓN PRINCIPAL
+   ACTIVIDAD
 ========================= */
 
-.btn-primary {
-    background: #684028;
+.actividad-admin {
 
-    border-color: #684028;
+    margin-bottom: 40px;
 
-    color: white;
-
-    border-radius: 25px;
-
-    padding: 12px 25px;
-
-    font-weight: bold;
 }
 
 
-.btn-primary:hover {
-    background: #72472c;
+.encabezado-seccion p {
 
-    border-color: #72472c;
+    color: #666;
 
-    color: white;
+    margin-bottom: 20px;
+
 }
 
 
@@ -301,110 +408,72 @@ body {
 ========================= */
 
 .tabla-contenedor {
+
     background: white;
 
-    border-radius: 20px;
+    border-radius: 18px;
 
     padding: 25px;
 
-    box-shadow: 0 8px 25px #0002;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+
+    min-height: 150px;
+
 }
 
 
 .tabla-contenedor table {
+
     margin-bottom: 0;
+
 }
 
 
 .tabla-contenedor thead {
+
     color: #684028;
+
 }
 
 
 /* =========================
-   BOTONES DE LA TABLA
+   BOTONES
 ========================= */
 
-.btn-outline-primary {
-    --bs-btn-color: #684028;
+.btn-primary {
 
-    --bs-btn-border-color: #684028;
+    background-color: #684028;
 
-    --bs-btn-hover-color: white;
+    border-color: #684028;
 
-    --bs-btn-hover-bg: #684028;
+    color: white;
 
-    --bs-btn-hover-border-color: #684028;
-
-    border-radius: 20px;
 }
 
 
-.btn-outline-danger {
-    border-radius: 20px;
+.btn-primary:hover {
+
+    background-color: #72472c;
+
+    border-color: #72472c;
+
+    color: white;
+
 }
 
 
 /* =========================
-   BADGES
+   ENCABEZADO DEL CONTENIDO
 ========================= */
 
-.badge {
-    padding: 7px 12px;
-
-    border-radius: 15px;
-}
-
-/* =========================
-   TARJETAS DE REPORTES
-========================= */
-
-.tarjetas {
-    display: flex;
-    gap: 25px;
-    flex-wrap: wrap;
-    margin-bottom: 40px;
-}
-
-.tarjeta {
-    background: white;
-
-    width: 220px;
-    height: 150px;
-
-    border-radius: 20px;
-
-    box-shadow: 0 8px 25px #0002;
+.encabezado-contenido {
 
     display: flex;
-    flex-direction: column;
 
-    justify-content: center;
+    justify-content: space-between;
+
     align-items: center;
-}
 
-.tarjeta:hover {
-    transform: translateY(-5px);
-}
+    margin-bottom: 40px;
 
-.icono {
-    font-size: 35px;
-
-    color: #684028;
-
-    margin-bottom: 15px;
-}
-
-.tarjeta h4 {
-    color: #684028;
-
-    margin-bottom: 5px;
-}
-
-.tarjeta p {
-    color: #666;
-
-    font-size: 14px;
-
-    margin: 0;
 }
