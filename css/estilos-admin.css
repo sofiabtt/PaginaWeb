@@ -355,37 +355,56 @@ body {
     border-radius: 15px;
 }
 
-
 /* =========================
-   RESPONSIVE
+   TARJETAS DE REPORTES
 ========================= */
 
-@media (max-width: 768px) {
+.tarjetas {
+    display: flex;
+    gap: 25px;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+}
 
-    .barra-admin {
-        padding: 0 20px;
-    }
+.tarjeta {
+    background: white;
 
-    .logo span {
-        font-size: 20px;
-    }
+    width: 220px;
+    height: 150px;
 
-    .sidebar {
-        width: 200px;
+    border-radius: 20px;
 
-        padding: 25px 15px;
-    }
+    box-shadow: 0 8px 25px #0002;
 
-    .contenido-admin {
-        padding: 25px;
-    }
+    display: flex;
+    flex-direction: column;
 
-    .encabezado-contenido {
-        flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 
-        align-items: flex-start;
+.tarjeta:hover {
+    transform: translateY(-5px);
+}
 
-        gap: 20px;
-    }
+.icono {
+    font-size: 35px;
 
+    color: #684028;
+
+    margin-bottom: 15px;
+}
+
+.tarjeta h4 {
+    color: #684028;
+
+    margin-bottom: 5px;
+}
+
+.tarjeta p {
+    color: #666;
+
+    font-size: 14px;
+
+    margin: 0;
 }

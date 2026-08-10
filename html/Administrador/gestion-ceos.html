@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AeroFly Admin - CEOs</title>
+
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="../../css/bootstrap-icons.css">
+
+    <link rel="stylesheet" href="../../css/estilos-admin.css">
+
+    <link rel="icon" type="image/png" href="../../imagenes/logo.png">
+
+</head>
+
+
+<body>
+
+
+    <!-- BARRA SUPERIOR -->
+
+    <header class="barra-admin">
+
+        <div class="logo">
+
+            <img
+                src="../../imagenes/logo.png"
+                alt="Logo AeroFly"
+                width="60"
+                height="60"
+            >
+
+            <span>
+                AeroFly Admin
+            </span>
+
+        </div>
+
+
+        <div class="usuario">
+
+            <i class="bi bi-person-circle"></i>
+
+            Administrador
+
+            <i class="bi bi-chevron-down"></i>
+
+
+            <div class="menu-usuario">
+
+                <a href="perfil-admin.html">
+
+                    <i class="bi bi-person"></i>
+
+                    Ver perfil
+
+                </a>
+
+
+                <a href="../home.html">
+
+                    <i class="bi bi-box-arrow-right"></i>
+
+                    Cerrar sesión
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- PANEL -->
+
+    <div class="panel-admin">
+
+
+        <!-- SIDEBAR -->
+
+        <aside class="sidebar">
+
+
+            <a href="gestion-aerolineas.html" class="opcion-panel">
+
+                <i class="bi bi-airplane"></i>
+
+                Aerolíneas
+
+            </a>
+
+
+            <a href="gestion-promociones.html" class="opcion-panel">
+
+                <i class="bi bi-tag"></i>
+
+                Promociones
+
+            </a>
+
+
+            <a href="gestion-novedades.html" class="opcion-panel">
+
+                <i class="bi bi-newspaper"></i>
+
+                Novedades
+
+            </a>
+
+
+            <a href="reportes.html" class="opcion-panel">
+
+                <i class="bi bi-bar-chart"></i>
+
+                Reportes
+
+            </a>
+
+
+            <a href="gestion-ceos.html" class="opcion-panel activa">
+
+                <i class="bi bi-people"></i>
+
+                CEOs
+
+            </a>
+
+        </aside>
+
+
+
+        <!-- CONTENIDO -->
+
+        <main class="contenido-admin">
+
+
+            <div class="encabezado-contenido">
+
+                <div>
+
+                    <h1>
+                        Gestión de CEOs
+                    </h1>
+
+                    <p>
+                        Administra los CEOs registrados en el sistema.
+                    </p>
+
+                </div>
+
+
+                <a href="#" class="btn btn-primary">
+
+                    <i class="bi bi-plus-lg"></i>
+
+                    Agregar CEO
+
+                </a>
+
+            </div>
+
+
+
+            <!-- TABLA -->
+
+            <div class="tabla-contenedor">
+
+                <table class="table align-middle">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Nombre
+                            </th>
+
+                            <th>
+                                Email
+                            </th>
+
+                            <th>
+                                Aerolínea
+                            </th>
+
+                            <th>
+                                Estado
+                            </th>
+
+                            <th>
+                                Acciones
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+
+                        <tr>
+
+                            <td>
+                                Juan Pérez
+                            </td>
+
+                            <td>
+                                juan@aerofly.com
+                            </td>
+
+                            <td>
+                                AeroFly
+                            </td>
+
+                            <td>
+
+                                <span class="badge text-bg-success">
+                                    Activo
+                                </span>
+
+                            </td>
+
+                            <td>
+
+                                <a href="#" class="btn btn-sm btn-outline-primary">
+
+                                    <i class="bi bi-pencil"></i>
+
+                                    Editar
+
+                                </a>
+
+
+                                <a href="#" class="btn btn-sm btn-outline-danger">
+
+                                    <i class="bi bi-trash"></i>
+
+                                    Eliminar
+
+                                </a>
+
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td>
+                                María González
+                            </td>
+
+                            <td>
+                                maria@aerofly.com
+                            </td>
+
+                            <td>
+                                LATAM
+                            </td>
+
+                            <td>
+
+                                <span class="badge text-bg-success">
+                                    Activo
+                                </span>
+
+                            </td>
+
+                            <td>
+
+                                <a href="#" class="btn btn-sm btn-outline-primary">
+
+                                    <i class="bi bi-pencil"></i>
+
+                                    Editar
+
+                                </a>
+
+
+                                <a href="#" class="btn btn-sm btn-outline-danger">
+
+                                    <i class="bi bi-trash"></i>
+
+                                    Eliminar
+
+                                </a>
+
+                            </td>
+
+                        </tr>
+
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+        </main>
+
+
+    </div>
+
+
+</body>
+
+</html>
