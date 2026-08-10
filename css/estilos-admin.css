@@ -1,0 +1,391 @@
+/* =========================
+   CONFIGURACIÓN GENERAL
+========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f7f4f1;
+    min-height: 100vh;
+}
+
+
+/* =========================
+   BARRA SUPERIOR
+========================= */
+
+.barra-admin {
+    height: 80px;
+
+    background: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 40px;
+
+    box-shadow: 0 3px 15px #0002;
+
+    position: relative;
+    z-index: 10;
+}
+
+
+/* =========================
+   LOGO
+========================= */
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo img {
+    object-fit: contain;
+}
+
+.logo span {
+    font-size: 25px;
+    font-weight: bold;
+    color: #684028;
+}
+
+
+/* =========================
+   USUARIO
+========================= */
+
+.usuario {
+    position: relative;
+
+    background: white;
+    border: none;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    color: #684028;
+
+    font-size: 16px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    padding: 10px;
+}
+
+.usuario i {
+    font-size: 22px;
+}
+
+
+/* =========================
+   MENÚ DEL USUARIO
+========================= */
+
+.menu-usuario {
+    display: none;
+
+    position: absolute;
+
+    top: 50px;
+    right: 0;
+
+    width: 190px;
+
+    background: white;
+
+    border-radius: 15px;
+
+    box-shadow: 0 8px 25px #0003;
+
+    overflow: hidden;
+}
+
+
+/*
+   Al pasar el mouse sobre Administrador
+   aparece el menú.
+*/
+
+.usuario:hover .menu-usuario {
+    display: block;
+}
+
+
+.menu-usuario a {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 12px 20px;
+
+    color: #684028;
+
+    text-decoration: none;
+
+    font-weight: normal;
+}
+
+
+.menu-usuario a:hover {
+    background: #b8d8e8;
+}
+
+
+/* =========================
+   PANEL PRINCIPAL
+========================= */
+
+.panel-admin {
+    display: flex;
+
+    min-height: calc(100vh - 80px);
+}
+
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar {
+    width: 260px;
+
+    background: #b8d8e8;
+
+    padding: 30px 20px;
+
+    flex-shrink: 0;
+}
+
+
+.sidebar h5 {
+    color: #684028;
+
+    margin-bottom: 30px;
+
+    font-size: 18px;
+}
+
+
+/* =========================
+   OPCIONES DEL PANEL
+========================= */
+
+.opcion-panel {
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    color: #684028;
+
+    padding: 18px;
+
+    margin-bottom: 10px;
+
+    border-radius: 12px;
+
+    font-weight: bold;
+
+    text-decoration: none;
+}
+
+
+.opcion-panel i {
+    font-size: 22px;
+}
+
+
+/* Cuando pasás el mouse */
+
+.opcion-panel:hover {
+    background: white;
+
+    color: #684028;
+}
+
+
+/* Página en la que estamos */
+
+.opcion-panel.activa {
+    background: white;
+
+    color: #684028;
+}
+
+
+/* =========================
+   CONTENIDO
+========================= */
+
+.contenido-admin {
+    flex: 1;
+
+    padding: 40px;
+}
+
+
+/* =========================
+   ENCABEZADO DEL CONTENIDO
+========================= */
+
+.encabezado-contenido {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 30px;
+}
+
+
+.encabezado-contenido h1 {
+    color: #333;
+
+    font-size: 32px;
+
+    margin-bottom: 8px;
+}
+
+
+.encabezado-contenido p {
+    color: #666;
+
+    margin: 0;
+}
+
+
+/* =========================
+   BOTÓN PRINCIPAL
+========================= */
+
+.btn-primary {
+    background: #684028;
+
+    border-color: #684028;
+
+    color: white;
+
+    border-radius: 25px;
+
+    padding: 12px 25px;
+
+    font-weight: bold;
+}
+
+
+.btn-primary:hover {
+    background: #72472c;
+
+    border-color: #72472c;
+
+    color: white;
+}
+
+
+/* =========================
+   TABLA
+========================= */
+
+.tabla-contenedor {
+    background: white;
+
+    border-radius: 20px;
+
+    padding: 25px;
+
+    box-shadow: 0 8px 25px #0002;
+}
+
+
+.tabla-contenedor table {
+    margin-bottom: 0;
+}
+
+
+.tabla-contenedor thead {
+    color: #684028;
+}
+
+
+/* =========================
+   BOTONES DE LA TABLA
+========================= */
+
+.btn-outline-primary {
+    --bs-btn-color: #684028;
+
+    --bs-btn-border-color: #684028;
+
+    --bs-btn-hover-color: white;
+
+    --bs-btn-hover-bg: #684028;
+
+    --bs-btn-hover-border-color: #684028;
+
+    border-radius: 20px;
+}
+
+
+.btn-outline-danger {
+    border-radius: 20px;
+}
+
+
+/* =========================
+   BADGES
+========================= */
+
+.badge {
+    padding: 7px 12px;
+
+    border-radius: 15px;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 768px) {
+
+    .barra-admin {
+        padding: 0 20px;
+    }
+
+    .logo span {
+        font-size: 20px;
+    }
+
+    .sidebar {
+        width: 200px;
+
+        padding: 25px 15px;
+    }
+
+    .contenido-admin {
+        padding: 25px;
+    }
+
+    .encabezado-contenido {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 20px;
+    }
+
+}
