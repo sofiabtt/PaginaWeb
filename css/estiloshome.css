@@ -20,9 +20,9 @@ body{
 
     background-image:url("../imagenes/avion2.jpg");
 
-    background-size:140%;
+    background-size:100%;
 
-    background-position:right 65%;
+    background-position:right 110%;
 
     position:relative;
 
@@ -53,7 +53,7 @@ body{
 
 .navbar{
 
-    position:fixed;
+    position:absolute;
 
     width:100%;
 
@@ -70,37 +70,54 @@ body{
     object-fit:contain;
 
 }
+.menu-principal{
+    width: 90%;
+    justify-content: space-between;
+}
 
-
-.nav-link{
+.nav-menu{
 
     color:#222;
 
     font-weight:600;
 
     margin-left:25px;
+    text-decoration: none;
 
 }
 
+.btn-iniciosesion{
 
-.btn-menu{
+    color:#835a40;
+    text-decoration: none;
+}
 
-    background:#684028;
+
+.btn-registro{
+
+    background:#835a40;
 
     color:white;
 
     border:none;
 
-    border-radius:25px;
+    border-radius:20px;
 
-    padding:12px 30px;
+    padding:10px 20px;
 
     font-weight:bold;
 
     text-decoration: none;
 
 }
+.btn-iniciosesion:hover,
+.nav-menu:hover{
+    color:gray;
+}
 
+.btn-registro:hover{
+    background-color: #b1917d;
+}
 
 .btn-menu:hover{
 
@@ -148,17 +165,29 @@ body{
 
 /* BUSCADOR */
 
+.titulo-buscador {
+    position: absolute;
+    left: 0;
+    top: 10px;
+    font-size: 18px; /*tamaño de la letra*/
+    letter-spacing: 0.3px;
+
+}
+.titulo-buscador strong {
+    font-weight: 700;
+    color: #835a40;
+}
 .contenedor-buscador{
 
     position:absolute;
 
     z-index:3;
 
-    top:160px;
+    top:120px;
     left:50%;
     transform:translateX(-50%);
 
-    width:75%;
+    width:80%;
 
 }
 #buscador-ing-datos{
@@ -174,6 +203,8 @@ body{
 
 
 /* TIPO DE VIAJE */
+
+
 
 .tipo-viaje{
 
@@ -222,7 +253,7 @@ body{
 
     width:100%;
 
-    background:#684028;
+    background:#835a40;
 
     color:white;
 
@@ -235,7 +266,96 @@ body{
 
 .buscar:hover{
 
-    background:#72472c;
+    background:#b1917d;
 
 }
 
+/* TARJETAS DE VIAJES */
+
+.destinos-destacados{
+    position: absolute;
+    top: 300px;
+    width: 100%;
+    text-align: center;
+}
+.titulo-destino{
+    font-size: 28px;
+    font-weight: 500;
+    color: #6f6f6f;
+    letter-spacing: 1px;
+    margin-bottom: 30px; /*dejá 30 píxeles de espacio por debajo de ese elemento.*/
+    color: gray;
+}
+.contenedor-tarjetas{
+    display: flex;
+    justify-content: center;
+    gap: 55px; /*separacion entre las tarjetas*/
+}
+
+
+.tarjeta-destino{
+    width: 200px;
+    height: 210px;
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+
+}
+.tarjeta-destino img {
+
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+    transition: 0.4s; /* para cuando el mouse se apolle sobre la imagen no cambie rapidamente al filtro*/
+
+}
+
+.tarjeta-destino img:hover {
+    filter: grayscale(100%);
+    transform: scale(0.95);
+}
+
+.tarjeta-destino h4 {
+    position: absolute;
+
+    top: 50%; /*lo centra al titulo*/
+    left: 50%;
+
+    transform: translate(-50%, -50%); /*el texto queda centrado*/
+
+    color: white;
+    font-size: 24px;
+    text-shadow: 0 2px 6px rgba(0,0,0,0.5);
+}
+
+
+/*FOOTER*/
+
+.footer{
+    display: flex; /*pone las columnas una al lado de la otra.*/
+    justify-content: center;
+    gap: 90px; /*separación entre una columna y otra.*/
+
+    padding: 50px 60px; /*espacio interno dentro del footer:*/
+    background: white;
+
+}
+.footer-columna{
+    display: flex;
+    flex-direction: column; /*elementos se acomoden uno debajo del otro.*/
+    gap: 10px;
+    
+}
+.footer-columna a{
+    text-decoration: none;
+    color: #777;
+    font-size: 14px;
+}
+.footer-columna h4{
+    font-size: 16px;
+}
+.footer-columna a:hover{
+    color: white;
+
+}
