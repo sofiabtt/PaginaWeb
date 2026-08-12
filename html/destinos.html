@@ -7,8 +7,84 @@
     <link rel="stylesheet" href="../css/estiloshome.css">
 </head>
 <body>
-    <h1>Destinos</h1>
-    <p>Acá van a ir los destinos disponibles.</p>
+     <nav class="navbar navbar-expand-lg">
+        <a class="navbar-brand" href="home.html">
+            <img src="../imagenes/logo.png" alt="logo" width="60" height="60">
+        </a>
+    </nav>
+
+    <section class="destinos-destacados">
+        <h4 class="titulo-destino">Nuestros destinos</h4>
+
+        <div class="contenedor-tarjetas grilla-destinos"></div>
+
+            <!-- Página 1 -->
+            <div class="tarjeta-destino" data-pagina="1">
+                <img src="../imagenes/brasil.jpg" alt="Brasil">
+                <h4>Brasil</h4>
+            </div>
+            <div class="tarjeta-destino" data-pagina="1">
+                <img src="../imagenes/bsas.jpg" alt="Buenos Aires">
+                <h4>Buenos Aires</h4>
+            </div>
+            <div class="tarjeta-destino" data-pagina="1">
+                <img src="../imagenes/madrid.jpg" alt="Madrid">
+                <h4>Madrid</h4>
+            </div>
+            <div class="tarjeta-destino" data-pagina="1">
+                <img src="../imagenes/roma.jpg" alt="Roma">
+                <h4>Roma</h4>
+            </div>
+
+            <!-- Página 2 -->
+            <div class="tarjeta-destino" data-pagina="2">
+                <img src="../imagenes/brasil.jpg" alt="Río de Janeiro">
+                <h4>Río de Janeiro</h4>
+            </div>
+            <div class="tarjeta-destino" data-pagina="2">
+                <img src="../imagenes/bsas.jpg" alt="Córdoba">
+                <h4>Córdoba</h4>
+            </div>
+            <div class="tarjeta-destino" data-pagina="2">
+                <img src="../imagenes/madrid.jpg" alt="Barcelona">
+                <h4>Barcelona</h4>
+            </div>
+            <div class="tarjeta-destino" data-pagina="2">
+                <img src="../imagenes/roma.jpg" alt="Milán">
+                <h4>Milán</h4>
+            </div>
+
+            <!-- Página 3 -->
+            <div class="tarjeta-destino" data-pagina="3">
+                <img src="../imagenes/brasil.jpg" alt="Salvador">
+                <h4>Salvador</h4>
+            </div>
+            <div class="tarjeta-destino" data-pagina="3">
+                <img src="../imagenes/bsas.jpg" alt="Mendoza">
+                <h4>Mendoza</h4>
+            </div>
+            <div class="tarjeta-destino" data-pagina="3">
+                <img src="../imagenes/madrid.jpg" alt="Sevilla">
+                <h4>Sevilla</h4>
+            </div>
+            <div class="tarjeta-destino" data-pagina="3">
+                <img src="../imagenes/roma.jpg" alt="Venecia">
+                <h4>Venecia</h4>
+            </div>
+
+        </div>
+
+        <!-- Barra de paginación -->
+        <div class="paginacion">
+            <button class="btn-pagina activo" data-ir-a="1">1</button>
+            <button class="btn-pagina" data-ir-a="2">2</button>
+            <button class="btn-pagina" data-ir-a="3">3</button>
+        </div>
+
+    </section>
+
     <a href="home.html">← Volver al inicio</a>
+
+    <script src="../js/destinos.js"></script>
 </body>
 </html>

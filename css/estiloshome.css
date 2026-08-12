@@ -359,3 +359,14 @@ body{
     color: white;
 
 }
+.grilla-destinos {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.grilla-destinos .tarjeta-destino {
+    width: 100%;
+}
