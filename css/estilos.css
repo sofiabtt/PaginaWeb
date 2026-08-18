@@ -186,6 +186,31 @@ main {
 .texto-negro {
     color: black;
 }
+.form-control {
+    border-radius: 12px;
+}
+.barra-contra {
+    display: flex;
+}
+
+.barra-contra .form-control {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.boton-ojo {
+    width: 70px;
+    min-width: 70px;
+    background-color: white;
+    font-size: 24px;
+    border: 1px solid #ced4da;
+
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+.boton-ojo:hover{
+    background-color: rgb(204, 200, 200);
+}
 
 
 /* =========================
