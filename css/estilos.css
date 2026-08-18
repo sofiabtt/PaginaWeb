@@ -243,3 +243,11 @@ main {
 
     color: white;
 }
+/* =========================
+   AVDERTENCIAS
+========================= */
+
+.alerta-en-rojo{
+    color: red;
+    font-size: 12px;
+}

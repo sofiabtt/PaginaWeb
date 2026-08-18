@@ -34,14 +34,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Comprobar si encontró un usuario
         if ($resultado->num_rows > 0) {
-            //guardo el gmail en la sesion
-            $_SESSION["gmailIngreso"] = $gmail;
-            header("Location: ../html/ingreso-contra.html");
+            header("Location: ../html/registro.html?error=usuario_existente&gmail=" . urlencode($gmail));
+            //mando también el Gmail en la URL
             exit();
 
         } else {
 
-            echo "El usuario no existe.";
+            $_SESSION["gmailRegistro"] = $gmail;
+            header("Location: ../html/registro-contra.html");
+            exit();
 
         }
 

@@ -55,14 +55,17 @@
                 Crear Cuenta
             </h1>
 
-            <form>
-                <!--aún no está conectado con PHP-->
+            <form action="../php/validarRegistro.php" method="POST">
 
                 <div class="mb-4">
-                    <label for="gmail" class="form-label texto-negro">
-                        Ingrese mail:
-                    </label>
-
+    
+                    <div class="d-flex align-items-center gap-3">
+                        <label for="gmail" class="form-label texto-negro mb-0">
+                            Ingrese mail:
+                        </label>
+                        <!--d-flex pone los elementos en la misma fila.-->
+                        <div id="mensaje-error"></div>
+                    </div>
                     <input
                         type="email"
                         class="form-control"
@@ -82,7 +85,7 @@
                         </p>
 
                         <a href="iniciosesion.html" class="btn btn-outline-primary">
-                            Atrás
+                            Inicio Sesión
                         </a>
                     </div>
 
@@ -93,8 +96,12 @@
                 </div>
 
             </form>
+            
 
         </section>
+        <a href="home.html" class="boton-atras">
+            ← Atrás
+        </a>
 
     </main>
     <!-- JavaScript de Bootstrap . permite que funcionen los componentes interactivos de Bootstrap,-->
@@ -102,5 +109,20 @@
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js">
     </script>
 
+    <script>
+    //toma los parámetros que haya en la URL.
+    const parametros = new URLSearchParams(window.location.search);
+    //si el gmail existe, window.location.search vale:?error=usuario_existente
+    if (parametros.get("error") === "usuario_existente") {
+        document.getElementById("mensaje-error").innerHTML =
+            '<div class="alerta-en-rojo">Este correo ya está registrado *</div>';
+    }
+
+    const gmail = parametros.get("gmail");
+
+    if (gmail !== null) {
+        document.getElementById("gmail").value = gmail;
+    }
+</script>
 </body>
 </html>
