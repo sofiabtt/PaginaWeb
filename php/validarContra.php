@@ -5,7 +5,7 @@ session_start();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $contrasena = $_POST["contrasena"];
-    $gmail = $_SESSION["gmail"];
+    $gmail = $_SESSION["gmailIngreso"];
 
     $conexion = new mysqli(
         "localhost",

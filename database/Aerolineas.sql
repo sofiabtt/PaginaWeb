@@ -85,7 +85,7 @@ CREATE TABLE `Reservas` (
 CREATE TABLE `Usuarios` (
   `codUsuario` int(11) NOT NULL,
   `nombreUsuario` varchar(100) NOT NULL,
-  `claveUsuario` varchar(8) NOT NULL,
+  `claveUsuario` varchar(255) NOT NULL,
   `tipoUsuario` varchar(20) NOT NULL,
   `emailUsuario` varchar(100) NOT NULL,
   `telefonoUsuario` varchar(20) NOT NULL
@@ -96,7 +96,7 @@ CREATE TABLE `Usuarios` (
 --
 
 INSERT INTO `Usuarios` (`codUsuario`, `nombreUsuario`, `claveUsuario`, `tipoUsuario`, `emailUsuario`, `telefonoUsuario`) VALUES
-(1, 'Sofia Benetti', 'Admin123', 'administrador', 'sofiagibe@gmail.com', '3410000000');
+(1, 'Sofia Benetti', '$2y$10$ySS3WX0s/z2c5Pm0hJ4lRuenEzL4YNeNyooHDSjnuwpugxx9UD6he', 'administrador', 'sofiagibe@gmail.com', '3410000000');
 
 -- --------------------------------------------------------
 
