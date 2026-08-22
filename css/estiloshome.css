@@ -279,12 +279,12 @@ body{
     text-align: center;
 }
 .titulo-destino{
-    font-size: 28px;
+    font-size: 25px;
     font-weight: 500;
-    color: #6f6f6f;
+    
     letter-spacing: 1px;
     margin-bottom: 30px; /*dejá 30 píxeles de espacio por debajo de ese elemento.*/
-    color: gray;
+
 }
 .contenedor-tarjetas{
     display: flex;
