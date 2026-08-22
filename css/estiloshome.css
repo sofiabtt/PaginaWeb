@@ -330,32 +330,32 @@ body{
 }
 
 
-/*FOOTER*/
+/* FOOTER */
 
-.footer{
-    display: flex; /*pone las columnas una al lado de la otra.*/
-    justify-content: center;
-    gap: 90px; /*separación entre una columna y otra.*/
-
-    padding: 50px 60px; /*espacio interno dentro del footer:*/
-    background: white;
-
-}
-.footer-columna{
+.footer {
     display: flex;
-    flex-direction: column; /*elementos se acomoden uno debajo del otro.*/
-    gap: 10px;
-    
+    justify-content: center;
+    gap: 90px;
+    padding: 50px 60px;
+    background: white;
 }
-.footer-columna a{
+
+.footer-columna {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.footer .footer-columna a {
     text-decoration: none;
-    color: #777;
+    color: #555;
     font-size: 14px;
 }
-.footer-columna h4{
+
+.footer-columna h4 {
     font-size: 16px;
 }
-.footer-columna a:hover{
-    color: white;
 
+.footer .footer-columna a:hover {
+    color: #835a40 !important;
 }

@@ -369,7 +369,7 @@ if (!$aerolinea) {
 
 
                             <a
-                                href="/PaginaWeb/html/admin/gestion-aerolinea/gestion-aerolinea.php"
+                                href="/PaginaWeb/html/admin/gestion-aerolineas/gestion-aerolineas.php"
                                 class="btn btn-secondary"
                             >
                                 Cancelar
