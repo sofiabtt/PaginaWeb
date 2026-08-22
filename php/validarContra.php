@@ -36,8 +36,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if (password_verify($contrasena, $usuario["claveUsuario"])) {
 
-            header("Location: ../html/administrador.html");
-            exit();
+            if ($usuario["tipoUsuario"] == "administrador") {
+
+                header("Location: ../html/admin/admin.php");
+                exit();
+
+            } else {
+
+                header("Location: ../html/home.html");
+                exit();
+
+            }
 
         } else {
 
