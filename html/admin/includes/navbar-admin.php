@@ -1,9 +1,12 @@
 <nav class="navbar navbar-expand-lg">
 
-    <a class="navbar-brand" href="admin.php">
+    <a
+        class="navbar-brand"
+        href="/PaginaWeb/html/admin/admin.php"
+    >
 
         <img
-            src="../../imagenes/logo.png"
+            src="/PaginaWeb/imagenes/logo.png"
             alt="Logo AeroFly"
             width="60"
             height="60"
@@ -14,48 +17,74 @@
 
     <div class="menu-admin-navbar">
 
+
+        <!-- INICIO -->
+
         <a
             class="nav-link"
-            href="admin.php"
+            href="/PaginaWeb/html/admin/admin.php"
         >
             Inicio
         </a>
 
+
+
+        <!-- AEROLÍNEAS -->
+
         <a
             class="nav-link"
-            href="gestion-aerolineas.php"
+            href="/PaginaWeb/html/admin/gestion-aerolineas/gestion-aerolineas.php"
         >
             Aerolíneas
         </a>
 
+
+
+        <!-- PROMOCIONES -->
+
         <a
             class="nav-link"
-            href="gestion-promociones.php"
+            href="/PaginaWeb/html/admin/gestion-promociones.php"
         >
             Promociones
         </a>
 
+
+
+        <!-- NOVEDADES -->
+
         <a
             class="nav-link"
-            href="gestion-novedades.php"
+            href="/PaginaWeb/html/admin/gestion-novedades.php"
         >
             Novedades
         </a>
 
+
+
+        <!-- REPORTES -->
+
         <a
             class="nav-link"
-            href="reportes.php"
+            href="/PaginaWeb/html/admin/reportes.php"
         >
             Reportes
         </a>
 
+
+
+        <!-- CEOs -->
+
         <a
             class="nav-link"
-            href="gestion-ceos.php"
+            href="/PaginaWeb/html/admin/gestion-ceos.php"
         >
             CEOs
         </a>
 
+
+
+        <!-- PERFIL -->
 
         <div class="dropdown">
 
@@ -73,13 +102,15 @@
             </button>
 
 
-            <ul class="dropdown-menu dropdown-menu-end menu-admin">
+            <ul
+                class="dropdown-menu dropdown-menu-end menu-admin"
+            >
 
                 <li>
 
                     <a
                         class="dropdown-item"
-                        href="perfil-admin.php"
+                        href="/PaginaWeb/html/admin/perfil-admin.php"
                     >
 
                         <i class="bi bi-person"></i>
@@ -102,7 +133,7 @@
 
                     <a
                         class="dropdown-item"
-                        href="../home.html"
+                        href="/PaginaWeb/html/home.html"
                     >
 
                         <i class="bi bi-box-arrow-right"></i>
@@ -116,6 +147,7 @@
             </ul>
 
         </div>
+
 
     </div>
 

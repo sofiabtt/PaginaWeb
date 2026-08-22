@@ -115,6 +115,15 @@ CREATE TABLE `Vuelos` (
   `asientosDisponibles` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+
+CREATE TABLE Actividad (
+    codActividad INT NOT NULL AUTO_INCREMENT,
+    fechaActividad DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    usuarioActividad VARCHAR(100) NOT NULL,
+    accionActividad VARCHAR(200) NOT NULL,
+    PRIMARY KEY (codActividad)
+);
+
 --
 -- Indexes for dumped tables
 --

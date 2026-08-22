@@ -1,3 +1,49 @@
+<?php
+
+include "../../php/conexionBD.php";
+
+
+// CANTIDAD DE AEROLÍNEAS
+
+$consultaAerolineas = "SELECT COUNT(*) AS cantidad
+                       FROM Aerolineas";
+
+$resultadoAerolineas = $conexion->query($consultaAerolineas);
+
+$aerolineas = $resultadoAerolineas->fetch_assoc();
+
+
+// CANTIDAD DE PROMOCIONES PENDIENTES
+
+$consultaPromociones = "SELECT COUNT(*) AS cantidad
+                        FROM Promociones
+                        WHERE estadoPromocion = 'Pendiente'";
+
+$resultadoPromociones = $conexion->query($consultaPromociones);
+
+$promocionesPendientes = $resultadoPromociones->fetch_assoc();
+
+
+// CANTIDAD DE NOVEDADES
+
+$consultaNovedades = "SELECT COUNT(*) AS cantidad
+                      FROM Novedades";
+
+$resultadoNovedades = $conexion->query($consultaNovedades);
+
+$novedades = $resultadoNovedades->fetch_assoc();
+
+// ACTIVIDAD RECIENTE
+
+$consultaActividad = "SELECT *
+                      FROM Actividad
+                      ORDER BY fechaActividad DESC
+                      LIMIT 10";
+
+$resultadoActividad = $conexion->query($consultaActividad);
+
+?>
+
 
 <!DOCTYPE html>
 <html lang="es">
@@ -70,7 +116,7 @@
                         </h3>
 
                         <p class="numero-resumen">
-                            0
+                            <?php echo $aerolineas["cantidad"]; ?>
                         </p>
 
                     </div>
@@ -89,7 +135,7 @@
                         </h3>
 
                         <p class="numero-resumen">
-                            0
+                            <?php echo $promocionesPendientes["cantidad"]; ?>
                         </p>
 
                     </div>
@@ -108,7 +154,7 @@
                         </h3>
 
                         <p class="numero-resumen">
-                            0
+                            <?php echo $novedades["cantidad"]; ?>
                         </p>
 
                     </div>
@@ -196,10 +242,38 @@
 
                     <tbody>
 
-                        <!--
-                            Los registros se agregarán posteriormente
-                            mediante PHP.
-                        -->
+                        <?php while ($actividad = $resultadoActividad->fetch_assoc()) { ?>
+
+                            <tr>
+
+                                <td>
+                                    <?php
+                                    echo date(
+                                        "d/m/Y H:i",
+                                        strtotime($actividad["fechaActividad"])
+                                    );
+                                    ?>
+                                </td>
+
+                                <td>
+                                    <?php
+                                    echo htmlspecialchars(
+                                        $actividad["usuarioActividad"]
+                                    );
+                                    ?>
+                                </td>
+
+                                <td>
+                                    <?php
+                                    echo htmlspecialchars(
+                                        $actividad["accionActividad"]
+                                    );
+                                    ?>
+                                </td>
+
+                            </tr>
+
+                        <?php } ?>
 
                     </tbody>
 
