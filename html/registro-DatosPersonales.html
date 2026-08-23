@@ -12,6 +12,8 @@
         <link rel="stylesheet" href="../css/estilos.css">
 
         <link rel="icon" type="image/png" href="../imagenes/logo.png">
+        <!-- para los iconos del ojo -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     </head>
     <body>
@@ -53,22 +55,53 @@
                 Crear Cuenta
             </h1>
 
-            <form>
-                <!--aún no está conectado con PHP-->
+            <form action="../php/registroUsuario.php" method="POST">
+                
 
                 <div class="mb-4">
+                    <label for="nom-ap" class="form-label texto-negro">
+                        Ingrese Nombre y Apellido:
+                    </label>
+                    
+                    <input
+                    type="text"
+                    class="form-control"
+                    id="nombreApellido"
+                    name="nombreApellido"
+                    required
+                    > 
+                    <label for="telefono" class="form-label texto-negro">
+                        Ingrese Telefono:
+                    </label>
+                    
+                    <input
+                        type="tel"
+                        class="form-control"
+                        id="telefono"
+                        name="telefono"
+                        required
+                    >  
+                    
                     <label for="contraseña" class="form-label texto-negro">
                         Ingrese Contraseña:
                     </label>
-
-                    <input
+                    <div class="barra-contra">
+                        <input
                         type="password"
                         class="form-control"
-                        id="contraseña"
-                        name="contraseña"
+                        id="contrasena"
+                        name="contrasena"
                         required
-                    >
-                    <!--con type password los caracteres se ocultan mientras la persona escribe.-->
+                        >
+                        <button
+                                type="button"
+                                class="boton-ojo"
+                                onclick="mostrarContrasena()"
+                                id="boton-ojo"
+                        >
+                            <i class="bi bi-eye"></i>
+                        </button>
+                    </div>
                 </div>
 
                 <div class="d-flex justify-content-between align-items-end gap-3">
@@ -94,11 +127,31 @@
 
         </section>
         <a href="home.html" class="boton-atras">
-            ← Atrás
+            ← Inicio
         </a>
 
     </main>
+    <script>
+        function mostrarContrasena() {
 
+            const input = document.getElementById("contrasena");
+            const icono = document.querySelector("#boton-ojo i");
+
+            if (input.type === "password") {
+
+                input.type = "text";
+                icono.className = "bi bi-eye-slash";
+
+            } else {
+
+                input.type = "password";
+                icono.className = "bi bi-eye";
+
+            }
+        }
+
+
+    </script>
     </body>
 
 </html>

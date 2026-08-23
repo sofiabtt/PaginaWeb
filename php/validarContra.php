@@ -1,11 +1,14 @@
 <?php
 
+
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $contrasena = $_POST["contrasena"];
+    //recupera algo que el formulario acaba de enviar.
     $gmail = $_SESSION["gmailIngreso"];
+    //recupera algo que habíamos guardado anteriormente en la sesión.
 
     $conexion = new mysqli(
         "localhost",

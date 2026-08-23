@@ -41,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
 
             $_SESSION["gmailRegistro"] = $gmail;
-            header("Location: ../html/registro-contra.html");
+            header("Location: ../html/registro-DatosPersonales.html");
             exit();
 
         }
