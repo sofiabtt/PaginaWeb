@@ -103,7 +103,8 @@ CREATE TABLE `Usuarios` (
   `emailUsuario` varchar(100) NOT NULL,
   `telefonoUsuario` varchar(20) NOT NULL,
   `verificado` tinyint(1) NOT NULL DEFAULT 0,
-  `tokenVerificacion` varchar(100) DEFAULT NULL
+  `tokenVerificacion` varchar(100) DEFAULT NULL,
+  `fechaVerificacion` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
