@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Aug 17, 2026 at 04:47 AM
+-- Generation Time: Aug 23, 2026 at 07:59 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -20,6 +20,19 @@ SET time_zone = "+00:00";
 --
 -- Database: `Aerolineas`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Actividad`
+--
+
+CREATE TABLE `Actividad` (
+  `codActividad` int(11) NOT NULL,
+  `fechaActividad` datetime NOT NULL DEFAULT current_timestamp(),
+  `usuarioActividad` varchar(100) NOT NULL,
+  `accionActividad` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -85,18 +98,21 @@ CREATE TABLE `Reservas` (
 CREATE TABLE `Usuarios` (
   `codUsuario` int(11) NOT NULL,
   `nombreUsuario` varchar(100) NOT NULL,
-  `claveUsuario` varchar(255) NOT NULL,
+  `claveUsuario` varchar(300) NOT NULL,
   `tipoUsuario` varchar(20) NOT NULL,
   `emailUsuario` varchar(100) NOT NULL,
-  `telefonoUsuario` varchar(20) NOT NULL
+  `telefonoUsuario` varchar(20) NOT NULL,
+  `verificado` tinyint(1) NOT NULL DEFAULT 0,
+  `tokenVerificacion` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `Usuarios`
 --
 
-INSERT INTO `Usuarios` (`codUsuario`, `nombreUsuario`, `claveUsuario`, `tipoUsuario`, `emailUsuario`, `telefonoUsuario`) VALUES
-(1, 'Sofia Benetti', '$2y$10$ySS3WX0s/z2c5Pm0hJ4lRuenEzL4YNeNyooHDSjnuwpugxx9UD6he', 'administrador', 'sofiagibe@gmail.com', '3410000000');
+INSERT INTO `Usuarios` (`codUsuario`, `nombreUsuario`, `claveUsuario`, `tipoUsuario`, `emailUsuario`, `telefonoUsuario`, `verificado`, `tokenVerificacion`) VALUES
+(1, 'Sofia Benetti', '$2y$10$gPTxhUcMQw5x2W0wgKYY3.hYCIQk.xPgwzhoJwQ2Plrq4/sMyILy.', 'administrador', 'sofiagibe@gmail.com', '3410000000', 1, NULL),
+(2, 'Catalina Molina', '$2y$10$pywJMPHCrFnuQheG6pG8AOCSocfhRqlVN6CIsPQIfZKJuHWCKqCPO', 'usuario', 'hzcqpdmjxftw@tempmail.ai', '3416551111', 0, 'baa8f00799fa0f3c7cc184ea6b5be98b8d5a0175b707153d696c405055b931fe');
 
 -- --------------------------------------------------------
 
@@ -115,18 +131,15 @@ CREATE TABLE `Vuelos` (
   `asientosDisponibles` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-
-CREATE TABLE Actividad (
-    codActividad INT NOT NULL AUTO_INCREMENT,
-    fechaActividad DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    usuarioActividad VARCHAR(100) NOT NULL,
-    accionActividad VARCHAR(200) NOT NULL,
-    PRIMARY KEY (codActividad)
-);
-
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `Actividad`
+--
+ALTER TABLE `Actividad`
+  ADD PRIMARY KEY (`codActividad`);
 
 --
 -- Indexes for table `Aerolineas`
@@ -169,6 +182,12 @@ ALTER TABLE `Vuelos`
 --
 
 --
+-- AUTO_INCREMENT for table `Actividad`
+--
+ALTER TABLE `Actividad`
+  MODIFY `codActividad` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `Aerolineas`
 --
 ALTER TABLE `Aerolineas`
@@ -196,7 +215,7 @@ ALTER TABLE `Reservas`
 -- AUTO_INCREMENT for table `Usuarios`
 --
 ALTER TABLE `Usuarios`
-  MODIFY `codUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `codUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `Vuelos`

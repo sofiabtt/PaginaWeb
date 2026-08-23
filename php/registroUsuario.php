@@ -111,10 +111,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     para verificar el correo
     */
 
-    $token = bin2hex(
-        random_bytes(32)
-    );
-
+    $codigoVerificacion = random_int(100000, 999999);
 
     /*
     Preparo el INSERT
@@ -155,7 +152,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $claveHash,
     $tipoUsuario,
     $verificado,
-    $token
+    $codigoVerificacion
 
 );
 
@@ -242,14 +239,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 'Verifica tu cuenta';
 
 
-            /*
-            Creo el enlace de verificación
-            */
-
-            $enlace =
-                "http://localhost/PaginaWeb/php/verificar.php?token="
-                . $token;
-
 
             /*
             Contenido del correo
@@ -257,19 +246,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $mail->Body = "
 
-                <h2>
-                    Verificación de cuenta
-                </h2>
+                <h2>Verificación de cuenta</h2>
 
-                <p>
-                    Hace clic en el siguiente
-                    enlace para verificar
-                    tu cuenta:
-                </p>
+                <p>Tu código de verificación es:</p>
 
-                <a href='$enlace'>
-                    Verificar cuenta
-                </a>
+                <h1>$codigoVerificacion</h1>
+
+                <p>Ingresalo en la página para verificar tu cuenta.</p>
 
             ";
 
@@ -279,11 +262,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             */
 
             $mail->send();
-
-
-            echo
-                "Usuario registrado correctamente. "
-                . "Correo enviado correctamente.";
+            header("Location: ../html/registro-CodVerif.html");
+            exit();
 
 
         } catch (Exception $e) {
