@@ -109,6 +109,37 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($consulta->execute()) {
 
+            // =========================
+            // REGISTRAR ACTIVIDAD
+            // =========================
+
+            $usuarioActividad = "Administrador";
+
+            $accionActividad =
+                "Creó un nuevo CEO: " . $nombre;
+
+
+            $actividad = $conexion->prepare("
+                INSERT INTO Actividad
+                (
+                    usuarioActividad,
+                    accionActividad
+                )
+                VALUES (?, ?)
+            ");
+
+
+            $actividad->bind_param(
+                "ss",
+                $usuarioActividad,
+                $accionActividad
+            );
+
+
+            $actividad->execute();
+
+            $actividad->close();
+
 
         // =========================
         // ENVIAR EMAIL

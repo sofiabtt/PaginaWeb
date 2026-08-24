@@ -1,3 +1,8 @@
+<?php
+
+include "../../php/conexionBD.php";
+
+?>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -6,21 +11,45 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>AeroFly Admin - CEOs</title>
 
+
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+
+    <link
+        rel="stylesheet"
+        href="../../css/bootstrap.min.css"
+    >
+
 
     <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="../../css/bootstrap-icons.css">
+
+    <link
+        rel="stylesheet"
+        href="../../css/bootstrap-icons.css"
+    >
+
 
     <!-- CSS del administrador -->
-    <link rel="stylesheet" href="../../css/estilos-admin.css">
+
+    <link
+        rel="stylesheet"
+        href="../../css/estilos-admin.css"
+    >
+
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="../../imagenes/logo.png">
+
+    <link
+        rel="icon"
+        type="image/png"
+        href="../../imagenes/logo.png"
+    >
 
 </head>
 
@@ -58,7 +87,10 @@
             </div>
 
 
-            <a href="agregar-ceo.php" class="btn btn-primary">
+            <a
+                href="agregar-ceo.php"
+                class="btn btn-primary"
+            >
 
                 <i class="bi bi-plus-lg"></i>
 
@@ -70,7 +102,9 @@
 
 
 
-        <!-- TABLA -->
+        <!-- =========================
+             TABLA
+        ========================== -->
 
         <section class="tabla-contenedor">
 
@@ -107,88 +141,189 @@
 
                 <tbody>
 
+
                 <?php
 
-                include "../../php/conexionBD.php";
+
+                // =========================
+                // OBTENER CEOs
+                // =========================
 
                 $consulta = $conexion->query("
-                    SELECT 
+
+                    SELECT
+
                         u.codUsuario,
+
                         u.nombreUsuario,
+
                         u.emailUsuario,
+
                         u.verificado,
+
+                        u.debeCambiarClave,
+
                         a.nombreAerolinea
+
                     FROM Usuarios u
-                    LEFT JOIN Aerolineas a 
+
+                    LEFT JOIN Aerolineas a
+
                         ON u.codAerolinea = a.codAerolinea
+
                     WHERE u.tipoUsuario = 'ceo'
+
+                    ORDER BY u.nombreUsuario
+
                 ");
+
 
                 while ($ceo = $consulta->fetch_assoc()) {
 
+
                 ?>
+
 
                     <tr>
 
-                        <td>
-                            <?php echo htmlspecialchars($ceo["nombreUsuario"]); ?>
-                        </td>
+
+                        <!-- NOMBRE -->
 
                         <td>
-                            <?php echo htmlspecialchars($ceo["emailUsuario"]); ?>
-                        </td>
 
-                        <td>
-                            <?php 
-                            echo $ceo["nombreAerolinea"] 
-                                ? htmlspecialchars($ceo["nombreAerolinea"]) 
-                                : "Sin aerolínea";
+                            <?php
+
+                            echo htmlspecialchars(
+                                $ceo["nombreUsuario"]
+                            );
+
                             ?>
+
                         </td>
+
+
+
+                        <!-- EMAIL -->
 
                         <td>
 
-                            <?php if ($ceo["verificado"] == 1) { ?>
+                            <?php
 
-                                <span class="badge bg-success">
-                                    Activo
-                                </span>
+                            echo htmlspecialchars(
+                                $ceo["emailUsuario"]
+                            );
 
-                            <?php } else { ?>
+                            ?>
 
-                                <span class="badge bg-warning text-dark">
+                        </td>
+
+
+
+                        <!-- AEROLÍNEA -->
+
+                        <td>
+
+                            <?php
+
+                            echo $ceo["nombreAerolinea"]
+
+                                ? htmlspecialchars(
+                                    $ceo["nombreAerolinea"]
+                                )
+
+                                : "Sin aerolínea";
+
+                            ?>
+
+                        </td>
+
+
+
+                        <!-- ESTADO -->
+
+                        <td>
+
+
+                            <?php
+
+                            if (
+                                $ceo["debeCambiarClave"] == 1
+                            ) {
+
+                            ?>
+
+                                <span
+                                    class="badge bg-warning text-dark"
+                                >
+
                                     Pendiente
+
                                 </span>
 
-                            <?php } ?>
+
+                            <?php
+
+                            } else {
+
+                            ?>
+
+                                <span
+                                    class="badge bg-success"
+                                >
+
+                                    Activo
+
+                                </span>
+
+
+                            <?php
+
+                            }
+
+                            ?>
+
 
                         </td>
 
+
+
+                        <!-- ACCIONES -->
+
                         <td>
 
-                            <a href="editar-ceo.php?id=<?php echo $ceo["codUsuario"]; ?>"
-                            class="btn btn-sm btn-warning">
+
+                            <a
+                                href="editar-ceo.php?id=<?php echo $ceo["codUsuario"]; ?>"
+                                class="btn btn-sm btn-warning"
+                            >
 
                                 <i class="bi bi-pencil"></i>
 
                             </a>
 
-                            <a href="eliminar-ceo.php?id=<?php echo $ceo["codUsuario"]; ?>"
-                            class="btn btn-sm btn-danger">
+
+                            <a
+                                href="eliminar-ceo.php?id=<?php echo $ceo["codUsuario"]; ?>"
+                                class="btn btn-sm btn-danger"
+                            >
 
                                 <i class="bi bi-trash"></i>
 
                             </a>
 
+
                         </td>
 
+
                     </tr>
+
 
                 <?php
 
                 }
 
                 ?>
+
 
                 </tbody>
 
@@ -203,7 +338,7 @@
 
     <script src="../../js/bootstrap.bundle.min.js"></script>
 
+
 </body>
 
 </html>
-
