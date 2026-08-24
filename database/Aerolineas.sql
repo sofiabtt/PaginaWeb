@@ -98,22 +98,25 @@ CREATE TABLE `Reservas` (
 CREATE TABLE `Usuarios` (
   `codUsuario` int(11) NOT NULL,
   `nombreUsuario` varchar(100) NOT NULL,
-  `claveUsuario` varchar(300) NOT NULL,
+  `claveUsuario` varchar(300) NULL,
   `tipoUsuario` varchar(20) NOT NULL,
   `emailUsuario` varchar(100) NOT NULL,
   `telefonoUsuario` varchar(20) NOT NULL,
   `verificado` tinyint(1) NOT NULL DEFAULT 0,
   `tokenVerificacion` varchar(100) DEFAULT NULL,
-  `fechaVerificacion` datetime DEFAULT NULL
+  `fechaVerificacion` datetime DEFAULT NULL,
+  `codAerolinea` int(11) DEFAULT NULL,
+  `debeCambiarClave` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `Usuarios`
 --
 
-INSERT INTO `Usuarios` (`codUsuario`, `nombreUsuario`, `claveUsuario`, `tipoUsuario`, `emailUsuario`, `telefonoUsuario`, `verificado`, `tokenVerificacion`) VALUES
-(1, 'Sofia Benetti', '$2y$10$gPTxhUcMQw5x2W0wgKYY3.hYCIQk.xPgwzhoJwQ2Plrq4/sMyILy.', 'administrador', 'sofiagibe@gmail.com', '3410000000', 1, NULL),
-(2, 'Catalina Molina', '$2y$10$pywJMPHCrFnuQheG6pG8AOCSocfhRqlVN6CIsPQIfZKJuHWCKqCPO', 'usuario', 'hzcqpdmjxftw@tempmail.ai', '3416551111', 0, 'baa8f00799fa0f3c7cc184ea6b5be98b8d5a0175b707153d696c405055b931fe');
+INSERT INTO `Usuarios` 
+(`codUsuario`, `nombreUsuario`, `claveUsuario`, `tipoUsuario`, `emailUsuario`, `telefonoUsuario`, `verificado`, `tokenVerificacion`, `fechaVerificacion`, `codAerolinea`, `debeCambiarClave`) VALUES
+(1, 'Sofia Benetti', '$2y$10$gPTxhUcMQw5x2W0wgKYY3.hYCIQk.xPgwzhoJwQ2Plrq4/sMyILy.', 'administrador', 'sofiagibe@gmail.com', '3410000000', 1, NULL, NULL,0),
+(2, 'Catalina Molina', '$2y$10$pywJMPHCrFnuQheG6pG8AOCSocfhRqlVN6CIsPQIfZKJuHWCKqCPO', 'usuario', 'hzcqpdmjxftw@tempmail.ai', '3416551111', 0, 'baa8f00799fa0f3c7cc184ea6b5be98b8d5a0175b707153d696c405055b931fe', NULL,0);
 
 -- --------------------------------------------------------
 
@@ -172,6 +175,10 @@ ALTER TABLE `Reservas`
 ALTER TABLE `Usuarios`
   ADD PRIMARY KEY (`codUsuario`);
 
+ALTER TABLE `Usuarios`
+  ADD CONSTRAINT `fk_usuario_aerolinea`
+  FOREIGN KEY (`codAerolinea`)
+  REFERENCES `Aerolineas` (`codAerolinea`);
 --
 -- Indexes for table `Vuelos`
 --

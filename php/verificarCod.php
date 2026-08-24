@@ -51,7 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     "UPDATE Usuarios
                     SET verificado = 1,
                         tokenVerificacion = NULL,
-                        fechaVerificacion = NULL
+                        fechaVerificacion = NOW()
                     WHERE emailUsuario = ?"
                 );
 

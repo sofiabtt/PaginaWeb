@@ -58,7 +58,7 @@
             </div>
 
 
-            <a href="#" class="btn btn-primary">
+            <a href="agregar-ceo.php" class="btn btn-primary">
 
                 <i class="bi bi-plus-lg"></i>
 
@@ -107,10 +107,88 @@
 
                 <tbody>
 
-                    <!--
-                        Los CEOs se cargarán
-                        posteriormente mediante PHP.
-                    -->
+                <?php
+
+                include "../../php/conexionBD.php";
+
+                $consulta = $conexion->query("
+                    SELECT 
+                        u.codUsuario,
+                        u.nombreUsuario,
+                        u.emailUsuario,
+                        u.verificado,
+                        a.nombreAerolinea
+                    FROM Usuarios u
+                    LEFT JOIN Aerolineas a 
+                        ON u.codAerolinea = a.codAerolinea
+                    WHERE u.tipoUsuario = 'ceo'
+                ");
+
+                while ($ceo = $consulta->fetch_assoc()) {
+
+                ?>
+
+                    <tr>
+
+                        <td>
+                            <?php echo htmlspecialchars($ceo["nombreUsuario"]); ?>
+                        </td>
+
+                        <td>
+                            <?php echo htmlspecialchars($ceo["emailUsuario"]); ?>
+                        </td>
+
+                        <td>
+                            <?php 
+                            echo $ceo["nombreAerolinea"] 
+                                ? htmlspecialchars($ceo["nombreAerolinea"]) 
+                                : "Sin aerolínea";
+                            ?>
+                        </td>
+
+                        <td>
+
+                            <?php if ($ceo["verificado"] == 1) { ?>
+
+                                <span class="badge bg-success">
+                                    Activo
+                                </span>
+
+                            <?php } else { ?>
+
+                                <span class="badge bg-warning text-dark">
+                                    Pendiente
+                                </span>
+
+                            <?php } ?>
+
+                        </td>
+
+                        <td>
+
+                            <a href="editar-ceo.php?id=<?php echo $ceo["codUsuario"]; ?>"
+                            class="btn btn-sm btn-warning">
+
+                                <i class="bi bi-pencil"></i>
+
+                            </a>
+
+                            <a href="eliminar-ceo.php?id=<?php echo $ceo["codUsuario"]; ?>"
+                            class="btn btn-sm btn-danger">
+
+                                <i class="bi bi-trash"></i>
+
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+                <?php
+
+                }
+
+                ?>
 
                 </tbody>
 
