@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="es">
     <head>
@@ -61,6 +65,8 @@
                     <label for="codigoVerificacion" class="form-label texto-negro">
                         Ingrese Codigo de verificacion:
                     </label>
+
+                    
                     
                     <input
                     type="text"
@@ -69,6 +75,19 @@
                     name="codigoVerificacion"
                     required
                     > 
+
+                    <?php
+
+                    if (isset($_SESSION["errorCodigo"])) {
+
+                        echo '<p style="color: red;">'
+                            . $_SESSION["errorCodigo"]
+                            . '</p>';
+
+                        unset($_SESSION["errorCodigo"]);
+                    }
+
+                    ?>
 
                 <div class="d-flex justify-content-between align-items-end gap-3">
                 <!--lo de arriba coloca dos sectores en una misma fila.-->

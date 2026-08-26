@@ -63,22 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     Conexión con la base de datos
     */
 
-    $conexion = new mysqli(
-        "localhost",
-        "root",
-        "",
-        "Aerolineas"
-    );
-
-
-    if ($conexion->connect_error) {
-
-        die(
-            "Error de conexión: "
-            . $conexion->connect_error
-        );
-
-    }
+    include "conexionBD.php";
 
 
     /*
@@ -112,6 +97,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     */
 
     $codigoVerificacion = random_int(100000, 999999);
+    $fechaVerificacion = date('Y-m-d H:i:s', strtotime('+24 hours'));
 
     /*
     Preparo el INSERT
@@ -127,9 +113,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             claveUsuario,
             tipoUsuario,
             verificado,
-            tokenVerificacion
+            tokenVerificacion,
+            fechaVerificacion
         )
-        VALUES (?, ?, ?, ?, ?, ?, ?)"
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
 
     );
 
@@ -143,18 +130,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     */
 
     $consulta->bind_param(
-
-    "sssssis",
-
-    $gmail,
-    $nombreApellido,
-    $telefono,
-    $claveHash,
-    $tipoUsuario,
-    $verificado,
-    $codigoVerificacion
-
-);
+        "ssssssis",
+        $gmail,
+        $nombreApellido,
+        $telefono,
+        $claveHash,
+        $tipoUsuario,
+        $verificado,
+        $codigoVerificacion,
+        $fechaVerificacion
+    );
 
 
     /*
@@ -262,7 +247,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             */
 
             $mail->send();
-            header("Location: ../html/registro-CodVerif.html");
+            header("Location: ../html/registro-CodVerif.php");
             exit();
 
 

@@ -17,21 +17,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $gmail = $_SESSION["gmailRegistro"];
 
-    $conexion = new mysqli(
-        "localhost",
-        "root",
-        "",
-        "Aerolineas"
-    );
+    include "conexionBD.php";
 
     if ($conexion->connect_error) {
         die("Error de conexión: " . $conexion->connect_error);
     }
 
     $consulta = $conexion->prepare(
-        "SELECT tokenVerificacion
-         FROM Usuarios
-         WHERE emailUsuario = ?"
+        "SELECT tokenVerificacion, fechaVerificacion
+        FROM Usuarios
+        WHERE emailUsuario = ?"
     );
 
     $consulta->bind_param(
@@ -47,27 +42,43 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $usuario = $resultado->fetch_assoc();
 
-        if ($codigoIngresado == $usuario["tokenVerificacion"]) {
+       if ($codigoIngresado == $usuario["tokenVerificacion"]) {
 
-            $actualizar = $conexion->prepare(
-                "UPDATE Usuarios
-                 SET verificado = 1
-                 WHERE emailUsuario = ?"
-            );
+            // El código es correcto, ahora verificamos si sigue vigente
+            if (strtotime($usuario["fechaVerificacion"]) >= time()) {
 
-            $actualizar->bind_param(
-                "s",
-                $gmail
-            );
+                $actualizar = $conexion->prepare(
+                    "UPDATE Usuarios
+                    SET verificado = 1,
+                        tokenVerificacion = NULL,
+                        fechaVerificacion = NOW()
+                    WHERE emailUsuario = ?"
+                );
 
-            $actualizar->execute();
+                $actualizar->bind_param(
+                    "s",
+                    $gmail
+                );
 
-            echo "Cuenta verificada correctamente.";
+                $actualizar->execute();
+
+                echo "Cuenta verificada correctamente.";
+
+            } else {
+
+                $_SESSION["errorCodigo"] = "El código de verificación ha vencido.Debe registrarse nuevamente para obtener un nuevo código.";
+
+                header("Location: ../html/registro-CodVerif.php");
+                exit();
+
+            }
 
         } else {
 
-           echo "Código ingresado: " . $codigoIngresado . "<br>";
-           echo "Código guardado: " . $usuario["tokenVerificacion"] . "<br>";
+            $_SESSION["errorCodigo"] = "El código de verificación es incorrecto.";
+
+            header("Location: ../html/registro-CodVerif.php");
+            exit();
 
         }
 

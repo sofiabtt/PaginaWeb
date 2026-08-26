@@ -251,3 +251,17 @@ main {
     color: red;
     font-size: 12px;
 }
+
+/* =========================
+   MENSAJE CONTRASEÑA CREADA
+========================= */
+
+.formulario-exito {
+    min-height: 360px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+}

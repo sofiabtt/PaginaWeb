@@ -36,6 +36,16 @@ $resultadoNovedades = $conexion->query($consultaNovedades);
 
 $novedades = $resultadoNovedades->fetch_assoc();
 
+// CANTIDAD DE CEOs
+
+$consultaCEOs = "SELECT COUNT(*) AS cantidad
+                 FROM Usuarios
+                 WHERE tipoUsuario = 'ceo'";
+
+$resultadoCEOs = $conexion->query($consultaCEOs);
+
+$ceos = $resultadoCEOs->fetch_assoc();
+
 // ACTIVIDAD RECIENTE
 
 $consultaActividad = "SELECT *
@@ -176,7 +186,7 @@ $resultadoActividad = $conexion->query($consultaActividad);
                         </h3>
 
                         <p class="numero-resumen">
-                            0
+                            <?php echo $ceos["cantidad"]; ?>
                         </p>
 
                     </div>
