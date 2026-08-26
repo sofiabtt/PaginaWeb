@@ -30,7 +30,7 @@
     <nav class="navbar navbar-expand-lg">
 
 
-        <a class="navbar-brand" href="home.html">
+        <a class="navbar-brand" href="home.php">
 
             <img 
             src="../imagenes/logo.png" 

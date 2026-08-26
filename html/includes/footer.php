@@ -26,8 +26,8 @@ $paginaActual = basename($_SERVER["PHP_SELF"]);
                     <li><a href="#">Cerrar sesión</a></li>
                     <li><a href="#">Eliminar cuenta</a></li>
                 <?php } else { ?>
-                    <li><a href="#">Iniciar sesión</a></li>
-                    <li><a href="#">Registrarse</a></li>
+                    <li><a href="iniciosesion.html">Iniciar sesión</a></li>
+                    <li><a href="registro-DatosPersonales.html">Registrarse</a></li>
                     <li><a href="#">Recuperar contraseña</a></li> 
                 <?php } ?>
                 
@@ -42,6 +42,7 @@ $paginaActual = basename($_SERVER["PHP_SELF"]);
             <div class="footer-columna col-6 col-lg-3">
                 <h4>NOMBRE-EMPRESA</h4>
                 <ul>
+                    <li><a href="#">Preguntas frecuentes</a></li>
                     <li><a href="#">Acerca de nosotros</a></li>
                     <li><a href="tel:341 9 6551718">341 9 6551718</a></li>
                     <li><a href="mailto:contacto@nombreEmpresa.com">contacto@nombreEmpresa.com</a></li>
@@ -63,8 +64,8 @@ $paginaActual = basename($_SERVER["PHP_SELF"]);
                         </div>
                         <div class="col-6">
                             <ul>
-                                <li><a href="#">Iniciar sesión</a></li>
-                                <li><a href="#">Registrarse</a></li>
+                                <li><a href="iniciosesion.html">Iniciar sesión</a></li>
+                                <li><a href="registro-DatosPersonales.html">Registrarse</a></li>
                             </ul>
                         </div>
                     </div>
