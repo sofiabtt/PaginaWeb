@@ -78,7 +78,7 @@
 
             </a>
 
-            <a href="iniciosesion.php" class="btn-iniciosesion ms-4">
+            <a href="inicioSesion.php" class="btn-iniciosesion ms-4">
                 Iniciar Sesion
             </a>
 
