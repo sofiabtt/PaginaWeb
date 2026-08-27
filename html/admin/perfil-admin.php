@@ -380,7 +380,7 @@ $stmt->close();
                                 <div class="small text-muted">
 
                                     Por seguridad, la contraseña no puede
-                                    modificarse desde este perfil.
+                                    modificarse en este perfil.
 
                                 </div>
 
