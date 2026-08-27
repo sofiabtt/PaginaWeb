@@ -328,7 +328,7 @@ $consultaAerolineas = $conexion->query("
          NAVBAR
     ========================== -->
 
-    <?php include "includes/navbar-admin.php"; ?>
+    <?php include "includes/navbarAdmin.php"; ?>
 
 
 
@@ -491,7 +491,7 @@ $consultaAerolineas = $conexion->query("
 
 
                     <a
-                        href="ceos.php"
+                        href="gestionCeos.php"
                         class="btn btn-secondary"
                     >
 

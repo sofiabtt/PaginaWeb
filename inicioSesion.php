@@ -8,11 +8,11 @@
     <title>Aerolinea</title>
     
 
-    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
 
-    <link rel="stylesheet" href="../css/estilos.css">
+    <link rel="stylesheet" href="css/estilos.css">
 
-    <link rel="icon" type="image/png" href="../imagenes/logo.png">
+    <link rel="icon" type="image/png" href="imagenes/logo.png">
 
 </head>
 
@@ -22,7 +22,7 @@
 
         <a class="navbar-brand">
             <img
-            src="../imagenes/logo.png"
+            src="imagenes/logo.png"
             alt="logo"
             width="60"
             height="60">
@@ -55,7 +55,7 @@
                 Inicio de sesión
             </h1>
 
-            <form action="../php/validarIngreso.php" method="POST">
+            <form action="php/validarIngreso.php" method="POST">
 
                 <div class="mb-4">
                     <label for="gmail" class="form-label texto-negro">
@@ -106,7 +106,7 @@
         </a>
 
     </main>
-    <!-- JavaScript de Bootstrap . permite que funcionen los componentes interactivos de Bootstrap,-->
+    
     <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js">
     </script>

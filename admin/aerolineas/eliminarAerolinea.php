@@ -1,6 +1,6 @@
 <?php
 
-include "../../../php/conexionBD.php";
+include "../../php/conexionBD.php";
 
 
 // VERIFICAR QUE SE RECIBIÓ EL ID
@@ -154,32 +154,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     >
 
     <title>
-        AeroFly Admin - Eliminar Aerolínea
+        Admin - Eliminar Aerolínea
     </title>
 
 
     <link
         rel="stylesheet"
-        href="../../../css/bootstrap.min.css"
+        href="../../css/bootstrap.min.css"
     >
 
 
     <link
         rel="stylesheet"
-        href="../../../css/bootstrap-icons.css"
+        href="../../css/bootstrap-icons.css"
     >
 
 
     <link
         rel="stylesheet"
-        href="../../../css/estilos-admin.css"
+        href="../../css/estilos-admin.css"
     >
 
 
     <link
         rel="icon"
         type="image/png"
-        href="../../../imagenes/logo.png"
+        href="../../imagenes/logo.png"
     >
 
 </head>
@@ -190,7 +190,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <!-- NAVBAR -->
 
-    <?php include "../includes/navbar-admin.php"; ?>
+    <?php include "../includes/navbarAdmin.php"; ?>
 
 
     <main class="contenido-admin">
@@ -286,7 +286,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
                         <a
-                            href="/PaginaWeb/html/admin/gestion-aerolineas/gestion-aerolineas.php"
+                            href="/PaginaWeb/admin/gestion-aerolineas/gestion-aerolineas.php"
                             class="btn btn-secondary"
                         >
 

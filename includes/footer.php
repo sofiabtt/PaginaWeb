@@ -26,8 +26,8 @@ $paginaActual = basename($_SERVER["PHP_SELF"]);
                     <li><a href="#">Cerrar sesión</a></li>
                     <li><a href="#">Eliminar cuenta</a></li>
                 <?php } else { ?>
-                    <li><a href="iniciosesion.php">Iniciar sesión</a></li>
-                    <li><a href="registro-DatosPersonales.html">Registrarse</a></li>
+                    <li><a href="inicioSesion.php">Iniciar sesión</a></li>
+                    <li><a href="registroDatosPersonales.html">Registrarse</a></li>
                     <li><a href="#">Recuperar contraseña</a></li> 
                 <?php } ?>
                 
@@ -64,8 +64,8 @@ $paginaActual = basename($_SERVER["PHP_SELF"]);
                         </div>
                         <div class="col-6">
                             <ul>
-                                <li><a href="iniciosesion.html">Iniciar sesión</a></li>
-                                <li><a href="registro-DatosPersonales.html">Registrarse</a></li>
+                                <li><a href="inicioSesion.php">Iniciar sesión</a></li>
+                                <li><a href="registroDatosPersonales.html">Registrarse</a></li>
                             </ul>
                         </div>
                     </div>

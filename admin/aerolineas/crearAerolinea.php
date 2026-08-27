@@ -1,6 +1,6 @@
 <?php
 
-include "../../../php/conexionBD.php";
+include "../../php/conexionBD.php";
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -71,14 +71,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmtActividad->close();
 
 
-        // VOLVER A GESTIÓN
-
-        header(
-            "Location: gestion-aerolineas.php?creada=1"
-        );
-
+        header("Location: gestion-aerolineas.php?creada=1");
         exit;
-
 
     } else {
 
@@ -107,29 +101,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     >
 
     <title>
-        AeroFly Admin - Crear Aerolínea
+        Admin - Crear Aerolínea
     </title>
 
 
     <link
         rel="stylesheet"
-        href="../../../css/bootstrap.min.css"
+        href="../../css/bootstrap.min.css"
     >
 
     <link
         rel="stylesheet"
-        href="../../../css/bootstrap-icons.css"
+        href="../../css/bootstrap-icons.css"
     >
 
     <link
         rel="stylesheet"
-        href="../../../css/estilos-admin.css"
+        href="../../css/estilos-admin.css"
     >
 
     <link
         rel="icon"
         type="image/png"
-        href="../../../imagenes/logo.png"
+        href="../../imagenes/logo.png"
     >
 
 </head>
@@ -138,7 +132,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
 
 
-    <?php include "../includes/navbar-admin.php"; ?>
+    <?php include "../includes/navbarAdmin.php"; ?>
 
 
     <main class="contenido-admin">
@@ -280,7 +274,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <div class="d-flex justify-content-end gap-2">
 
                             <a
-                                href="/PaginaWeb/html/admin/gestion-aerolineas/gestion-aerolineas.php"
+                                href="/PaginaWeb/admin/gestion-aerolineas/gestion-aerolineas.php"
                                 class="btn btn-secondary"
                             >
                                 Cancelar

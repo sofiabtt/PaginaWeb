@@ -65,7 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $consulta->close();
                 $conexion->close();
 
-                header("Location: ../html/registro-CodVerif.php");
+                header("Location: ../registroCodVerif.php");
                 exit();
             }
 
@@ -76,7 +76,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $consulta->close();
             $conexion->close();
 
-            header("Location: ../html/registro-CodVerif.php");
+            header("Location: ../registroCodVerif.php");
             exit();
         }
     }

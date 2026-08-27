@@ -30,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $conexion->close();
 
             header(
-                "Location: ../html/registro.html?error=usuario_existente&gmail="
+                "Location: ../registro.html?error=usuario_existente&gmail="
                 . urlencode($gmail)
             );
             exit();
@@ -42,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $consulta->close();
             $conexion->close();
 
-            header("Location: ../html/registro-DatosPersonales.html");
+            header("Location: ../registroDatosPersonales.html");
             exit();
         }
     }

@@ -11,11 +11,11 @@ session_start();
         <title>Aerolinea</title>
         
 
-        <link rel="stylesheet" href="../css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
 
-        <link rel="stylesheet" href="../css/estilos.css">
+        <link rel="stylesheet" href="css/estilos.css">
 
-        <link rel="icon" type="image/png" href="../imagenes/logo.png">
+        <link rel="icon" type="image/png" href="imagenes/logo.png">
         
 
     </head>
@@ -25,7 +25,7 @@ session_start();
 
             <a class="navbar-brand">
                 <img
-                src="../imagenes/logo.png"
+                src="imagenes/logo.png"
                 alt="logo"
                 width="60"
                 height="60">
@@ -58,15 +58,13 @@ session_start();
                 Crear Cuenta
             </h1>
 
-            <form action="../php/verificarCod.php" method="POST">
+            <form action="php/verificarCod.php" method="POST">
                 
 
                 <div class="mb-4">
                     <label for="codigoVerificacion" class="form-label texto-negro">
                         Ingrese Codigo de verificacion:
                     </label>
-
-                    
                     
                     <input
                     type="text"

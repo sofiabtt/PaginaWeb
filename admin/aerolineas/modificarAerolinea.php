@@ -1,6 +1,6 @@
 <?php
 
-include "../../../php/conexionBD.php";
+include "../../php/conexionBD.php";
 
 
 // OBTENER EL CÓDIGO DE LA AEROLÍNEA
@@ -160,7 +160,7 @@ if (!$aerolinea) {
     >
 
     <title>
-        AeroFly Admin - Modificar Aerolínea
+        Admin - Modificar Aerolínea
     </title>
 
 
@@ -168,7 +168,7 @@ if (!$aerolinea) {
 
     <link
         rel="stylesheet"
-        href="../../../css/bootstrap.min.css"
+        href="../../css/bootstrap.min.css"
     >
 
 
@@ -176,7 +176,7 @@ if (!$aerolinea) {
 
     <link
         rel="stylesheet"
-        href="../../../css/bootstrap-icons.css"
+        href="../../css/bootstrap-icons.css"
     >
 
 
@@ -184,7 +184,7 @@ if (!$aerolinea) {
 
     <link
         rel="stylesheet"
-        href="../../../css/estilos-admin.css"
+        href="../../css/estilos-admin.css"
     >
 
 
@@ -193,7 +193,7 @@ if (!$aerolinea) {
     <link
         rel="icon"
         type="image/png"
-        href="../../../imagenes/logo.png"
+        href="../../imagenes/logo.png"
     >
 
 </head>
@@ -204,7 +204,7 @@ if (!$aerolinea) {
 
     <!-- NAVBAR -->
 
-    <?php include "../includes/navbar-admin.php"; ?>
+    <?php include "../includes/navbarAdmin.php"; ?>
 
 
     <main class="contenido-admin">
@@ -369,7 +369,7 @@ if (!$aerolinea) {
 
 
                             <a
-                                href="/PaginaWeb/html/admin/gestion-aerolineas/gestion-aerolineas.php"
+                                href="/PaginaWeb/admin/gestion-aerolineas/gestion-aerolineas.php"
                                 class="btn btn-secondary"
                             >
                                 Cancelar

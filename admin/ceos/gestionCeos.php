@@ -16,7 +16,7 @@ include "../../php/conexionBD.php";
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>AeroFly Admin - CEOs</title>
+    <title>Admin - CEOs</title>
 
 
     <!-- Bootstrap -->
@@ -61,7 +61,7 @@ include "../../php/conexionBD.php";
          NAVBAR
     ========================== -->
 
-    <?php include "includes/navbar-admin.php"; ?>
+    <?php include "includes/navbarAdmin.php"; ?>
 
 
 

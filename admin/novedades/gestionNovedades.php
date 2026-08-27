@@ -26,7 +26,7 @@
 
     <!-- NAVBAR -->
 
-    <?php include "includes/navbar-admin.php"; ?>
+    <?php include "includes/navbarAdmin.php"; ?>
 
 
     <!-- CONTENIDO -->

@@ -10,13 +10,13 @@
 
     <title>AeroFly Admin - Reportes</title>
 
-    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
 
-    <link rel="stylesheet" href="../../css/bootstrap-icons.css">
+    <link rel="stylesheet" href="../css/bootstrap-icons.css">
 
-    <link rel="stylesheet" href="../../css/estilos-admin.css">
+    <link rel="stylesheet" href="../css/estilos-admin.css">
 
-    <link rel="icon" type="image/png" href="../../imagenes/logo.png">
+    <link rel="icon" type="image/png" href="../imagenes/logo.png">
 
 </head>
 
@@ -26,7 +26,7 @@
 
     <!-- NAVBAR -->
 
-    <?php include "includes/navbar-admin.php"; ?>
+    <?php include "includes/navbarAdmin.php"; ?>
 
 
     <!-- CONTENIDO -->
@@ -168,7 +168,7 @@
 
 
 
-    <script src="../../js/bootstrap.bundle.min.js"></script>
+    <script src="../js/bootstrap.bundle.min.js"></script>
 
 </body>
 

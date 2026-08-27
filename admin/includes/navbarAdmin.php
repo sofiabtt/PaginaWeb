@@ -2,7 +2,7 @@
 
     <a
         class="navbar-brand"
-        href="/PaginaWeb/html/admin/admin.php"
+        href="/PaginaWeb/admin/admin.php"
     >
 
         <img
@@ -22,7 +22,7 @@
 
         <a
             class="nav-link"
-            href="/PaginaWeb/html/admin/admin.php"
+            href="/PaginaWeb/admin/admin.php"
         >
             Inicio
         </a>
@@ -33,7 +33,7 @@
 
         <a
             class="nav-link"
-            href="/PaginaWeb/html/admin/gestion-aerolineas/gestion-aerolineas.php"
+            href="/PaginaWeb/admin/aerolineas/gestionAerolineas.php"
         >
             Aerolíneas
         </a>
@@ -44,7 +44,7 @@
 
         <a
             class="nav-link"
-            href="/PaginaWeb/html/admin/gestion-promociones.php"
+            href="/PaginaWeb/admin/promociones/gestionPromociones.php"
         >
             Promociones
         </a>
@@ -55,7 +55,7 @@
 
         <a
             class="nav-link"
-            href="/PaginaWeb/html/admin/gestion-novedades.php"
+            href="/PaginaWeb/admin/novedades/gestionNovedades.php"
         >
             Novedades
         </a>
@@ -66,7 +66,7 @@
 
         <a
             class="nav-link"
-            href="/PaginaWeb/html/admin/reportes.php"
+            href="/PaginaWeb/admin/reportes.php"
         >
             Reportes
         </a>
@@ -77,7 +77,7 @@
 
         <a
             class="nav-link"
-            href="/PaginaWeb/html/admin/gestion-ceos.php"
+            href="/PaginaWeb/admin/ceos/gestionCeos.php"
         >
             CEOs
         </a>
@@ -110,7 +110,7 @@
 
                     <a
                         class="dropdown-item"
-                        href="/PaginaWeb/html/admin/perfil-admin.php"
+                        href="/PaginaWeb/admin/perfilAdmin.php"
                     >
 
                         <i class="bi bi-person"></i>
@@ -133,7 +133,7 @@
 
                     <a
                         class="dropdown-item"
-                        href="/PaginaWeb/html/home.php"
+                        href="/PaginaWeb/home.php"
                     >
 
                         <i class="bi bi-box-arrow-right"></i>

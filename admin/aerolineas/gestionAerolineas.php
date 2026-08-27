@@ -1,6 +1,6 @@
 <?php
 
-include "../../../php/conexionBD.php";
+include "../../php/conexionBD.php";
 
 
 // OBTENER LAS AEROLÍNEAS
@@ -27,7 +27,7 @@ $resultado = $conexion->query($consulta);
     >
 
     <title>
-        AeroFly Admin - Aerolíneas
+        Admin - Aerolíneas
     </title>
 
 
@@ -35,7 +35,7 @@ $resultado = $conexion->query($consulta);
 
     <link
         rel="stylesheet"
-        href="../../../css/bootstrap.min.css"
+        href="../../css/bootstrap.min.css"
     >
 
 
@@ -43,7 +43,7 @@ $resultado = $conexion->query($consulta);
 
     <link
         rel="stylesheet"
-        href="../../../css/bootstrap-icons.css"
+        href="../../css/bootstrap-icons.css"
     >
 
 
@@ -51,7 +51,7 @@ $resultado = $conexion->query($consulta);
 
     <link
         rel="stylesheet"
-        href="../../../css/estilos-admin.css"
+        href="../../css/estilos-admin.css"
     >
 
 
@@ -60,7 +60,7 @@ $resultado = $conexion->query($consulta);
     <link
         rel="icon"
         type="image/png"
-        href="../../../imagenes/logo.png"
+        href="../../imagenes/logo.png"
     >
 
 </head>
@@ -71,7 +71,7 @@ $resultado = $conexion->query($consulta);
 
     <!-- NAVBAR -->
 
-    <?php include "../includes/navbar-admin.php"; ?>
+    <?php include "../includes/navbarAdmin.php"; ?>
 
 
     <main class="contenido-admin">

@@ -25,15 +25,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (password_verify($contrasena, $usuario["claveUsuario"])) {
 
-        $destino = "../html/home.php";
+        $destino = "../home.php";
 
         if ($usuario["tipoUsuario"] == "administrador") {
-            $destino = "../html/admin/admin.php";
+            $destino = "../admin/admin.php";
         }
 
     } else {
 
-        $destino = "../html/ingreso-contra.php?error=contrasena";
+        $destino = "../ingresoContra.php?error=contrasena";
 
     }
 

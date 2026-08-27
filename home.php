@@ -11,10 +11,10 @@
     <link rel="icon" href="imagenes/logo.png" type="image/png">
 
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
 
-    <link rel="stylesheet" href="../css/estiloshome.css?v=2">
-    <link rel="stylesheet" href="../css/footer.css">
+    <link rel="stylesheet" href="css/estiloshome.css?v=2">
+    <link rel="stylesheet" href="css/footer.css">
 
 </head>
 
@@ -33,7 +33,7 @@
         <a class="navbar-brand" href="home.php">
 
             <img 
-            src="../imagenes/logo.png" 
+            src="imagenes/logo.png" 
             alt="logo"
             width="60"
             height="60">
@@ -212,22 +212,22 @@
 
         <div class="contenedor-tarjetas">
             <div class="tarjeta-destino">
-                <img src="../imagenes/brasil.jpg" alt="Destino 1">
+                <img src="imagenes/brasil.jpg" alt="Destino 1">
                 <h4>Brasil</h4>
             </div>
 
             <div class="tarjeta-destino">
-                <img src="../imagenes/bsas.jpg" alt="Destino 2">
+                <img src="imagenes/bsas.jpg" alt="Destino 2">
                 <h4>Buenos Aires</h4>
             </div>
 
             <div class="tarjeta-destino">
-                <img src="../imagenes/madrid.jpg" alt="Destino 3">
+                <img src="imagenes/madrid.jpg" alt="Destino 3">
                 <h4>Madrid</h4>
             </div>
 
             <div class="tarjeta-destino">
-                <img src="../imagenes/roma.jpg" alt="Destino 4">
+                <img src="imagenes/roma.jpg" alt="Destino 4">
                 <h4>Roma</h4>
             </div>
         </div>
@@ -267,14 +267,7 @@ function mostrarVuelta(){
 
 </script>
 
-
-
-
-
-
-<script src="../js/bootstrap.bundle.min.js"></script>
-
-
+<script src="js/bootstrap.bundle.min.js"></script>
 
 </body>
 

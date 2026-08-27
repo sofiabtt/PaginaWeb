@@ -98,7 +98,7 @@ $stmt->close();
     >
 
     <title>
-        AeroFly Admin - Mi perfil
+        Admin - Mi perfil
     </title>
 
 
@@ -106,7 +106,7 @@ $stmt->close();
 
     <link
         rel="stylesheet"
-        href="../../css/bootstrap.min.css"
+        href="../css/bootstrap.min.css"
     >
 
 
@@ -114,7 +114,7 @@ $stmt->close();
 
     <link
         rel="stylesheet"
-        href="../../css/bootstrap-icons.css"
+        href="../css/bootstrap-icons.css"
     >
 
 
@@ -122,7 +122,7 @@ $stmt->close();
 
     <link
         rel="stylesheet"
-        href="../../css/estilos-admin.css"
+        href="../css/estilos-admin.css"
     >
 
 
@@ -131,7 +131,7 @@ $stmt->close();
     <link
         rel="icon"
         type="image/png"
-        href="../../imagenes/logo.png"
+        href="../imagenes/logo.png"
     >
 
 </head>
@@ -142,7 +142,7 @@ $stmt->close();
 
     <!-- NAVBAR -->
 
-    <?php include "includes/navbar-admin.php"; ?>
+    <?php include "includes/navbarAdmin.php"; ?>
 
 
     <main class="contenido-admin">

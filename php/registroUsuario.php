@@ -126,7 +126,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $mail->send();
 
-            $destino = "../html/registro-CodVerif.php";
+            $destino = "../registro-CodVerif.php";
 
 
         } catch (Exception $e) {

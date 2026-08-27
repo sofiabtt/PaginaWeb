@@ -1,9 +1,10 @@
 <?php
+
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-include "../../php/conexionBD.php";
+include "../php/conexionBD.php";
 
 
 // CANTIDAD DE AEROLÍNEAS
@@ -69,22 +70,22 @@ $resultadoActividad = $conexion->query($consultaActividad);
 
     <title>Administrador</title>
 
-    <link rel="icon" href="../../imagenes/logo.png" type="image/png">
+    <link rel="icon" href="../imagenes/logo.png" type="image/png">
 
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
 
     <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="../../css/bootstrap-icons.css">
+    <link rel="stylesheet" href="../css/bootstrap-icons.css">
 
     <!-- CSS del administrador -->
-    <link rel="stylesheet" href="../../css/estilos-admin.css">
+    <link rel="stylesheet" href="../css/estilos-admin.css">
 
 </head>
 
 <body>
 
-    <?php include "includes/navbar-admin.php"; ?>
+    <?php include "includes/navbarAdmin.php"; ?>
 
     <main class="contenido-admin">
 

@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $consulta->close();
             $conexion->close();
 
-            header("Location: ../html/ingreso-contra.php");
+            header("Location: ../ingresoContra.php");
             exit();
 
         } else {
@@ -39,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $consulta->close();
             $conexion->close();
 
-            header("Location: ../html/iniciosesion.php?error=usuario");
+            header("Location: ../inicioSesion.php?error=usuario");
             exit();
         }
     }

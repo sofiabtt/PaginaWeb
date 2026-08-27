@@ -10,11 +10,11 @@ session_start();
         <title>Aerolinea</title>
         
 
-        <link rel="stylesheet" href="../css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
 
-        <link rel="stylesheet" href="../css/estilos.css">
+        <link rel="stylesheet" href="css/estilos.css">
 
-        <link rel="icon" type="image/png" href="../imagenes/logo.png">
+        <link rel="icon" type="image/png" href="imagenes/logo.png">
 
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
@@ -25,7 +25,7 @@ session_start();
 
             <a class="navbar-brand">
                 <img
-                src="../imagenes/logo.png"
+                src="imagenes/logo.png"
                 alt="logo"
                 width="60"
                 height="60">
@@ -58,7 +58,7 @@ session_start();
                 Inicio de sesión
             </h1>
 
-            <form action="../php/validarContra.php" method="POST">
+            <form action="php/validarContra.php" method="POST">
                 <!--aún no está conectado con PHP-->
 
                 <div class="mb-4">
@@ -116,7 +116,7 @@ session_start();
             </form>
 
         </section>
-        <a href="iniciosesion.php" class="boton-atras">
+        <a href="inicioSesion.php" class="boton-atras">
             ← Atrás
         </a>
 
@@ -140,8 +140,6 @@ session_start();
             }
         }
 
-
     </script>
     </body>
-
 </html>
