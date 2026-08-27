@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="es">
     <head>
@@ -12,7 +15,7 @@
         <link rel="stylesheet" href="../css/estilos.css">
 
         <link rel="icon" type="image/png" href="../imagenes/logo.png">
-        /*para los iconos del ojo*/
+
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     </head>
@@ -83,6 +86,11 @@
                         </button>
 
                     </div>
+                    <?php if (isset($_GET["error"]) && $_GET["error"] == "contrasena"): ?>
+                        <p class="text-danger mt-2 mb-0">
+                            Contraseña incorrecta.
+                        </p>
+                    <?php endif; ?>
                     
                 </div>
 
@@ -108,7 +116,7 @@
             </form>
 
         </section>
-        <a href="home.php" class="boton-atras">
+        <a href="iniciosesion.php" class="boton-atras">
             ← Atrás
         </a>
 

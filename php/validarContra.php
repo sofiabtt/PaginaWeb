@@ -1,25 +1,13 @@
 <?php
 
-
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $contrasena = $_POST["contrasena"];
-    //recupera algo que el formulario acaba de enviar.
     $gmail = $_SESSION["gmailIngreso"];
-    //recupera algo que habíamos guardado anteriormente en la sesión.
 
-    $conexion = new mysqli(
-        "localhost",
-        "root",
-        "",
-        "Aerolineas"
-    );
-
-    if ($conexion->connect_error) {
-        die("Error de conexión: " . $conexion->connect_error);
-    }
+    include "conexionBD.php";
 
     $consulta = $conexion->prepare(
         "SELECT claveUsuario, tipoUsuario
@@ -33,37 +21,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $resultado = $consulta->get_result();
 
-    if ($resultado->num_rows > 0) {
+    $usuario = $resultado->fetch_assoc();
 
-        $usuario = $resultado->fetch_assoc();
+    if (password_verify($contrasena, $usuario["claveUsuario"])) {
 
-        if (password_verify($contrasena, $usuario["claveUsuario"])) {
+        $destino = "../html/home.php";
 
-            if ($usuario["tipoUsuario"] == "administrador") {
-
-                header("Location: ../html/admin/admin.php");
-                exit();
-
-            } else {
-
-                header("Location: ../html/home.php");
-                exit();
-
-            }
-
-        } else {
-
-            echo "Contraseña incorrecta.";
-
+        if ($usuario["tipoUsuario"] == "administrador") {
+            $destino = "../html/admin/admin.php";
         }
 
     } else {
 
-        echo "Usuario no encontrado.";
+        $destino = "../html/ingreso-contra.php?error=contrasena";
 
     }
 
     $consulta->close();
     $conexion->close();
+
+    header("Location: $destino");
+    exit();
+
 }
+
 ?>

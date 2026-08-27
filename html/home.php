@@ -13,7 +13,7 @@
     <!-- Bootstrap -->
     <link rel="stylesheet" href="../css/bootstrap.min.css">
 
-    <link rel="stylesheet" href="../css/estiloshome.css">
+    <link rel="stylesheet" href="../css/estiloshome.css?v=2">
     <link rel="stylesheet" href="../css/footer.css">
 
 </head>
@@ -78,7 +78,7 @@
 
             </a>
 
-            <a href="iniciosesion.html" class="btn-iniciosesion ms-4">
+            <a href="iniciosesion.php" class="btn-iniciosesion ms-4">
                 Iniciar Sesion
             </a>
 

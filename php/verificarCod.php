@@ -19,20 +19,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     include "conexionBD.php";
 
-    if ($conexion->connect_error) {
-        die("Error de conexión: " . $conexion->connect_error);
-    }
-
     $consulta = $conexion->prepare(
         "SELECT tokenVerificacion, fechaVerificacion
         FROM Usuarios
         WHERE emailUsuario = ?"
     );
 
-    $consulta->bind_param(
-        "s",
-        $gmail
-    );
+    $consulta->bind_param("s", $gmail);
 
     $consulta->execute();
 
@@ -42,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $usuario = $resultado->fetch_assoc();
 
-       if ($codigoIngresado == $usuario["tokenVerificacion"]) {
+        if ($codigoIngresado == $usuario["tokenVerificacion"]) {
 
             // El código es correcto, ahora verificamos si sigue vigente
             if (strtotime($usuario["fechaVerificacion"]) >= time()) {
@@ -55,34 +48,41 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     WHERE emailUsuario = ?"
                 );
 
-                $actualizar->bind_param(
-                    "s",
-                    $gmail
-                );
+                $actualizar->bind_param("s", $gmail);
 
                 $actualizar->execute();
+
+                $actualizar->close();
+                $consulta->close();
+                $conexion->close();
 
                 echo "Cuenta verificada correctamente.";
 
             } else {
 
-                $_SESSION["errorCodigo"] = "El código de verificación ha vencido.Debe registrarse nuevamente para obtener un nuevo código.";
+                $_SESSION["errorCodigo"] = "El código de verificación ha vencido. Debe registrarse nuevamente para obtener un nuevo código.";
+
+                $consulta->close();
+                $conexion->close();
 
                 header("Location: ../html/registro-CodVerif.php");
                 exit();
-
             }
 
         } else {
 
             $_SESSION["errorCodigo"] = "El código de verificación es incorrecto.";
 
+            $consulta->close();
+            $conexion->close();
+
             header("Location: ../html/registro-CodVerif.php");
             exit();
-
         }
-
     }
 
+    $consulta->close();
+    $conexion->close();
 }
+
 ?>

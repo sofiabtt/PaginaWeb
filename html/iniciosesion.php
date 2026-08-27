@@ -70,6 +70,12 @@
                         placeholder="nombreapellido@gmail.com"
                         required
                     >
+
+                    <?php if (isset($_GET["error"]) && $_GET["error"] == "usuario"): ?>
+                        <p class="text-danger mt-2 mb-0">
+                            Usuario no encontrado.
+                        </p>
+                    <?php endif; ?>
                 </div>
 
                 <div class="d-flex justify-content-between align-items-end gap-3">
@@ -81,7 +87,6 @@
                         </p>
 
                         <a href="registro.html" class="btn btn-outline-primary">
-                            <!--La clase: btn-outline-primary crea un botón con borde azul y fondo transparente.-->
                             Registrarse
                         </a>
                     </div>
@@ -97,7 +102,7 @@
         </section>
 
         <a href="home.php" class="boton-atras">
-            ← Atrás
+            ← Inicio
         </a>
 
     </main>
