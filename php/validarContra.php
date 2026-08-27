@@ -46,7 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             } else {
 
-                header("Location: ../html/home.html");
+                header("Location: ../html/home.php");
                 exit();
 
             }

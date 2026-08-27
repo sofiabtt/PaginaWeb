@@ -133,7 +133,7 @@
 
                     <a
                         class="dropdown-item"
-                        href="/PaginaWeb/html/home.html"
+                        href="/PaginaWeb/html/home.php"
                     >
 
                         <i class="bi bi-box-arrow-right"></i>

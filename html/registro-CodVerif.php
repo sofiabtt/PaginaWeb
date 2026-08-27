@@ -111,7 +111,7 @@ session_start();
             </form>
 
         </section>
-        <a href="home.html" class="boton-atras">
+        <a href="home.php" class="boton-atras">
             ← Inicio
         </a>
 

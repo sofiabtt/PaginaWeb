@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -13,6 +14,7 @@
     <link rel="stylesheet" href="../css/bootstrap.min.css">
 
     <link rel="stylesheet" href="../css/estiloshome.css">
+    <link rel="stylesheet" href="../css/footer.css">
 
 </head>
 
@@ -28,7 +30,7 @@
     <nav class="navbar navbar-expand-lg">
 
 
-        <a class="navbar-brand" href="home.html">
+        <a class="navbar-brand" href="home.php">
 
             <img 
             src="../imagenes/logo.png" 
@@ -238,39 +240,7 @@
 
 </section>
 
-
-<footer class="footer">
-    <div class="footer-columna">
-        <img 
-            src="../imagenes/logo.png" 
-            alt="logo"
-            width="90"
-            height="90">
-    </div>
-
-    <div class="footer-columna">
-        <h4>Mi Cuenta</h4>
-        <a href="#">Mi perfil</a>
-        <a href="#">Mis viajes</a>
-        <a href="#">Eliminar mi cuenta</a>
-    </div>
-
-    <div class="footer-columna">
-        <h4>Sobre nosotros</h4>
-        <a href="#">Preguntas frecuentes</a>
-        <a href="#">Trabajá con nosotros</a>
-        <a NAME="cont">Contacto: 341 9 6551718</a>
-    </div>
-
-    <div class="footer-columna">
-        <h4>Confianza en tus compras</h4>
-        <a href="#">Términos y condiciones</a>
-        <a href="#">Política de privacidad</a>
-        <a href="#">Promociones vigentes</a>
-    </div>
-
-</footer>
-
+<?php include("includes/footer.php"); ?>
 
 
 <script>
