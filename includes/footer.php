@@ -14,7 +14,7 @@ $paginaActual = basename($_SERVER["PHP_SELF"]);
     <div class="container">
         <div class="row">
             <div class="footer-logo col-12 col-lg-2">
-                <img src="../imagenes/logo.png" alt="logo" class="img-fluid">
+                <img src="/PaginaWeb/imagenes/logo.png" alt="logo" class="img-fluid">
             </div>
 
             <div class="footer-columna col-6 col-lg-3">

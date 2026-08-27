@@ -61,7 +61,7 @@ include "../../php/conexionBD.php";
          NAVBAR
     ========================== -->
 
-    <?php include "includes/navbarAdmin.php"; ?>
+    <?php include "../includes/navbarAdmin.php"; ?>
 
 
 
