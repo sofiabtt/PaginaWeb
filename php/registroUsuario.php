@@ -6,102 +6,46 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-
-/*
-------------------------------
-Agrego PHPMailer
-------------------------------
-*/
-
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 require '../vendor/autoload.php';
 
-
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..');
-
 $dotenv->load();
-
-// crea un objeto de la librería Dotenv,
-// lee el archivo .env y carga sus variables.
-
-/*------------------------------ */
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-
-    /*
-    Verifico que existan los datos
-    guardados anteriormente en la sesión
-    */
-
     if (!isset($_SESSION["gmailRegistro"])) {
 
-        echo "No se encontro el gmail ingresado";
-
+        echo "No se encontró el gmail ingresado.";
         exit();
 
     }
 
-
-    /*
-    Recupero los datos
-    */
-
     $gmail = $_SESSION["gmailRegistro"];
-
     $nombreApellido = $_POST["nombreApellido"];
-
     $telefono = $_POST["telefono"];
-
     $contrasena = $_POST["contrasena"];
 
-
-    /*
-    Conexión con la base de datos
-    */
-
     include "conexionBD.php";
-
-
-    /*
-    Encripto la contraseña
-    */
 
     $claveHash = password_hash(
         $contrasena,
         PASSWORD_DEFAULT
     );
 
-
-    /*
-    Tipo de usuario
-    */
-
     $tipoUsuario = "usuario";
-
-
-    /*
-    Al principio el usuario todavía
-    no verificó su correo
-    */
 
     $verificado = 0;
 
-
-    /*
-    Genero un código aleatorio
-    para verificar el correo
-    */
-
     $codigoVerificacion = random_int(100000, 999999);
-    $fechaVerificacion = date('Y-m-d H:i:s', strtotime('+24 hours'));
 
-    /*
-    Preparo el INSERT
-    */
+    $fechaVerificacion = date(
+        'Y-m-d H:i:s',
+        strtotime('+24 hours')
+    );
 
     $consulta = $conexion->prepare(
 
@@ -120,15 +64,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     );
 
-
-    /*
-    Indico el tipo de dato
-    de cada variable
-
-    s = string
-    i = integer
-    */
-
     $consulta->bind_param(
         "ssssssis",
         $gmail,
@@ -142,27 +77,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     );
 
 
-    /*
-    Intento insertar el usuario
-    */
-
     if ($consulta->execute()) {
-
-
-        /*
-        Si el usuario se guardó correctamente,
-        recién ahora envío el correo
-        */
 
         $mail = new PHPMailer(true);
 
-
         try {
-
-
-            /*
-            Configuración SMTP de Gmail
-            */
 
             $mail->isSMTP();
 
@@ -170,64 +89,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $mail->SMTPAuth = true;
 
+            $mail->Username = $_ENV['GMAIL_USUARIO'];
 
-            /*
-            Estos datos vienen del archivo .env
-            */
-
-            $mail->Username =
-                $_ENV['GMAIL_USUARIO'];
-
-            $mail->Password =
-                $_ENV['GMAIL_PASSWORD'];
-
-
-            /*
-            Seguridad y puerto
-            */
+            $mail->Password = $_ENV['GMAIL_PASSWORD'];
 
             $mail->SMTPSecure =
                 PHPMailer::ENCRYPTION_STARTTLS;
 
             $mail->Port = 587;
 
-
-            /*
-            Quién envía el correo
-            */
-
+            /* Remitente */
             $mail->setFrom(
                 $_ENV['GMAIL_USUARIO'],
                 'Aerolineas'
             );
 
-
-            /*
-            A quién se envía
-            */
-
+            /* Destinatario */
             $mail->addAddress($gmail);
 
-
-            /*
-            El contenido del mail será HTML
-            */
-
+            /* Contenido */
             $mail->isHTML(true);
 
-
-            /*
-            Asunto
-            */
-
-            $mail->Subject =
-                'Verifica tu cuenta';
-
-
-
-            /*
-            Contenido del correo
-            */
+            $mail->Subject = 'Verifica tu cuenta';
 
             $mail->Body = "
 
@@ -241,45 +124,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             ";
 
-
-            /*
-            Envío el correo
-            */
-
             $mail->send();
-            header("Location: ../html/registro-CodVerif.php");
-            exit();
+
+            $destino = "../html/registro-CodVerif.php";
 
 
         } catch (Exception $e) {
-
 
             echo
                 "El usuario se registró correctamente, "
                 . "pero no se pudo enviar el correo: "
                 . $mail->ErrorInfo;
 
-
         }
 
 
     } else {
 
-
         echo "Error al registrar el usuario.";
-
 
     }
 
-
-    /*
-    Cierro consulta y conexión
-    */
-
     $consulta->close();
-
     $conexion->close();
 
+    if (isset($destino)) {
+
+        header("Location: $destino");
+        exit();
+
+    }
 
 }
 
