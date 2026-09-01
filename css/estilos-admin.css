@@ -477,3 +477,269 @@ body {
     margin-bottom: 40px;
 
 }
+
+/* =========================
+   PERFIL DEL ADMINISTRADOR
+========================= */
+
+.perfil-card {
+
+    max-width: 850px;
+
+    margin: 40px auto;
+
+    background-color: #ffffff;
+
+    border-radius: 18px;
+
+    padding: 40px 50px;
+
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+
+}
+
+
+/* ENCABEZADO */
+
+.perfil-header {
+
+    text-align: center;
+
+    margin-bottom: 35px;
+
+}
+
+
+/* LOGO */
+
+.perfil-logo {
+
+    width: 75px;
+
+    height: 75px;
+
+    margin: 0 auto 15px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+}
+
+
+.perfil-logo img {
+
+    width: 70px;
+
+    height: 70px;
+
+    object-fit: contain;
+
+}
+
+
+/* ICONO ADMIN */
+
+.perfil-icono {
+
+    width: 70px;
+
+    height: 70px;
+
+    margin: 0 auto 18px;
+
+    border-radius: 50%;
+
+    background-color: #f3e9df;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 32px;
+
+    color: #684028;
+
+}
+
+
+.perfil-header h2 {
+
+    margin-bottom: 8px;
+
+    font-size: 26px;
+
+    color: #684028;
+
+}
+
+
+.perfil-header p {
+
+    margin: 0;
+
+    color: #777;
+
+}
+
+
+/* CAMPOS */
+
+.perfil-campos {
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 25px;
+
+}
+
+
+.perfil-form .form-label {
+
+    font-weight: 600;
+
+    color: #4d3525;
+
+    margin-bottom: 8px;
+
+}
+
+
+.campo-icono {
+
+    position: relative;
+
+}
+
+
+.campo-icono i {
+
+    position: absolute;
+
+    left: 15px;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    color: #684028;
+
+    z-index: 2;
+
+}
+
+
+.campo-icono .form-control {
+
+    padding-left: 42px;
+
+    border: 1px solid #ddd;
+
+    border-radius: 10px;
+
+    min-height: 45px;
+
+}
+
+
+.campo-icono .form-control:focus {
+
+    border-color: #684028;
+
+    box-shadow: 0 0 0 0.2rem rgba(104, 64, 40, 0.15);
+
+}
+
+
+/* INFORMACIÓN DE CONTRASEÑA */
+
+.password-info {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    margin-top: 30px;
+
+    padding: 18px;
+
+    background-color: #f8f5f2;
+
+    border-radius: 12px;
+
+}
+
+
+.password-icono {
+
+    width: 45px;
+
+    height: 45px;
+
+    min-width: 45px;
+
+    border-radius: 50%;
+
+    background-color: #e9ded4;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    color: #684028;
+
+    font-size: 20px;
+
+}
+
+
+.password-info strong {
+
+    color: #4d3525;
+
+}
+
+
+.password-info p {
+
+    margin: 4px 0 0;
+
+    color: #777;
+
+    font-size: 14px;
+
+}
+
+
+/* BOTON */
+
+.perfil-acciones {
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    margin-top: 30px;
+
+}
+
+
+.perfil-acciones .btn {
+
+    padding: 10px 22px;
+
+    border-radius: 9px;
+
+}
+
+

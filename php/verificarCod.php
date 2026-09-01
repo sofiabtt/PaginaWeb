@@ -1,0 +1,88 @@
+<?php
+
+session_start();
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    $codigoIngresado = $_POST["codigoVerificacion"];
+
+    if (!isset($_SESSION["gmailRegistro"])) {
+        echo "No se encontró el correo del registro.";
+        exit();
+    }
+
+    $gmail = $_SESSION["gmailRegistro"];
+
+    include "conexionBD.php";
+
+    $consulta = $conexion->prepare(
+        "SELECT tokenVerificacion, fechaVerificacion
+        FROM Usuarios
+        WHERE emailUsuario = ?"
+    );
+
+    $consulta->bind_param("s", $gmail);
+
+    $consulta->execute();
+
+    $resultado = $consulta->get_result();
+
+    if ($resultado->num_rows == 1) {
+
+        $usuario = $resultado->fetch_assoc();
+
+        if ($codigoIngresado == $usuario["tokenVerificacion"]) {
+
+            // El código es correcto, ahora verificamos si sigue vigente
+            if (strtotime($usuario["fechaVerificacion"]) >= time()) {
+
+                $actualizar = $conexion->prepare(
+                    "UPDATE Usuarios
+                    SET verificado = 1,
+                        tokenVerificacion = NULL,
+                        fechaVerificacion = NOW()
+                    WHERE emailUsuario = ?"
+                );
+
+                $actualizar->bind_param("s", $gmail);
+
+                $actualizar->execute();
+
+                $actualizar->close();
+                $consulta->close();
+                $conexion->close();
+
+                echo "Cuenta verificada correctamente.";
+
+            } else {
+
+                $_SESSION["errorCodigo"] = "El código de verificación ha vencido. Debe registrarse nuevamente para obtener un nuevo código.";
+
+                $consulta->close();
+                $conexion->close();
+
+                header("Location: ../registroCodVerif.php");
+                exit();
+            }
+
+        } else {
+
+            $_SESSION["errorCodigo"] = "El código de verificación es incorrecto.";
+
+            $consulta->close();
+            $conexion->close();
+
+            header("Location: ../registroCodVerif.php");
+            exit();
+        }
+    }
+
+    $consulta->close();
+    $conexion->close();
+}
+
+?>
