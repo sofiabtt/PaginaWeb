@@ -115,8 +115,8 @@ CREATE TABLE `Usuarios` (
 
 INSERT INTO `Usuarios` 
 (`codUsuario`, `nombreUsuario`, `claveUsuario`, `tipoUsuario`, `emailUsuario`, `telefonoUsuario`, `verificado`, `tokenVerificacion`, `fechaVerificacion`, `codAerolinea`, `debeCambiarClave`) VALUES
-(1, 'Sofia Benetti', '$2y$10$gPTxhUcMQw5x2W0wgKYY3.hYCIQk.xPgwzhoJwQ2Plrq4/sMyILy.', 'administrador', 'sofiagibe@gmail.com', '3410000000', 1, NULL, NULL,0),
-(2, 'Catalina Molina', '$2y$10$pywJMPHCrFnuQheG6pG8AOCSocfhRqlVN6CIsPQIfZKJuHWCKqCPO', 'usuario', 'hzcqpdmjxftw@tempmail.ai', '3416551111', 0, 'baa8f00799fa0f3c7cc184ea6b5be98b8d5a0175b707153d696c405055b931fe', NULL,0);
+(1, 'Sofia Benetti', '$2y$10$gPTxhUcMQw5x2W0wgKYY3.hYCIQk.xPgwzhoJwQ2Plrq4/sMyILy.', 'administrador', 'sofiagibe@gmail.com', '3410000000', 1, NULL, NULL, NULL, 0),
+(2, 'Catalina Molina', '$2y$10$pywJMPHCrFnuQheG6pG8AOCSocfhRqlVN6CIsPQIfZKJuHWCKqCPO', 'usuario', 'hzcqpdmjxftw@tempmail.ai', '3416551111', 0, 'baa8f00799fa0f3c7cc184ea6b5be98b8d5a0175b707153d696c405055b931fe', NULL, NULL, 0);
 
 -- --------------------------------------------------------
 

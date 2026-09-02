@@ -60,19 +60,19 @@
                 Contacto
             </a>
             
-            <a class="nav-menu">
+            <a href="destinos.html" class="nav-menu">
 
                 Destinos
 
             </a>
 
-            <a class="nav-menu">
+            <a href="novedades.html" class="nav-menu">
 
                 Novedades
 
             </a>
 
-            <a class="nav-menu">
+            <a href="ofertas.html" class="nav-menu">
 
                 Ofertas
 
