@@ -1,10 +1,18 @@
 <?php
 
+require __DIR__ . '/../vendor/autoload.php';
+
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..');
+$dotenv->load();
+
+$puerto = $_ENV['DB_PORT'] ?? 3306;
+
 $conexion = new mysqli(
-    "localhost",
+    "127.0.0.1",
     "root",
     "",
-    "Aerolineas"
+    "aerolineas",
+    $puerto
 );
 
 if ($conexion->connect_error) {
