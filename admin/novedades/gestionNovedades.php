@@ -1,4 +1,10 @@
 ```html
+<?php
+include "../../php/conexionBD.php"; //conexion base
+
+$consulta = "SELECT * FROM Novedades ORDER BY codNovedad";
+$resultado = $conexion->query($consulta); //guarda en rdo
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -49,7 +55,7 @@
             </div>
 
 
-            <a href="#" class="btn btn-primary">
+            <a href="crearNovedad.php" class="btn btn-primary">
 
                 <i class="bi bi-plus-lg"></i>
 
@@ -72,15 +78,19 @@
                     <tr>
 
                         <th>
-                            Título
+                            Codigo
                         </th>
 
                         <th>
-                            Fecha
+                            Novedad
                         </th>
 
                         <th>
-                            Estado
+                            Publicacion
+                        </th>
+
+                        <th>
+                            Expiracion
                         </th>
 
                         <th>
@@ -94,11 +104,31 @@
 
                 <tbody>
 
-                    <!--
-                        Las novedades se cargarán
-                        posteriormente mediante PHP.
-                    -->
+                    <?php while ($novedad = $resultado->fetch_assoc()) { ?>
 
+    <tr>
+        <td>
+            <?php echo $novedad["codNovedad"]; ?>
+        </td>
+
+        <td>
+            <?php echo $novedad["textoNovedad"]; ?>
+        </td>
+
+        <td>
+            <?php echo $novedad["fechaPublicacionNovedad"]; ?>
+        </td>
+
+        <td>
+            <?php echo $novedad["fechaExpiracionNovedad"]; ?>
+        </td>
+
+        <td>
+            Modificar | Eliminar
+        </td>
+    </tr>
+
+<?php } ?>
                 </tbody>
 
             </table>
