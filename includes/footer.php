@@ -26,8 +26,8 @@ $paginaActual = basename($_SERVER["PHP_SELF"]);
                     <li><a href="#">Cerrar sesión</a></li>
                     <li><a href="#">Eliminar cuenta</a></li>
                 <?php } else { ?>
-                    <li><a href="inicioSesion.php">Iniciar sesión</a></li>
-                    <li><a href="registroDatosPersonales.html">Registrarse</a></li>
+                    <li><a href="/PaginaWeb/inicioSesion.php">Iniciar sesión</a></li>
+                    <li><a href="/PaginaWeb/registroDatosPersonales.html">Registrarse</a></li>
                     <li><a href="#">Recuperar contraseña</a></li> 
                 <?php } ?>
                 
@@ -56,7 +56,7 @@ $paginaActual = basename($_SERVER["PHP_SELF"]);
                     <div class="row">
                         <div class="col-6">
                             <ul>
-                                <li><a href="#">Inicio</a></li>
+                                <li><a href="/PaginaWeb/home.php">Inicio</a></li>
                                 <li><a href="#">Buscar vuelos</a></li>
                                 <li><a href="#">Promociones vigentes</a></li>
                                 <li><a href="#">Novedades</a></li>
@@ -92,22 +92,44 @@ $paginaActual = basename($_SERVER["PHP_SELF"]);
                 <?php } ?>
 
                 <?php if($tipoUsuario === "admin") { ?>
-                    <div class="row">
-                        <div class="col-6">
-                            <ul>
-                                <li><a href="#">Inicio</a></li>
-                                <li><a href="#">Gestión de aerolíneas</a></li>
-                                <li><a href="#">Gestión de novedades</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-6">
-                            <ul>
-                                <li><a href="#">Aprobar promociones</a></li>
-                                <li><a href="#">Reportes</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                <?php } ?>
+<div class="row">
+        <div class="col-6">
+            <ul>
+                <li>
+                    <a href="/PaginaWeb/admin/admin.php">Inicio</a>
+                </li>
+
+                <li>
+                    <a href="/PaginaWeb/admin/aerolineas/gestionAerolineas.php">
+                        Gestión de aerolíneas
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/PaginaWeb/admin/novedades/gestionNovedades.php">
+                        Gestión de novedades
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="col-6">
+            <ul>
+                <li>
+                    <a href="/PaginaWeb/admin/promociones/gestionPromociones.php">
+                        Aprobar promociones
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/PaginaWeb/admin/reportes.php">
+                        Reportes
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+<?php } ?>
 
                 <?php if($tipoUsuario === "ceo") { ?>
                     <ul>
