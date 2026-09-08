@@ -66,7 +66,7 @@
 
             </a>
 
-            <a href="novedades.html" class="nav-menu">
+            <a href="novedades.php" class="nav-menu">
 
                 Novedades
 
