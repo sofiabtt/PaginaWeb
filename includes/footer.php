@@ -59,7 +59,7 @@ $paginaActual = basename($_SERVER["PHP_SELF"]);
                                 <li><a href="/PaginaWeb/home.php">Inicio</a></li>
                                 <li><a href="#">Buscar vuelos</a></li>
                                 <li><a href="#">Promociones vigentes</a></li>
-                                <li><a href="#">Novedades</a></li>
+                                <li><a href="/PaginaWeb/novedades.php">Novedades</a></li>
                             </ul>
                         </div>
                         <div class="col-6">
@@ -78,7 +78,7 @@ $paginaActual = basename($_SERVER["PHP_SELF"]);
                                 <li><a href="#">Inicio</a></li>
                                 <li><a href="#">Buscar Vuelos</a></li>
                                 <li><a href="#">Promociones vigentes</a></li>
-                                <li><a href="#">Novedades</a></li>
+                                <li><a href="/PaginaWeb/novedades.php">Novedades</a></li>
                             </ul>
                         </div>
                     
