@@ -106,44 +106,44 @@ $resultado = $conexion->query($consulta); //guarda en rdo
 
                     <?php while ($novedad = $resultado->fetch_assoc()) { ?>
 
-    <tr>
-        <td>
-            <?php echo $novedad["codNovedad"]; ?>
-        </td>
+                    <tr>
+                        <td>
+                            <?php echo $novedad["codNovedad"]; ?>
+                        </td>
 
-        <td>
-            <?php echo $novedad["textoNovedad"]; ?>
-        </td>
+                        <td>
+                            <?php echo $novedad["textoNovedad"]; ?>
+                        </td>
 
-        <td>
-            <?php echo $novedad["fechaPublicacionNovedad"]; ?>
-        </td>
+                        <td>
+                            <?php echo $novedad["fechaPublicacionNovedad"]; ?>
+                        </td>
 
-        <td>
-            <?php echo $novedad["fechaExpiracionNovedad"]; ?>
-        </td>
+                        <td>
+                            <?php echo $novedad["fechaExpiracionNovedad"]; ?>
+                        </td>
 
-        <td>
-            <a
-                href="modificarNovedad.php?id=<?php echo $novedad["codNovedad"]; ?>"
-                class="btn btn-sm btn-outline-primary"
-            >
-                <i class="bi bi-pencil"></i>
-                Modificar
-            </a>
+                        <td>
+                            <a
+                                href="modificarNovedad.php?id=<?php echo $novedad["codNovedad"]; ?>"
+                                class="btn btn-sm btn-outline-primary"
+                            >
+                                <i class="bi bi-pencil"></i>
+                                Modificar
+                            </a>
 
 
-            <a
-                href="eliminarNovedad.php?id=<?php echo $novedad["codNovedad"]; ?>"
-                class="btn btn-sm btn-outline-danger"
-            >
-                <i class="bi bi-trash"></i>
-                Eliminar
-            </a>
-        </td>
-    </tr>
+                            <a
+                                href="eliminarNovedad.php?id=<?php echo $novedad["codNovedad"]; ?>"
+                                class="btn btn-sm btn-outline-danger"
+                            >
+                                <i class="bi bi-trash"></i>
+                                Eliminar
+                            </a>
+                        </td>
+                    </tr>
 
-<?php } ?>
+                    <?php } ?>
                 </tbody>
 
             </table>
