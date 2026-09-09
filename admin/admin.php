@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -80,6 +81,7 @@ $resultadoActividad = $conexion->query($consultaActividad);
 
     <!-- CSS del administrador -->
     <link rel="stylesheet" href="../css/estilos-admin.css">
+    <link rel="stylesheet" href="../css/footer.css">
 
 </head>
 
@@ -299,7 +301,7 @@ $resultadoActividad = $conexion->query($consultaActividad);
 
 
     </main>
-
+    <?php include "../includes/footer.php"; ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
