@@ -71,7 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmtActividad->close();
 
 
-        header("Location: gestion-aerolineas.php?creada=1");
+        header("Location: gestionAerolineas.php?creada=1");
         exit;
 
     } else {
@@ -181,7 +181,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                     <form
                         method="POST"
-                        action="crear-aerolinea.php"
+                        action="crearAerolinea.php"
                     >
 
 
@@ -274,7 +274,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <div class="d-flex justify-content-end gap-2">
 
                             <a
-                                href="/PaginaWeb/admin/gestion-aerolineas/gestion-aerolineas.php"
+                                href="/PaginaWeb/admin/aerolineas/gestionAerolineas.php"
                                 class="btn btn-secondary"
                             >
                                 Cancelar

@@ -95,7 +95,7 @@ $resultado = $conexion->query($consulta);
 
 
             <a
-                href="crear-aerolinea.php"
+                href="crearAerolinea.php"
                 class="btn btn-primary"
             >
 
@@ -153,106 +153,68 @@ $resultado = $conexion->query($consulta);
 
 
                 <thead>
-
                     <tr>
-
-                        <th>
-                            Código
-                        </th>
-
-                        <th>
-                            Aerolínea
-                        </th>
-
-                        <th>
-                            IATA
-                        </th>
-
-                        <th>
-                            País
-                        </th>
-
+                        <th>Código</th>
+                        <th>Aerolínea</th>
+                        <th>IATA</th>
+                        <th>País</th>
+                        <th>Acciones</th>
                     </tr>
-
                 </thead>
 
 
 
                 <tbody>
 
-
                     <?php while ($aerolinea = $resultado->fetch_assoc()) { ?>
 
                         <tr>
 
-
                             <td>
-
-                                <?php
-                                echo $aerolinea["codAerolinea"];
-                                ?>
-
-                            </td>
-
-
-                            <td>
-
-                                <?php
-                                echo htmlspecialchars(
-                                    $aerolinea["nombreAerolinea"]
-                                );
-                                ?>
-
+                                <?php echo $aerolinea["codAerolinea"]; ?>
                             </td>
 
                             <td>
-
-                                <?php
-                                echo htmlspecialchars(
-                                    $aerolinea["codigoIATA"]
-                                );
-                                ?>
-
+                                <?php echo htmlspecialchars($aerolinea["nombreAerolinea"]); ?>
                             </td>
 
-
                             <td>
-
-                                <?php
-                                echo htmlspecialchars(
-                                    $aerolinea["codPais"]
-                                );
-                                ?>
-
+                                <?php echo htmlspecialchars($aerolinea["codigoIATA"]); ?>
                             </td>
 
+                            <td>
+                                <?php echo htmlspecialchars($aerolinea["codPais"]); ?>
+                            </td>
 
                             <td>
+                                <a
+                                    href="verAerolinea.php?id=<?php echo $aerolinea["codAerolinea"]; ?>"
+                                    class="btn btn-sm btn-outline-secondary"
+                                >
+                                    <i class="bi bi-eye"></i>
+                                    Ver
+                                </a>
 
                                 <a
-                                    href="modificar-aerolinea.php?id=<?php echo $aerolinea["codAerolinea"]; ?>"
+                                    href="modificarAerolinea.php?id=<?php echo $aerolinea["codAerolinea"]; ?>"
                                     class="btn btn-sm btn-outline-primary"
                                 >
                                     <i class="bi bi-pencil"></i>
                                     Modificar
                                 </a>
 
-
                                 <a
-                                    href="eliminar-aerolinea.php?id=<?php echo $aerolinea["codAerolinea"]; ?>"
+                                    href="eliminarAerolinea.php?id=<?php echo $aerolinea["codAerolinea"]; ?>"
                                     class="btn btn-sm btn-outline-danger"
                                 >
                                     <i class="bi bi-trash"></i>
                                     Eliminar
                                 </a>
-
                             </td>
-
 
                         </tr>
 
                     <?php } ?>
-
 
                 </tbody>
 
@@ -262,8 +224,10 @@ $resultado = $conexion->query($consulta);
 
 
     </main>
-
+    
+<script src="../../js/bootstrap.bundle.min.js"></script>
 
 </body>
+
 
 </html>

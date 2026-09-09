@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     include "conexionBD.php";
 
     $consulta = $conexion->prepare(
-        "SELECT claveUsuario, tipoUsuario
+        "SELECT codUsuario, nombreUsuario, claveUsuario, tipoUsuario, codAerolinea
          FROM Usuarios
          WHERE emailUsuario = ?"
     );
@@ -23,13 +23,37 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $usuario = $resultado->fetch_assoc();
 
-    if (password_verify($contrasena, $usuario["claveUsuario"])) {
+    if ($usuario && password_verify($contrasena, $usuario["claveUsuario"])) {
+
+        // Guardamos los datos del usuario en la sesión
+
+        $_SESSION["codUsuario"] = $usuario["codUsuario"];
+
+        $_SESSION["nombreUsuario"] = $usuario["nombreUsuario"];
+
+        $_SESSION["tipoUsuario"] = $usuario["tipoUsuario"];
+
+        $_SESSION["codAerolinea"] = $usuario["codAerolinea"];
+
+
+        // Según el tipo de usuario, definimos a dónde entra
 
         $destino = "../home.php";
 
+
         if ($usuario["tipoUsuario"] == "administrador") {
+
             $destino = "../admin/admin.php";
+
         }
+
+
+        if ($usuario["tipoUsuario"] == "ceo") {
+
+            $destino = "../ceo/ceo.php";
+
+        }
+
 
     } else {
 
@@ -37,12 +61,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     }
 
+
     $consulta->close();
+
     $conexion->close();
 
+
     header("Location: $destino");
+
     exit();
 
 }
 
 ?>
+

@@ -7,7 +7,7 @@ include "../../php/conexionBD.php";
 
 if (!isset($_GET["id"])) {
 
-    header("Location: gestion-aerolineas.php");
+    header("Location: gestionAerolineas.php");
 
     exit;
 
@@ -87,7 +87,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // VOLVER A GESTIÓN DE AEROLÍNEAS
 
         header(
-            "Location: gestion-aerolineas.php?modificada=1"
+            "Location: gestionAerolineas.php?modificada=1"
         );
 
         exit;
@@ -137,7 +137,7 @@ $stmt->close();
 
 if (!$aerolinea) {
 
-    header("Location: gestion-aerolineas.php");
+    header("Location: gestionAerolineas.php");
 
     exit;
 
@@ -258,7 +258,7 @@ if (!$aerolinea) {
 
                     <form
                         method="POST"
-                        action="modificar-aerolinea.php?id=<?php echo $codAerolinea; ?>"
+                        action="modificarAerolinea.php?id=<?php echo $codAerolinea; ?>"
                     >
 
 
@@ -369,7 +369,7 @@ if (!$aerolinea) {
 
 
                             <a
-                                href="/PaginaWeb/admin/gestion-aerolineas/gestion-aerolineas.php"
+                                href="/PaginaWeb/admin/aerolineas/gestionAerolineas.php"
                                 class="btn btn-secondary"
                             >
                                 Cancelar
