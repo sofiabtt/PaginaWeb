@@ -124,7 +124,22 @@ $resultado = $conexion->query($consulta); //guarda en rdo
         </td>
 
         <td>
-            Modificar | Eliminar
+            <a
+                href="modificarNovedad.php?id=<?php echo $novedad["codNovedad"]; ?>"
+                class="btn btn-sm btn-outline-primary"
+            >
+                <i class="bi bi-pencil"></i>
+                Modificar
+            </a>
+
+
+            <a
+                href="eliminarNovedad.php?id=<?php echo $novedad["codNovedad"]; ?>"
+                class="btn btn-sm btn-outline-danger"
+            >
+                <i class="bi bi-trash"></i>
+                Eliminar
+            </a>
         </td>
     </tr>
 
