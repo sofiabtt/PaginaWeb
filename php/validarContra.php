@@ -38,6 +38,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Según el tipo de usuario, definimos a dónde entra
 
+        $_SESSION["usuario"] = $gmail;
+        $_SESSION["tipoUsuario"] = $usuario["tipoUsuario"];
+
         $destino = "../home.php";
 
 
