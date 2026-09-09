@@ -28,7 +28,7 @@ $resultado = $conexion->query($consulta);
     >
 
     <title>
-        Admin - Novedades dadas de baja
+        Nuvia - Administrador
     </title>
 
 

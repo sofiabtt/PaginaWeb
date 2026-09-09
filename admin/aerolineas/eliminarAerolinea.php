@@ -157,7 +157,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     >
 
     <title>
-        Admin - Eliminar Aerolínea
+        Nuvia - Administrador
     </title>
 
 

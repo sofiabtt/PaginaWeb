@@ -65,7 +65,7 @@ $resultado = $consulta->get_result();
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Gestión de vuelos - AeroFly</title>
+    <title>Nuvia - CEO</title>
 
 
     <link

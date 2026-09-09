@@ -182,7 +182,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Crear contraseña</title>
+    <title>Nuvia - CEO</title>
 
 
     <!-- Bootstrap -->
@@ -222,10 +222,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body>
 
-
-    <!-- =========================
-         NAVBAR
-    ========================== -->
 
     <header class="barra-superior navbar navbar-expand-lg">
 

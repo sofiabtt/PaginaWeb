@@ -28,7 +28,7 @@ $resultado = $conexion->query($consulta);
     >
 
     <title>
-        Admin - Aerolíneas dadas de baja
+        Nuvia - Administrador
     </title>
 
 

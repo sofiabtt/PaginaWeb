@@ -160,7 +160,7 @@ if (!$aerolinea) {
     >
 
     <title>
-        Admin - Modificar Aerolínea
+        Nuvia - Administrador
     </title>
 
 

@@ -70,7 +70,7 @@ $resultadoActividad = $conexion->query($consultaActividad);
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Administrador</title>
+    <title>Nuvia - Administrador</title>
 
     <link rel="icon" href="../imagenes/logo.png" type="image/png">
 

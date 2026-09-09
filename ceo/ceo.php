@@ -134,7 +134,7 @@ $conexion->close();
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>CEO</title>
+    <title>Nuvia - CEO</title>
 
     <link
         rel="icon"

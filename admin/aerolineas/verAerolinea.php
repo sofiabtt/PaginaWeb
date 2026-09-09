@@ -41,7 +41,7 @@ $aerolinea = $resultado->fetch_assoc();
     >
 
     <title>
-        Ver aerolínea
+        Nuvia - Administrador
     </title>
 
 

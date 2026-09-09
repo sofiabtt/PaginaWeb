@@ -7,7 +7,7 @@ session_start();
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!--Hace que la página se adapte al ancho de celulares, tablets y computadoras.-->
-        <title>Aerolinea</title>
+        <title>Nuvia - Inicio de Sesión</title>
         
 
         <link rel="stylesheet" href="css/bootstrap.min.css">

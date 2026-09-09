@@ -101,7 +101,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     >
 
     <title>
-        Admin - Crear Aerolínea
+        Nuvia - Administrador
     </title>
 
 

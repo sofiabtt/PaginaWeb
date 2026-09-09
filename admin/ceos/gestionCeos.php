@@ -16,7 +16,7 @@ include "../../php/conexionBD.php";
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Admin - CEOs</title>
+    <title>Nuvia - Administrador</title>
 
 
     <!-- Bootstrap -->
@@ -56,18 +56,8 @@ include "../../php/conexionBD.php";
 
 <body>
 
-
-    <!-- =========================
-         NAVBAR
-    ========================== -->
-
     <?php include "../includes/navbarAdmin.php"; ?>
 
-
-
-    <!-- =========================
-         CONTENIDO
-    ========================== -->
 
     <main class="contenido-admin">
 
@@ -100,11 +90,6 @@ include "../../php/conexionBD.php";
 
         </section>
 
-
-
-        <!-- =========================
-             TABLA
-        ========================== -->
 
         <section class="tabla-contenedor">
 
@@ -143,11 +128,6 @@ include "../../php/conexionBD.php";
 
 
                 <?php
-
-
-                // =========================
-                // OBTENER CEOs
-                // =========================
 
                 $consulta = $conexion->query("
 

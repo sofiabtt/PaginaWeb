@@ -42,7 +42,7 @@ $novedad = $resultado->fetch_assoc();
     >
 
     <title>
-        Ver novedad
+        Nuvia - Administrador
     </title>
 
 

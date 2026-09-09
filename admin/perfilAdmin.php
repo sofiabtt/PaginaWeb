@@ -98,7 +98,7 @@ $stmt->close();
     >
 
     <title>
-        Admin - Mi perfil
+        Nuvia - Administrador
     </title>
 
 
