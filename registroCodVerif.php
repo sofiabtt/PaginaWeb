@@ -5,19 +5,19 @@ session_start();
 <!DOCTYPE html>
 <html lang="es">
     <head>
+
         <meta charset="UTF-8">
+
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!--Hace que la página se adapte al ancho de celulares, tablets y computadoras.-->
+
         <title>Nuvia - Registro</title>
-        
 
         <link rel="stylesheet" href="css/bootstrap.min.css">
 
         <link rel="stylesheet" href="css/estilos.css">
-
+        
         <link rel="icon" type="image/png" href="imagenes/logo.png">
         
-
     </head>
     <body>
 

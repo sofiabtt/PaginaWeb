@@ -1,19 +1,23 @@
 <?php session_start(); ?>
+
 <!DOCTYPE html>
+
 <html lang="es">
 
 <head>
 
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Nuvia</title>
+
     <link rel="icon" href="imagenes/logo.png" type="image/png">
 
-    <!-- Bootstrap -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
 
     <link rel="stylesheet" href="css/estiloshome.css?v=2">
+
     <link rel="stylesheet" href="css/footer.css">
 
 </head>
