@@ -11,6 +11,9 @@
             width="60"
             height="60"
         >
+        <span class="fw-bold fs-4">
+            Nuvia
+        </span>
 
     </a>
 

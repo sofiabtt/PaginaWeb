@@ -8,10 +8,11 @@ error_reporting(E_ALL);
 include "../php/conexionBD.php";
 
 
-// CANTIDAD DE AEROLÍNEAS
+// CANTIDAD DE AEROLÍNEAS ACTIVAS
 
 $consultaAerolineas = "SELECT COUNT(*) AS cantidad
-                       FROM Aerolineas";
+                       FROM Aerolineas
+                       WHERE activo = 1";
 
 $resultadoAerolineas = $conexion->query($consultaAerolineas);
 
@@ -128,7 +129,7 @@ $resultadoActividad = $conexion->query($consultaActividad);
                     <div>
 
                         <h3>
-                            Aerolíneas
+                            Aerolíneas activas
                         </h3>
 
                         <p class="numero-resumen">

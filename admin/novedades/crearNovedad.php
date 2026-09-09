@@ -101,8 +101,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         id="textoNovedad"
                         name="textoNovedad"
                         maxlength="200"
-                        required>
-                    </textarea>
+                        rows="3"
+                        required></textarea>
 
                 </div>
 
@@ -139,6 +139,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <button type="submit" class="btn btn-primary">
                     Crear novedad
                 </button>
+
+                <a
+                    href="gestionNovedades.php"
+                    class="btn btn-secondary"
+                >
+                    Cancelar
+                </a>
 
             </form>
 

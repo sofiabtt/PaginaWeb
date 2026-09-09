@@ -6,6 +6,7 @@ include "../../php/conexionBD.php";
 // OBTENER EL CÓDIGO DE LA AEROLÍNEA
 
 $id = $_GET["id"];
+$origen = $_GET["origen"] ?? "";
 
 
 // BUSCAR LA AEROLÍNEA
@@ -105,6 +106,47 @@ $aerolinea = $resultado->fetch_assoc();
                         ?>
                     </h2>
 
+                    <p>
+
+                        <strong>
+                            Estado:
+                        </strong>
+
+                        <?php if ($aerolinea["activo"] == 1) { ?>
+
+                            <span class="badge bg-success">
+                                Activa
+                            </span>
+
+                        <?php } else { ?>
+
+                            <span class="badge bg-danger">
+                                Dada de baja
+                            </span>
+
+                        <?php } ?>
+
+                    </p>
+
+                    <?php if ($aerolinea["activo"] == 0) { ?>
+
+                        <p>
+
+                            <strong>
+                                Fecha de baja:
+                            </strong>
+
+                            <?php
+                            echo date(
+                                "d/m/Y H:i",
+                                strtotime($aerolinea["fechaEliminacion"])
+                            );
+                            ?>
+
+                        </p>
+
+                    <?php } ?>
+
 
                     <p>
 
@@ -173,7 +215,7 @@ $aerolinea = $resultado->fetch_assoc();
                     <div class="mt-4">
 
                         <a
-                            href="gestionAerolineas.php"
+                            href="<?php echo ($origen == "inactivas") ? "aerolineasInactivas.php" : "gestionAerolineas.php"; ?>"
                             class="btn btn-secondary"
                         >
 
@@ -199,9 +241,11 @@ $aerolinea = $resultado->fetch_assoc();
                 <div class="m-4">
 
                     <a
-                        href="gestionAerolineas.php"
+                        href="<?php echo ($origen == "inactivas") ? "aerolineasInactivas.php" : "gestionAerolineas.php"; ?>"
                         class="btn btn-secondary"
                     >
+
+                        <i class="bi bi-arrow-left"></i>
 
                         Volver
 

@@ -2,7 +2,11 @@
 <?php
 include "../../php/conexionBD.php"; //conexion base
 
-$consulta = "SELECT * FROM Novedades ORDER BY codNovedad";
+$consulta = "SELECT *
+             FROM Novedades
+             WHERE activo = 1
+             ORDER BY codNovedad";
+
 $resultado = $conexion->query($consulta); //guarda en rdo
 ?>
 <!DOCTYPE html>
@@ -54,14 +58,24 @@ $resultado = $conexion->query($consulta); //guarda en rdo
 
             </div>
 
+            <div>
+                <a
+                    href="novedadesInactivas.php"
+                    class="btn btn-outline-secondary"
+                >
+                    <i class="bi bi-archive"></i>
+                    Novedades dadas de baja
+                </a>
 
-            <a href="crearNovedad.php" class="btn btn-primary">
 
-                <i class="bi bi-plus-lg"></i>
+                <a href="crearNovedad.php" class="btn btn-primary">
 
-                Crear novedad
+                    <i class="bi bi-plus-lg"></i>
 
-            </a>
+                    Crear novedad
+
+                </a>
+            </div>
 
         </section>
 
@@ -86,11 +100,11 @@ $resultado = $conexion->query($consulta); //guarda en rdo
                         </th>
 
                         <th>
-                            Publicacion
+                            Publicación
                         </th>
 
                         <th>
-                            Expiracion
+                            Expiración
                         </th>
 
                         <th>
@@ -111,8 +125,8 @@ $resultado = $conexion->query($consulta); //guarda en rdo
                             <?php echo $novedad["codNovedad"]; ?>
                         </td>
 
-                        <td>
-                            <?php echo $novedad["textoNovedad"]; ?>
+                        <td class="texto-novedad">
+                            <?php echo htmlspecialchars($novedad["textoNovedad"]); ?>
                         </td>
 
                         <td>
@@ -124,6 +138,14 @@ $resultado = $conexion->query($consulta); //guarda en rdo
                         </td>
 
                         <td>
+                            <a
+                                href="verNovedad.php?id=<?php echo $novedad["codNovedad"]; ?>"
+                                class="btn btn-sm btn-outline-secondary"
+                            >
+                                <i class="bi bi-eye"></i>
+                                Ver
+                            </a>
+
                             <a
                                 href="modificarNovedad.php?id=<?php echo $novedad["codNovedad"]; ?>"
                                 class="btn btn-sm btn-outline-primary"

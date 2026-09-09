@@ -29,6 +29,10 @@ session_start();
                 alt="logo"
                 width="60"
                 height="60">
+
+                <span class="fw-bold fs-4">
+                    Nuvia
+                </span>
             </a>
 
             <div class="ms-auto d-none d-lg-flex align-items-center">
