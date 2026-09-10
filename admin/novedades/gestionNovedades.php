@@ -2,7 +2,11 @@
 <?php
 include "../../php/conexionBD.php"; //conexion base
 
-$consulta = "SELECT * FROM Novedades ORDER BY codNovedad";
+$consulta = "SELECT *
+             FROM Novedades
+             WHERE activo = 1
+             ORDER BY codNovedad";
+
 $resultado = $conexion->query($consulta); //guarda en rdo
 ?>
 <!DOCTYPE html>
@@ -14,7 +18,7 @@ $resultado = $conexion->query($consulta); //guarda en rdo
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>AeroFly Admin - Novedades</title>
+    <title>Nuvia - Administrador</title>
 
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
 
@@ -54,14 +58,24 @@ $resultado = $conexion->query($consulta); //guarda en rdo
 
             </div>
 
+            <div>
+                <a
+                    href="novedadesInactivas.php"
+                    class="btn btn-outline-secondary"
+                >
+                    <i class="bi bi-archive"></i>
+                    Novedades dadas de baja
+                </a>
 
-            <a href="crearNovedad.php" class="btn btn-primary">
 
-                <i class="bi bi-plus-lg"></i>
+                <a href="crearNovedad.php" class="btn btn-primary">
 
-                Crear novedad
+                    <i class="bi bi-plus-lg"></i>
 
-            </a>
+                    Crear novedad
+
+                </a>
+            </div>
 
         </section>
 
@@ -86,11 +100,11 @@ $resultado = $conexion->query($consulta); //guarda en rdo
                         </th>
 
                         <th>
-                            Publicacion
+                            Publicación
                         </th>
 
                         <th>
-                            Expiracion
+                            Expiración
                         </th>
 
                         <th>
@@ -106,44 +120,52 @@ $resultado = $conexion->query($consulta); //guarda en rdo
 
                     <?php while ($novedad = $resultado->fetch_assoc()) { ?>
 
-    <tr>
-        <td>
-            <?php echo $novedad["codNovedad"]; ?>
-        </td>
+                    <tr>
+                        <td>
+                            <?php echo $novedad["codNovedad"]; ?>
+                        </td>
 
-        <td>
-            <?php echo $novedad["textoNovedad"]; ?>
-        </td>
+                        <td class="texto-novedad">
+                            <?php echo htmlspecialchars($novedad["textoNovedad"]); ?>
+                        </td>
 
-        <td>
-            <?php echo $novedad["fechaPublicacionNovedad"]; ?>
-        </td>
+                        <td>
+                            <?php echo $novedad["fechaPublicacionNovedad"]; ?>
+                        </td>
 
-        <td>
-            <?php echo $novedad["fechaExpiracionNovedad"]; ?>
-        </td>
+                        <td>
+                            <?php echo $novedad["fechaExpiracionNovedad"]; ?>
+                        </td>
 
-        <td>
-            <a
-                href="modificarNovedad.php?id=<?php echo $novedad["codNovedad"]; ?>"
-                class="btn btn-sm btn-outline-primary"
-            >
-                <i class="bi bi-pencil"></i>
-                Modificar
-            </a>
+                        <td>
+                            <a
+                                href="verNovedad.php?id=<?php echo $novedad["codNovedad"]; ?>"
+                                class="btn btn-sm btn-outline-secondary"
+                            >
+                                <i class="bi bi-eye"></i>
+                                Ver
+                            </a>
+
+                            <a
+                                href="modificarNovedad.php?id=<?php echo $novedad["codNovedad"]; ?>"
+                                class="btn btn-sm btn-outline-primary"
+                            >
+                                <i class="bi bi-pencil"></i>
+                                Modificar
+                            </a>
 
 
-            <a
-                href="eliminarNovedad.php?id=<?php echo $novedad["codNovedad"]; ?>"
-                class="btn btn-sm btn-outline-danger"
-            >
-                <i class="bi bi-trash"></i>
-                Eliminar
-            </a>
-        </td>
-    </tr>
+                            <a
+                                href="eliminarNovedad.php?id=<?php echo $novedad["codNovedad"]; ?>"
+                                class="btn btn-sm btn-outline-danger"
+                            >
+                                <i class="bi bi-trash"></i>
+                                Eliminar
+                            </a>
+                        </td>
+                    </tr>
 
-<?php } ?>
+                    <?php } ?>
                 </tbody>
 
             </table>

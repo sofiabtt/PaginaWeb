@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -7,10 +8,11 @@ error_reporting(E_ALL);
 include "../php/conexionBD.php";
 
 
-// CANTIDAD DE AEROLÍNEAS
+// CANTIDAD DE AEROLÍNEAS ACTIVAS
 
 $consultaAerolineas = "SELECT COUNT(*) AS cantidad
-                       FROM Aerolineas";
+                       FROM Aerolineas
+                       WHERE activo = 1";
 
 $resultadoAerolineas = $conexion->query($consultaAerolineas);
 
@@ -68,7 +70,7 @@ $resultadoActividad = $conexion->query($consultaActividad);
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Administrador</title>
+    <title>Nuvia - Administrador</title>
 
     <link rel="icon" href="../imagenes/logo.png" type="image/png">
 
@@ -80,6 +82,7 @@ $resultadoActividad = $conexion->query($consultaActividad);
 
     <!-- CSS del administrador -->
     <link rel="stylesheet" href="../css/estilos-admin.css">
+    <link rel="stylesheet" href="../css/footer.css">
 
 </head>
 
@@ -126,7 +129,7 @@ $resultadoActividad = $conexion->query($consultaActividad);
                     <div>
 
                         <h3>
-                            Aerolíneas
+                            Aerolíneas activas
                         </h3>
 
                         <p class="numero-resumen">
@@ -299,7 +302,7 @@ $resultadoActividad = $conexion->query($consultaActividad);
 
 
     </main>
-
+    <?php include "../includes/footer.php"; ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>

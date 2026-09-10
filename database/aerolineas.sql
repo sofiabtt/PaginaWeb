@@ -45,7 +45,9 @@ CREATE TABLE `Aerolineas` (
   `nombreAerolinea` varchar(100) NOT NULL,
   `codigoIATA` varchar(3) NOT NULL,
   `descripcionAerolinea` varchar(200) NOT NULL,
-  `codPais` varchar(3) NOT NULL
+  `codPais` varchar(3) NOT NULL,
+  `activo` tinyint(1) NOT NULL DEFAULT 1,
+  `fechaEliminacion` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -58,7 +60,9 @@ CREATE TABLE `Novedades` (
   `codNovedad` int(11) NOT NULL,
   `textoNovedad` varchar(200) NOT NULL,
   `fechaPublicacionNovedad` varchar(10) NOT NULL,
-  `fechaExpiracionNovedad` varchar(10) NOT NULL
+  `fechaExpiracionNovedad` varchar(10) NOT NULL,
+  `activo` tinyint(1) NOT NULL DEFAULT 1,
+  `fechaEliminacion` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -72,7 +76,9 @@ CREATE TABLE `Promociones` (
   `descripcionPromocion` varchar(200) NOT NULL,
   `descuentoPromocion` decimal(10,0) NOT NULL,
   `codAerolinea` int(11) NOT NULL,
-  `estadoPromocion` varchar(20) NOT NULL DEFAULT 'Pendiente'
+  `estadoPromocion` varchar(20) NOT NULL DEFAULT 'Pendiente',
+  `activo` tinyint(1) NOT NULL DEFAULT 1,
+  `fechaEliminacion` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -132,7 +138,9 @@ CREATE TABLE `Vuelos` (
   `fechaSalidaVuelo` varchar(10) NOT NULL,
   `horaSalidaVuelo` varchar(5) NOT NULL,
   `precioVuelo` decimal(10,0) NOT NULL,
-  `asientosDisponibles` int(11) NOT NULL
+  `asientosDisponibles` int(11) NOT NULL,
+  `activo` tinyint(1) NOT NULL DEFAULT 1,
+  `fechaEliminacion` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --

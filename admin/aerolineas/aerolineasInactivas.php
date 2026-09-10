@@ -3,12 +3,12 @@
 include "../../php/conexionBD.php";
 
 
-// OBTENER LAS AEROLÍNEAS
+// OBTENER LAS AEROLÍNEAS DADAS DE BAJA
 
 $consulta = "SELECT *
              FROM Aerolineas
-             WHERE activo = 1
-             ORDER BY codAerolinea";
+             WHERE activo = 0
+             ORDER BY fechaEliminacion DESC";
 
 $resultado = $conexion->query($consulta);
 
@@ -85,80 +85,28 @@ $resultado = $conexion->query($consulta);
             <div>
 
                 <h1>
-                    Gestión de Aerolíneas
+                    Aerolíneas dadas de baja
                 </h1>
 
                 <p>
-                    Administra las aerolíneas registradas en el sistema.
+                    Consulta las aerolíneas que fueron dadas de baja del sistema.
                 </p>
 
             </div>
 
 
-            <div class="d-flex gap-2">
+            <a
+                href="gestionAerolineas.php"
+                class="btn btn-secondary"
+            >
 
-                <a
-                    href="aerolineasInactivas.php"
-                    class="btn btn-outline-secondary"
-                >
+                <i class="bi bi-arrow-left"></i>
 
-                    <i class="bi bi-archive"></i>
+                Volver a aerolíneas
 
-                    Aerolíneas dadas de baja
-
-                </a>
-
-
-                <a
-                    href="crearAerolinea.php"
-                    class="btn btn-primary"
-                >
-
-                    <i class="bi bi-plus-lg"></i>
-
-                    Crear aerolínea
-
-                </a>
-
-            </div>
+            </a>
 
         </section>
-
-
-
-        <!-- MENSAJES -->
-
-        <?php if (isset($_GET["creada"])) { ?>
-
-            <div class="alert alert-success">
-
-                La aerolínea se creó correctamente.
-
-            </div>
-
-        <?php } ?>
-
-
-        <?php if (isset($_GET["modificada"])) { ?>
-
-            <div class="alert alert-success">
-
-                La aerolínea se modificó correctamente.
-
-            </div>
-
-        <?php } ?>
-
-
-        <?php if (isset($_GET["eliminada"])) { ?>
-
-            <div class="alert alert-success">
-
-                La aerolínea se eliminó correctamente.
-
-            </div>
-
-        <?php } ?>
 
 
 
@@ -170,13 +118,23 @@ $resultado = $conexion->query($consulta);
 
 
                 <thead>
+
                     <tr>
+
                         <th>Código</th>
+
                         <th>Aerolínea</th>
+
                         <th>IATA</th>
+
                         <th>País</th>
+
+                        <th>Fecha de baja</th>
+
                         <th>Acciones</th>
+
                     </tr>
+
                 </thead>
 
 
@@ -204,28 +162,24 @@ $resultado = $conexion->query($consulta);
                             </td>
 
                             <td>
+                                <?php
+                                echo date(
+                                    "d/m/Y H:i",
+                                    strtotime($aerolinea["fechaEliminacion"])
+                                );
+                                ?>
+                            </td>
+
+                            <td> 
                                 <a
-                                    href="verAerolinea.php?id=<?php echo $aerolinea["codAerolinea"]; ?>"
+                                    href="verAerolinea.php?id=<?php echo $aerolinea["codAerolinea"]; ?>&origen=inactivas"
                                     class="btn btn-sm btn-outline-secondary"
                                 >
+
                                     <i class="bi bi-eye"></i>
+
                                     Ver
-                                </a>
 
-                                <a
-                                    href="modificarAerolinea.php?id=<?php echo $aerolinea["codAerolinea"]; ?>"
-                                    class="btn btn-sm btn-outline-primary"
-                                >
-                                    <i class="bi bi-pencil"></i>
-                                    Modificar
-                                </a>
-
-                                <a
-                                    href="eliminarAerolinea.php?id=<?php echo $aerolinea["codAerolinea"]; ?>"
-                                    class="btn btn-sm btn-outline-danger"
-                                >
-                                    <i class="bi bi-trash"></i>
-                                    Eliminar
                                 </a>
                             </td>
 
@@ -235,16 +189,16 @@ $resultado = $conexion->query($consulta);
 
                 </tbody>
 
+
             </table>
 
         </section>
 
 
     </main>
-    
-<script src="../../js/bootstrap.bundle.min.js"></script>
+
 
 </body>
 
-
 </html>
+

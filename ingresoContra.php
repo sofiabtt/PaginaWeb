@@ -1,15 +1,17 @@
-<?php
-session_start();
-?>
-<!DOCTYPE html>
-<html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!--Hace que la página se adapte al ancho de celulares, tablets y computadoras.-->
-        <title>Aerolinea</title>
-        
+<?php session_start();?>
 
+<!DOCTYPE html>
+
+<html lang="es">
+
+    <head>
+
+        <meta charset="UTF-8">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>Nuvia - Inicio de Sesión</title>
+        
         <link rel="stylesheet" href="css/bootstrap.min.css">
 
         <link rel="stylesheet" href="css/estilos.css">
@@ -19,6 +21,7 @@ session_start();
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     </head>
+
     <body>
 
         <header class="barra-superior navbar navbar-expand-lg">
@@ -29,6 +32,10 @@ session_start();
                 alt="logo"
                 width="60"
                 height="60">
+
+                <span class="fw-bold fs-4">
+                    Nuvia
+                </span>
             </a>
 
             <div class="ms-auto d-none d-lg-flex align-items-center">

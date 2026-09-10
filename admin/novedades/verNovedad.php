@@ -3,17 +3,18 @@
 include "../../php/conexionBD.php";
 
 
-// OBTENER EL CÓDIGO DE LA AEROLÍNEA
+// OBTENER EL CÓDIGO DE LA NOVEDAD
 
 $id = $_GET["id"];
+
 $origen = $_GET["origen"] ?? "";
 
 
-// BUSCAR LA AEROLÍNEA
+// BUSCAR LA NOVEDAD
 
 $consulta = "SELECT *
-             FROM Aerolineas
-             WHERE codAerolinea = ?";
+             FROM Novedades
+             WHERE codNovedad = ?";
 
 $stmt = $conexion->prepare($consulta);
 
@@ -23,7 +24,7 @@ $stmt->execute();
 
 $resultado = $stmt->get_result();
 
-$aerolinea = $resultado->fetch_assoc();
+$novedad = $resultado->fetch_assoc();
 
 ?>
 
@@ -84,7 +85,7 @@ $aerolinea = $resultado->fetch_assoc();
             <div>
 
                 <h1>
-                    Información de la aerolínea
+                    Información de la novedad
                 </h1>
 
             </div>
@@ -94,68 +95,23 @@ $aerolinea = $resultado->fetch_assoc();
 
         <section class="tabla-contenedor">
 
-            <?php if ($aerolinea) { ?>
+            <?php if ($novedad) { ?>
 
                 <div class="p-4">
 
                     <h2 class="mb-4">
-                        <?php
-                        echo htmlspecialchars(
-                            $aerolinea["nombreAerolinea"]
-                        );
-                        ?>
+                        Novedad #<?php echo $novedad["codNovedad"]; ?>
                     </h2>
 
-                    <p>
-
-                        <strong>
-                            Estado:
-                        </strong>
-
-                        <?php if ($aerolinea["activo"] == 1) { ?>
-
-                            <span class="badge bg-success">
-                                Activa
-                            </span>
-
-                        <?php } else { ?>
-
-                            <span class="badge bg-danger">
-                                Dada de baja
-                            </span>
-
-                        <?php } ?>
-
-                    </p>
-
-                    <?php if ($aerolinea["activo"] == 0) { ?>
-
-                        <p>
-
-                            <strong>
-                                Fecha de baja:
-                            </strong>
-
-                            <?php
-                            echo date(
-                                "d/m/Y H:i",
-                                strtotime($aerolinea["fechaEliminacion"])
-                            );
-                            ?>
-
-                        </p>
-
-                    <?php } ?>
-
 
                     <p>
 
                         <strong>
-                            Código:
+                            Fecha de publicación:
                         </strong>
 
                         <?php
-                        echo $aerolinea["codAerolinea"];
+                        echo $novedad["fechaPublicacionNovedad"];
                         ?>
 
                     </p>
@@ -164,28 +120,11 @@ $aerolinea = $resultado->fetch_assoc();
                     <p>
 
                         <strong>
-                            Código IATA:
+                            Fecha de expiración:
                         </strong>
 
                         <?php
-                        echo htmlspecialchars(
-                            $aerolinea["codigoIATA"]
-                        );
-                        ?>
-
-                    </p>
-
-
-                    <p>
-
-                        <strong>
-                            País:
-                        </strong>
-
-                        <?php
-                        echo htmlspecialchars(
-                            $aerolinea["codPais"]
-                        );
+                        echo $novedad["fechaExpiracionNovedad"];
                         ?>
 
                     </p>
@@ -195,7 +134,7 @@ $aerolinea = $resultado->fetch_assoc();
 
 
                     <h5>
-                        Descripción
+                        Novedad
                     </h5>
 
 
@@ -204,7 +143,7 @@ $aerolinea = $resultado->fetch_assoc();
                         <?php
                         echo nl2br(
                             htmlspecialchars(
-                                $aerolinea["descripcionAerolinea"]
+                                $novedad["textoNovedad"]
                             )
                         );
                         ?>
@@ -215,7 +154,7 @@ $aerolinea = $resultado->fetch_assoc();
                     <div class="mt-4">
 
                         <a
-                            href="<?php echo ($origen == "inactivas") ? "aerolineasInactivas.php" : "gestionAerolineas.php"; ?>"
+                            href="<?php echo ($origen == "inactivas") ? "novedadesInactivas.php" : "gestionNovedades.php"; ?>"
                             class="btn btn-secondary"
                         >
 
@@ -234,18 +173,16 @@ $aerolinea = $resultado->fetch_assoc();
 
                 <div class="alert alert-danger m-4">
 
-                    No se encontró la aerolínea.
+                    No se encontró la novedad.
 
                 </div>
 
                 <div class="m-4">
 
                     <a
-                        href="<?php echo ($origen == "inactivas") ? "aerolineasInactivas.php" : "gestionAerolineas.php"; ?>"
+                        href="<?php echo ($origen == "inactivas") ? "novedadesInactivas.php" : "gestionNovedades.php"; ?>"
                         class="btn btn-secondary"
                     >
-
-                        <i class="bi bi-arrow-left"></i>
 
                         Volver
 
@@ -264,3 +201,4 @@ $aerolinea = $resultado->fetch_assoc();
 </body>
 
 </html>
+

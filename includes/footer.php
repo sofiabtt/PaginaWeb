@@ -23,7 +23,7 @@ $paginaActual = basename($_SERVER["PHP_SELF"]);
                 <ul>
                 <?php if ($estaLogueado) { ?>
                     <li><a href="#">Mi perfil</a></li>
-                    <li><a href="#">Cerrar sesión</a></li>
+                    <li><a href="/PaginaWeb/php/cerrarSesion.php">Cerrar sesión</a></li>
                     <li><a href="#">Eliminar cuenta</a></li>
                 <?php } else { ?>
                     <li><a href="inicioSesion.php">Iniciar sesión</a></li>
@@ -40,19 +40,19 @@ $paginaActual = basename($_SERVER["PHP_SELF"]);
             </div>
 
             <div class="footer-columna col-6 col-lg-3">
-                <h4>NOMBRE-EMPRESA</h4>
+                <h4>Nuvia</h4>
                 <ul>
                     <li><a href="#">Preguntas frecuentes</a></li>
                     <li><a href="#">Acerca de nosotros</a></li>
                     <li><a href="tel:341 9 6551718">341 9 6551718</a></li>
-                    <li><a href="mailto:contacto@nombreEmpresa.com">contacto@nombreEmpresa.com</a></li>
+                    <li><a href="mailto:contacto@nombreEmpresa.com">contacto@Nuvia.com</a></li>
                 </ul>
             </div>
 
             <div class="footer-columna col-12 col-lg-4">
                 <h4>Mapa del sitio</h4>
                 
-                <?php if($tipoUsuario === null) { ?>
+                <?php if(!$estaLogueado) { ?>
                     <div class="row">
                         <div class="col-6">
                             <ul>
@@ -91,7 +91,7 @@ $paginaActual = basename($_SERVER["PHP_SELF"]);
                     </div>
                 <?php } ?>
 
-                <?php if($tipoUsuario === "admin") { ?>
+                <?php if($tipoUsuario === "administrador") { ?>
                     <div class="row">
                         <div class="col-6">
                             <ul>
@@ -125,7 +125,7 @@ $paginaActual = basename($_SERVER["PHP_SELF"]);
             <div class="row">
                 <div class="col-12 text-center">
                     <p>
-                        &copy; <?php echo date("Y"); ?> NOMBRE-EMPRESA. Todos los derechos reservados. 
+                        &copy; <?php echo date("Y"); ?> Nuvia. Todos los derechos reservados. 
                         <span class="separator">|</span>
                         <a href="#">Términos y condiciones</a>
                         <span class="separator">|</span>

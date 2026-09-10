@@ -21,7 +21,8 @@ $codAerolinea = $_GET["id"];
 
 $consulta = "SELECT *
              FROM Aerolineas
-             WHERE codAerolinea = ?";
+             WHERE codAerolinea = ?
+             AND activo = 1";
 
 
 $stmt = $conexion->prepare($consulta);
@@ -45,7 +46,7 @@ $aerolinea = $resultado->fetch_assoc();
 $stmt->close();
 
 
-// SI NO EXISTE
+// SI NO EXISTE O YA ESTÁ DADA DE BAJA
 
 if (!$aerolinea) {
 
@@ -66,9 +67,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nombre = $aerolinea["nombreAerolinea"];
 
 
-    // ELIMINAR
+    // BAJA LÓGICA
 
-    $consulta = "DELETE FROM Aerolineas
+    $consulta = "UPDATE Aerolineas
+                 SET activo = 0,
+                     fechaEliminacion = NOW()
                  WHERE codAerolinea = ?";
 
 
@@ -154,7 +157,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     >
 
     <title>
-        Admin - Eliminar Aerolínea
+        Nuvia - Administrador
     </title>
 
 
@@ -331,3 +334,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </body>
 
 </html>
+

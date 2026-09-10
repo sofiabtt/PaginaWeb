@@ -304,7 +304,7 @@ $consultaAerolineas = $conexion->query("
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>AeroFly Admin - Agregar CEO</title>
+    <title>Nuvia - Administrador</title>
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
@@ -323,18 +323,7 @@ $consultaAerolineas = $conexion->query("
 
 <body>
 
-
-    <!-- =========================
-         NAVBAR
-    ========================== -->
-
     <?php include "../includes/navbarAdmin.php"; ?>
-
-
-
-    <!-- =========================
-         CONTENIDO
-    ========================== -->
 
     <main class="contenido-admin">
 
@@ -356,16 +345,10 @@ $consultaAerolineas = $conexion->query("
         </section>
 
 
-
-        <!-- =========================
-             FORMULARIO
-        ========================== -->
-
         <section class="tabla-contenedor">
 
 
             <form method="POST">
-
 
                 <!-- NOMBRE Y APELLIDO -->
 
@@ -385,8 +368,6 @@ $consultaAerolineas = $conexion->query("
 
                 </div>
 
-
-
                 <!-- EMAIL -->
 
                 <div class="mb-3">
@@ -405,8 +386,6 @@ $consultaAerolineas = $conexion->query("
 
                 </div>
 
-
-
                 <!-- TELÉFONO -->
 
                 <div class="mb-3">
@@ -424,8 +403,6 @@ $consultaAerolineas = $conexion->query("
                     >
 
                 </div>
-
-
 
                 <!-- AEROLÍNEA -->
 
@@ -461,8 +438,6 @@ $consultaAerolineas = $conexion->query("
 
                 </div>
 
-
-
                 <!-- INFORMACIÓN -->
 
                 <div class="alert alert-info">
@@ -471,8 +446,6 @@ $consultaAerolineas = $conexion->query("
                     con un enlace para establecer su contraseña.
 
                 </div>
-
-
 
                 <!-- BOTONES -->
 
