@@ -1,0 +1,158 @@
+.navbar {
+    width: 100%;
+    min-height: 80px;
+    padding: 5px 60px;
+    background: #fff;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.12);
+    position: relative;
+}
+
+.navbar-brand {
+    margin: 0;
+    padding-right: 60px;
+}
+
+.navbar-brand img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+}
+
+.navbar-nav-general {
+    margin-left: auto;
+    padding-right: 40px;
+    display: flex;
+    gap: 40px;
+}
+
+.nav-link {
+    color: #222;
+    font-weight: 600;
+    text-decoration: none;
+    margin: 0;
+    white-space: nowrap;
+    letter-spacing: 0.7px;
+}
+
+.nav-link:hover {
+    color: #684028;
+}
+
+.usuario-mobile {
+    display: none;
+}
+
+.saludo {
+    color: #684028;
+    font-size: 16px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.saludo i {
+    font-size: 22px;
+}
+
+.info-usuario {
+    background: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #684028;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.info-usuario:hover {
+    color: #72472c;
+}
+
+.info-usuario i {
+    font-size: 22px;
+}
+
+.menu-usuarios {
+    min-width: 190px;
+    border: none;
+    border-radius: 15px;
+    padding: 8px;
+    background: white;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.menu-usuarios .dropdown-item {
+    color: #684028;
+    padding: 12px 15px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.menu-usuarios .dropdown-item:hover {
+    background: #b8d8e8;
+    color: #684028;
+}
+
+.menu-usuarios .dropdown-divider {
+    margin: 6px 0;
+    border-color: #eee;
+}
+
+
+@media (max-width: 991.98px) {
+    .navbar {
+        height: auto;
+        min-height: 60px;
+        padding: 5px 25px;
+    }
+    
+    .navbar-collapse {
+        width: 100%;
+        padding: 20px 0 15px;
+    }
+
+    .usuario-mobile {
+        display: block;
+        padding: 0 0 15px;
+        margin-bottom: 5px;
+        border-bottom: 1px solid #eee;
+    }
+
+    .usuario-mobile a {
+        padding: 10px 0 0;
+    }
+
+    .navbar-nav-general { 
+        flex-direction: column; 
+        align-items: flex-start; 
+        margin: 0; 
+        padding: 10px 0; 
+        gap: 0; 
+        width: 100%;
+    }
+
+    .navbar-nav-general .nav-link { 
+        width: 100%; 
+        padding: 5px 0; 
+    } 
+
+    .opciones-cuenta {
+        display: none;
+    }
+
+}
+
+@media (min-width: 992px) { 
+    .usuario-mobile { 
+        display: none; 
+    }
+} 

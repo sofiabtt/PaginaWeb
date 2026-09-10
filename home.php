@@ -7,93 +7,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- <title>AeroFly</title> -->
+    <title>Nuvia</title>
     <link rel="icon" href="imagenes/logo.png" type="image/png">
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
-
+    <link rel="stylesheet" href="css/bootstrap-icons.css">
     <link rel="stylesheet" href="css/estiloshome.css?v=2">
     <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/navbar.css">
 
 </head>
 
 
 <body>
 
+<?php include("includes/navbar.php"); ?>
 
 <section class="hero">
-
-
-    <!-- NAVBAR -->
-
-    <nav class="navbar navbar-expand-lg">
-
-
-        <a class="navbar-brand" href="home.php">
-
-            <img 
-            src="imagenes/logo.png" 
-            alt="logo"
-            width="60"
-            height="60">
-
-        </a>
-
-
-
-        <!-- Botón hamburguesa (solo celular) -->
-
-        <button class="navbar-toggler d-lg-none btn-menu">
-
-            ☰
-
-        </button>
-
-
-
-        <!-- Menú PC -->
-
-        <div class="menu-principal ms-auto d-none d-lg-flex align-items-center">
-
-            <a href="#cont"   class="nav-menu">
-                Contacto
-            </a>
-            
-            <a href="destinos.html" class="nav-menu">
-
-                Destinos
-
-            </a>
-
-            <a href="novedades.html" class="nav-menu">
-
-                Novedades
-
-            </a>
-
-            <a href="ofertas.html" class="nav-menu">
-
-                Ofertas
-
-            </a>
-
-            <a href="inicioSesion.php" class="btn-iniciosesion ms-4">
-                Iniciar Sesion
-            </a>
-
-            <a href="registro.html" class="btn-registro ms-4">
-                Registrate
-            </a>
-
-
-        </div>
-
-
-    </nav>
-
-
-
     <!-- BUSCADOR -->
 
 
