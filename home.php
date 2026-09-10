@@ -34,15 +34,15 @@ $consultaAeropuertos = $conexion->query("
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Nuvia</title>
-
     <link rel="icon" href="imagenes/logo.png" type="image/png">
 
     <link rel="stylesheet" href="css/bootstrap.min.css">
-
+    <link rel="stylesheet" href="css/bootstrap-icons.css">
     <link rel="stylesheet" href="css/estiloshome.css?v=2">
     <link rel="stylesheet" href="css/estilos-usuario.css?v=2">
 
     <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/navbar.css">
     
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
@@ -51,27 +51,9 @@ $consultaAeropuertos = $conexion->query("
 
 <body>
 
+<?php include("includes/navbar.php"); ?>
 
 <section class="hero">
-
-
-    <!-- NAVBAR -->
-
-    <?php
-
-    if (
-        isset($_SESSION["tipoUsuario"]) &&
-        $_SESSION["tipoUsuario"] === "usuario"
-    ) {
-        include "usuario/includes/navbarUsuario.php";
-    } else {
-        include "includes/navbar.php";
-    }
-
-    ?>
-
-
-
     <!-- BUSCADOR -->
 
 

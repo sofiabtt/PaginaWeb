@@ -46,21 +46,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Guardamos los datos del usuario en la sesión
 
-        $_SESSION["codUsuario"] =
-            $usuario["codUsuario"];
-
-        $_SESSION["nombreUsuario"] =
-            $usuario["nombreUsuario"];
-
-        $_SESSION["tipoUsuario"] =
-            $usuario["tipoUsuario"];
+        $_SESSION["codUsuario"] = $usuario["codUsuario"];
+        $_SESSION["nombreUsuario"] = $usuario["nombreUsuario"];
+        $_SESSION["emailUsuario"] = $usuario["emailUsuario"];
+        $_SESSION["tipoUsuario"] = $usuario["tipoUsuario"];
 
         $_SESSION["usuario"] =
             $gmail;
 
 
-        // Según el tipo de usuario,
-        // definimos a dónde entra
+        // Según el tipo de usuario, definimos a dónde entra
 
         $destino = "../home.php";
 
@@ -97,15 +92,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             "administrador"
         ) {
 
-            $destino =
-                "../admin/admin.php";
+            $destino = "../home.php";
+
         }
 
 
         if ($usuario["tipoUsuario"] == "ceo") {
 
-            $destino =
-                "../ceo/ceo.php";
+            $destino = "../home.php";
+
         }
 
 
