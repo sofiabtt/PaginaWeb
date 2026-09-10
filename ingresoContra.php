@@ -98,6 +98,12 @@
                             Contraseña incorrecta.
                         </p>
                     <?php endif; ?>
+
+                    <?php if (isset($_GET["error"]) && $_GET["error"] == "no_verificado"): ?>
+                        <p class="text-danger mt-2 mb-0">
+                            Primero verificá tu cuenta desde el enlace que enviamos a tu correo.
+                        </p>
+                    <?php endif; ?>
                     
                 </div>
 
@@ -109,7 +115,7 @@
                             Olvidé la contraseña
                         </p>
 
-                        <a href="#" class="btn btn-outline-primary">
+                        <a href="recuperarContrasena.php" class="btn btn-outline-primary">
                             Recuperar
                         </a>
                     </div>

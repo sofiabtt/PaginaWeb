@@ -18,6 +18,30 @@
 
 <body>
 
+    <?php if (isset($_GET["registro"]) && $_GET["registro"] === "pendiente") { ?>
+        <div class="alert alert-success position-fixed top-0 start-50 translate-middle-x mt-3" style="z-index: 20;">
+            Te enviamos un enlace por correo. Abrilo para validar tu cuenta.
+        </div>
+    <?php } ?>
+
+    <?php if (isset($_GET["verificacion"]) && $_GET["verificacion"] === "correcta") { ?>
+        <div class="alert alert-success position-fixed top-0 start-50 translate-middle-x mt-3" style="z-index: 20;">
+            Tu cuenta fue verificada. Ya podés iniciar sesión.
+        </div>
+    <?php } ?>
+
+    <?php if (isset($_GET["verificacion"]) && in_array($_GET["verificacion"], ["invalida", "vencida"], true)) { ?>
+        <div class="alert alert-danger position-fixed top-0 start-50 translate-middle-x mt-3" style="z-index: 20;">
+            El enlace de verificación es inválido o venció.
+        </div>
+    <?php } ?>
+
+    <?php if (isset($_GET["clave"]) && $_GET["clave"] === "actualizada") { ?>
+        <div class="alert alert-success position-fixed top-0 start-50 translate-middle-x mt-3" style="z-index: 20;">
+            La contraseña se actualizó. Ya podés iniciar sesión.
+        </div>
+    <?php } ?>
+
     <header class="barra-superior navbar navbar-expand-lg">
 
         <a class="navbar-brand">

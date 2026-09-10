@@ -10,7 +10,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     include "conexionBD.php";
 
     $consulta = $conexion->prepare(
-        "SELECT codUsuario, nombreUsuario, claveUsuario, tipoUsuario, codAerolinea
+        "SELECT codUsuario, nombreUsuario, claveUsuario, tipoUsuario,
+                codAerolinea, verificado
          FROM Usuarios
          WHERE emailUsuario = ?"
     );
@@ -23,7 +24,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $usuario = $resultado->fetch_assoc();
 
-    if ($usuario && password_verify($contrasena, $usuario["claveUsuario"])) {
+    if (
+        $usuario
+        && password_verify($contrasena, $usuario["claveUsuario"])
+        && (int) $usuario["verificado"] !== 1
+    ) {
+
+        $destino = "../ingresoContra.php?error=no_verificado";
+
+    } elseif ($usuario && password_verify($contrasena, $usuario["claveUsuario"])) {
 
         // Guardamos los datos del usuario en la sesión
 
@@ -42,6 +51,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION["tipoUsuario"] = $usuario["tipoUsuario"];
 
         $destino = "../home.php";
+
+        if ($usuario["tipoUsuario"] == "usuario") {
+
+            $destino = "../usuario/vuelos/buscarVuelos.php";
+
+        }
 
 
         if ($usuario["tipoUsuario"] == "administrador") {
