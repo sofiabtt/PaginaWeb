@@ -24,10 +24,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     }
 
-    $gmail = $_SESSION["gmailRegistro"];
-    $nombreApellido = $_POST["nombreApellido"];
-    $telefono = $_POST["telefono"];
-    $contrasena = $_POST["contrasena"];
+    $gmail = trim($_SESSION["gmailRegistro"]);
+    $nombreApellido = trim($_POST["nombreApellido"] ?? "");
+    $telefono = trim($_POST["telefono"] ?? "");
+    $contrasena = $_POST["contrasena"] ?? "";
+
+    if (
+        !filter_var($gmail, FILTER_VALIDATE_EMAIL)
+        || $nombreApellido === ""
+        || $telefono === ""
+        || strlen($contrasena) < 8
+    ) {
+        header("Location: ../registroDatosPersonales.html?error=datos_invalidos");
+        exit();
+    }
 
     include "conexionBD.php";
 
@@ -40,7 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $verificado = 0;
 
-    $codigoVerificacion = random_int(100000, 999999);
+    $tokenVerificacion = bin2hex(random_bytes(32));
 
     $fechaVerificacion = date(
         'Y-m-d H:i:s',
@@ -65,14 +75,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     );
 
     $consulta->bind_param(
-        "ssssssis",
+        "sssssiss",
         $gmail,
         $nombreApellido,
         $telefono,
         $claveHash,
         $tipoUsuario,
         $verificado,
-        $codigoVerificacion,
+        $tokenVerificacion,
         $fechaVerificacion
     );
 
@@ -112,21 +122,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $mail->Subject = 'Verifica tu cuenta';
 
+            $esHttps = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on';
+            $protocolo = $esHttps ? 'https' : 'http';
+            $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
+            $rutaProyecto = rtrim(dirname(dirname($_SERVER['SCRIPT_NAME'])), '/');
+            $enlaceVerificacion = $protocolo . '://' . $host
+                . $rutaProyecto . '/php/verificarCuenta.php?token='
+                . urlencode($tokenVerificacion);
+
             $mail->Body = "
-
                 <h2>Verificación de cuenta</h2>
-
-                <p>Tu código de verificación es:</p>
-
-                <h1>$codigoVerificacion</h1>
-
-                <p>Ingresalo en la página para verificar tu cuenta.</p>
-
+                <p>Hola " . htmlspecialchars($nombreApellido) . ",</p>
+                <p>Hacé clic en el siguiente enlace para validar tu cuenta:</p>
+                <p><a href=\"$enlaceVerificacion\">Verificar mi cuenta</a></p>
+                <p>El enlace vence dentro de 24 horas.</p>
             ";
 
             $mail->send();
 
-            $destino = "../registro-CodVerif.php";
+            unset($_SESSION["gmailRegistro"]);
+            $destino = "../inicioSesion.php?registro=pendiente";
 
 
         } catch (Exception $e) {
