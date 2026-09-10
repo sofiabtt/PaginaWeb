@@ -7,7 +7,7 @@ include "../../php/conexionBD.php";
 
 $consulta = "SELECT *
              FROM Aerolineas
-             WHERE activo = 1
+             WHERE activoAerolinea = 1
              ORDER BY codAerolinea";
 
 $resultado = $conexion->query($consulta);

@@ -10,14 +10,14 @@ include "../php/conexionBD.php";
 
 // CANTIDAD DE AEROLÍNEAS ACTIVAS
 
-$consultaAerolineas = "SELECT COUNT(*) AS cantidad
-                       FROM Aerolineas
-                       WHERE activo = 1";
+$consultaAerolineas = "
+    SELECT COUNT(*) AS cantidad
+    FROM Aerolineas
+    WHERE activoAerolinea = 1
+";
 
 $resultadoAerolineas = $conexion->query($consultaAerolineas);
-
 $aerolineas = $resultadoAerolineas->fetch_assoc();
-
 
 // CANTIDAD DE PROMOCIONES PENDIENTES
 

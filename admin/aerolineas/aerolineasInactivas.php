@@ -7,8 +7,8 @@ include "../../php/conexionBD.php";
 
 $consulta = "SELECT *
              FROM Aerolineas
-             WHERE activo = 0
-             ORDER BY fechaEliminacion DESC";
+             WHERE activoAerolinea = 0
+             ORDER BY fechaEliminacionAerolinea DESC";
 
 $resultado = $conexion->query($consulta);
 
