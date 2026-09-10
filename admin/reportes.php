@@ -144,7 +144,7 @@
 
                         <td>
 
-                            <a href="#" class="btn btn-sm btn-primary">
+                            <a href="reportes/usuarios.php" class="btn btn-sm btn-primary">
 
                                 <i class="bi bi-file-earmark-bar-graph"></i>
 

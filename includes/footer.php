@@ -22,17 +22,16 @@ $paginaActual = basename($_SERVER["PHP_SELF"]);
 
                 <ul>
                 <?php if ($estaLogueado) { ?>
-                    <li><a href="#">Mi perfil</a></li>
+                    <li><a href="/PaginaWeb/usuario/perfil.php">Mi perfil</a></li>
                     <li><a href="/PaginaWeb/php/cerrarSesion.php">Cerrar sesión</a></li>
-                    <li><a href="#">Eliminar cuenta</a></li>
                 <?php } else { ?>
                     <li><a href="inicioSesion.php">Iniciar sesión</a></li>
                     <li><a href="registroDatosPersonales.html">Registrarse</a></li>
-                    <li><a href="#">Recuperar contraseña</a></li> 
+                    <li><a href="/PaginaWeb/recuperarContrasena.php">Recuperar contraseña</a></li> 
                 <?php } ?>
                 
                 <?php if($tipoUsuario === "usuario") { ?>
-                    <li><a href="#">Mis viajes</a></li>
+                    <li><a href="/PaginaWeb/usuario/reservas/gestionReservas.php">Mis viajes</a></li>
                 <?php } elseif($tipoUsuario === "ceo"){ ?>
                     <li><a href="#">Mis aerolíneas</a></li>
                 <?php } ?>
@@ -76,16 +75,16 @@ $paginaActual = basename($_SERVER["PHP_SELF"]);
                         <div class="col-6">
                             <ul>
                                 <li><a href="#">Inicio</a></li>
-                                <li><a href="#">Buscar Vuelos</a></li>
+                                <li><a href="/PaginaWeb/usuario/vuelos/buscarVuelos.php">Buscar Vuelos</a></li>
                                 <li><a href="#">Promociones vigentes</a></li>
-                                <li><a href="#">Novedades</a></li>
+                                <li><a href="/PaginaWeb/usuario/novedades.php">Novedades</a></li>
                             </ul>
                         </div>
                     
                         <div class="col-6">
                             <ul>
-                                <li><a href="#">Mis reservas</a></li>
-                                <li><a href="#">Historial de compras</a></li>
+                                <li><a href="/PaginaWeb/usuario/reservas/gestionReservas.php">Mis reservas</a></li>
+                                <li><a href="/PaginaWeb/usuario/historialCompras.php">Historial de compras</a></li>
                             </ul>
                         </div>
                     </div>
