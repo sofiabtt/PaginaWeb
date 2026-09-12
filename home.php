@@ -86,13 +86,55 @@
 
             </a>
 
-            <a href="inicioSesion.php" class="btn-iniciosesion ms-4">
-                Iniciar Sesion
-            </a>
+            <?php if (
+    isset($_SESSION["tipoUsuario"])
+    && $_SESSION["tipoUsuario"] === "usuario"
+) { ?>
 
-            <a href="registro.html" class="btn-registro ms-4">
-                Registrate
-            </a>
+    <a
+        href="usuario/reservas/gestionReservas.php"
+        class="nav-menu"
+    >
+        Mis reservas
+    </a>
+
+    <a
+        href="usuario/perfil.php"
+        class="btn-iniciosesion ms-4"
+    >
+        <i class="bi bi-person-circle"></i>
+
+        <?php
+        echo htmlspecialchars(
+            $_SESSION["nombreUsuario"]
+        );
+        ?>
+    </a>
+
+    <a
+        href="php/cerrarSesion.php"
+        class="btn-registro ms-4"
+    >
+        Cerrar sesión
+    </a>
+
+<?php } else { ?>
+
+    <a
+        href="inicioSesion.php"
+        class="btn-iniciosesion ms-4"
+    >
+        Iniciar sesión
+    </a>
+
+    <a
+        href="registro.html"
+        class="btn-registro ms-4"
+    >
+        Registrate
+    </a>
+
+<?php } ?>
 
 
         </div>

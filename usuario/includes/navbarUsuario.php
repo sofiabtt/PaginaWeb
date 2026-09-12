@@ -1,7 +1,19 @@
 <nav class="navbar navbar-expand-lg">
-    <a class="navbar-brand" href="/PaginaWeb/home.php">
-        <img src="/PaginaWeb/imagenes/logo.png" alt="Logo de Nuvia" width="60" height="60">
-        <span class="fw-bold fs-4">Nuvia</span>
+    <nav class="navbar navbar-expand-lg">
+    <a
+        class="navbar-brand"
+        href="/PaginaWeb/home.php"
+    >
+        <img
+            src="/PaginaWeb/imagenes/logo.png"
+            alt="Logo de Nuvia"
+            width="60"
+            height="60"
+        >
+
+        <span class="fw-bold fs-4">
+            Nuvia
+        </span>
     </a>
 
     <div class="menu-admin-navbar">
