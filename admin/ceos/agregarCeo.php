@@ -45,12 +45,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $codAerolinea = $_POST["codAerolinea"];
 
 
-    // Generar token
+    // Generar toke
     $token = bin2hex(random_bytes(32));
 
 
     // El enlace vence en 24 horas
-    $fechaExpiracion = date(
+    $fechaVerificacion = date(
         "Y-m-d H:i:s",
         strtotime("+24 hours")
     );
@@ -59,9 +59,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Datos del CEO
     $tipoUsuario = "ceo";
 
-    $verificado = 1;
-
-    $debeCambiarClave = 1;
+    // Todavía no completó la creación de su cuenta
+    $verificado = 0;
 
     // Todavía no tiene contraseña
     $clave = NULL;
@@ -80,16 +79,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             telefonoUsuario,
             verificado,
             tokenVerificacion,
-            fechaVerificacion,
-            codAerolinea,
-            debeCambiarClave
+            fechaVerificacion
         )
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
     ");
 
 
     $consulta->bind_param(
-        "sssssissis",
+        "sssssiss",
         $nombre,
         $clave,
         $tipoUsuario,
@@ -97,9 +94,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $telefono,
         $verificado,
         $token,
-        $fechaExpiracion,
-        $codAerolinea,
-        $debeCambiarClave
+        $fechaVerificacion
     );
 
 
@@ -108,6 +103,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // =========================
 
     if ($consulta->execute()) {
+
+        $codUsuarioNuevo = $conexion->insert_id;
+
+        $asignarAerolinea = $conexion->prepare("
+            UPDATE Aerolineas
+            SET codUsuario = ?
+            WHERE codAerolinea = ?
+        ");
+
+        $asignarAerolinea->bind_param(
+            "ii",
+            $codUsuarioNuevo,
+            $codAerolinea
+        );
+
+        $asignarAerolinea->execute();
+
+        $asignarAerolinea->close();
 
             // =========================
             // REGISTRAR ACTIVIDAD
@@ -196,9 +209,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // Enlace para crear contraseña
 
-            $enlace =
-                "http://localhost/PaginaWeb/html/admin/crear-clave.php?token="
-                . urlencode($token);
+            $enlace ="http://localhost/PaginaWeb/admin/ceos/crearClave.php?token=". urlencode($token);
 
 
             // Contenido del correo
@@ -257,7 +268,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // Volver a gestión de CEOs
 
-            header("Location: gestion-ceos.php");
+            header("Location: gestionCeos.php");
 
             exit();
 

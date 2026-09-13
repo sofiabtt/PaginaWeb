@@ -1,127 +1,152 @@
 <?php
 
-session_start();
+    session_start();
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
-
-// VERIFICAR QUE SEA CEO
-
-if (!isset($_SESSION["tipoUsuario"]) || $_SESSION["tipoUsuario"] != "ceo") {
-
-    header("Location: ../../inicioSesion.php");
-    exit();
-
-}
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
 
 
-// VERIFICAR QUE TENGA UNA AEROLÍNEA ASIGNADA
+    // CONEXIÓN
 
-if (!isset($_SESSION["codAerolinea"])) {
-
-    echo "El CEO no tiene una aerolínea asignada.";
-    exit();
-
-}
+    include "../../php/conexionBD.php";
 
 
-$codAerolinea = $_SESSION["codAerolinea"];
+    // VERIFICAR QUE TENGA UNA AEROLÍNEA ASIGNADA
+
+    if (!isset($_SESSION["codUsuario"])) {
+
+        echo "No se pudo identificar al CEO.";
+        exit();
+
+    }
+
+    $codUsuario = $_SESSION["codUsuario"];
 
 
-// PROCESAR FORMULARIO
+    $consultaAerolinea = $conexion->prepare("
+        SELECT codAerolinea
+        FROM Aerolineas
+        WHERE codUsuario = ?
+    ");
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $consultaAerolinea->bind_param(
+        "i",
+        $codUsuario
+    );
 
-    $origen = trim($_POST["origen"]);
-    $destino = trim($_POST["destino"]);
-    $fecha = $_POST["fecha"];
-    $hora = $_POST["hora"];
-    $precio = $_POST["precio"];
-    $asientos = $_POST["asientos"];
+    $consultaAerolinea->execute();
 
-
-    // VALIDAR CAMPOS
-
-    if (
-        empty($origen) ||
-        empty($destino) ||
-        empty($fecha) ||
-        empty($hora) ||
-        empty($precio) ||
-        empty($asientos)
-    ) {
-
-        $error = "Debe completar todos los campos.";
-
-    } elseif ($origen == $destino) {
-
-        $error = "El origen y el destino no pueden ser iguales.";
-
-    } elseif ($precio <= 0) {
-
-        $error = "El precio debe ser mayor a 0.";
-
-    } elseif ($asientos <= 0) {
-
-        $error = "La cantidad de asientos debe ser mayor a 0.";
-
-    } else {
-
-        include "../../php/conexionBD.php";
+    $resultadoAerolinea = $consultaAerolinea->get_result();
 
 
-        // INSERTAR VUELO
+    if ($resultadoAerolinea->num_rows != 1) {
 
-        $consulta = $conexion->prepare(
-            "INSERT INTO Vuelos
-            (
-                codAerolinea,
-                origenVuelo,
-                destinoVuelo,
-                fechaSalidaVuelo,
-                horaSalidaVuelo,
-                precioVuelo,
-                asientosDisponibles
-            )
-            VALUES (?, ?, ?, ?, ?, ?, ?)"
-        );
+        echo "El CEO no tiene una aerolínea asignada.";
+        exit();
+
+    }
+
+    $aerolinea = $resultadoAerolinea->fetch_assoc();
+
+    $codAerolinea = $aerolinea["codAerolinea"];
+
+    $consultaAerolinea->close();
 
 
-        $consulta->bind_param(
-            "issssdi",
-            $codAerolinea,
-            $origen,
-            $destino,
-            $fecha,
-            $hora,
-            $precio,
-            $asientos
-        );
+
+    // PROCESAR FORMULARIO
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+        $origen = trim($_POST["origen"]);
+        $destino = trim($_POST["destino"]);
+        $fecha = $_POST["fecha"];
+        $hora = $_POST["hora"];
+        $precio = $_POST["precio"];
+        $asientos = $_POST["asientos"];
 
 
-        if ($consulta->execute()) {
+        // VALIDAR CAMPOS
+
+        if (
+            empty($origen) ||
+            empty($destino) ||
+            empty($fecha) ||
+            empty($hora) ||
+            empty($precio) ||
+            empty($asientos)
+        ) {
+
+            $error = "Debe completar todos los campos.";
+
+        } elseif ($origen == $destino) {
+
+            $error = "El origen y el destino no pueden ser iguales.";
+
+        } elseif ($precio <= 0) {
+
+            $error = "El precio debe ser mayor a 0.";
+
+        } elseif ($asientos <= 0) {
+
+            $error = "La cantidad de asientos debe ser mayor a 0.";
+
+        } else {
+
+            include "../../php/conexionBD.php";
+
+
+            // INSERTAR VUELO
+
+            $consulta = $conexion->prepare(
+                "INSERT INTO Vuelos
+                (
+                    codAerolinea,
+                    origenVuelo,
+                    destinoVuelo,
+                    fechaSalidaVuelo,
+                    horaSalidaVuelo,
+                    precioVuelo,
+                    asientosDisponibles
+                )
+                VALUES (?, ?, ?, ?, ?, ?, ?)"
+            );
+
+
+            $consulta->bind_param(
+                "issssdi",
+                $codAerolinea,
+                $origen,
+                $destino,
+                $fecha,
+                $hora,
+                $precio,
+                $asientos
+            );
+
+
+            if ($consulta->execute()) {
+
+                $consulta->close();
+                $conexion->close();
+
+                header("Location: gestionVuelos.php?mensaje=creado");
+                exit();
+
+            } else {
+
+                $error = "No se pudo crear el vuelo.";
+
+            }
+
 
             $consulta->close();
             $conexion->close();
 
-            header("Location: gestionVuelos.php?mensaje=creado");
-            exit();
-
-        } else {
-
-            $error = "No se pudo crear el vuelo.";
-
         }
 
-
-        $consulta->close();
-        $conexion->close();
-
     }
-
-}
 
 ?>
 

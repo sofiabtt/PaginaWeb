@@ -1,4 +1,7 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 session_start();
 
@@ -11,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $consulta = $conexion->prepare(
         "SELECT codUsuario, nombreUsuario, claveUsuario, tipoUsuario,
-                codAerolinea, verificado
+                verificado
          FROM Usuarios
          WHERE emailUsuario = ?"
     );
@@ -42,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $_SESSION["tipoUsuario"] = $usuario["tipoUsuario"];
 
-        $_SESSION["codAerolinea"] = $usuario["codAerolinea"];
+        
 
 
         // Según el tipo de usuario, definimos a dónde entra
@@ -54,7 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($usuario["tipoUsuario"] == "usuario") {
 
-            $destino = "../usuario/vuelos/buscarVuelos.php";
+            $destino = "../usuario/usuario.php";
 
         }
 

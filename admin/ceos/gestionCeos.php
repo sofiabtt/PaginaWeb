@@ -78,7 +78,7 @@ include "../../php/conexionBD.php";
 
 
             <a
-                href="agregar-ceo.php"
+                href="agregarCeo.php"
                 class="btn btn-primary"
             >
 
@@ -132,30 +132,26 @@ include "../../php/conexionBD.php";
                 $consulta = $conexion->query("
 
                     SELECT
-
                         u.codUsuario,
-
                         u.nombreUsuario,
-
                         u.emailUsuario,
-
                         u.verificado,
-
-                        u.debeCambiarClave,
-
                         a.nombreAerolinea
 
                     FROM Usuarios u
 
                     LEFT JOIN Aerolineas a
-
-                        ON u.codAerolinea = a.codAerolinea
+                        ON a.codUsuario = u.codUsuario
 
                     WHERE u.tipoUsuario = 'ceo'
 
                     ORDER BY u.nombreUsuario
 
                 ");
+
+                if (!$consulta) {
+                    die("Error en la consulta: " . $conexion->error);
+                }
 
 
                 while ($ceo = $consulta->fetch_assoc()) {
@@ -227,18 +223,12 @@ include "../../php/conexionBD.php";
                             <?php
 
                             if (
-                                $ceo["debeCambiarClave"] == 1
+                                $ceo["verificado"] == 0
                             ) {
 
                             ?>
 
-                                <span
-                                    class="badge bg-warning text-dark"
-                                >
-
-                                    Pendiente
-
-                                </span>
+                                <h6 style="color: gray";>Pendiente</h6>
 
 
                             <?php
@@ -246,15 +236,7 @@ include "../../php/conexionBD.php";
                             } else {
 
                             ?>
-
-                                <span
-                                    class="badge bg-success"
-                                >
-
-                                    Activo
-
-                                </span>
-
+                                <h6 style="color: green";>Activo</h6>
 
                             <?php
 

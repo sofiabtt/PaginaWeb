@@ -37,8 +37,7 @@ $consulta = $conexion->prepare("
         nombreUsuario,
         emailUsuario,
         tokenVerificacion,
-        fechaVerificacion,
-        debeCambiarClave
+        fechaVerificacion
     FROM Usuarios
     WHERE tokenVerificacion = ?
       AND tipoUsuario = 'ceo'
@@ -139,7 +138,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             SET
                 claveUsuario = ?,
-                debeCambiarClave = 0,
+                verificado = 1,
                 tokenVerificacion = NULL,
                 fechaVerificacion = NULL
 
@@ -304,7 +303,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class="text-center mt-4">
 
                         <a
-                            href="../iniciosesion.html"
+                            href="../../inicioSesion.php"
                             class="btn btn-primary"
                         >
 

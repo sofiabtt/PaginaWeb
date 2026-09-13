@@ -1,54 +1,75 @@
 <?php
 
-session_start();
+    session_start();
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
-
-// VERIFICAR QUE SEA CEO
-
-if (!isset($_SESSION["tipoUsuario"]) || $_SESSION["tipoUsuario"] != "ceo") {
-
-    header("Location: ../../inicioSesion.php");
-    exit();
-
-}
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
 
 
-// VERIFICAR QUE TENGA UNA AEROLÍNEA ASIGNADA
+    // VERIFICAR QUE SEA CEO
 
-if (!isset($_SESSION["codAerolinea"])) {
+    if (!isset($_SESSION["tipoUsuario"]) || $_SESSION["tipoUsuario"] != "ceo") {
 
-    echo "El CEO no tiene una aerolínea asignada.";
-    exit();
+        header("Location: ../../inicioSesion.php");
+        exit();
 
-}
-
-
-$codAerolinea = $_SESSION["codAerolinea"];
+    }
 
 
-// CONEXIÓN
+    // CONEXIÓN
 
-include "../../php/conexionBD.php";
+    include "../../php/conexionBD.php";
+
+    if (!isset($_SESSION["codUsuario"])) {
+        echo "No se pudo identificar al CEO.";
+        exit();
+    }
+
+    $codUsuario = $_SESSION["codUsuario"];
+
+    $consultaAerolinea = $conexion->prepare("
+        SELECT codAerolinea
+        FROM Aerolineas
+        WHERE codUsuario = ?
+    ");
+
+    $consultaAerolinea->bind_param("i", $codUsuario);
+
+    $consultaAerolinea->execute();
+
+    $resultadoAerolinea = $consultaAerolinea->get_result();
+
+    if ($resultadoAerolinea->num_rows != 1) {
+        echo "El CEO no tiene una aerolínea asignada.";
+        exit();
+    }
+
+    $aerolinea = $resultadoAerolinea->fetch_assoc();
+
+    $codAerolinea = $aerolinea["codAerolinea"];
+
+    $consultaAerolinea->close();
 
 
-// OBTENER VUELOS DE LA AEROLÍNEA
+    // OBTENER VUELOS DE LA AEROLÍNEA
 
-$consulta = $conexion->prepare(
-    "SELECT *
-     FROM Vuelos
-     WHERE codAerolinea = ?
-     ORDER BY fechaSalidaVuelo ASC, horaSalidaVuelo ASC"
-);
+    $consulta = $conexion->prepare("
+    SELECT *
+    FROM Vuelos
+    WHERE codAerolinea = ?
+      AND activoVuelo = 1
+    ORDER BY fechaSalidaVuelo ASC, horaSalidaVuelo ASC
+    ");
 
-$consulta->bind_param("i", $codAerolinea);
+    $consulta->bind_param("i", $codAerolinea);
 
-$consulta->execute();
+    $consulta->execute();
 
-$resultado = $consulta->get_result();
+    $resultado = $consulta->get_result();
+    //borra
+    echo "Cantidad de vuelos encontrados: " . $resultado->num_rows . "<br>";
+    //borra
 
 ?>
 
@@ -310,24 +331,19 @@ $resultado = $consulta->get_result();
                                         <td>
 
                                             <a
-                                                href="#"
+                                                href="modificarVuelo.php?id=<?php echo $vuelo["codVuelo"]; ?>"
                                                 class="btn btn-sm btn-outline-primary"
-                                                title="Editar vuelo"
+                                                title="Modificar vuelo"
                                             >
-
                                                 <i class="bi bi-pencil"></i>
-
                                             </a>
 
-
                                             <a
-                                                href="#"
+                                                href="eliminarVuelo.php?id=<?php echo $vuelo["codVuelo"]; ?>"
                                                 class="btn btn-sm btn-outline-danger"
                                                 title="Eliminar vuelo"
                                             >
-
                                                 <i class="bi bi-trash"></i>
-
                                             </a>
 
                                         </td>

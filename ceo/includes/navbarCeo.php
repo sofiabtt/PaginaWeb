@@ -37,7 +37,7 @@
 
         <a
             class="nav-link"
-            href="/PaginaWeb/ceo/promociones/gestionPromociones.php"
+            href="/PaginaWeb/ceo/promociones/gestionPromocion.php"
         >
             Promociones
         </a>
