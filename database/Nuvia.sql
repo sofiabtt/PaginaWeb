@@ -45,7 +45,9 @@ CREATE TABLE `Aerolineas` (
   `nombreAerolinea` varchar(100) NOT NULL,
   `codigoIATA` varchar(3) NOT NULL,
   `descripcionAerolinea` varchar(200) NOT NULL,
-  `codPais` varchar(3) NOT NULL
+  `codPais` varchar(3) NOT NULL,
+  `activo` tinyint(1) NOT NULL DEFAULT 1,
+  `fechaEliminacion` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -58,7 +60,9 @@ CREATE TABLE `Novedades` (
   `codNovedad` int(11) NOT NULL,
   `textoNovedad` varchar(200) NOT NULL,
   `fechaPublicacionNovedad` varchar(10) NOT NULL,
-  `fechaExpiracionNovedad` varchar(10) NOT NULL
+  `fechaExpiracionNovedad` varchar(10) NOT NULL,
+  `activo` tinyint(1) NOT NULL DEFAULT 1,
+  `fechaEliminacion` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -72,7 +76,9 @@ CREATE TABLE `Promociones` (
   `descripcionPromocion` varchar(200) NOT NULL,
   `descuentoPromocion` decimal(10,0) NOT NULL,
   `codAerolinea` int(11) NOT NULL,
-  `estadoPromocion` varchar(20) NOT NULL DEFAULT 'Pendiente'
+  `estadoPromocion` varchar(20) NOT NULL DEFAULT 'Pendiente',
+  `activo` tinyint(1) NOT NULL DEFAULT 1,
+  `fechaEliminacion` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -86,7 +92,8 @@ CREATE TABLE `Reservas` (
   `codUsuario` int(11) NOT NULL,
   `codVuelo` int(11) NOT NULL,
   `fechaReservae` varchar(10) NOT NULL,
-  `estadoReserva` varchar(20) NOT NULL DEFAULT 'PendienteDePago'
+  `estadoReserva` varchar(20) NOT NULL DEFAULT 'PendienteDePago',
+  `precioFinalReserva` decimal(10,2) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -103,7 +110,9 @@ CREATE TABLE `Usuarios` (
   `emailUsuario` varchar(100) NOT NULL,
   `telefonoUsuario` varchar(20) NOT NULL,
   `verificado` tinyint(1) NOT NULL DEFAULT 0,
-  `tokenVerificacion` varchar(100) DEFAULT NULL
+  `tokenVerificacion` varchar(100) DEFAULT NULL,
+  `fechaVerificacion` DATETIME DEFAULT NULL
+
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -111,15 +120,7 @@ CREATE TABLE `Usuarios` (
 --
 
 INSERT INTO `Usuarios` (`codUsuario`, `nombreUsuario`, `claveUsuario`, `tipoUsuario`, `emailUsuario`, `telefonoUsuario`, `verificado`, `tokenVerificacion`) VALUES
-(1, 'Sofia Benetti', '$2y$10$gPTxhUcMQw5x2W0wgKYY3.hYCIQk.xPgwzhoJwQ2Plrq4/sMyILy.', 'administrador', 'sofiagibe@gmail.com', '3410000000', 1, NULL),
-(2, 'Catalina Molina', '$2y$10$pywJMPHCrFnuQheG6pG8AOCSocfhRqlVN6CIsPQIfZKJuHWCKqCPO', 'usuario', 'hzcqpdmjxftw@tempmail.ai', '3416551111', 0, 'baa8f00799fa0f3c7cc184ea6b5be98b8d5a0175b707153d696c405055b931fe'),
-(3, 'Camila Irina', '$2y$10$o1gLVlNGeoe6xM8DZsGbuO5jH5/yUKgW5FmWiHm7ioveUjI6GPcrG', 'usuario', 'l9pp8106zydd@tempmail.ai', '3416551212', 0, '8897502f04af47b7f04d8746632a88feb9af0cc2895d9eec7c9368c88be8916a'),
-(4, 'Ricardo Fort', '$2y$10$EtmH0PfX4sxSWaMomcvVcO5fr39COClnLn0VBlYeasZlqxJ8WSPle', 'usuario', 'm2n0pi1uawfg@tempmail.ai', '3416666666', 0, '100eae1fdbad9258f4c495187a29bed274aef713549fc74d278a3e9a13162ac8'),
-(5, 'Ricardo Fort', '$2y$10$a1NR1kugK33DXKEKheBVgOlPnlenBgNVAWf5o.gyz2Lieez/0GpoG', 'usuario', 'm2n0pi1uawfg@tempmail.ai', '3416666666', 0, '1eaf639be1073c436031a18d1fd10dad60b3a926ab8eb33acddaed525de126a7'),
-(6, 'Selena Gomez', '$2y$10$G0UZE3mxP8C5HTKdxSXsgO9SQZHnLCHmoL9nIVSWhrjY8NUpUjati', 'usuario', 'xelhrvrncbcy@tempmail.ai', '3214444444', 0, 'f183f17603b6b32df66ead310481150e009fcb76b25828b8f6b14d6405ea43de'),
-(7, 'Candela Moria', '$2y$10$Q77NaMD2GRtbXi0CjGy/F.gIcZyQsYw/sY6ghEnc/AVcwcQ0npQh.', 'usuario', 'm5q16juwwk7d@tempmail.ai', '341555555', 1, '753281'),
-(8, 'Madonna ', '$2y$10$xI.RJchgz/c4JKsNlAf9ke9CZzNwjrhU4yGsWYnMoPvhBan.x/zYG', 'usuario', '2gwsgkf65woy@tempmail.ai', '3416551213', 1, '135631'),
-(9, 'Camila Benetti', '$2y$10$mvpzFoTwnkEeRh8ibUeq9.R0.KqUDwa31iBZWO0pDVqYxTC4lE7US', 'usuario', 'camibenetti4@gmail.com', '3415555555', 0, '990721');
+(1, 'Sofia Benetti', '$2y$10$gPTxhUcMQw5x2W0wgKYY3.hYCIQk.xPgwzhoJwQ2Plrq4/sMyILy.', 'administrador', 'sofiagibe@gmail.com', '3410000000', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -135,7 +136,9 @@ CREATE TABLE `Vuelos` (
   `fechaSalidaVuelo` varchar(10) NOT NULL,
   `horaSalidaVuelo` varchar(5) NOT NULL,
   `precioVuelo` decimal(10,0) NOT NULL,
-  `asientosDisponibles` int(11) NOT NULL
+  `asientosDisponibles` int(11) NOT NULL,
+  `activo` tinyint(1) NOT NULL DEFAULT 1,
+  `fechaEliminacion` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -176,7 +179,8 @@ ALTER TABLE `Reservas`
 -- Indexes for table `Usuarios`
 --
 ALTER TABLE `Usuarios`
-  ADD PRIMARY KEY (`codUsuario`);
+  ADD PRIMARY KEY (`codUsuario`),
+  ADD UNIQUE KEY `uk_usuarios_email` (`emailUsuario`);
 
 --
 -- Indexes for table `Vuelos`
