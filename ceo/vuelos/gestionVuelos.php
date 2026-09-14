@@ -55,11 +55,11 @@
     // OBTENER VUELOS DE LA AEROLÍNEA
 
     $consulta = $conexion->prepare("
-    SELECT *
-    FROM Vuelos
-    WHERE codAerolinea = ?
-      AND activo = 1
-    ORDER BY fechaSalidaVuelo ASC, horaSalidaVuelo ASC
+        SELECT *
+        FROM Vuelos
+        WHERE codAerolinea = ?
+          AND activoVuelo = 1
+        ORDER BY fechaSalidaVuelo ASC, horaSalidaVuelo ASC
     ");
 
     $consulta->bind_param("i", $codAerolinea);
@@ -67,14 +67,12 @@
     $consulta->execute();
 
     $resultado = $consulta->get_result();
-    //borra
-    echo "Cantidad de vuelos encontrados: " . $resultado->num_rows . "<br>";
-    //borra
 
 ?>
 
 
 <!DOCTYPE html>
+
 <html lang="es">
 
 <head>
@@ -152,16 +150,36 @@
                 </div>
 
 
-                <a
-                    href="crearVuelo.php"
-                    class="btn btn-primary"
-                >
+                <div class="d-flex gap-2">
 
-                    <i class="bi bi-plus-lg"></i>
+                    <!-- VUELOS DADOS DE BAJA -->
 
-                    Crear vuelo
+                    <a
+                        href="vuelosInactivos.php"
+                        class="btn btn-outline-secondary"
+                    >
 
-                </a>
+                        <i class="bi bi-archive"></i>
+
+                        Vuelos dados de baja
+
+                    </a>
+
+
+                    <!-- CREAR VUELO -->
+
+                    <a
+                        href="crearVuelo.php"
+                        class="btn btn-primary"
+                    >
+
+                        <i class="bi bi-plus-lg"></i>
+
+                        Crear vuelo
+
+                    </a>
+
+                </div>
 
             </div>
 
@@ -303,6 +321,7 @@
                                         <td>
 
                                             $
+
                                             <?php
                                             echo number_format(
                                                 $vuelo["precioVuelo"],
@@ -330,6 +349,19 @@
 
                                         <td>
 
+                                            <!-- VER -->
+
+                                            <a
+                                                href="verVuelo.php?id=<?php echo $vuelo["codVuelo"]; ?>"
+                                                class="btn btn-sm btn-outline-secondary"
+                                                title="Ver vuelo"
+                                            >
+                                                <i class="bi bi-eye"></i>
+                                            </a>
+
+
+                                            <!-- MODIFICAR -->
+
                                             <a
                                                 href="modificarVuelo.php?id=<?php echo $vuelo["codVuelo"]; ?>"
                                                 class="btn btn-sm btn-outline-primary"
@@ -337,6 +369,9 @@
                                             >
                                                 <i class="bi bi-pencil"></i>
                                             </a>
+
+
+                                            <!-- ELIMINAR -->
 
                                             <a
                                                 href="eliminarVuelo.php?id=<?php echo $vuelo["codVuelo"]; ?>"
@@ -417,4 +452,3 @@ $consulta->close();
 $conexion->close();
 
 ?>
-

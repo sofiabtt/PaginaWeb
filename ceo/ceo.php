@@ -49,11 +49,12 @@ $codAerolinea = $aerolinea["codAerolinea"];
 
 // CANTIDAD DE VUELOS
 
-$consultaVuelos = $conexion->prepare(
-    "SELECT COUNT(*) AS cantidad
-     FROM Vuelos
-     WHERE codAerolinea = ?"
-);
+$consultaVuelos = $conexion->prepare("
+    SELECT COUNT(*) AS cantidad
+    FROM Vuelos
+    WHERE codAerolinea = ?
+      AND activoVuelo = 1
+");
 
 $consultaVuelos->bind_param("i", $codAerolinea);
 
@@ -63,6 +64,7 @@ $resultadoVuelos = $consultaVuelos->get_result();
 
 $vuelos = $resultadoVuelos->fetch_assoc();
 
+$cantidadVuelos = $vuelos["cantidad"];
 
 // CANTIDAD DE PROMOCIONES
 
@@ -101,12 +103,20 @@ $promocionesPendientes = $resultadoPendientes->fetch_assoc();
 // PRÓXIMOS VUELOS
 
 $consultaProximosVuelos = $conexion->prepare(
+
     "SELECT codVuelo, origenVuelo, destinoVuelo,
+
             fechaSalidaVuelo, horaSalidaVuelo, asientosDisponibles
+
      FROM Vuelos
+
      WHERE codAerolinea = ?
+       AND activoVuelo = 1
+
      ORDER BY fechaSalidaVuelo ASC, horaSalidaVuelo ASC
+
      LIMIT 5"
+
 );
 
 $consultaProximosVuelos->bind_param("i", $codAerolinea);

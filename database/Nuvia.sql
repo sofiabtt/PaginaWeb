@@ -142,6 +142,114 @@ CREATE TABLE `Vuelos` (
   `fechaEliminacion` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+CREATE TABLE Paises (
+    codPais INT AUTO_INCREMENT PRIMARY KEY,
+    nombrePais VARCHAR(100) NOT NULL,
+    codigoISO VARCHAR(2) NOT NULL UNIQUE
+);
+
+CREATE TABLE Ciudades (
+    codCiudad INT AUTO_INCREMENT PRIMARY KEY,
+    nombreCiudad VARCHAR(150) NOT NULL,
+    codPais INT NOT NULL,
+
+    FOREIGN KEY (codPais)
+        REFERENCES Paises(codPais)
+);
+
+CREATE TABLE Aeropuertos (
+    codAeropuerto INT AUTO_INCREMENT PRIMARY KEY,
+    codigoIATA VARCHAR(3) NOT NULL UNIQUE,
+    codigoICAO VARCHAR(4),
+    nombreAeropuerto VARCHAR(200) NOT NULL,
+    codCiudad INT NOT NULL,
+
+    FOREIGN KEY (codCiudad)
+        REFERENCES Ciudades(codCiudad)
+);
+
+INSERT INTO Paises (nombrePais, codigoISO)
+VALUES
+('Argentina', 'AR'),
+('Brasil', 'BR'),
+('Chile', 'CL'),
+('Uruguay', 'UY'),
+('Paraguay', 'PY'),
+('Estados Unidos', 'US'),
+('México', 'MX'),
+('España', 'ES'),
+('Francia', 'FR'),
+('Italia', 'IT');
+
+INSERT INTO Ciudades (nombreCiudad, codPais)
+VALUES
+('Buenos Aires', 1),
+('Rosario', 1),
+('Córdoba', 1),
+('Mendoza', 1),
+
+('São Paulo', 2),
+('Río de Janeiro', 2),
+
+('Santiago', 3),
+
+('Montevideo', 4),
+
+('Asunción', 5),
+
+('Miami', 6),
+('Nueva York', 6),
+('Los Ángeles', 6),
+
+('Ciudad de México', 7),
+('Cancún', 7),
+
+('Madrid', 8),
+('Barcelona', 8),
+
+('París', 9),
+
+('Roma', 10),
+('Milán', 10);
+
+
+INSERT INTO Aeropuertos
+(
+    codigoIATA,
+    codigoICAO,
+    nombreAeropuerto,
+    codCiudad
+)
+VALUES
+('EZE', 'SAEZ', 'Aeropuerto Internacional Ministro Pistarini', 1),
+('ROS', 'SAAR', 'Aeropuerto Internacional Rosario', 2),
+('COR', 'SACO', 'Aeropuerto Internacional Ingeniero Ambrosio Taravella', 3),
+('MDZ', 'SAME', 'Aeropuerto Internacional Gobernador Francisco Gabrielli', 4),
+
+('GRU', 'SBGR', 'Aeropuerto Internacional de São Paulo-Guarulhos', 5),
+('GIG', 'SBGL', 'Aeropuerto Internacional de Río de Janeiro-Galeão', 6),
+
+('SCL', 'SCEL', 'Aeropuerto Internacional Arturo Merino Benítez', 7),
+
+('MVD', 'SUMU', 'Aeropuerto Internacional de Carrasco', 8),
+
+('ASU', 'SGAS', 'Aeropuerto Internacional Silvio Pettirossi', 9),
+
+('MIA', 'KMIA', 'Aeropuerto Internacional de Miami', 10),
+('JFK', 'KJFK', 'Aeropuerto Internacional John F. Kennedy', 11),
+('LAX', 'KLAX', 'Aeropuerto Internacional de Los Ángeles', 12),
+
+('MEX', 'MMMX', 'Aeropuerto Internacional Benito Juárez', 13),
+('CUN', 'MMUN', 'Aeropuerto Internacional de Cancún', 14),
+
+('MAD', 'LEMD', 'Aeropuerto Adolfo Suárez Madrid-Barajas', 15),
+('BCN', 'LEBL', 'Aeropuerto Josep Tarradellas Barcelona-El Prat', 16),
+
+('CDG', 'LFPG', 'Aeropuerto Charles de Gaulle', 17),
+
+('FCO', 'LIRF', 'Aeropuerto Internacional Leonardo da Vinci', 18),
+('MXP', 'LIMC', 'Aeropuerto de Milán-Malpensa', 19);
+
 --
 -- Indexes for dumped tables
 --

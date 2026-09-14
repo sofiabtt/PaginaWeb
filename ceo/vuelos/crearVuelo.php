@@ -1,3 +1,4 @@
+
 <?php
 
     session_start();
@@ -28,6 +29,7 @@
         SELECT codAerolinea
         FROM Aerolineas
         WHERE codUsuario = ?
+        AND activoAerolinea = 1
     ");
 
     $consultaAerolinea->bind_param(
@@ -53,6 +55,10 @@
 
     $consultaAerolinea->close();
 
+
+    // INICIALIZAR ERROR
+
+    $error = "";
 
 
     // PROCESAR FORMULARIO
@@ -84,6 +90,10 @@
 
             $error = "El origen y el destino no pueden ser iguales.";
 
+        } elseif (strtotime($fecha) < strtotime(date("Y-m-d"))) {
+
+            $error = "La fecha de salida no puede ser anterior a la fecha actual.";
+
         } elseif ($precio <= 0) {
 
             $error = "El precio debe ser mayor a 0.";
@@ -92,10 +102,12 @@
 
             $error = "La cantidad de asientos debe ser mayor a 0.";
 
-        } else {
+        }
 
-            include "../../php/conexionBD.php";
 
+        // INSERTAR SOLAMENTE SI NO HAY ERROR
+
+        if (empty($error)) {
 
             // INSERTAR VUELO
 
@@ -142,9 +154,41 @@
 
 
             $consulta->close();
-            $conexion->close();
 
         }
+
+    }
+
+
+    // OBTENER AEROPUERTOS
+
+    $consultaAeropuertos = $conexion->query("
+        SELECT
+            a.codigoIATA,
+            a.nombreAeropuerto,
+            c.nombreCiudad,
+            p.nombrePais
+
+        FROM Aeropuertos a
+
+        INNER JOIN Ciudades c
+            ON a.codCiudad = c.codCiudad
+
+        INNER JOIN Paises p
+            ON c.codPais = p.codPais
+
+        ORDER BY
+            p.nombrePais,
+            c.nombreCiudad
+    ");
+
+
+    if (!$consultaAeropuertos) {
+
+        die(
+            "Error al obtener los aeropuertos: "
+            . $conexion->error
+        );
 
     }
 
@@ -230,9 +274,9 @@
         <section class="perfil-card">
 
 
-            <?php if (isset($error)) { ?>
+            <?php if (!empty($error)) { ?>
 
-                <div class="alert alert-danger">
+                <div class="alert alert-danger" role="alert">
 
                     <?php
                     echo htmlspecialchars($error);
@@ -251,6 +295,8 @@
                 <div class="perfil-campos">
 
 
+                    <!-- ORIGEN -->
+
                     <div>
 
                         <label
@@ -264,25 +310,78 @@
 
                             <i class="bi bi-geo-alt"></i>
 
-                            <input
-                                type="text"
-                                class="form-control"
+                            <select
+                                class="form-select"
                                 id="origen"
                                 name="origen"
-                                placeholder="Ej. Rosario"
-                                value="<?php
-                                    echo isset($_POST["origen"])
-                                        ? htmlspecialchars($_POST["origen"])
-                                        : "";
-                                ?>"
+                                style="padding-left: 50px;"
                                 required
                             >
+
+                                <option value="">
+                                    Seleccione el aeropuerto de origen
+                                </option>
+
+
+                                <?php
+
+                                while (
+                                    $aeropuerto =
+                                    $consultaAeropuertos->fetch_assoc()
+                                ) {
+
+                                ?>
+
+                                    <option
+                                        value="<?php
+                                            echo htmlspecialchars(
+                                                $aeropuerto["nombreCiudad"]
+                                            );
+                                        ?>"
+                                        <?php
+
+                                        if (
+                                            isset($_POST["origen"]) &&
+                                            $_POST["origen"] ==
+                                            $aeropuerto["nombreCiudad"]
+                                        ) {
+
+                                            echo "selected";
+
+                                        }
+
+                                        ?>
+                                    >
+
+                                        <?php
+
+                                        echo htmlspecialchars(
+                                            $aeropuerto["nombreCiudad"]
+                                            . " ("
+                                            . $aeropuerto["codigoIATA"]
+                                            . ") - "
+                                            . $aeropuerto["nombrePais"]
+                                        );
+
+                                        ?>
+
+                                    </option>
+
+                                <?php
+
+                                }
+
+                                ?>
+
+                            </select>
 
                         </div>
 
                     </div>
 
 
+
+                    <!-- DESTINO -->
 
                     <div>
 
@@ -297,19 +396,102 @@
 
                             <i class="bi bi-geo-alt-fill"></i>
 
-                            <input
-                                type="text"
-                                class="form-control"
+                            <select
+                                class="form-select"
                                 id="destino"
                                 name="destino"
-                                placeholder="Ej. Córdoba"
-                                value="<?php
-                                    echo isset($_POST["destino"])
-                                        ? htmlspecialchars($_POST["destino"])
-                                        : "";
-                                ?>"
+                                style="padding-left: 50px;"
                                 required
                             >
+
+                                <option value="">
+                                    Seleccione el aeropuerto de destino
+                                </option>
+
+
+                                <?php
+
+                                $consultaAeropuertosDestino =
+                                    $conexion->query("
+                                        SELECT
+                                            a.codigoIATA,
+                                            a.nombreAeropuerto,
+                                            c.nombreCiudad,
+                                            p.nombrePais
+
+                                        FROM Aeropuertos a
+
+                                        INNER JOIN Ciudades c
+                                            ON a.codCiudad = c.codCiudad
+
+                                        INNER JOIN Paises p
+                                            ON c.codPais = p.codPais
+
+                                        ORDER BY
+                                            p.nombrePais,
+                                            c.nombreCiudad
+                                    ");
+
+
+                                if (!$consultaAeropuertosDestino) {
+
+                                    die(
+                                        "Error al obtener los aeropuertos: "
+                                        . $conexion->error
+                                    );
+
+                                }
+
+
+                                while (
+                                    $aeropuerto =
+                                    $consultaAeropuertosDestino->fetch_assoc()
+                                ) {
+
+                                ?>
+
+                                    <option
+                                        value="<?php
+                                            echo htmlspecialchars(
+                                                $aeropuerto["nombreCiudad"]
+                                            );
+                                        ?>"
+                                        <?php
+
+                                        if (
+                                            isset($_POST["destino"]) &&
+                                            $_POST["destino"] ==
+                                            $aeropuerto["nombreCiudad"]
+                                        ) {
+
+                                            echo "selected";
+
+                                        }
+
+                                        ?>
+                                    >
+
+                                        <?php
+
+                                        echo htmlspecialchars(
+                                            $aeropuerto["nombreCiudad"]
+                                            . " ("
+                                            . $aeropuerto["codigoIATA"]
+                                            . ") - "
+                                            . $aeropuerto["nombrePais"]
+                                        );
+
+                                        ?>
+
+                                    </option>
+
+                                <?php
+
+                                }
+
+                                ?>
+
+                            </select>
 
                         </div>
 
@@ -326,6 +508,8 @@
                     style="margin-top: 25px;"
                 >
 
+
+                    <!-- FECHA -->
 
                     <div>
 
@@ -358,6 +542,8 @@
                     </div>
 
 
+
+                    <!-- HORA -->
 
                     <div>
 
@@ -401,6 +587,8 @@
                 >
 
 
+                    <!-- PRECIO -->
+
                     <div>
 
                         <label
@@ -435,6 +623,8 @@
                     </div>
 
 
+
+                    <!-- ASIENTOS -->
 
                     <div>
 
@@ -490,8 +680,11 @@
                         type="submit"
                         class="btn btn-primary"
                     >
+
                         <i class="bi bi-plus-lg"></i>
+
                         Crear vuelo
+
                     </button>
 
 
@@ -515,4 +708,3 @@
 </body>
 
 </html>
-

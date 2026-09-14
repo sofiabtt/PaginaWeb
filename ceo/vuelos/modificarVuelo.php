@@ -112,7 +112,7 @@ $consulta = $conexion->prepare("
 
     WHERE codVuelo = ?
       AND codAerolinea = ?
-      AND activo = 1
+      AND activoVuelo = 1
 ");
 
 $consulta->bind_param(
