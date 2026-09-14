@@ -45,11 +45,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $codAerolinea = $_POST["codAerolinea"];
 
 
-    // Generar toke
+    // Generar token
+
     $token = bin2hex(random_bytes(32));
 
 
     // El enlace vence en 24 horas
+
     $fechaVerificacion = date(
         "Y-m-d H:i:s",
         strtotime("+24 hours")
@@ -57,12 +59,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
     // Datos del CEO
+
     $tipoUsuario = "ceo";
 
     // Todavía no completó la creación de su cuenta
+
     $verificado = 0;
 
     // Todavía no tiene contraseña
+
     $clave = NULL;
 
 
@@ -106,11 +111,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $codUsuarioNuevo = $conexion->insert_id;
 
+
+        // =========================
+        // ASIGNAR CEO A LA AEROLÍNEA
+        // =========================
+
         $asignarAerolinea = $conexion->prepare("
             UPDATE Aerolineas
             SET codUsuario = ?
             WHERE codAerolinea = ?
+            AND activo = 1
         ");
+
 
         $asignarAerolinea->bind_param(
             "ii",
@@ -118,40 +130,42 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $codAerolinea
         );
 
+
         $asignarAerolinea->execute();
 
         $asignarAerolinea->close();
 
-            // =========================
-            // REGISTRAR ACTIVIDAD
-            // =========================
 
-            $usuarioActividad = "Administrador";
+        // =========================
+        // REGISTRAR ACTIVIDAD
+        // =========================
 
-            $accionActividad =
-                "Creó un nuevo CEO: " . $nombre;
+        $usuarioActividad = "Administrador";
 
-
-            $actividad = $conexion->prepare("
-                INSERT INTO Actividad
-                (
-                    usuarioActividad,
-                    accionActividad
-                )
-                VALUES (?, ?)
-            ");
+        $accionActividad =
+            "Creó un nuevo CEO: " . $nombre;
 
 
-            $actividad->bind_param(
-                "ss",
-                $usuarioActividad,
-                $accionActividad
-            );
+        $actividad = $conexion->prepare("
+            INSERT INTO Actividad
+            (
+                usuarioActividad,
+                accionActividad
+            )
+            VALUES (?, ?)
+        ");
 
 
-            $actividad->execute();
+        $actividad->bind_param(
+            "ss",
+            $usuarioActividad,
+            $accionActividad
+        );
 
-            $actividad->close();
+
+        $actividad->execute();
+
+        $actividad->close();
 
 
         // =========================
@@ -187,7 +201,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $mail->setFrom(
                 $_ENV['GMAIL_USUARIO'],
-                'Aerolineas'
+                'Nuvia'
             );
 
 
@@ -209,14 +223,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // Enlace para crear contraseña
 
-            $enlace ="http://localhost/PaginaWeb/admin/ceos/crearClave.php?token=". urlencode($token);
+            $enlace =
+                "http://localhost/PaginaWeb/admin/ceos/crearClave.php?token="
+                . urlencode($token);
 
 
             // Contenido del correo
 
             $mail->Body = "
 
-                <h2>Bienvenido a Aerolineas</h2>
+                <h2>Bienvenido a Nuvia</h2>
 
                 <p>
                     Hola <strong>$nombre</strong>,
@@ -295,39 +311,67 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
 // =========================
-// OBTENER AEROLÍNEAS
+// OBTENER AEROLÍNEAS ACTIVAS
 // =========================
 
 $consultaAerolineas = $conexion->query("
-    SELECT codAerolinea, nombreAerolinea
+    SELECT
+        codAerolinea,
+        nombreAerolinea
     FROM Aerolineas
+    WHERE activo = 1
     ORDER BY nombreAerolinea
 ");
 
 ?>
 
 <!DOCTYPE html>
+
 <html lang="es">
 
 <head>
 
     <meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Nuvia - Administrador</title>
 
+
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+
+    <link
+        rel="stylesheet"
+        href="../../css/bootstrap.min.css"
+    >
+
 
     <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="../../css/bootstrap-icons.css">
+
+    <link
+        rel="stylesheet"
+        href="../../css/bootstrap-icons.css"
+    >
+
 
     <!-- CSS del administrador -->
-    <link rel="stylesheet" href="../../css/estilos-admin.css">
+
+    <link
+        rel="stylesheet"
+        href="../../css/estilos-admin.css"
+    >
+
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="../../imagenes/logo.png">
+
+    <link
+        rel="icon"
+        type="image/png"
+        href="../../imagenes/logo.png"
+    >
 
 </head>
 
@@ -335,6 +379,7 @@ $consultaAerolineas = $conexion->query("
 <body>
 
     <?php include "../includes/navbarAdmin.php"; ?>
+
 
     <main class="contenido-admin">
 
@@ -361,11 +406,15 @@ $consultaAerolineas = $conexion->query("
 
             <form method="POST">
 
+
                 <!-- NOMBRE Y APELLIDO -->
 
                 <div class="mb-3">
 
-                    <label for="nombre" class="form-label">
+                    <label
+                        for="nombre"
+                        class="form-label"
+                    >
                         Nombre y apellido
                     </label>
 
@@ -379,11 +428,15 @@ $consultaAerolineas = $conexion->query("
 
                 </div>
 
+
                 <!-- EMAIL -->
 
                 <div class="mb-3">
 
-                    <label for="email" class="form-label">
+                    <label
+                        for="email"
+                        class="form-label"
+                    >
                         Email
                     </label>
 
@@ -397,11 +450,15 @@ $consultaAerolineas = $conexion->query("
 
                 </div>
 
+
                 <!-- TELÉFONO -->
 
                 <div class="mb-3">
 
-                    <label for="telefono" class="form-label">
+                    <label
+                        for="telefono"
+                        class="form-label"
+                    >
                         Teléfono
                     </label>
 
@@ -415,11 +472,15 @@ $consultaAerolineas = $conexion->query("
 
                 </div>
 
+
                 <!-- AEROLÍNEA -->
 
                 <div class="mb-3">
 
-                    <label for="codAerolinea" class="form-label">
+                    <label
+                        for="codAerolinea"
+                        class="form-label"
+                    >
                         Aerolínea
                     </label>
 
@@ -435,11 +496,20 @@ $consultaAerolineas = $conexion->query("
                         </option>
 
 
-                        <?php while ($aerolinea = $consultaAerolineas->fetch_assoc()) { ?>
+                        <?php while (
+                            $aerolinea =
+                            $consultaAerolineas->fetch_assoc()
+                        ) { ?>
 
-                            <option value="<?php echo $aerolinea["codAerolinea"]; ?>">
+                            <option
+                                value="<?php echo $aerolinea["codAerolinea"]; ?>"
+                            >
 
-                                <?php echo htmlspecialchars($aerolinea["nombreAerolinea"]); ?>
+                                <?php
+                                echo htmlspecialchars(
+                                    $aerolinea["nombreAerolinea"]
+                                );
+                                ?>
 
                             </option>
 
@@ -448,6 +518,7 @@ $consultaAerolineas = $conexion->query("
                     </select>
 
                 </div>
+
 
                 <!-- INFORMACIÓN -->
 
@@ -458,13 +529,14 @@ $consultaAerolineas = $conexion->query("
 
                 </div>
 
+
                 <!-- BOTONES -->
 
                 <div class="d-flex gap-2">
 
                     <button
                         type="submit"
-                        class="btn btn-primary"
+                        class="btn btn-primary fw-bold"
                     >
 
                         <i class="bi bi-check-lg"></i>
@@ -493,7 +565,6 @@ $consultaAerolineas = $conexion->query("
 
 
     </main>
-
 
 
     <script src="../../js/bootstrap.bundle.min.js"></script>

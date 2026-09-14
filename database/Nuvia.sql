@@ -105,7 +105,7 @@ CREATE TABLE `Reservas` (
 CREATE TABLE `Usuarios` (
   `codUsuario` int(11) NOT NULL,
   `nombreUsuario` varchar(100) NOT NULL,
-  `claveUsuario` varchar(300) NOT NULL,
+  `claveUsuario` varchar(300) NULL,
   `tipoUsuario` varchar(20) NOT NULL,
   `emailUsuario` varchar(100) NOT NULL,
   `telefonoUsuario` varchar(20) NOT NULL,
