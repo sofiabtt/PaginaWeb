@@ -58,7 +58,7 @@
     SELECT *
     FROM Vuelos
     WHERE codAerolinea = ?
-      AND activoVuelo = 1
+      AND activo = 1
     ORDER BY fechaSalidaVuelo ASC, horaSalidaVuelo ASC
     ");
 

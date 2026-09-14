@@ -2,6 +2,14 @@
 
 include "../../php/conexionBD.php";
 
+$consultaAerolineas = $conexion->query("
+    SELECT COUNT(*) AS cantidad
+    FROM Aerolineas
+    WHERE activo = 1
+");
+
+$cantidadAerolineas = $consultaAerolineas->fetch_assoc()["cantidad"];
+
 ?>
 
 <!DOCTYPE html>
@@ -77,16 +85,26 @@ include "../../php/conexionBD.php";
             </div>
 
 
-            <a
-                href="agregarCeo.php"
-                class="btn btn-primary"
-            >
+            <?php if ($cantidadAerolineas > 0) { ?>
 
-                <i class="bi bi-plus-lg"></i>
+                <a
+                    href="agregarCeo.php"
+                    class="btn btn-primary"
+                >
+                    <i class="bi bi-plus-lg"></i>
+                    Agregar CEO
+                </a>
 
-                Agregar CEO
+            <?php } else { ?>
 
-            </a>
+                <span
+                    class="text-muted"
+                    title="Primero debe existir al menos una aerolínea activa"
+                >
+                    <strong>Debe agregar una aerolínea para crear un CEO</strong>
+                </span>
+
+            <?php } ?>
 
         </section>
 

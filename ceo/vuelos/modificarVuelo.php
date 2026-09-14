@@ -112,7 +112,7 @@ $consulta = $conexion->prepare("
 
     WHERE codVuelo = ?
       AND codAerolinea = ?
-      AND activoVuelo = 1
+      AND activo = 1
 ");
 
 $consulta->bind_param(
@@ -214,7 +214,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             WHERE codVuelo = ?
             AND codAerolinea = ?
-            AND activoVuelo = 1
+            AND activo = 1
         ");
 
 

@@ -4,7 +4,7 @@ include "../../php/conexionBD.php"; //conexion base
 
 $consulta = "SELECT *
              FROM Novedades
-             WHERE activoNovedad = 1
+             WHERE activo = 1
              ORDER BY codNovedad";
 
 $resultado = $conexion->query($consulta); //guarda en rdo

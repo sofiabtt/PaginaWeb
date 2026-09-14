@@ -89,7 +89,7 @@ $consulta = $conexion->prepare("
 
     WHERE codVuelo = ?
       AND codAerolinea = ?
-      AND activoVuelo = 1
+      AND activo = 1
 ");
 
 $consulta->bind_param(
