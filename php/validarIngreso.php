@@ -26,7 +26,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($resultado->num_rows > 0) {
 
+            $usuario = $resultado->fetch_assoc();
+
             $_SESSION["gmailIngreso"] = $gmail;
+            $_SESSION["codUsuario"] = $usuario["codUsuario"];
 
             $consulta->close();
             $conexion->close();

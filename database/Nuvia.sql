@@ -48,7 +48,7 @@ CREATE TABLE `Aerolineas` (
   `codPais` varchar(3) NOT NULL,
   `activoAerolinea` tinyint(1) NOT NULL DEFAULT 1,
   `fechaEliminacion` datetime DEFAULT NULL,
-  `codCEO` int(11) DEFAULT NULL
+  `codUsuario` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------

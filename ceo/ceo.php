@@ -21,26 +21,30 @@ if (!isset($_SESSION["tipoUsuario"]) || $_SESSION["tipoUsuario"] != "ceo") {
 
 // DATOS DEL CEO
 
+
 $nombreCEO = $_SESSION["nombreUsuario"];
 
-$codAerolinea = $_SESSION["codAerolinea"];
+$codUsuario = $_SESSION["codUsuario"];
 
 
 // DATOS DE LA AEROLÍNEA
 
 $consultaAerolinea = $conexion->prepare(
-    "SELECT nombreAerolinea
+    "SELECT codAerolinea, nombreAerolinea
      FROM Aerolineas
-     WHERE codAerolinea = ?"
+     WHERE codUsuario = ?
+     AND activoAerolinea = 1"
 );
 
-$consultaAerolinea->bind_param("i", $codAerolinea);
+$consultaAerolinea->bind_param("i", $codUsuario);
 
 $consultaAerolinea->execute();
 
 $resultadoAerolinea = $consultaAerolinea->get_result();
 
 $aerolinea = $resultadoAerolinea->fetch_assoc();
+
+$codAerolinea = $aerolinea["codAerolinea"];
 
 
 // CANTIDAD DE VUELOS

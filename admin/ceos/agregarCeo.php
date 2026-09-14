@@ -33,6 +33,11 @@ $dotenv->load();
 include "../../php/conexionBD.php";
 
 
+// Variable para mostrar errores
+
+$error = "";
+
+
 // =========================
 // CREAR CEO
 // =========================
@@ -45,265 +50,305 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $codAerolinea = $_POST["codAerolinea"];
 
 
-    // Generar token
-
-    $token = bin2hex(random_bytes(32));
-
-
-    // El enlace vence en 24 horas
-
-    $fechaVerificacion = date(
-        "Y-m-d H:i:s",
-        strtotime("+24 hours")
-    );
-
-
-    // Datos del CEO
-
-    $tipoUsuario = "ceo";
-
-    // Todavía no completó la creación de su cuenta
-
-    $verificado = 0;
-
-    // Todavía no tiene contraseña
-
-    $clave = NULL;
-
-
     // =========================
-    // INSERTAR CEO
+    // VERIFICAR SI EL EMAIL YA EXISTE
     // =========================
 
-    $consulta = $conexion->prepare("
-        INSERT INTO Usuarios (
-            nombreUsuario,
-            claveUsuario,
-            tipoUsuario,
-            emailUsuario,
-            telefonoUsuario,
-            verificado,
-            tokenVerificacion,
-            fechaVerificacion
-        )
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    $verificarEmail = $conexion->prepare("
+        SELECT codUsuario
+        FROM Usuarios
+        WHERE emailUsuario = ?
     ");
 
-
-    $consulta->bind_param(
-        "sssssiss",
-        $nombre,
-        $clave,
-        $tipoUsuario,
-        $email,
-        $telefono,
-        $verificado,
-        $token,
-        $fechaVerificacion
+    $verificarEmail->bind_param(
+        "s",
+        $email
     );
 
+    $verificarEmail->execute();
 
-    // =========================
-    // GUARDAR CEO
-    // =========================
+    $resultadoEmail = $verificarEmail->get_result();
 
-    if ($consulta->execute()) {
+    if ($resultadoEmail->num_rows > 0) {
 
-        $codUsuarioNuevo = $conexion->insert_id;
+        $error = "El email ingresado ya pertenece a otro usuario.";
+
+    }
+
+    $verificarEmail->close();
+
+
+    // Si no existe el email, continuar
+
+    if ($error == "") {
 
 
         // =========================
-        // ASIGNAR CEO A LA AEROLÍNEA
+        // GENERAR TOKEN
         // =========================
 
-        $asignarAerolinea = $conexion->prepare("
-            UPDATE Aerolineas
-            SET codUsuario = ?
-            WHERE codAerolinea = ?
-            AND activoAerolinea = 1
-        ");
+        $token = bin2hex(random_bytes(32));
 
 
-        $asignarAerolinea->bind_param(
-            "ii",
-            $codUsuarioNuevo,
-            $codAerolinea
+        // El enlace vence en 24 horas
+
+        $fechaVerificacion = date(
+            "Y-m-d H:i:s",
+            strtotime("+24 hours")
         );
 
 
-        $asignarAerolinea->execute();
+        // =========================
+        // DATOS DEL CEO
+        // =========================
 
-        $asignarAerolinea->close();
+        $tipoUsuario = "ceo";
+
+        // Todavía no completó la creación de su cuenta
+
+        $verificado = 0;
+
+        // Todavía no tiene contraseña
+
+        $clave = NULL;
 
 
         // =========================
-        // REGISTRAR ACTIVIDAD
+        // INSERTAR CEO
         // =========================
 
-        $usuarioActividad = "Administrador";
-
-        $accionActividad =
-            "Creó un nuevo CEO: " . $nombre;
-
-
-        $actividad = $conexion->prepare("
-            INSERT INTO Actividad
-            (
-                usuarioActividad,
-                accionActividad
+        $consulta = $conexion->prepare("
+            INSERT INTO Usuarios (
+                nombreUsuario,
+                claveUsuario,
+                tipoUsuario,
+                emailUsuario,
+                telefonoUsuario,
+                verificado,
+                tokenVerificacion,
+                fechaVerificacion
             )
-            VALUES (?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
         ");
 
 
-        $actividad->bind_param(
-            "ss",
-            $usuarioActividad,
-            $accionActividad
+        $consulta->bind_param(
+            "sssssiss",
+            $nombre,
+            $clave,
+            $tipoUsuario,
+            $email,
+            $telefono,
+            $verificado,
+            $token,
+            $fechaVerificacion
         );
 
 
-        $actividad->execute();
-
-        $actividad->close();
-
-
         // =========================
-        // ENVIAR EMAIL
+        // GUARDAR CEO
         // =========================
 
-        $mail = new PHPMailer(true);
+        if ($consulta->execute()) {
+
+            $codUsuarioNuevo = $conexion->insert_id;
 
 
-        try {
+            // =========================
+            // ASIGNAR CEO A LA AEROLÍNEA
+            // =========================
 
-            // SMTP de Gmail
-
-            $mail->isSMTP();
-
-            $mail->Host = 'smtp.gmail.com';
-
-            $mail->SMTPAuth = true;
-
-            $mail->Username =
-                $_ENV['GMAIL_USUARIO'];
-
-            $mail->Password =
-                $_ENV['GMAIL_PASSWORD'];
-
-            $mail->SMTPSecure =
-                PHPMailer::ENCRYPTION_STARTTLS;
-
-            $mail->Port = 587;
+            $asignarAerolinea = $conexion->prepare("
+                UPDATE Aerolineas
+                SET codUsuario = ?
+                WHERE codAerolinea = ?
+                AND activoAerolinea = 1
+            ");
 
 
-            // Remitente
-
-            $mail->setFrom(
-                $_ENV['GMAIL_USUARIO'],
-                'Nuvia'
+            $asignarAerolinea->bind_param(
+                "ii",
+                $codUsuarioNuevo,
+                $codAerolinea
             );
 
 
-            // Destinatario
+            $asignarAerolinea->execute();
 
-            $mail->addAddress($email);
-
-
-            // HTML
-
-            $mail->isHTML(true);
+            $asignarAerolinea->close();
 
 
-            // Asunto
+            // =========================
+            // REGISTRAR ACTIVIDAD
+            // =========================
 
-            $mail->Subject =
-                'Activa tu cuenta de CEO';
+            $usuarioActividad = "Administrador";
 
-
-            // Enlace para crear contraseña
-
-            $enlace =
-                "http://localhost/PaginaWeb/admin/ceos/crearClave.php?token="
-                . urlencode($token);
+            $accionActividad =
+                "Creó un nuevo CEO: " . $nombre;
 
 
-            // Contenido del correo
-
-            $mail->Body = "
-
-                <h2>Bienvenido a Nuvia</h2>
-
-                <p>
-                    Hola <strong>$nombre</strong>,
-                </p>
-
-                <p>
-                    El administrador ha creado una cuenta de CEO
-                    para vos.
-                </p>
-
-                <p>
-                    Para comenzar a utilizar tu cuenta,
-                    necesitás crear una contraseña.
-                </p>
-
-                <p>
-                    Hacé clic en el siguiente botón:
-                </p>
-
-                <p>
-
-                    <a href='$enlace'
-                       style='
-                       background-color:#684028;
-                       color:white;
-                       padding:12px 20px;
-                       text-decoration:none;
-                       border-radius:5px;
-                       display:inline-block;
-                       '>
-
-                        Crear mi contraseña
-
-                    </a>
-
-                </p>
-
-                <p>
-                    Este enlace será válido durante 24 horas.
-                </p>
-
-            ";
+            $actividad = $conexion->prepare("
+                INSERT INTO Actividad
+                (
+                    usuarioActividad,
+                    accionActividad
+                )
+                VALUES (?, ?)
+            ");
 
 
-            // Enviar email
-
-            $mail->send();
-
-
-            // Volver a gestión de CEOs
-
-            header("Location: gestionCeos.php");
-
-            exit();
+            $actividad->bind_param(
+                "ss",
+                $usuarioActividad,
+                $accionActividad
+            );
 
 
-        } catch (Exception $e) {
+            $actividad->execute();
 
-            echo
-                "El CEO fue creado correctamente, "
-                . "pero no se pudo enviar el correo: "
-                . $mail->ErrorInfo;
+            $actividad->close();
+
+
+            // =========================
+            // ENVIAR EMAIL
+            // =========================
+
+            $mail = new PHPMailer(true);
+
+
+            try {
+
+                // SMTP de Gmail
+
+                $mail->isSMTP();
+
+                $mail->Host = 'smtp.gmail.com';
+
+                $mail->SMTPAuth = true;
+
+                $mail->Username =
+                    $_ENV['GMAIL_USUARIO'];
+
+                $mail->Password =
+                    $_ENV['GMAIL_PASSWORD'];
+
+                $mail->SMTPSecure =
+                    PHPMailer::ENCRYPTION_STARTTLS;
+
+                $mail->Port = 587;
+
+
+                // Remitente
+
+                $mail->setFrom(
+                    $_ENV['GMAIL_USUARIO'],
+                    'Nuvia'
+                );
+
+
+                // Destinatario
+
+                $mail->addAddress($email);
+
+
+                // HTML
+
+                $mail->isHTML(true);
+
+
+                // Asunto
+
+                $mail->Subject =
+                    'Activa tu cuenta de CEO';
+
+
+                // Enlace para crear contraseña
+
+                $enlace =
+                    "http://localhost/PaginaWeb/admin/ceos/crearClave.php?token="
+                    . urlencode($token);
+
+
+                // Contenido del correo
+
+                $mail->Body = "
+
+                    <h2>Bienvenido a Nuvia</h2>
+
+                    <p>
+                        Hola <strong>$nombre</strong>,
+                    </p>
+
+                    <p>
+                        El administrador ha creado una cuenta de CEO
+                        para vos.
+                    </p>
+
+                    <p>
+                        Para comenzar a utilizar tu cuenta,
+                        necesitás crear una contraseña.
+                    </p>
+
+                    <p>
+                        Hacé clic en el siguiente botón:
+                    </p>
+
+                    <p>
+
+                        <a href='$enlace'
+                           style='
+                           background-color:#684028;
+                           color:white;
+                           padding:12px 20px;
+                           text-decoration:none;
+                           border-radius:5px;
+                           display:inline-block;
+                           '>
+
+                            Crear mi contraseña
+
+                        </a>
+
+                    </p>
+
+                    <p>
+                        Este enlace será válido durante 24 horas.
+                    </p>
+
+                ";
+
+
+                // Enviar email
+
+                $mail->send();
+
+
+                // Volver a gestión de CEOs
+
+                header("Location: gestionCeos.php");
+
+                exit();
+
+
+            } catch (Exception $e) {
+
+                $error =
+                    "El CEO fue creado correctamente, "
+                    . "pero no se pudo enviar el correo: "
+                    . $mail->ErrorInfo;
+
+            }
+
+
+        } else {
+
+            $error =
+                "No se pudo crear el CEO. Intente nuevamente.";
 
         }
 
-
-    } else {
-
-        echo
-            "Error al crear el CEO: "
-            . $consulta->error;
+        $consulta->close();
 
     }
 
@@ -404,6 +449,17 @@ $consultaAerolineas = $conexion->query("
         <section class="tabla-contenedor">
 
 
+            <?php if ($error != "") { ?>
+
+                <div class="alert alert-danger">
+
+                    <?php echo htmlspecialchars($error); ?>
+
+                </div>
+
+            <?php } ?>
+
+
             <form method="POST">
 
 
@@ -423,6 +479,7 @@ $consultaAerolineas = $conexion->query("
                         class="form-control"
                         id="nombre"
                         name="nombre"
+                        value="<?php echo htmlspecialchars($_POST["nombre"] ?? ""); ?>"
                         required
                     >
 
@@ -445,6 +502,7 @@ $consultaAerolineas = $conexion->query("
                         class="form-control"
                         id="email"
                         name="email"
+                        value="<?php echo htmlspecialchars($_POST["email"] ?? ""); ?>"
                         required
                     >
 
@@ -467,6 +525,7 @@ $consultaAerolineas = $conexion->query("
                         class="form-control"
                         id="telefono"
                         name="telefono"
+                        value="<?php echo htmlspecialchars($_POST["telefono"] ?? ""); ?>"
                         required
                     >
 
@@ -503,6 +562,16 @@ $consultaAerolineas = $conexion->query("
 
                             <option
                                 value="<?php echo $aerolinea["codAerolinea"]; ?>"
+                                <?php
+                                if (
+                                    isset($_POST["codAerolinea"])
+                                    &&
+                                    $_POST["codAerolinea"]
+                                    == $aerolinea["codAerolinea"]
+                                ) {
+                                    echo "selected";
+                                }
+                                ?>
                             >
 
                                 <?php
