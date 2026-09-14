@@ -22,7 +22,7 @@ $codAerolinea = $_GET["id"];
 $consulta = "SELECT *
              FROM Aerolineas
              WHERE codAerolinea = ?
-             AND activo = 1";
+             AND activoAerolinea = 1";
 
 
 $stmt = $conexion->prepare($consulta);

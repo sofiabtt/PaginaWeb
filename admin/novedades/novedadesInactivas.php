@@ -7,7 +7,7 @@ include "../../php/conexionBD.php";
 
 $consulta = "SELECT *
              FROM Novedades
-             WHERE activo = 0
+             WHERE activoNovedad = 0
              ORDER BY fechaEliminacion DESC";
 
 $resultado = $conexion->query($consulta);

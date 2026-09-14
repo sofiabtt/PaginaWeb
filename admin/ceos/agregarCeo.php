@@ -120,7 +120,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             UPDATE Aerolineas
             SET codUsuario = ?
             WHERE codAerolinea = ?
-            AND activo = 1
+            AND activoAerolinea = 1
         ");
 
 
@@ -319,7 +319,7 @@ $consultaAerolineas = $conexion->query("
         codAerolinea,
         nombreAerolinea
     FROM Aerolineas
-    WHERE activo = 1
+    WHERE activoAerolinea = 1
     ORDER BY nombreAerolinea
 ");
 

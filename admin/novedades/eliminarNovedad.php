@@ -22,7 +22,7 @@ $codNovedad = $_GET["id"];
 $consulta = "SELECT *
              FROM Novedades
              WHERE codNovedad = ?
-             AND activo = 1";
+             AND activoNovedad = 1";
 
 
 $stmt = $conexion->prepare($consulta);
@@ -70,7 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // BAJA LÓGICA
 
     $consulta = "UPDATE Novedades
-                 SET activo = 0,
+                 SET activoNovedad = 0,
                      fechaEliminacion = NOW()
                  WHERE codNovedad = ?";
 
