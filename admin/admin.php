@@ -13,7 +13,7 @@ include "../php/conexionBD.php";
 $consultaAerolineas = "
     SELECT COUNT(*) AS cantidad
     FROM Aerolineas
-    WHERE activo = 1
+    WHERE activoAerolinea = 1
 ";
 
 $resultadoAerolineas = $conexion->query($consultaAerolineas);
