@@ -159,7 +159,7 @@ $cantidadAerolineas = $consultaAerolineas->fetch_assoc()["cantidad"];
                     FROM Usuarios u
 
                     LEFT JOIN Aerolineas a
-                        ON a.codUsuario = u.codUsuario
+                        ON a.codCEO = u.codUsuario
 
                     WHERE u.tipoUsuario = 'ceo'
 
