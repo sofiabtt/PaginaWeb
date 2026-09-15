@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($gmail)) {
 
         header(
-            "Location: ../registro.html"
+            "Location: ../registro.php"
         );
 
         exit();
@@ -65,7 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $conexion->close();
 
         header(
-            "Location: ../registro.html"
+            "Location: ../registro.php"
             . "?error=usuario_existente"
             . "&gmail=" . urlencode($gmail)
         );
@@ -91,7 +91,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // =========================
 
     header(
-        "Location: ../registroDatosPersonales.html"
+        "Location: ../registroDatosPersonales.php"
     );
 
     exit();

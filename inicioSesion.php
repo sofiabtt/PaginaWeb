@@ -114,7 +114,7 @@
                             ¿No estás registrado?
                         </p>
 
-                        <a href="registro.html" class="btn btn-outline-primary">
+                        <a href="registro.php" class="btn btn-outline-primary">
                             Registrarse
                         </a>
                     </div>

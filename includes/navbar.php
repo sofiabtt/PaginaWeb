@@ -113,7 +113,7 @@ if (isset($_SESSION["tipoUsuario"])) {
                             </li>
 
                             <li>
-                                <a class="dropdown-item" href="registro.html">
+                                <a class="dropdown-item" href="registro.php">
                                     <i class="bi bi-person-plus"></i>
                                     Registrarse
                                 </a>
@@ -127,7 +127,7 @@ if (isset($_SESSION["tipoUsuario"])) {
                             Iniciar sesión
                         </a>
 
-                        <a class="nav-link" href="registro.html">
+                        <a class="nav-link" href="registro.php">
                             <i class="bi bi-person-plus"></i>
                             Registrarse
                         </a>
