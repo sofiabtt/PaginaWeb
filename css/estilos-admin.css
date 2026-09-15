@@ -749,3 +749,15 @@ body {
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+/* TABLA DE VUELOS */
+
+.columna-aeropuerto {
+    width: 22%;
+    max-width: 250px;
+}
+
+.columna-aeropuerto {
+    white-space: normal;
+    word-wrap: break-word;
+}

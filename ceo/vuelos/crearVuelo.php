@@ -336,14 +336,24 @@
                                         value="<?php
                                             echo htmlspecialchars(
                                                 $aeropuerto["nombreCiudad"]
+                                                . " - "
+                                                . $aeropuerto["codigoIATA"]
+                                                . " - "
+                                                . $aeropuerto["nombreAeropuerto"]
                                             );
                                         ?>"
                                         <?php
 
+                                        $valorAeropuerto =
+                                            $aeropuerto["nombreCiudad"]
+                                            . " - "
+                                            . $aeropuerto["codigoIATA"]
+                                            . " - "
+                                            . $aeropuerto["nombreAeropuerto"];
+
                                         if (
                                             isset($_POST["origen"]) &&
-                                            $_POST["origen"] ==
-                                            $aeropuerto["nombreCiudad"]
+                                            $_POST["origen"] == $valorAeropuerto
                                         ) {
 
                                             echo "selected";
@@ -352,6 +362,20 @@
 
                                         ?>
                                     >
+
+                                        <?php
+
+                                        echo htmlspecialchars(
+                                            $aeropuerto["nombreCiudad"]
+                                            . " ("
+                                            . $aeropuerto["codigoIATA"]
+                                            . ") - "
+                                            . $aeropuerto["nombrePais"]
+                                        );
+
+                                        ?>
+
+                                    </option>
 
                                         <?php
 
@@ -454,14 +478,24 @@
                                         value="<?php
                                             echo htmlspecialchars(
                                                 $aeropuerto["nombreCiudad"]
+                                                . " - "
+                                                . $aeropuerto["codigoIATA"]
+                                                . " - "
+                                                . $aeropuerto["nombreAeropuerto"]
                                             );
                                         ?>"
                                         <?php
 
+                                        $valorAeropuerto =
+                                            $aeropuerto["nombreCiudad"]
+                                            . " - "
+                                            . $aeropuerto["codigoIATA"]
+                                            . " - "
+                                            . $aeropuerto["nombreAeropuerto"];
+
                                         if (
                                             isset($_POST["destino"]) &&
-                                            $_POST["destino"] ==
-                                            $aeropuerto["nombreCiudad"]
+                                            $_POST["destino"] == $valorAeropuerto
                                         ) {
 
                                             echo "selected";

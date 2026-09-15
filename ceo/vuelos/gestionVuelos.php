@@ -205,11 +205,11 @@
                                     Código
                                 </th>
 
-                                <th>
+                                <th class="columna-aeropuerto">
                                     Origen
                                 </th>
 
-                                <th>
+                                <th class="columna-aeropuerto">
                                     Destino
                                 </th>
 
@@ -263,7 +263,7 @@
 
                                         <!-- ORIGEN -->
 
-                                        <td>
+                                        <td class="columna-aeropuerto">
 
                                             <?php
                                             echo htmlspecialchars(
@@ -276,7 +276,7 @@
 
                                         <!-- DESTINO -->
 
-                                        <td>
+                                        <td class="columna-aeropuerto">
 
                                             <?php
                                             echo htmlspecialchars(

@@ -1,3 +1,4 @@
+
 <?php
 
 session_start();
@@ -30,6 +31,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $_SESSION["gmailIngreso"] = $gmail;
             $_SESSION["codUsuario"] = $usuario["codUsuario"];
+            $_SESSION["tipoUsuario"] = $usuario["tipoUsuario"];
+            $_SESSION["nombreUsuario"] = $usuario["nombreUsuario"];
 
             $consulta->close();
             $conexion->close();
@@ -53,3 +56,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 ?>
+```
+
+Ahora la sesión va a saber, por ejemplo:
+
+```text
+gmailIngreso   → viole@gmail.com
+codUsuario     → 5
+tipoUsuario    → ceo
+nombreUsuario  → Viole Magliaro
+```
+
+---
+
+### 2. Pero hay algo más importante
+
+Como me dijiste que **`resultadosVuelos.php` es para los usuarios/pasajeros**, yo no haría que un CEO vea ahí "Mis reservas" y su nombre.
+
+En esa página podemos hacer:
+
+```php
+<?php if (!isset($_SESSION["gmailIngreso"])): ?>
+
+    <!-- Navbar público -->
+
+<?php elseif ($_SESSION["tipoUsuario"] == "usuario"): ?>
+
+    <!-- Navbar del pasajero -->
+
+<?php endif; ?>

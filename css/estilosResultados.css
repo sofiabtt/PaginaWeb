@@ -1,0 +1,506 @@
+/* CONFIGURACIÓN GENERAL*/
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #daf2f7;
+    min-height: 100vh;
+}
+
+
+
+/* CONTENIDO*/
+
+.contenido-resultados {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding-top: 40px;
+    padding-bottom: 70px;
+}
+
+
+
+/* ENCABEZADO */
+
+.encabezado-resultados {
+    margin-bottom: 30px;
+}
+
+
+.encabezado-resultados h1 {
+    color: #684028;
+    font-size: 34px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+
+.encabezado-resultados p {
+    color: #666;
+    font-size: 16px;
+    margin-bottom: 0;
+}
+
+/* ENCABEZADO DE RESULTADOS*/
+
+.encabezado-vuelos {
+    width: 100%;
+}
+
+
+.titulo-resultados {
+    color: #684028;
+    font-size: 36px;
+    font-weight: 800;
+    margin-bottom: 22px;
+}
+
+
+.resumen-vuelo {
+    width: 100%;
+    background: rgb(255, 255, 255);
+    border-radius: 18px;
+    padding: 25px 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 80px;
+
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.06);
+}
+
+
+.resumen-aeropuerto {
+    display: flex;
+    flex-direction: column;
+    min-width: 220px;
+}
+
+
+.codigo-aeropuerto {
+    color: #684028;
+    font-size: 32px;
+    font-weight: 800;
+    line-height: 1;
+}
+
+
+.ciudad-aeropuerto {
+    color: #555;
+    font-size: 16px;
+    margin-top: 8px;
+}
+
+
+.fecha-aeropuerto {
+    color: #888;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+
+.fecha-aeropuerto i {
+    color: #684028;
+    margin-right: 5px;
+}
+
+
+.flecha-ruta {
+    color: #835a40;
+    font-size: 30px;
+}
+
+
+
+/* PANEL DE FILTROS*/
+
+.filtros-card {
+    border-radius: 18px;
+}
+
+
+.filtros-titulo {
+    color: #684028;
+    font-weight: 700;
+}
+
+
+.filtros-icono {
+    color: #684028;
+    font-size: 21px;
+}
+
+
+.filtro-label {
+    color: #333;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+
+.precio-label {
+    color: #888;
+    font-size: 12px;
+    margin-bottom: 5px;
+}
+
+
+
+/* FORMULARIOS*/
+
+.form-select,
+.form-control {
+    border-color: #d8d8d8;
+    border-radius: 9px;
+}
+
+
+.form-select:focus,
+.form-control:focus {
+    border-color: #684028;
+    box-shadow: 0 0 0 0.15rem rgba(104, 64, 40, 0.15);
+}
+
+
+
+/* OPCIONES DE HORARIO*/
+
+.opcion-horario {
+    padding: 10px;
+    border: 1px solid #eeeeee;
+    border-radius: 9px;
+    margin: 0;
+    transition: 0.2s;
+}
+
+
+.opcion-horario:hover {
+    background: #faf8f6;
+    border-color: #b1917d;
+}
+
+
+.opcion-horario .form-check-input {
+    margin-top: 5px;
+    accent-color: #684028;
+}
+
+
+.opcion-horario .form-check-label {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+
+.opcion-horario strong {
+    color: #444;
+    font-size: 14px;
+}
+
+
+.opcion-horario small {
+    color: #999;
+    font-size: 11px;
+}
+
+
+
+/* BOTONES NUVIA */
+
+.btn-nuvia {
+    background: #684028;
+    border-color: #684028;
+    color: white;
+    font-weight: 700;
+    border-radius: 9px;
+}
+
+
+.btn-nuvia:hover {
+    background: #72472c;
+    border-color: #72472c;
+    color: white;
+}
+
+
+.btn-outline-nuvia {
+    color: #684028;
+    border-color: #684028;
+    font-weight: 600;
+    border-radius: 9px;
+}
+
+
+.btn-outline-nuvia:hover {
+    background: #684028;
+    border-color: #684028;
+    color: white;
+}
+
+
+
+/* CANTIDAD DE RESULTADOS*/
+
+.cantidad-resultados {
+    color: #777;
+    font-size: 14px;
+}
+
+
+
+/* TARJETA DE VUELO */
+
+.vuelo-card {
+    border-radius: 18px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+
+.vuelo-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.10) !important;
+}
+
+
+
+/* AEROLÍNEA */
+
+.aerolinea {
+    color: #684028;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+
+.aerolinea-icono {
+    color: #684028;
+    font-size: 20px;
+}
+
+
+
+/* RUTA */
+
+.ruta-ciudad {
+    display: block;
+    color: #333;
+    font-size: 15px;
+}
+
+
+.ruta-label {
+    display: block;
+    color: #888;
+    font-size: 13px;
+    margin-top: 5px;
+}
+
+
+
+/* LÍNEA DE VUELO */
+
+.linea-vuelo {
+    height: 1px;
+    background: #cccccc;
+    position: relative;
+}
+
+
+.linea-vuelo i {
+    position: relative;
+    top: -10px;
+    background: white;
+    color: #684028;
+    padding: 0 8px;
+}
+
+
+
+/* DATOS DEL VUELO*/
+
+.dato-vuelo {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: #666;
+    font-size: 14px;
+}
+
+
+.dato-vuelo i {
+    color: #684028;
+}
+
+
+
+/* PRECIO*/
+
+.precio-vuelo {
+    height: 100%;
+    min-height: 130px;
+    border-left: 1px solid #e5e5e5;
+    padding-left: 25px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+
+.precio-label {
+    color: #888;
+    font-size: 14px;
+}
+
+
+.precio-vuelo strong {
+    color: #684028;
+    font-size: 27px;
+    margin: 4px 0 15px;
+}
+
+
+
+/* PAGINACIÓN*/
+
+.pagination {
+    margin-bottom: 0;
+}
+
+
+.pagina-link,
+.pagina-actual {
+    color: #684028;
+    border-color: #e3e3e3;
+}
+
+
+.pagina-link:hover {
+    color: white;
+    background: #684028;
+    border-color: #684028;
+}
+
+
+.pagination .active .pagina-actual {
+    background: #684028;
+    border-color: #684028;
+    color: white;
+}
+
+
+.pagination .disabled .page-link {
+    color: #aaa;
+    background: #f5f5f5;
+}
+
+
+
+/*  SIN VUELOS */
+
+.sin-vuelos {
+    border-radius: 18px;
+}
+
+
+.icono-sin-vuelos {
+    color: #684028;
+    font-size: 45px;
+}
+
+
+.sin-vuelos h2 {
+    color: #684028;
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+
+.sin-vuelos p {
+    color: #666;
+    margin-bottom: 25px;
+}
+
+
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media (max-width: 991px) {
+
+    .contenido-resultados {
+        padding-top: 80px;
+    }
+
+
+    .precio-vuelo {
+        border-left: none;
+        border-top: 1px solid #e5e5e5;
+        padding-left: 0;
+        padding-top: 20px;
+        margin-top: 10px;
+
+        align-items: flex-start;
+        min-height: auto;
+    }
+
+}
+
+
+@media (max-width: 767px) {
+
+    .encabezado-resultados h1 {
+        font-size: 28px;
+    }
+
+
+    .contenido-resultados {
+        padding-top: 60px;
+    }
+
+
+    .ruta-ciudad {
+        font-size: 14px;
+    }
+
+
+    .linea-vuelo {
+        margin: 15px 0;
+    }
+
+
+    .dato-vuelo {
+        font-size: 13px;
+    }
+
+}
+
+
+@media (max-width: 575px) {
+
+    .contenido-resultados {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+
+    .encabezado-resultados h1 {
+        font-size: 25px;
+    }
+
+
+    .vuelo-card .card-body {
+        padding: 20px !important;
+    }
+
+
+    .pagination .page-link {
+        font-size: 13px;
+        padding: 7px 10px;
+    }
+
+}

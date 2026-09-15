@@ -1,4 +1,27 @@
-<?php session_start(); ?>
+<?php
+
+session_start();
+
+include("php/conexionBD.php");
+
+
+// OBTENER AEROPUERTOS PARA EL BUSCADOR
+
+$consultaAeropuertos = $conexion->query("
+    SELECT
+        a.codigoIATA,
+        a.nombreAeropuerto,
+        c.nombreCiudad,
+        p.nombrePais
+    FROM Aeropuertos a
+    INNER JOIN Ciudades c
+        ON a.codCiudad = c.codCiudad
+    INNER JOIN Paises p
+        ON c.codPais = p.codPais
+    ORDER BY c.nombreCiudad ASC, a.codigoIATA ASC
+");
+
+?>
 
 <!DOCTYPE html>
 
@@ -7,7 +30,6 @@
 <head>
 
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Nuvia</title>
@@ -17,7 +39,6 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
 
     <link rel="stylesheet" href="css/estiloshome.css?v=2">
-
     <link rel="stylesheet" href="css/footer.css">
 
 </head>
@@ -31,293 +52,389 @@
 
     <!-- NAVBAR -->
 
-    <nav class="navbar navbar-expand-lg">
-
-
-        <a class="navbar-brand" href="home.php">
-
-            <img 
-            src="imagenes/logo.png" 
-            alt="logo"
-            width="60"
-            height="60">
-
-            <span class="fw-bold fs-4">
-                Nuvia
-            </span>
-
-        </a>
-
-
-
-        <!-- Botón hamburguesa (solo celular) -->
-
-        <button class="navbar-toggler d-lg-none btn-menu">
-
-            ☰
-
-        </button>
-
-
-
-        <!-- Menú PC -->
-
-        <div class="menu-principal ms-auto d-none d-lg-flex align-items-center">
-
-            <a href="#cont"   class="nav-menu">
-                Contacto
-            </a>
-            
-            <a href="destinos.html" class="nav-menu">
-
-                Destinos
-
-            </a>
-
-            <a href="novedades.html" class="nav-menu">
-
-                Novedades
-
-            </a>
-
-            <a href="ofertas.html" class="nav-menu">
-
-                Ofertas
-
-            </a>
-
-            <?php if (
-    isset($_SESSION["tipoUsuario"])
-    && $_SESSION["tipoUsuario"] === "usuario"
-) { ?>
-
-    <a
-        href="usuario/reservas/gestionReservas.php"
-        class="nav-menu"
-    >
-        Mis reservas
-    </a>
-
-    <a
-        href="usuario/perfil.php"
-        class="btn-iniciosesion ms-4"
-    >
-        <i class="bi bi-person-circle"></i>
-
-        <?php
-        echo htmlspecialchars(
-            $_SESSION["nombreUsuario"]
-        );
-        ?>
-    </a>
-
-    <a
-        href="php/cerrarSesion.php"
-        class="btn-registro ms-4"
-    >
-        Cerrar sesión
-    </a>
-
-<?php } else { ?>
-
-    <a
-        href="inicioSesion.php"
-        class="btn-iniciosesion ms-4"
-    >
-        Iniciar sesión
-    </a>
-
-    <a
-        href="registro.html"
-        class="btn-registro ms-4"
-    >
-        Registrate
-    </a>
-
-<?php } ?>
-
-
-        </div>
-
-
-    </nav>
+    <?php include("includes/navbar.php"); ?>
 
 
 
     <!-- BUSCADOR -->
 
 
-    
     <div class="contenedor-buscador">
-        <div class="tipo-viaje">
-            
-            <p class="titulo-buscador">
-                Encontrá el <strong>vuelo ideal</strong> para tu próximo viaje
-            </p>
-            <input 
-            type="radio"
-            name="viaje"
-            checked
-            onclick="mostrarVuelta()">
 
-            
-            <label>
+
+        <div class="tipo-viaje">
+
+
+            <p class="titulo-buscador">
+
+                Encontrá el
+                <strong>vuelo ideal</strong>
+                para tu próximo viaje
+
+            </p>
+
+
+            <!-- IDA Y VUELTA -->
+
+            <input
+                type="radio"
+                name="viaje"
+                id="ida-vuelta"
+                checked
+                onclick="mostrarVuelta()">
+
+            <label for="ida-vuelta">
 
                 Ida y vuelta
 
-            </label> 
-
-
-            <input 
-            type="radio"
-            name="viaje"
-            onclick="ocultarVuelta()">
+            </label>
 
 
 
-            <label>
+            <!-- SOLO IDA -->
+
+            <input
+                type="radio"
+                name="viaje"
+                id="solo-ida"
+                onclick="ocultarVuelta()">
+
+            <label for="solo-ida">
 
                 Solo ida
 
             </label>
 
 
-
         </div>
-        <div id ="buscador-ing-datos">
-            <div class="row g-0">
-
-                <div class="col-md-3">
 
 
-                    <input 
-                    class="form-control"
-                    placeholder="Desde">
+
+        <!-- FORMULARIO DE BÚSQUEDA -->
+
+        <form
+            action="resultadosVuelos.php"
+            method="GET">
+
+
+            <!-- TIPO DE VIAJE -->
+
+            <input
+                type="hidden"
+                name="tipoViaje"
+                id="tipoViaje"
+                value="idaVuelta">
+
+
+            <div id="buscador-ing-datos">
+
+                <div class="row g-0">
+
+
+                    <!-- DESDE -->
+
+                    <div class="col-md-3">
+
+
+                        <input
+                            type="text"
+                            name="origen"
+                            class="form-control"
+                            list="aeropuertos"
+                            placeholder="Desde"
+                            autocomplete="off"
+                            required>
+
+
+                    </div>
+
+
+
+                    <!-- HACIA -->
+
+                    <div class="col-md-3">
+
+
+                        <input
+                            type="text"
+                            name="destino"
+                            class="form-control"
+                            list="aeropuertos"
+                            placeholder="Hacia"
+                            autocomplete="off"
+                            required>
+
+
+                    </div>
+
+
+
+                    <!-- LISTA DE AEROPUERTOS -->
+
+                    <datalist id="aeropuertos">
+
+                        <?php while (
+                            $aeropuerto =
+                            $consultaAeropuertos->fetch_assoc()
+                        ) { ?>
+
+                            <option value="<?php
+
+                                echo htmlspecialchars(
+                                    $aeropuerto["nombreCiudad"]
+                                );
+
+                                echo " - ";
+
+                                echo htmlspecialchars(
+                                    $aeropuerto["codigoIATA"]
+                                );
+
+                                echo " - ";
+
+                                echo htmlspecialchars(
+                                    $aeropuerto["nombreAeropuerto"]
+                                );
+
+                            ?>">
+
+                            </option>
+
+                        <?php } ?>
+
+                    </datalist>
+
+
+
+                    <!-- FECHA DE IDA -->
+
+                    <div
+                        class="col-md-2"
+                        id="fecha-ida">
+
+
+                        <input
+                            type="date"
+                            name="fecha"
+                            id="fecha"
+                            class="form-control"
+                            required>
+
+
+                    </div>
+
+
+
+                    <!-- FECHA DE VUELTA -->
+
+                    <div
+                        class="col-md-2"
+                        id="fecha-vuelta">
+
+
+                        <input
+                            type="date"
+                            name="fechaVuelta"
+                            id="fechaVuelta"
+                            class="form-control">
+
+
+                    </div>
+
+
+
+                    <!-- BOTÓN BUSCAR -->
+
+                    <div class="col-md-2">
+
+
+                        <button
+                            type="submit"
+                            class="buscar">
+
+                            →
+
+                        </button>
+
+
+                    </div>
 
 
                 </div>
-
-                <div class="col-md-3">
-
-
-                    <input 
-                    class="form-control"
-                    placeholder="Hacia">
-
-
-                </div>
-
-
-                <div class="col-md-2" id="fecha-ida">
-
-
-                    <input 
-                    type="date"
-                    class="form-control">
-
-
-                </div>
-
-
-                <div class="col-md-2"
-                id="fecha-vuelta">
-
-
-                    <input 
-                    type="date"
-                    class="form-control">
-
-
-                </div>
-
-
-                <div class="col-md-2">
-
-
-                    <button class="buscar">
-
-
-                        →
-
-                    </button>
-
-
-                </div>
-
 
             </div>
 
-        </div>
+
+        </form>
+
+
         <br>
+
 
     </div>
 
-    
+
+
+    <!-- DESTINOS DESTACADOS -->
 
 
     <section class="destinos-destacados">
+
+
         <h4 class="titulo-destino">
+
             Viaja por el mundo
+
         </h4>
 
+
         <div class="contenedor-tarjetas">
-            <div class="tarjeta-destino">
-                <img src="imagenes/brasil.jpg" alt="Destino 1">
-                <h4>Brasil</h4>
-            </div>
+
 
             <div class="tarjeta-destino">
-                <img src="imagenes/bsas.jpg" alt="Destino 2">
-                <h4>Buenos Aires</h4>
+
+
+                <img
+                    src="imagenes/brasil.jpg"
+                    alt="Destino Brasil">
+
+
+                <h4>
+                    Brasil
+                </h4>
+
+
             </div>
 
-            <div class="tarjeta-destino">
-                <img src="imagenes/madrid.jpg" alt="Destino 3">
-                <h4>Madrid</h4>
-            </div>
+
 
             <div class="tarjeta-destino">
-                <img src="imagenes/roma.jpg" alt="Destino 4">
-                <h4>Roma</h4>
+
+
+                <img
+                    src="imagenes/bsas.jpg"
+                    alt="Destino Buenos Aires">
+
+
+                <h4>
+                    Buenos Aires
+                </h4>
+
+
             </div>
+
+
+
+            <div class="tarjeta-destino">
+
+
+                <img
+                    src="imagenes/madrid.jpg"
+                    alt="Destino Madrid">
+
+
+                <h4>
+                    Madrid
+                </h4>
+
+
+            </div>
+
+
+
+            <div class="tarjeta-destino">
+
+
+                <img
+                    src="imagenes/roma.jpg"
+                    alt="Destino Roma">
+
+
+                <h4>
+                    Roma
+                </h4>
+
+
+            </div>
+
+
         </div>
 
-    </section>
 
-    
-    
+    </section>
 
 
 </section>
 
+
 <?php include("includes/footer.php"); ?>
 
+
+
+<!-- JAVASCRIPT -->
 
 <script>
 
 
     function ocultarVuelta(){
 
-    document.getElementById("fecha-vuelta").style.display="none";
-
-    document.getElementById("fecha-ida").className="col-md-4";
-
-}
+        document.getElementById(
+            "fecha-vuelta"
+        ).style.display = "none";
 
 
+        document.getElementById(
+            "fechaVuelta"
+        ).value = "";
 
-function mostrarVuelta(){
 
-    document.getElementById("fecha-vuelta").style.display="block";
+        document.getElementById(
+            "fechaVuelta"
+        ).removeAttribute("required");
 
-    document.getElementById("fecha-ida").className="col-md-2";
 
-}
+        document.getElementById(
+            "fecha-ida"
+        ).className = "col-md-4";
+
+
+        document.getElementById(
+            "tipoViaje"
+        ).value = "ida";
+
+    }
+
+
+
+    function mostrarVuelta(){
+
+        document.getElementById(
+            "fecha-vuelta"
+        ).style.display = "block";
+
+
+        document.getElementById(
+            "fechaVuelta"
+        ).setAttribute("required", "");
+
+
+        document.getElementById(
+            "fecha-ida"
+        ).className = "col-md-2";
+
+
+        document.getElementById(
+            "tipoViaje"
+        ).value = "idaVuelta";
+
+    }
 
 
 </script>
 
+
 <script src="js/bootstrap.bundle.min.js"></script>
+
 
 </body>
 

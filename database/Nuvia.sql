@@ -132,8 +132,8 @@ INSERT INTO `Usuarios` (`codUsuario`, `nombreUsuario`, `claveUsuario`, `tipoUsua
 CREATE TABLE `Vuelos` (
   `codVuelo` int(11) NOT NULL,
   `codAerolinea` int(11) NOT NULL,
-  `origenVuelo` varchar(50) NOT NULL,
-  `destinoVuelo` varchar(50) NOT NULL,
+  `origenVuelo` varchar(200) NOT NULL,
+  `destinoVuelo` varchar(200) NOT NULL,
   `fechaSalidaVuelo` varchar(10) NOT NULL,
   `horaSalidaVuelo` varchar(5) NOT NULL,
   `precioVuelo` decimal(10,0) NOT NULL,
@@ -222,6 +222,7 @@ INSERT INTO Aeropuertos
 )
 VALUES
 ('EZE', 'SAEZ', 'Aeropuerto Internacional Ministro Pistarini', 1),
+('AEP', 'SABE', 'Aeroparque Jorge Newbery', 1),
 ('ROS', 'SAAR', 'Aeropuerto Internacional Rosario', 2),
 ('COR', 'SACO', 'Aeropuerto Internacional Ingeniero Ambrosio Taravella', 3),
 ('MDZ', 'SAME', 'Aeropuerto Internacional Gobernador Francisco Gabrielli', 4),
