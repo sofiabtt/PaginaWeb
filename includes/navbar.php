@@ -38,12 +38,12 @@ if (isset($_SESSION["tipoUsuario"])) {
                 <a class="nav-link" href="home.php">Inicio</a>
                 <a class="nav-link" href="#">Contacto</a>
                 <a class="nav-link" href="#">Destinos</a>
-                <a class="nav-link" href="#">Novedades</a>
+                <a class="nav-link" href="/PaginaWeb/usuario/novedades.php">Novedades</a>
                 <a class="nav-link" href="#">Ofertas</a>
 
                 <?php if ($estaLogueado && $tipoUsuario === "usuario") { ?>
                     <a class="nav-link" href="#">Buscar vuelos</a>
-                    <a class="nav-link" href="#">Mis reservas</a>
+                    <a class="nav-link" href="usuario/reservas/gestionReservas.php">Mis reservas</a>
                 <?php } elseif ($estaLogueado && $tipoUsuario === "administrador") { ?>
                     <a class="nav-link" href="admin/admin.php">
                         <i class="bi bi-calendar3"></i>
@@ -111,6 +111,13 @@ if (isset($_SESSION["tipoUsuario"])) {
                                     Iniciar sesión
                                 </a>
                             </li>
+
+                            <li>
+                                <a class="dropdown-item" href="registro.html">
+                                    <i class="bi bi-person-plus"></i>
+                                    Registrarse
+                                </a>
+                            </li>
                         </ul>
                     </div>
 
@@ -118,6 +125,11 @@ if (isset($_SESSION["tipoUsuario"])) {
                         <a class="nav-link" href="inicioSesion.php">
                             <i class="bi bi-person"></i>
                             Iniciar sesión
+                        </a>
+
+                        <a class="nav-link" href="registro.html">
+                            <i class="bi bi-person-plus"></i>
+                            Registrarse
                         </a>
                     </div>
 
