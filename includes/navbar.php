@@ -14,6 +14,8 @@ if (isset($_SESSION["tipoUsuario"])) {
     <div class="container-fluid">
         <a class="navbar-brand" href="home.php">
             <img src="imagenes/logo.png" alt="Logo Nuvia">
+
+            <h1>Nuvia</h1>
         </a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"

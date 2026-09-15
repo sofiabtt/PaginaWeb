@@ -1,13 +1,20 @@
+@font-face {
+    font-family: 'Montserrat';
+    src: url('../css/fonts/Montserrat/Montserrat-Medium.ttf') format('truetype');
+    font-weight: 400;
+}
+
 .navbar {
     width: 100%;
     min-height: 80px;
     padding: 5px 60px;
     background: #fff;
     box-shadow: 0 3px 15px rgba(0, 0, 0, 0.12);
-    position: relative;
 }
 
 .navbar-brand {
+    display: flex;
+    align-items: center;
     margin: 0;
     padding-right: 60px;
 }
@@ -16,6 +23,15 @@
     width: 60px;
     height: 60px;
     object-fit: contain;
+}
+
+.navbar-brand h1 {
+    line-height: 1;
+    margin: 0 0 0 12px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 26px;
+    letter-spacing: 0.3px;
 }
 
 .navbar-nav-general {
@@ -30,7 +46,6 @@
     font-weight: 600;
     text-decoration: none;
     margin: 0;
-    white-space: nowrap;
     letter-spacing: 0.7px;
 }
 
