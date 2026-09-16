@@ -42,8 +42,17 @@ if (isset($_SESSION["tipoUsuario"])) {
                 <a class="nav-link" href="#">Ofertas</a>
 
                 <?php if ($estaLogueado && $tipoUsuario === "usuario") { ?>
-                    <a class="nav-link" href="#">Buscar vuelos</a>
-                    <a class="nav-link" href="usuario/reservas/gestionReservas.php">Mis reservas</a>
+
+                    <a class="nav-link" href="#">
+                        <i class="bi bi-search"></i>
+                        Buscar vuelos
+                    </a>
+
+                    <a class="nav-link" href="usuario/reservas/gestionReservas.php">
+                        <i class="bi bi-ticket-perforated"></i>
+                        Mis reservas
+                    </a>
+
                 <?php } elseif ($estaLogueado && $tipoUsuario === "administrador") { ?>
                     <a class="nav-link" href="admin/admin.php">
                         <i class="bi bi-calendar3"></i>
@@ -74,9 +83,9 @@ if (isset($_SESSION["tipoUsuario"])) {
                                     Mi perfil
                                 </a>
                             </li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
+
+                            <li><hr class="dropdown-divider"></li>
+
                             <li>
                                 <a class="dropdown-item" href="php/cerrarSesion.php">
                                     <i class="bi bi-box-arrow-right"></i>
@@ -91,6 +100,7 @@ if (isset($_SESSION["tipoUsuario"])) {
                             <i class="bi bi-person"></i>
                             Mi perfil
                         </a>
+
                         <a class="nav-link" href="php/cerrarSesion.php">
                             <i class="bi bi-box-arrow-right"></i>
                             Cerrar sesión
@@ -111,6 +121,8 @@ if (isset($_SESSION["tipoUsuario"])) {
                                     Iniciar sesión
                                 </a>
                             </li>
+
+                            <li><hr class="dropdown-divider"></li>
 
                             <li>
                                 <a class="dropdown-item" href="registro.php">

@@ -119,9 +119,8 @@
 
 .menu-usuarios .dropdown-divider {
     margin: 6px 0;
-    border-color: #eee;
+    border-color: #ddd;
 }
-
 
 @media (max-width: 991.98px) {
     .navbar {
@@ -144,6 +143,11 @@
 
     .usuario-mobile a {
         padding: 10px 0 0;
+    }
+
+    .usuario-mobile hr {
+        margin: 6px 0;
+        border-color: #ddd;
     }
 
     .navbar-nav-general { 
