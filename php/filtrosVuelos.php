@@ -5,13 +5,13 @@
 // DATOS RECIBIDOS DEL BUSCADOR
 // =====================================================
 
-$tipoViaje = $_GET["tipoViaje"] ?? "ida";
+$tipoViaje = $_GET["tipoViaje"] ?? "soloIda";
 
 $origen = $_GET["origen"] ?? "";
 
 $destino = $_GET["destino"] ?? "";
 
-$fechaIda = $_GET["fecha"] ?? "";
+$fechaIda = $_GET["fechaIda"] ?? "";
 
 $fechaVuelta = $_GET["fechaVuelta"] ?? "";
 

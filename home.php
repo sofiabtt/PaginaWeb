@@ -1,9 +1,10 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
 session_start();
 
 include("php/conexionBD.php");
-
 
 // OBTENER AEROPUERTOS PARA EL BUSCADOR
 
@@ -40,6 +41,8 @@ $consultaAeropuertos = $conexion->query("
 
     <link rel="stylesheet" href="css/estiloshome.css?v=2">
     <link rel="stylesheet" href="css/footer.css">
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
 </head>
 
@@ -78,10 +81,11 @@ $consultaAeropuertos = $conexion->query("
 
             <input
                 type="radio"
-                name="viaje"
+                name="tipoViaje"
                 id="ida-vuelta"
+                value= "idaVuelta"
                 checked
-                onclick="mostrarVuelta()">
+                >
 
             <label for="ida-vuelta">
 
@@ -95,9 +99,9 @@ $consultaAeropuertos = $conexion->query("
 
             <input
                 type="radio"
-                name="viaje"
+                name="tipoViaje"
                 id="solo-ida"
-                onclick="ocultarVuelta()">
+                value="soloIda">
 
             <label for="solo-ida">
 
@@ -118,55 +122,69 @@ $consultaAeropuertos = $conexion->query("
 
 
             <!-- TIPO DE VIAJE -->
-
-            <input
-                type="hidden"
-                name="tipoViaje"
-                id="tipoViaje"
-                value="idaVuelta">
-
-
             <div id="buscador-ing-datos">
 
                 <div class="row g-0">
 
-
-                    <!-- DESDE -->
-
                     <div class="col-md-3">
 
-
-                        <input
+                        <input 
                             type="text"
+                            class="form-control"
                             name="origen"
-                            class="form-control"
-                            list="aeropuertos"
                             placeholder="Desde"
+                            list="aeropuertos"
                             autocomplete="off"
                             required>
 
-
                     </div>
 
-
-
-                    <!-- HACIA -->
 
                     <div class="col-md-3">
 
-
-                        <input
+                        <input 
                             type="text"
-                            name="destino"
                             class="form-control"
-                            list="aeropuertos"
+                            name="destino"
                             placeholder="Hacia"
+                            list="aeropuertos"
                             autocomplete="off"
                             required>
 
+                    </div>
+
+
+                    <div class="col-md-4">
+
+                        <input
+                            type="text"
+                            id="fechaViaje"
+                            class="form-control"
+                            placeholder="Seleccioná fecha"
+                            readonly>
+
+                        <input
+                            type="hidden"
+                            id="fechaIda"
+                            name="fechaIda">
+
+                        <input
+                            type="hidden"
+                            id="fechaVuelta"
+                            name="fechaVuelta">
 
                     </div>
 
+
+                    <div class="col-md-2">
+
+                        <button class="buscar">
+                            →
+                        </button>
+
+                    </div>
+
+                </div>
 
 
                     <!-- LISTA DE AEROPUERTOS -->
@@ -206,58 +224,7 @@ $consultaAeropuertos = $conexion->query("
 
 
 
-                    <!-- FECHA DE IDA -->
-
-                    <div
-                        class="col-md-2"
-                        id="fecha-ida">
-
-
-                        <input
-                            type="date"
-                            name="fecha"
-                            id="fecha"
-                            class="form-control"
-                            required>
-
-
-                    </div>
-
-
-
-                    <!-- FECHA DE VUELTA -->
-
-                    <div
-                        class="col-md-2"
-                        id="fecha-vuelta">
-
-
-                        <input
-                            type="date"
-                            name="fechaVuelta"
-                            id="fechaVuelta"
-                            class="form-control">
-
-
-                    </div>
-
-
-
-                    <!-- BOTÓN BUSCAR -->
-
-                    <div class="col-md-2">
-
-
-                        <button
-                            type="submit"
-                            class="buscar">
-
-                            →
-
-                        </button>
-
-
-                    </div>
+                    
 
 
                 </div>
@@ -373,62 +340,190 @@ $consultaAeropuertos = $conexion->query("
 
 <!-- JAVASCRIPT -->
 
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
 <script>
 
+const radioIdaVuelta = document.getElementById("ida-vuelta");
+const radioSoloIda = document.getElementById("solo-ida");
 
-    function ocultarVuelta(){
-
-        document.getElementById(
-            "fecha-vuelta"
-        ).style.display = "none";
-
-
-        document.getElementById(
-            "fechaVuelta"
-        ).value = "";
+const fechaIda = document.getElementById("fechaIda");
+const fechaVuelta = document.getElementById("fechaVuelta");
 
 
-        document.getElementById(
-            "fechaVuelta"
-        ).removeAttribute("required");
+let primeraFecha = null;
 
 
-        document.getElementById(
-            "fecha-ida"
-        ).className = "col-md-4";
+/* CALENDARIO */
+
+const calendario = flatpickr("#fechaViaje", {
+
+    mode: "range",
+
+    dateFormat: "d/m/Y",
+
+    rangeSeparator:" - ",
+
+    minDate: "today",
+
+    locale: {
+        firstDayOfWeek: 1,
+        weekdays: {
+            shorthand: ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"],
+            longhand: [
+                "Domingo",
+                "Lunes",
+                "Martes",
+                "Miércoles",
+                "Jueves",
+                "Viernes",
+                "Sábado"
+            ]
+        },
+
+        months: {
+            shorthand: [
+                "Ene",
+                "Feb",
+                "Mar",
+                "Abr",
+                "May",
+                "Jun",
+                "Jul",
+                "Ago",
+                "Sep",
+                "Oct",
+                "Nov",
+                "Dic"
+            ],
+
+            longhand: [
+                "Enero",
+                "Febrero",
+                "Marzo",
+                "Abril",
+                "Mayo",
+                "Junio",
+                "Julio",
+                "Agosto",
+                "Septiembre",
+                "Octubre",
+                "Noviembre",
+                "Diciembre"
+            ]
+        }
+    },
 
 
-        document.getElementById(
-            "tipoViaje"
-        ).value = "ida";
+    onChange: function(selectedDates, dateStr, instance) {
+
+        /* SOLO IDA */
+
+        if (radioSoloIda.checked) {
+
+            if (selectedDates.length >= 1) {
+
+                fechaIda.value =
+                    instance.formatDate(
+                        selectedDates[0],
+                        "Y-m-d"
+                    );
+
+                fechaVuelta.value = "";
+
+                instance.close();
+
+            }
+
+            return;
+        }
+
+
+        /* IDA Y VUELTA */
+
+        if (selectedDates.length === 1) {
+
+            primeraFecha = selectedDates[0];
+
+            fechaIda.value =
+                instance.formatDate(
+                    primeraFecha,
+                    "Y-m-d"
+                );
+
+            fechaVuelta.value = "";
+
+        }
+
+
+        if (selectedDates.length === 2) {
+
+            const ida = selectedDates[0];
+            const vuelta = selectedDates[1];
+
+
+            fechaIda.value =
+                instance.formatDate(
+                    ida,
+                    "Y-m-d"
+                );
+
+            fechaVuelta.value =
+                instance.formatDate(
+                    vuelta,
+                    "Y-m-d"
+                );
+
+
+            instance.close();
+
+        }
 
     }
 
+});
 
 
-    function mostrarVuelta(){
+/* CAMBIAR A SOLO IDA */
 
-        document.getElementById(
-            "fecha-vuelta"
-        ).style.display = "block";
+radioSoloIda.addEventListener("change", function(){
+ 
+    primeraFecha = null;
+
+    calendario.clear();
+
+    calendario.set("mode", "single");
+
+    document.getElementById("fechaViaje").placeholder =
+        "Seleccioná fecha de ida";
+
+    fechaIda.value = "";
+    fechaVuelta.value = "";
+
+});
 
 
-        document.getElementById(
-            "fechaVuelta"
-        ).setAttribute("required", "");
+/* CAMBIAR A IDA Y VUELTA */
+
+radioIdaVuelta.addEventListener("change", function(){
 
 
-        document.getElementById(
-            "fecha-ida"
-        ).className = "col-md-2";
+    primeraFecha = null;
 
+    calendario.clear();
 
-        document.getElementById(
-            "tipoViaje"
-        ).value = "idaVuelta";
+    calendario.set("mode", "range");
 
-    }
+    document.getElementById("fechaViaje").placeholder =
+        "Seleccioná ida y vuelta";
 
+    fechaIda.value = "";
+    fechaVuelta.value = "";
+
+});
 
 </script>
 

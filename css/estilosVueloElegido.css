@@ -1,0 +1,185 @@
+body {
+    background: #daf2f7;
+}
+
+.contenedor-vuelo-elegido {
+    padding: 140px 0 60px;
+}
+
+.titulo-vuelo-elegido {
+    color: black;
+    font-weight: 700;
+    margin-bottom: 30px;
+}
+
+.tarjeta-vuelo-elegido,
+.tarjeta-formulario {
+    border: none;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+}
+
+.tarjeta-vuelo-elegido .card-body,
+.tarjeta-formulario .card-body {
+    padding: 30px;
+}
+
+.aerolinea-vuelo {
+    color: #835a40;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.texto-secundario {
+    display: block;
+    color: #777;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.flecha-vuelo {
+    font-size: 28px;
+    color: #835a40;
+}
+
+.datos-secundarios {
+    display: flex;
+    gap: 25px;
+    flex-wrap: wrap;
+    color: #666;
+}
+
+.precio-vuelo-elegido {
+    color: #684028;
+    font-weight: 700;
+    margin-top: 5px;
+}
+
+.tarjeta-formulario {
+    max-width: 500px;
+}
+
+.btn-pagar {
+    width: 100%;
+    background: #835a40;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+.btn-pagar:hover {
+    background: #b1917d;
+    color: white;
+}
+
+.dato-reserva {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 15px 0;
+
+    border-bottom: 1px solid #ddd;
+
+    font-size: 16px;
+}
+
+.dato-reserva strong {
+    color: #684028;
+    font-size: 18px;
+}
+
+.total-reserva {
+    border-top: 2px solid #835a40;
+    border-bottom: none;
+
+    margin-top: 20px;
+    padding-top: 20px;
+}
+
+.total-reserva strong {
+    font-size: 24px;
+}
+
+.tarjeta-formulario {
+    max-width: 550px;
+}
+.modal-registro {
+    display: none;
+
+    position: fixed;
+    inset: 0;
+
+    background: rgba(0, 0, 0, 0.45);
+
+    z-index: 9999;
+
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-contenido {
+    width: 90%;
+    max-width: 430px;
+
+    background: white;
+
+    border-radius: 20px;
+
+    padding: 35px;
+
+    text-align: center;
+
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+}
+
+.modal-icono {
+    font-size: 50px;
+    color: #835a40;
+    margin-bottom: 15px;
+}
+
+.modal-contenido h3 {
+    color: #684028;
+    margin-bottom: 15px;
+}
+
+.modal-contenido p {
+    color: #666;
+    line-height: 1.5;
+    margin-bottom: 25px;
+}
+
+.modal-botones {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.btn-cancelar,
+.btn-ir-registro {
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-weight: bold;
+}
+
+.btn-cancelar {
+    background: #eeeeee;
+    color: #555;
+}
+
+.btn-cancelar:hover {
+    background: #dddddd;
+}
+
+.btn-ir-registro {
+    background: #835a40;
+    color: white;
+}
+
+.btn-ir-registro:hover {
+    background: #b1917d;
+}

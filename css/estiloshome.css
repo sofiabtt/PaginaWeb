@@ -369,3 +369,41 @@ body{
 .footer .footer-columna a:hover {
     color: #835a40 !important;
 }
+
+
+
+/* CALENDARIO DEL BUSCADOR */
+
+.flatpickr-day.inRange {
+    background: #dddddd;
+    border-color: #dddddd;
+    box-shadow:
+        -5px 0 0 #dddddd,
+        5px 0 0 #dddddd;
+}
+
+
+.flatpickr-day.startRange,
+.flatpickr-day.endRange,
+.flatpickr-day.selected {
+
+    background: #835a40;
+    border-color: #835a40;
+    color: white;
+
+}
+
+
+.flatpickr-day.startRange:hover,
+.flatpickr-day.endRange:hover,
+.flatpickr-day.selected:hover {
+
+    background: #835a40;
+    border-color: #835a40;
+
+}
+#fechaViaje {
+    font-size: 16px;
+    color: #444;
+    padding-left: 18px;
+}

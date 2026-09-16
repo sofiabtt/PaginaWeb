@@ -53,7 +53,7 @@ include "php/filtrosVuelos.php";
 
                 <?php else: ?>
 
-                    Vuelos disponibles
+                    Vuelos de ida
 
                 <?php endif; ?>
 
@@ -257,7 +257,7 @@ include "php/filtrosVuelos.php";
 
                             <input
                                 type="hidden"
-                                name="fecha"
+                                name="fechaIda"
                                 value="<?php
 
                                 echo htmlspecialchars(
@@ -1007,7 +1007,7 @@ include "php/filtrosVuelos.php";
 
 
                                                 <a
-                                                    href="#"
+                                                    href="vueloElegido.php?codVuelo=<?php echo $vuelo['codVuelo']; ?>"
                                                     class="btn btn-nuvia"
                                                 >
 
@@ -1436,7 +1436,7 @@ include "php/filtrosVuelos.php";
 
 
                                                     <a
-                                                        href="#"
+                                                        href="vueloElegido.php?codVuelo=<?php echo $vuelo['codVuelo']; ?>"
                                                         class="btn btn-nuvia"
                                                     >
 
