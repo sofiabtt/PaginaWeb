@@ -57,7 +57,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($usuario["tipoUsuario"] == "usuario") {
 
-            $destino = "../usuario/usuario.php";
+            if (
+                isset($_SESSION["reservaTemporal"])
+                && isset($_SESSION["reservaTemporal"]["codVuelo"])
+            ) {
+
+                $codVuelo = $_SESSION["reservaTemporal"]["codVuelo"];
+
+                $destino =
+                    "../vueloElegido.php?codVuelo=" . $codVuelo;
+
+            } else {
+
+                $destino = "../usuario/usuario.php";
+
+            }
 
         }
 

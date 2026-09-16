@@ -183,3 +183,162 @@ body {
 .btn-ir-registro:hover {
     background: #b1917d;
 }
+.contenedor-reserva {
+    width: 82%;
+    margin: 24px auto 80px;
+}
+
+.tarjeta-reserva {
+    background: white;
+    border-radius: 20px;
+    padding: 32px;
+    margin-bottom: 24px;
+    max-width: 650px;
+    box-shadow: 0 5px 18px rgba(0,0,0,0.05);
+}
+
+.tarjeta-reserva h2 {
+    margin-top: 0;
+    margin-bottom: 28px;
+    font-size: 28px;
+}
+
+.fila-pasajeros {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 20px;
+}
+
+.campo-pasajero {
+    flex: 1;
+}
+
+.campo-pasajero label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.campo-pasajero input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+.campo-pasajero small {
+    display: block;
+    margin-top: 5px;
+    color: #777;
+}
+
+.mensaje-error {
+    color: #b00020;
+    margin-bottom: 15px;
+}
+
+.boton-principal,
+.boton-pagar {
+    background: #8b5e3c;
+    color: white;
+    border: none;
+    padding: 13px 28px;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.boton-principal:hover,
+.boton-pagar:hover {
+    opacity: 0.9;
+}
+
+.boton-pagar.apretado {
+    background: #999;
+    color: white;
+}
+/* Formulario de cada pasajero */
+
+.pasajero-card {
+    padding: 22px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.pasajero-card:last-child {
+    border-bottom: none;
+}
+
+.pasajero-card h3 {
+    margin-bottom: 18px;
+    color: #75472e;
+}
+
+.grid-datos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+}
+
+.grid-datos label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+}
+
+.grid-datos input {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+
+/* Resumen */
+
+.detalle-precio {
+    display: flex;
+    justify-content: space-between;
+    margin: 15px 0;
+    font-size: 17px;
+}
+
+.detalle-precio.total {
+    font-size: 22px;
+    color: #75472e;
+}
+
+.ya-tengo-cuenta {
+    display: inline-block;
+    margin-bottom: 20px;
+    color: #835a40;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.ya-tengo-cuenta:hover {
+    text-decoration: underline;
+    color: #684028;
+}
+
+
+.boton-pagar.reservado {
+    background: #999;
+    color: white;
+    cursor: default;
+}
+.mensaje-reserva {
+    margin-top: 10px;
+    font-size: 13px;
+    color: #666;
+}
+
+.mensaje-reserva a {
+    color: #835a40;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.mensaje-reserva a:hover {
+    text-decoration: underline;
+}

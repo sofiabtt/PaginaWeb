@@ -5,7 +5,7 @@ include "../../php/conexionBD.php";
 
 $codUsuario = (int) $_SESSION["codUsuario"];
 $consulta = $conexion->prepare(
-    "SELECT r.codReserva, r.fechaReservae, r.estadoReserva,
+    "SELECT r.codReserva, r.fechaReserva, r.estadoReserva,
             v.origenVuelo, v.destinoVuelo, v.fechaSalidaVuelo,
             v.horaSalidaVuelo, r.precioFinalReserva, a.nombreAerolinea
      FROM Reservas r

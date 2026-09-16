@@ -235,114 +235,129 @@ if (!$vuelo) {
 
         <!-- FORMULARIO -->
 
-        <div class="card tarjeta-formulario mt-4">
+        <div class="contenedor-reserva">
 
-            <div class="card-body">
+            <!-- PASO 1: CANTIDAD DE PASAJEROS -->
+            <div class="tarjeta-reserva" id="seleccionPasajeros">
+                <h2>Pasajeros</h2>
 
-                <h3 class="mb-4">
-                    Datos de la reserva
-                </h3>
+                <div class="fila-pasajeros">
 
-
-                <form
-                    action="pago.php"
-                    method="POST"
-                >
-
-                    <input
-                        type="hidden"
-                        name="codVuelo"
-                        value="<?php echo $vuelo["codVuelo"]; ?>"
-                    >
-
-
-                    <!-- PRECIO POR PASAJERO -->
-
-                    <div class="dato-reserva">
-
-                        <span>
-                            Precio por pasajero
-                        </span>
-
-                        <strong>
-
-                            $
-
-                            <?php
-                            echo number_format(
-                                $vuelo["precioVuelo"],
-                                0,
-                                ",",
-                                "."
-                            );
-                            ?>
-
-                        </strong>
-
-                    </div>
-
-
-                    <!-- CANTIDAD -->
-
-                    <div class="mb-4">
-
-                        <label
-                            for="cantidadPasajes"
-                            class="form-label fw-bold"
-                        >
-                            Cantidad de pasajeros
-                        </label>
-
-
+                    <div class="campo-pasajero">
+                        <label for="adultos">Adultos</label>
                         <input
                             type="number"
-                            class="form-control"
-                            id="cantidadPasajes"
-                            name="cantidadPasajes"
+                            id="adultos"
                             min="1"
                             max="10"
                             value="1"
-                            required
                         >
-
+                        <small>Mayores de 12 años</small>
                     </div>
 
-
-                    <!-- TOTAL -->
-
-                    <div class="dato-reserva total-reserva">
-
-                        <span>
-                            Precio total
-                        </span>
-
-                        <strong id="precioTotal">
-
-                            $
-
-                            <?php
-                            echo number_format(
-                                $vuelo["precioVuelo"],
-                                0,
-                                ",",
-                                "."
-                            );
-                            ?>
-
-                        </strong>
-
+                    <div class="campo-pasajero">
+                        <label for="menores">Menores</label>
+                        <input
+                            type="number"
+                            id="menores"
+                            min="0"
+                            max="9"
+                            value="0"
+                        >
+                        <small>Menores de 12 años</small>
                     </div>
 
+                </div>
+
+                <p id="errorPasajeros" class="mensaje-error"></p>
+
+                <button
+                    type="button"
+                    class="boton-principal"
+                    onclick="crearFormulariosPasajeros()"
+                >
+                    Siguiente
+                </button>
+            </div>
+
+
+            <!-- PASO 2: DATOS DE LOS PASAJEROS -->
+            <div
+                class="tarjeta-reserva"
+                id="datosPasajeros"
+                style="display: none;"
+            >
+                <h2>Datos de los pasajeros</h2>
+
+                <form id="formPasajeros">
+
+                    <div id="formulariosPasajeros"></div>
 
                     <button
                         type="button"
-                        class="btn btn-pagar mt-4"
-                        onclick="validarPago()"
+                        class="boton-principal"
+                        onclick="mostrarResumen()"
                     >
-                        Pagar
+                        Continuar al pago
                     </button>
 
                 </form>
+            </div>
+
+
+            <!-- PASO 3: RESUMEN DE LA RESERVA -->
+            <div
+                class="tarjeta-reserva"
+                id="resumenReserva"
+                style="display: none;"
+            >
+
+                <h2>Datos de la reserva</h2>
+
+                <div class="detalle-precio">
+                    <span>Precio por pasajero</span>
+
+                    <strong>
+                        $<?= number_format($vuelo["precioVuelo"], 0, ',', '.') ?>
+                    </strong>
+                </div>
+
+                <div class="detalle-precio">
+                    <span>Adultos</span>
+                    <strong id="resumenAdultos"></strong>
+                </div>
+
+                <div class="detalle-precio">
+                    <span>Menores</span>
+                    <strong id="resumenMenores"></strong>
+                </div>
+
+                <div class="detalle-precio">
+                    <span>Total de pasajeros</span>
+                    <strong id="resumenPasajeros"></strong>
+                </div>
+
+                <hr>
+
+                <div class="detalle-precio total">
+                    <span>Precio total</span>
+                    <strong id="precioTotal"></strong>
+                </div>
+
+                <button
+                    type="button"
+                    id="btnReservar"
+                    class="boton-pagar"
+                    onclick="reservar()"
+                >
+                    Reservar
+                </button>
+                <p id="mensajeReserva" class="mensaje-reserva" style="display: none;">
+                    Selecciona el siguiente link para terminá de pagar tu vuelo en:
+                    <a href="usuario/reservas/gestionReservas.php">
+                        Mis Reservas
+                    </a>
+                </p>
 
             </div>
 
@@ -353,8 +368,7 @@ if (!$vuelo) {
 
     <script>
 
-const cantidadPasajes =
-    document.getElementById("cantidadPasajes");
+
 
 const precioTotal =
     document.getElementById("precioTotal");
@@ -362,30 +376,6 @@ const precioTotal =
 const precioPorPasajero =
     <?php echo (float) $vuelo["precioVuelo"]; ?>;
 
-
-cantidadPasajes.addEventListener(
-    "input",
-    function() {
-
-        let cantidad = parseInt(this.value);
-
-        if (cantidad < 1) {
-            cantidad = 1;
-        }
-
-        if (cantidad > 10) {
-            cantidad = 10;
-        }
-
-        const total =
-            precioPorPasajero * cantidad;
-
-        precioTotal.textContent =
-            "$ " +
-            total.toLocaleString("es-AR");
-
-    }
-);
 
 
 function validarPago() {
@@ -418,14 +408,56 @@ function cerrarModalRegistro() {
 
 function irAlRegistro() {
 
-    const cantidad =
-        document.getElementById("cantidadPasajes").value;
+    const adultos =
+        document.getElementById("adultos").value;
 
-    window.location.href =
-        "php/guardarReservaTemporal.php"
-        + "?codVuelo=<?php echo $vuelo['codVuelo']; ?>"
-        + "&cantidadPasajes=" + cantidad;
+    const menores =
+        document.getElementById("menores").value;
 
+    const formulario =
+        document.getElementById("formPasajeros");
+
+    const datosFormulario =
+        new FormData(formulario);
+
+    datosFormulario.append(
+        "codVuelo",
+        "<?php echo $vuelo['codVuelo']; ?>"
+    );
+
+    datosFormulario.append(
+        "adultos",
+        adultos
+    );
+
+    datosFormulario.append(
+        "menores",
+        menores
+    );
+
+    fetch(
+        "php/guardarReservaTemporal.php",
+        {
+            method: "POST",
+            body: datosFormulario
+        }
+    )
+    .then(respuesta => respuesta.text())
+    .then(() => {
+
+        window.location.href =
+            "registro.html";
+
+    })
+    .catch(error => {
+
+        console.error("Error al crear reserva:", error);
+
+        alert(
+            "El servidor devolvió una respuesta incorrecta. Mirá la consola."
+        );
+
+    });
 }
 
 </script>
@@ -435,45 +467,503 @@ function irAlRegistro() {
 <script src="js/bootstrap.bundle.min.js"></script>
 
 
+    <div id="modalRegistro" class="modal-registro">
 
-<div id="modalRegistro" class="modal-registro">
+        <div class="modal-contenido">
 
-    <div class="modal-contenido">
+            <div class="modal-icono">
+                <i class="bi bi-person-circle"></i>
+            </div>
 
-        <div class="modal-icono">
-            <i class="bi bi-person-circle"></i>
-        </div>
+            <h3>Necesitás registrarte</h3>
 
-        <h3>Necesitás registrarte</h3>
+            <p>
+                Para continuar con el pago tenés que crear una cuenta.
+                No vas a perder los datos de tu vuelo ni los pasajeros ingresados.
+            </p>
 
-        <p>
-            Para continuar con el pago tenés que crear una cuenta.
-            No vas a perder los datos de tu vuelo ni la cantidad de pasajeros seleccionada.
-        </p>
+            <div class="modal-botones">
 
-        <div class="modal-botones">
+                <button
+                    type="button"
+                    class="btn-cancelar"
+                    onclick="cerrarModalRegistro()"
+                >
+                    Cancelar
+                </button>
 
-            <button
-                type="button"
-                class="btn-cancelar"
-                onclick="cerrarModalRegistro()"
-            >
-                Cancelar
-            </button>
+                <button
+                    type="button"
+                    class="btn-ir-registro"
+                    onclick="irAlRegistro()"
+                >
+                    Ir al registro
+                </button>
 
-            <button
-                type="button"
-                class="btn-ir-registro"
-                onclick="irAlRegistro()"
-            >
-                Ir al registro
-            </button>
+            </div>
+            <br>
+            <a href="#" class="ya-tengo-cuenta" onclick="irAlInicioSesion(event)">
+                Ya tengo cuenta
+            </a>
 
         </div>
 
     </div>
+<script>
 
-</div>
+const precioPasajero = <?= $vuelo["precioVuelo"] ?>;
+
+
+function crearFormulariosPasajeros() {
+
+    const adultos =
+        parseInt(document.getElementById("adultos").value) || 0;
+
+    const menores =
+        parseInt(document.getElementById("menores").value) || 0;
+
+    const total = adultos + menores;
+
+    const error =
+        document.getElementById("errorPasajeros");
+
+
+    if (adultos < 1) {
+        error.textContent =
+            "Debe viajar al menos un adulto.";
+        return;
+    }
+
+
+    if (total > 10) {
+        error.textContent =
+            "La reserva puede tener como máximo 10 pasajeros.";
+        return;
+    }
+
+
+    error.textContent = "";
+
+
+    const contenedor =
+        document.getElementById("formulariosPasajeros");
+
+    contenedor.innerHTML = "";
+
+
+    /* ADULTOS */
+
+    for (let i = 1; i <= adultos; i++) {
+
+        contenedor.innerHTML += `
+            <div class="pasajero-card">
+
+                <h3>Adulto ${i}</h3>
+
+                <div class="grid-datos">
+
+                    <div>
+                        <label>Nombre</label>
+                        <input
+                            type="text"
+                            name="nombreAdulto[]"
+                            required
+                        >
+                    </div>
+
+                    <div>
+                        <label>Apellido</label>
+                        <input
+                            type="text"
+                            name="apellidoAdulto[]"
+                            required
+                        >
+                    </div>
+
+                    <div>
+                        <label>Email</label>
+                        <input
+                            type="email"
+                            name="emailAdulto[]"
+                            required
+                        >
+                    </div>
+
+                    <div>
+                        <label>Fecha de nacimiento</label>
+                        <input
+                            type="date"
+                            name="fechaAdulto[]"
+                            required
+                        >
+                    </div>
+
+                </div>
+
+            </div>
+        `;
+    }
+
+
+    /* MENORES */
+
+    for (let i = 1; i <= menores; i++) {
+
+        contenedor.innerHTML += `
+            <div class="pasajero-card">
+
+                <h3>Menor ${i}</h3>
+
+                <div class="grid-datos">
+
+                    <div>
+                        <label>Nombre</label>
+                        <input
+                            type="text"
+                            name="nombreMenor[]"
+                            required
+                        >
+                    </div>
+
+                    <div>
+                        <label>Apellido</label>
+                        <input
+                            type="text"
+                            name="apellidoMenor[]"
+                            required
+                        >
+                    </div>
+
+                    <div>
+                        <label>Email</label>
+                        <input
+                            type="email"
+                            name="emailMenor[]"
+                            required
+                        >
+                    </div>
+
+                    <div>
+                        <label>Fecha de nacimiento</label>
+                        <input
+                            type="date"
+                            name="fechaMenor[]"
+                            required
+                        >
+                    </div>
+
+                </div>
+
+            </div>
+        `;
+    }
+
+
+    document.getElementById("datosPasajeros").style.display =
+        "block";
+
+
+    document.getElementById("resumenReserva").style.display =
+        "none";
+
+
+    document.getElementById("datosPasajeros")
+        .scrollIntoView({
+            behavior: "smooth"
+        });
+}
+
+
+
+function mostrarResumen() {
+
+    const formulario =
+        document.getElementById("formPasajeros");
+
+
+    if (!formulario.reportValidity()) {
+        return;
+    }
+
+
+    const adultos =
+        parseInt(document.getElementById("adultos").value);
+
+    const menores =
+        parseInt(document.getElementById("menores").value);
+
+    const totalPasajeros =
+        adultos + menores;
+
+    const totalPrecio =
+        totalPasajeros * precioPasajero;
+
+
+    document.getElementById("resumenAdultos")
+        .textContent = adultos;
+
+    document.getElementById("resumenMenores")
+        .textContent = menores;
+
+    document.getElementById("resumenPasajeros")
+        .textContent = totalPasajeros;
+
+
+    document.getElementById("precioTotal")
+        .textContent =
+        "$" + totalPrecio.toLocaleString("es-AR");
+
+
+    document.getElementById("resumenReserva")
+        .style.display = "block";
+
+
+    document.getElementById("resumenReserva")
+        .scrollIntoView({
+            behavior: "smooth"
+        });
+}
+
+function irAlInicioSesion(event) {
+
+    event.preventDefault();
+
+    const adultos =
+        document.getElementById("adultos").value;
+
+    const menores =
+        document.getElementById("menores").value;
+
+    const formulario =
+        document.getElementById("formPasajeros");
+
+    const datosFormulario =
+        new FormData(formulario);
+
+    datosFormulario.append(
+        "codVuelo",
+        "<?php echo $vuelo['codVuelo']; ?>"
+    );
+
+    datosFormulario.append("adultos", adultos);
+    datosFormulario.append("menores", menores);
+
+    fetch(
+        "php/guardarReservaTemporal.php",
+        {
+            method: "POST",
+            body: datosFormulario
+        }
+    )
+    .then(respuesta => respuesta.text())
+    .then(() => {
+
+        window.location.href = "inicioSesion.php";
+
+    })
+    .catch(error => {
+
+        console.error(error);
+
+    });
+
+}
+
+
+
+///////////////////////////////
+
+        //reconstruccion del formulario
+
+//////////////////////////////
+
+const reservaTemporal =
+    <?= json_encode(
+        $_SESSION["reservaTemporal"] ?? null,
+        JSON_UNESCAPED_UNICODE
+    ) ?>;
+
+
+if (reservaTemporal) {
+
+    // Restauramos cantidades
+    document.getElementById("adultos").value =
+        reservaTemporal.adultos;
+
+    document.getElementById("menores").value =
+        reservaTemporal.menores;
+
+
+    // Volvemos a crear los formularios
+    crearFormulariosPasajeros();
+
+
+    // DATOS DE ADULTOS
+
+    const nombresAdultos =
+        document.querySelectorAll(
+            'input[name="nombreAdulto[]"]'
+        );
+
+    const apellidosAdultos =
+        document.querySelectorAll(
+            'input[name="apellidoAdulto[]"]'
+        );
+
+    const emailsAdultos =
+        document.querySelectorAll(
+            'input[name="emailAdulto[]"]'
+        );
+
+    const fechasAdultos =
+        document.querySelectorAll(
+            'input[name="fechaAdulto[]"]'
+        );
+
+
+    nombresAdultos.forEach((input, i) => {
+
+        input.value =
+            reservaTemporal.nombreAdulto?.[i] ?? "";
+
+        apellidosAdultos[i].value =
+            reservaTemporal.apellidoAdulto?.[i] ?? "";
+
+        emailsAdultos[i].value =
+            reservaTemporal.emailAdulto?.[i] ?? "";
+
+        fechasAdultos[i].value =
+            reservaTemporal.fechaAdulto?.[i] ?? "";
+
+    });
+
+
+
+    // DATOS DE MENORES
+
+    const nombresMenores =
+        document.querySelectorAll(
+            'input[name="nombreMenor[]"]'
+        );
+
+    const apellidosMenores =
+        document.querySelectorAll(
+            'input[name="apellidoMenor[]"]'
+        );
+
+    const emailsMenores =
+        document.querySelectorAll(
+            'input[name="emailMenor[]"]'
+        );
+
+    const fechasMenores =
+        document.querySelectorAll(
+            'input[name="fechaMenor[]"]'
+        );
+
+
+    nombresMenores.forEach((input, i) => {
+
+        input.value =
+            reservaTemporal.nombreMenor?.[i] ?? "";
+
+        apellidosMenores[i].value =
+            reservaTemporal.apellidoMenor?.[i] ?? "";
+
+        emailsMenores[i].value =
+            reservaTemporal.emailMenor?.[i] ?? "";
+
+        fechasMenores[i].value =
+            reservaTemporal.fechaMenor?.[i] ?? "";
+
+    });
+
+
+    // Como ya había completado todo antes de iniciar sesión,
+    // volvemos a mostrar el resumen de la reserva
+    mostrarResumen();
+
+}
+/////////////////////////////
+
+        // RESERVAR
+
+////////////////////////////
+
+function reservar() {
+
+    const usuarioRegistrado =
+        <?php
+        echo (
+            isset($_SESSION["tipoUsuario"])
+            && $_SESSION["tipoUsuario"] === "usuario"
+        ) ? "true" : "false";
+        ?>;
+
+
+    // No inició sesión
+    if (!usuarioRegistrado) {
+
+        document.getElementById("modalRegistro")
+            .style.display = "flex";
+
+        return;
+    }
+
+
+    // Sí inició sesión:
+    // creamos la reserva en la BD
+
+    fetch("usuario/reservas/crearReserva.php", {
+            method: "POST"
+        })
+        .then(respuesta => respuesta.text())
+        .then(texto => {
+
+            console.log("RESPUESTA COMPLETA:", texto);
+
+            try {
+
+                const datos = JSON.parse(texto);
+
+                if (datos.ok) {
+
+                    const boton =
+                        document.getElementById("btnReservar");
+
+                    boton.textContent = "Reservado";
+                    boton.disabled = true;
+                    boton.classList.add("reservado");
+
+                    document.getElementById("mensajeReserva")
+                        .style.display = "block";
+
+                } else {
+
+                    alert(datos.mensaje);
+
+                }
+
+            } catch (error) {
+
+                alert(
+                    "Error del servidor:\n\n" + texto
+                );
+
+            }
+
+        })
+        .catch(error => {
+
+            console.error(error);
+
+            alert(
+                "No se pudo comunicar con el servidor."
+            );
+
+        });
+}
+</script>
 
 </body>
 
