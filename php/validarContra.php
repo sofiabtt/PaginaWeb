@@ -62,6 +62,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 && isset($_SESSION["reservaTemporal"]["codVuelo"])
             ) {
 
+                $_SESSION["restaurarReservaTemporal"] = true;
+
                 $codVuelo = $_SESSION["reservaTemporal"]["codVuelo"];
 
                 $destino =
@@ -72,7 +74,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $destino = "../usuario/usuario.php";
 
             }
-
         }
 
 
