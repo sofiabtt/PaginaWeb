@@ -23,8 +23,16 @@ try {
     $reserva = $consulta->get_result()->fetch_assoc();
 
     $salida = $reserva ? strtotime($reserva["fechaSalidaVuelo"] . " " . $reserva["horaSalidaVuelo"]) : 0;
-    if (!$reserva || $reserva["estadoReserva"] === "cancelada" || ($salida - time()) < 72 * 60 * 60) {
-        throw new RuntimeException("Cancelación fuera de término");
+    if (
+        !$reserva ||
+        $reserva["estadoReserva"] !== "pendiente de pago" ||
+        ($salida - time()) < 72 * 60 * 60
+    ) {
+
+        throw new RuntimeException(
+            "La reserva no puede cancelarse."
+        );
+
     }
 
     $cancelar = $conexion->prepare(

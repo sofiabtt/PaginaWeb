@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg">
-    <nav class="navbar navbar-expand-lg">
+    
     <a
         class="navbar-brand"
         href="/PaginaWeb/home.php"
@@ -17,7 +17,7 @@
     </a>
 
     <div class="menu-admin-navbar">
-        <a class="nav-link" href="/PaginaWeb/usuario/vuelos/buscarVuelos.php">Buscar vuelos</a>
+        <a class="nav-link" href="/PaginaWeb/usuario/usuario.php">Buscar vuelos</a>
         <a class="nav-link" href="/PaginaWeb/usuario/reservas/gestionReservas.php">Mis reservas</a>
         <a class="nav-link" href="/PaginaWeb/usuario/historialCompras.php">Historial</a>
         <a class="nav-link" href="/PaginaWeb/usuario/novedades.php">Novedades</a>

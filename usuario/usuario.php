@@ -1,7 +1,26 @@
 <?php
 
 session_start();
+include "../php/conexionBD.php";
 
+$consultaAeropuertos = $conexion->query("
+    SELECT
+        a.codigoIATA,
+        a.nombreAeropuerto,
+        c.nombreCiudad,
+        p.nombrePais
+    FROM Aeropuertos a
+
+    INNER JOIN Ciudades c
+        ON a.codCiudad = c.codCiudad
+
+    INNER JOIN Paises p
+        ON c.codPais = p.codPais
+
+    ORDER BY
+        c.nombreCiudad ASC,
+        a.codigoIATA ASC
+");
 
 // VERIFICAR QUE SEA USUARIO
 
@@ -78,6 +97,8 @@ if (
         href="../css/bootstrap-icons.css"
     >
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    
 
 </head>
 
@@ -87,172 +108,7 @@ if (
 
 <section class="hero">
 
-
-    <!-- =========================
-         NAVBAR
-    ========================== -->
-
-    <nav class="navbar navbar-expand-lg">
-
-
-        <a
-            class="navbar-brand"
-            href="usuario.php"
-        >
-
-            <img
-                src="../imagenes/logo.png"
-                alt="logo"
-                width="60"
-                height="60"
-            >
-
-            <span class="fw-bold fs-4">
-
-                Nuvia
-
-            </span>
-
-        </a>
-
-
-
-        <!-- BOTÓN CELULAR -->
-
-        <button
-            class="navbar-toggler d-lg-none btn-menu"
-        >
-
-            ☰
-
-        </button>
-
-
-
-        <!-- MENÚ -->
-
-        <div
-            class="menu-principal ms-auto d-none d-lg-flex align-items-center"
-        >
-
-
-            <a
-                href="usuario.php"
-                class="nav-menu"
-            >
-
-                Inicio
-
-            </a>
-
-
-            <a
-                href="reservas/gestionReservas.php"
-                class="nav-menu"
-            >
-
-                Mis reservas
-
-            </a>
-
-
-            <a
-                href="../destinos.html"
-                class="nav-menu"
-            >
-
-                Destinos
-
-            </a>
-
-
-            <a
-                href="../novedades.html"
-                class="nav-menu"
-            >
-
-                Novedades
-
-            </a>
-
-
-            <a
-                href="../ofertas.html"
-                class="nav-menu"
-            >
-
-                Ofertas
-
-            </a>
-
-
-
-            <!-- PERFIL -->
-
-            <div class="dropdown ms-4">
-
-    <button
-        class="usuario-admin dropdown-toggle"
-        type="button"
-        data-bs-toggle="dropdown"
-        aria-expanded="false"
-    >
-
-        <i class="bi bi-person-circle"></i>
-
-        <?php
-        echo htmlspecialchars(
-            $_SESSION["nombreUsuario"]
-        );
-        ?>
-
-    </button>
-
-
-    <ul class="dropdown-menu dropdown-menu-end menu-admin">
-
-        <li>
-
-            <a
-                class="dropdown-item"
-                href="perfil.php"
-            >
-
-                <i class="bi bi-person"></i>
-
-                Ver perfil
-
-            </a>
-
-        </li>
-
-
-        <li>
-            <hr class="dropdown-divider">
-        </li>
-
-
-        <li>
-
-            <a
-                class="dropdown-item"
-                href="../php/cerrarSesion.php"
-            >
-
-                <i class="bi bi-box-arrow-right"></i>
-
-                Cerrar sesión
-
-            </a>
-
-        </li>
-
-    </ul>
-
-</div>
-
-
-    </nav>
+    <?php include "includes/navbarUsuario.php"; ?>
 
 
 
@@ -260,227 +116,415 @@ if (
          BUSCADOR
     ========================== -->
 
-    <div class="contenedor-buscador">
+<div class="contenedor-buscador">
 
+    <div class="tipo-viaje">
 
-        <div class="tipo-viaje">
+        <p class="titulo-buscador">
+            Encontrá el
+            <strong>vuelo ideal</strong>
+            para tu próximo viaje
+        </p>
 
 
-            <p class="titulo-buscador">
+        <!-- IDA Y VUELTA -->
 
-                Encontrá el
+        <input
+            type="radio"
+            name="tipoViaje"
+            id="ida-vuelta"
+            value="idaVuelta"
+            checked
+        >
 
-                <strong>
-                    vuelo ideal
-                </strong>
+        <label for="ida-vuelta">
+            Ida y vuelta
+        </label>
 
-                para tu próximo viaje
 
-            </p>
+        <!-- SOLO IDA -->
 
+        <input
+            type="radio"
+            name="tipoViaje"
+            id="solo-ida"
+            value="soloIda"
+        >
 
-            <!-- IDA Y VUELTA -->
-
-            <input
-                type="radio"
-                name="viaje"
-                checked
-                onclick="mostrarVuelta()"
-            >
-
-
-            <label>
-
-                Ida y vuelta
-
-            </label>
-
-
-
-            <!-- SOLO IDA -->
-
-            <input
-                type="radio"
-                name="viaje"
-                onclick="ocultarVuelta()"
-            >
-
-
-            <label>
-
-                Solo ida
-
-            </label>
-
-
-        </div>
-
-
-
-        <!-- DATOS DEL BUSCADOR -->
-
-        <div id="buscador-ing-datos">
-
-
-            <form
-                action="vuelos/buscarVuelos.php"
-                method="GET"
-            >
-
-
-                <div class="row g-0">
-
-
-
-                    <!-- ORIGEN -->
-
-                    <div class="col-md-3">
-
-
-                        <input
-                            type="text"
-                            class="form-control"
-                            name="origen"
-                            placeholder="Desde"
-                            required
-                        >
-
-
-                    </div>
-
-
-
-                    <!-- DESTINO -->
-
-                    <div class="col-md-3">
-
-
-                        <input
-                            type="text"
-                            class="form-control"
-                            name="destino"
-                            placeholder="Hacia"
-                            required
-                        >
-
-
-                    </div>
-
-
-
-                    <!-- FECHA IDA -->
-
-                    <div
-                        class="col-md-2"
-                        id="fecha-ida"
-                    >
-
-
-                        <input
-                            type="date"
-                            class="form-control"
-                            name="fechaIda"
-                            required
-                        >
-
-
-                    </div>
-
-
-
-                    <!-- FECHA VUELTA -->
-
-                    <div
-                        class="col-md-2"
-                        id="fecha-vuelta"
-                    >
-
-
-                        <input
-                            type="date"
-                            class="form-control"
-                            name="fechaVuelta"
-                        >
-
-
-                    </div>
-
-
-
-                    <!-- BOTÓN BUSCAR -->
-
-                    <div class="col-md-2">
-
-
-                        <button
-                            type="submit"
-                            class="buscar"
-                        >
-
-                            →
-
-                        </button>
-
-
-                    </div>
-
-
-                </div>
-
-
-            </form>
-
-
-        </div>
-
+        <label for="solo-ida">
+            Solo ida
+        </label>
 
     </div>
 
 
 
+    <form
+    action="../resultadosVuelos.php"
+    method="GET"
+>
 
-<!-- =========================
-     JS BUSCADOR
-========================== -->
+    <input
+        type="hidden"
+        id="tipoViajeForm"
+        name="tipoViaje"
+        value="idaVuelta"
+    >
 
-<script>
+        <div id="buscador-ing-datos">
 
-
-function ocultarVuelta() {
-
-    document.getElementById(
-        "fecha-vuelta"
-    ).style.display = "none";
-
-
-    document.getElementById(
-        "fecha-ida"
-    ).className = "col-md-4";
-
-}
+            <div class="row g-0">
 
 
+                <!-- ORIGEN -->
 
-function mostrarVuelta() {
+                <div class="col-md-3">
 
-    document.getElementById(
-        "fecha-vuelta"
-    ).style.display = "block";
+                    <input
+                        type="text"
+                        class="form-control"
+                        name="origen"
+                        placeholder="Desde"
+                        list="aeropuertos"
+                        autocomplete="off"
+                        required
+                    >
+
+                </div>
 
 
-    document.getElementById(
-        "fecha-ida"
-    ).className = "col-md-2";
+                <!-- DESTINO -->
 
-}
+                <div class="col-md-3">
+
+                    <input
+                        type="text"
+                        class="form-control"
+                        name="destino"
+                        placeholder="Hacia"
+                        list="aeropuertos"
+                        autocomplete="off"
+                        required
+                    >
+
+                </div>
 
 
-</script>
+                <!-- FECHA -->
+
+                <div class="col-md-4">
+
+                    <input
+                        type="text"
+                        id="fechaViaje"
+                        class="form-control"
+                        placeholder="Seleccioná fecha"
+                        readonly
+                    >
+
+                    <input
+                        type="hidden"
+                        id="fechaIda"
+                        name="fechaIda"
+                    >
+
+                    <input
+                        type="hidden"
+                        id="fechaVuelta"
+                        name="fechaVuelta"
+                    >
+
+                </div>
+
+
+                <!-- BOTÓN -->
+
+                <div class="col-md-2">
+
+                    <button
+                        type="submit"
+                        class="buscar"
+                    >
+                        →
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- LISTA DE AEROPUERTOS -->
+
+            <datalist id="aeropuertos">
+
+                <?php while (
+                    $aeropuerto =
+                    $consultaAeropuertos->fetch_assoc()
+                ) { ?>
+
+                    <option value="<?php
+
+                        echo htmlspecialchars(
+                            $aeropuerto["nombreCiudad"]
+                        );
+
+                        echo " - ";
+
+                        echo htmlspecialchars(
+                            $aeropuerto["codigoIATA"]
+                        );
+
+                        echo " - ";
+
+                        echo htmlspecialchars(
+                            $aeropuerto["nombreAeropuerto"]
+                        );
+
+                    ?>">
+
+                    </option>
+
+                <?php } ?>
+
+            </datalist>
+
+        </div>
+
+    </form>
+
+    <br>
+
+</div>
 
 
 <script src="../js/bootstrap.bundle.min.js"></script>
 
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
-</body>
+<script>
+
+const radioIdaVuelta =
+    document.getElementById("ida-vuelta");
+
+const radioSoloIda =
+    document.getElementById("solo-ida");
+
+const tipoViajeForm =
+    document.getElementById("tipoViajeForm");
+
+const fechaIda =
+    document.getElementById("fechaIda");
+
+const fechaVuelta =
+    document.getElementById("fechaVuelta");
+
+let primeraFecha = null;
+
+
+/* CALENDARIO */
+
+const calendario = flatpickr("#fechaViaje", {
+
+    mode: "range",
+
+    dateFormat: "d/m/Y",
+
+    rangeSeparator: " - ",
+
+    minDate: "today",
+
+    locale: {
+
+        firstDayOfWeek: 1,
+
+        weekdays: {
+
+            shorthand: [
+                "Dom",
+                "Lun",
+                "Mar",
+                "Mié",
+                "Jue",
+                "Vie",
+                "Sáb"
+            ],
+
+            longhand: [
+                "Domingo",
+                "Lunes",
+                "Martes",
+                "Miércoles",
+                "Jueves",
+                "Viernes",
+                "Sábado"
+            ]
+        },
+
+        months: {
+
+            shorthand: [
+                "Ene",
+                "Feb",
+                "Mar",
+                "Abr",
+                "May",
+                "Jun",
+                "Jul",
+                "Ago",
+                "Sep",
+                "Oct",
+                "Nov",
+                "Dic"
+            ],
+
+            longhand: [
+                "Enero",
+                "Febrero",
+                "Marzo",
+                "Abril",
+                "Mayo",
+                "Junio",
+                "Julio",
+                "Agosto",
+                "Septiembre",
+                "Octubre",
+                "Noviembre",
+                "Diciembre"
+            ]
+        }
+    },
+
+
+    onChange: function(
+        selectedDates,
+        dateStr,
+        instance
+    ) {
+
+        /* SOLO IDA */
+
+        if (radioSoloIda.checked) {
+
+            if (selectedDates.length >= 1) {
+
+                fechaIda.value =
+                    instance.formatDate(
+                        selectedDates[0],
+                        "Y-m-d"
+                    );
+
+                fechaVuelta.value = "";
+
+                instance.close();
+
+            }
+
+            return;
+        }
+
+
+        /* IDA Y VUELTA */
+
+        if (selectedDates.length === 1) {
+
+            primeraFecha =
+                selectedDates[0];
+
+            fechaIda.value =
+                instance.formatDate(
+                    primeraFecha,
+                    "Y-m-d"
+                );
+
+            fechaVuelta.value = "";
+
+        }
+
+
+        if (selectedDates.length === 2) {
+
+            const ida =
+                selectedDates[0];
+
+            const vuelta =
+                selectedDates[1];
+
+            fechaIda.value =
+                instance.formatDate(
+                    ida,
+                    "Y-m-d"
+                );
+
+            fechaVuelta.value =
+                instance.formatDate(
+                    vuelta,
+                    "Y-m-d"
+                );
+
+            instance.close();
+
+        }
+
+    }
+
+});
+
+
+/* SOLO IDA */
+
+radioSoloIda.addEventListener(
+    "change",
+    function() {
+
+        tipoViajeForm.value = "soloIda";
+
+        primeraFecha = null;
+
+        calendario.clear();
+
+        calendario.set(
+            "mode",
+            "single"
+        );
+
+        document.getElementById(
+            "fechaViaje"
+        ).placeholder =
+            "Seleccioná fecha de ida";
+
+        fechaIda.value = "";
+        fechaVuelta.value = "";
+    }
+);
+
+
+/* IDA Y VUELTA */
+
+radioIdaVuelta.addEventListener(
+    "change",
+    function() {
+
+        tipoViajeForm.value = "idaVuelta";
+
+        primeraFecha = null;
+
+        calendario.clear();
+
+        calendario.set(
+            "mode",
+            "range"
+        );
+
+        document.getElementById(
+            "fechaViaje"
+        ).placeholder =
+            "Seleccioná ida y vuelta";
+
+        fechaIda.value = "";
+        fechaVuelta.value = "";
+    }
+);
+
+</script>
 
 </html>

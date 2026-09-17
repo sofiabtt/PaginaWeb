@@ -4,6 +4,11 @@
 session_start();
 
 include "php/conexionBD.php";
+$tipoViaje = $_GET["tipoViaje"] ?? "soloIda";
+$origen = $_GET["origen"] ?? "";
+$destino = $_GET["destino"] ?? "";
+$fechaIda = $_GET["fechaIda"] ?? "";
+$fechaVuelta = $_GET["fechaVuelta"] ?? "";
 
 if (!isset($_GET["codVuelo"])) {
     die("No se seleccionó ningún vuelo.");
@@ -73,6 +78,10 @@ if (!$vuelo) {
 
     <link
         rel="stylesheet"
+        href="css/estilos-usuario.css"
+    >
+    <link
+        rel="stylesheet"
         href="css/estilosVueloElegido.css"
     >
 
@@ -82,7 +91,21 @@ if (!$vuelo) {
 <body>
 
 
-<?php include "includes/navbar.php"; ?>
+<?php
+
+if (
+    isset($_SESSION["tipoUsuario"]) &&
+    $_SESSION["tipoUsuario"] === "usuario"
+) {
+
+    include "usuario/includes/navbarUsuario.php";
+
+} else {
+
+    include "includes/navbar.php";
+}
+
+?>
 
 
 <main class="contenedor-vuelo-elegido">
@@ -352,12 +375,36 @@ if (!$vuelo) {
                 >
                     Reservar
                 </button>
-                <p id="mensajeReserva" class="mensaje-reserva" style="display: none;">
-                    Selecciona el siguiente link para terminá de pagar tu vuelo en:
-                    <a href="usuario/reservas/gestionReservas.php">
-                        Mis Reservas
-                    </a>
-                </p>
+                <div
+                    id="mensajeReserva"
+                    class="mensaje-reserva"
+                    style="display: none;"
+                >
+
+                    <?php if ($tipoViaje === "idaVuelta") { ?>
+
+                        <a
+                            href="resultadosVuelos.php?tipoViaje=idaVuelta&origen=<?php echo urlencode($origen); ?>&destino=<?php echo urlencode($destino); ?>&fechaIda=<?php echo urlencode($fechaIda); ?>&fechaVuelta=<?php echo urlencode($fechaVuelta); ?>#vuelo-vuelta"
+                            style="
+                                display: block;
+                                font-size: 22px;
+                                font-weight: 700;
+                                margin-bottom: 15px;
+                            "
+                        >
+                            ← Elegí tu vuelo de vuelta
+                        </a>
+
+                    <?php } ?>
+
+                    <p>
+                        Selecciona el siguiente link para terminá de pagar tu vuelo en:
+                        <a href="usuario/reservas/gestionReservas.php">
+                            Mis Reservas
+                        </a>
+                    </p>
+
+                </div>
 
             </div>
 
@@ -776,17 +823,65 @@ function irAlInicioSesion(event) {
         //reconstruccion del formulario
 
 //////////////////////////////
+<?php
+
+$restaurarReserva = false;
+
+if (
+    isset($_SESSION["restaurarReservaTemporal"])
+    && $_SESSION["restaurarReservaTemporal"] === true
+    && isset($_SESSION["reservaTemporal"])
+) {
+
+    $restaurarReserva = true;
+
+    // Se usa una sola vez
+    unset($_SESSION["restaurarReservaTemporal"]);
+}
+
+?>
 
 const reservaTemporal =
-    <?= json_encode(
-        $_SESSION["reservaTemporal"] ?? null,
-        JSON_UNESCAPED_UNICODE
-    ) ?>;
+    <?= $restaurarReserva
+        ? json_encode(
+            $_SESSION["reservaTemporal"],
+            JSON_UNESCAPED_UNICODE
+        )
+        : "null";
+    ?>;
 
+/*
+    SI NO HAY RESERVA TEMPORAL:
+    empezar siempre desde cero
+*/
+
+if (!reservaTemporal) {
+
+    document.getElementById("adultos").value = 1;
+    document.getElementById("menores").value = 0;
+
+    document.getElementById(
+        "formulariosPasajeros"
+    ).innerHTML = "";
+
+    document.getElementById(
+        "datosPasajeros"
+    ).style.display = "none";
+
+    document.getElementById(
+        "resumenReserva"
+    ).style.display = "none";
+
+}
+
+
+/*
+    SOLO reconstruimos el formulario
+    si realmente existe una reserva temporal
+*/
 
 if (reservaTemporal) {
 
-    // Restauramos cantidades
     document.getElementById("adultos").value =
         reservaTemporal.adultos;
 
@@ -794,11 +889,10 @@ if (reservaTemporal) {
         reservaTemporal.menores;
 
 
-    // Volvemos a crear los formularios
     crearFormulariosPasajeros();
 
 
-    // DATOS DE ADULTOS
+    /* ADULTOS */
 
     const nombresAdultos =
         document.querySelectorAll(
@@ -838,8 +932,7 @@ if (reservaTemporal) {
     });
 
 
-
-    // DATOS DE MENORES
+    /* MENORES */
 
     const nombresMenores =
         document.querySelectorAll(
@@ -879,11 +972,10 @@ if (reservaTemporal) {
     });
 
 
-    // Como ya había completado todo antes de iniciar sesión,
-    // volvemos a mostrar el resumen de la reserva
     mostrarResumen();
 
 }
+    
 /////////////////////////////
 
         // RESERVAR
@@ -901,7 +993,7 @@ function reservar() {
         ?>;
 
 
-    // No inició sesión
+    // Si NO inició sesión
     if (!usuarioRegistrado) {
 
         document.getElementById("modalRegistro")
@@ -911,57 +1003,151 @@ function reservar() {
     }
 
 
-    // Sí inició sesión:
-    // creamos la reserva en la BD
+    // Obtener cantidades
+    const adultos =
+        document.getElementById("adultos").value;
 
-    fetch("usuario/reservas/crearReserva.php", {
-            method: "POST"
-        })
-        .then(respuesta => respuesta.text())
-        .then(texto => {
+    const menores =
+        document.getElementById("menores").value;
 
-            console.log("RESPUESTA COMPLETA:", texto);
 
-            try {
+    // Obtener formulario con los datos de pasajeros
+    const formulario =
+        document.getElementById("formPasajeros");
 
-                const datos = JSON.parse(texto);
+    const datosFormulario =
+        new FormData(formulario);
 
-                if (datos.ok) {
 
-                    const boton =
-                        document.getElementById("btnReservar");
+    // Agregar datos generales de la reserva
+    datosFormulario.append(
+        "codVuelo",
+        "<?php echo $vuelo['codVuelo']; ?>"
+    );
 
-                    boton.textContent = "Reservado";
-                    boton.disabled = true;
-                    boton.classList.add("reservado");
+    datosFormulario.append(
+        "adultos",
+        adultos
+    );
 
-                    document.getElementById("mensajeReserva")
-                        .style.display = "block";
+    datosFormulario.append(
+        "menores",
+        menores
+    );
 
-                } else {
 
-                    alert(datos.mensaje);
+    // Primero guardamos los datos en la sesión
+    fetch(
+        "php/guardarReservaTemporal.php",
+        {
+            method: "POST",
+            body: datosFormulario
+        }
+    )
 
-                }
+    .then(respuesta => respuesta.text())
 
-            } catch (error) {
+    .then(texto => {
 
-                alert(
-                    "Error del servidor:\n\n" + texto
-                );
+        console.log(
+            "Reserva temporal guardada:",
+            texto
+        );
+
+
+        // Después creamos la reserva definitiva
+        return fetch(
+            "usuario/reservas/crearReserva.php",
+            {
+                method: "POST"
+            }
+        );
+
+    })
+
+    .then(respuesta => respuesta.text())
+
+    .then(texto => {
+
+        console.log(
+            "RESPUESTA COMPLETA:",
+            texto
+        );
+
+
+        try {
+
+            const datos =
+                JSON.parse(texto);
+
+
+            if (datos.ok) {
+
+                const boton =
+                    document.getElementById("btnReservar");
+
+                boton.textContent = "Reservado";
+                boton.disabled = true;
+                boton.classList.add("reservado");
+
+                document.getElementById("mensajeReserva")
+                    .style.display = "block";
+
+
+                // REINICIAR DATOS DE PASAJEROS
+
+                document.getElementById("adultos").value = 1;
+                document.getElementById("menores").value = 0;
+
+                const formulario =
+                    document.getElementById("formPasajeros");
+
+                formulario.reset();
+
+                document.getElementById(
+                    "formulariosPasajeros"
+                ).innerHTML = "";
+
+                document.getElementById(
+                    "datosPasajeros"
+                ).style.display = "none";
+
+
+                // Volver arriba al selector de pasajeros
+
+                document.getElementById(
+                    "seleccionPasajeros"
+                ).scrollIntoView({
+                    behavior: "smooth"
+                });
 
             }
 
-        })
-        .catch(error => {
 
-            console.error(error);
+        } catch (error) {
 
             alert(
-                "No se pudo comunicar con el servidor."
+                "Error del servidor:\n\n"
+                + texto
             );
 
-        });
+        }
+
+    })
+
+    .catch(error => {
+
+        console.error(
+            "Error al reservar:",
+            error
+        );
+
+        alert(
+            "No se pudo comunicar con el servidor."
+        );
+
+    });
+
 }
 </script>
 

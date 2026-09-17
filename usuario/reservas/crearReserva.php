@@ -55,7 +55,7 @@ $cantidadPasajeros =
 /* BUSCAMOS EL PRECIO DEL VUELO */
 
 $consultaVuelo = $conexion->prepare(
-    "SELECT precioVuelo
+    "SELECT precioVuelo, asientosDisponibles
      FROM Vuelos
      WHERE codVuelo = ?
      AND activoVuelo = 1"
@@ -84,7 +84,15 @@ if (!$vuelo) {
 
     exit();
 }
+if ($vuelo["asientosDisponibles"] < $cantidadPasajeros) {
 
+    echo json_encode([
+        "ok" => false,
+        "mensaje" => "No hay suficientes asientos disponibles."
+    ]);
+
+    exit();
+}
 
 $precioFinal =
     $vuelo["precioVuelo"]
@@ -95,7 +103,7 @@ $precioFinal =
 
 $estado =
     "pendiente de pago";
-
+    
 $consulta = $conexion->prepare(
     "INSERT INTO Reservas
     (
@@ -103,31 +111,46 @@ $consulta = $conexion->prepare(
         codVuelo,
         fechaReserva,
         estadoReserva,
-        precioFinalReserva
+        precioFinalReserva,
+        cantidadPasajerosReserva
     )
-    VALUES (?, ?, NOW(), ?, ?)"
+    VALUES (?, ?, NOW(), ?, ?, ?)"
 );
 
 $consulta->bind_param(
-    "iisd",
+    "iisdi",
     $codUsuario,
     $codVuelo,
     $estado,
-    $precioFinal
+    $precioFinal,
+    $cantidadPasajeros
 );
 
 
 if ($consulta->execute()) {
 
+    $codReserva = $conexion->insert_id;
+
+    $actualizarAsientos = $conexion->prepare(
+        "UPDATE Vuelos
+         SET asientosDisponibles = asientosDisponibles - ?
+         WHERE codVuelo = ?
+         AND asientosDisponibles >= ?"
+    );
+
+    $actualizarAsientos->bind_param(
+        "iii",
+        $cantidadPasajeros,
+        $codVuelo,
+        $cantidadPasajeros
+    );
+
+    $actualizarAsientos->execute();
+
+    unset($_SESSION["reservaTemporal"]);
+
     echo json_encode([
         "ok" => true,
-        "codReserva" => $conexion->insert_id
-    ]);
-
-} else {
-
-    echo json_encode([
-        "ok" => false,
-        "mensaje" => "No se pudo crear la reserva."
+        "codReserva" => $codReserva
     ]);
 }

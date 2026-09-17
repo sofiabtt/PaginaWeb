@@ -1007,8 +1007,8 @@ include "php/filtrosVuelos.php";
 
 
                                                 <a
-                                                    href="vueloElegido.php?codVuelo=<?php echo $vuelo['codVuelo']; ?>"
-                                                    class="btn btn-nuvia"
+                                                    href="vueloElegido.php?codVuelo=<?php echo $vuelo['codVuelo']; ?>&tipoViaje=<?php echo urlencode($tipoViaje); ?>&origen=<?php echo urlencode($origen); ?>&destino=<?php echo urlencode($destino); ?>&fechaIda=<?php echo urlencode($fechaIda); ?>&fechaVuelta=<?php echo urlencode($fechaVuelta); ?>"                                                    class="btn btn-nuvia"
+                                                     class="btn btn-nuvia"
                                                 >
 
                                                     Elegir vuelo
@@ -1092,7 +1092,10 @@ include "php/filtrosVuelos.php";
                     <hr class="my-5">
 
 
-                    <div class="mb-4">
+                    <div
+                        id="vuelo-vuelta"
+                        class="mb-4"
+                    >
 
 
                         <h2 class="h4 mb-1">
@@ -1436,12 +1439,16 @@ include "php/filtrosVuelos.php";
 
 
                                                     <a
-                                                        href="vueloElegido.php?codVuelo=<?php echo $vuelo['codVuelo']; ?>"
+                                                        href="vueloElegido.php?
+                                                        codVuelo=<?php echo $vuelo['codVuelo']; ?>
+                                                        &tipoViaje=<?php echo urlencode($tipoViaje); ?>
+                                                        &origen=<?php echo urlencode($origen); ?>
+                                                        &destino=<?php echo urlencode($destino); ?>
+                                                        &fechaIda=<?php echo urlencode($fechaIda); ?>
+                                                        &fechaVuelta=<?php echo urlencode($fechaVuelta); ?>"
                                                         class="btn btn-nuvia"
                                                     >
-
                                                         Elegir vuelo
-
                                                     </a>
 
 
