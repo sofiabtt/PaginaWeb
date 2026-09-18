@@ -50,3 +50,44 @@ function obtenerUsuario($conexion, $codUsuario)
 
     return $resultado->fetch_assoc();
 }
+
+// CANTIDAD DE USUARIOS
+
+function cantidadUsuarios($conexion)
+{
+    $consulta = "SELECT COUNT(*) AS cantidad
+                 FROM Usuarios
+                 WHERE tipoUsuario = 'usuario'";
+
+    $resultado = $conexion->query($consulta);
+
+    return $resultado->fetch_assoc()["cantidad"];
+}
+
+
+// OBTENER USUARIOS PAGINADOS
+
+function obtenerUsuariosPaginados($conexion, $porPagina,$inicio)
+{
+    $consulta = $conexion->prepare(
+        "SELECT codUsuario,
+                nombreUsuario,
+                emailUsuario,
+                telefonoUsuario,
+                verificado
+         FROM Usuarios
+         WHERE tipoUsuario = 'usuario'
+         ORDER BY codUsuario DESC
+         LIMIT ? OFFSET ?"
+    );
+
+    $consulta->bind_param(
+        "ii",
+        $porPagina,
+        $inicio
+    );
+
+    $consulta->execute();
+
+    return $consulta->get_result();
+}
