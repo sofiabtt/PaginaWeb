@@ -1,16 +1,8 @@
 <?php
 
-include "../../php/conexionBD.php";
+include "../../php/consultasAerolineas.php";
 
-
-// OBTENER LAS AEROLÍNEAS DADAS DE BAJA
-
-$consulta = "SELECT *
-             FROM Aerolineas
-             WHERE activoAerolinea = 0
-             ORDER BY fechaEliminacionAerolinea DESC";
-
-$resultado = $conexion->query($consulta);
+$resultado = obtenerAerolineasInactivas($conexion);
 
 ?>
 
@@ -158,7 +150,7 @@ $resultado = $conexion->query($consulta);
                             </td>
 
                             <td>
-                                <?php echo htmlspecialchars($aerolinea["codPais"]); ?>
+                                <?php echo htmlspecialchars($aerolinea["nombrePais"]); ?>
                             </td>
 
                             <td>

@@ -45,7 +45,7 @@ CREATE TABLE `Aerolineas` (
   `nombreAerolinea` varchar(100) NOT NULL,
   `codigoIATA` varchar(3) NOT NULL,
   `descripcionAerolinea` varchar(200) NOT NULL,
-  `codPais` varchar(3) NOT NULL,
+  `codPais` int(11) NOT NULL,
   `activoAerolinea` tinyint(1) NOT NULL DEFAULT 1,
   `fechaEliminacion` datetime DEFAULT NULL,
   `codUsuario` int(11) DEFAULT NULL

@@ -1,16 +1,8 @@
 <?php
 
-include "../../php/conexionBD.php";
+include "../../php/consultasAerolineas.php";
 
-
-// OBTENER LAS AEROLÍNEAS
-
-$consulta = "SELECT *
-             FROM Aerolineas
-             WHERE activoAerolinea = 1
-             ORDER BY codAerolinea";
-
-$resultado = $conexion->query($consulta);
+$resultado = obtenerAerolineasActivas($conexion);
 
 ?>
 
@@ -200,7 +192,7 @@ $resultado = $conexion->query($consulta);
                             </td>
 
                             <td>
-                                <?php echo htmlspecialchars($aerolinea["codPais"]); ?>
+                                <?php echo $aerolinea["nombrePais"]; ?>
                             </td>
 
                             <td>

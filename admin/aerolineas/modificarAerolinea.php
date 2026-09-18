@@ -1,7 +1,7 @@
 <?php
 
-include "../../php/conexionBD.php";
-
+include "../../php/consultasAerolineas.php";
+include "../../php/registrarActividad.php";
 
 // OBTENER EL CÓDIGO DE LA AEROLÍNEA
 
@@ -10,11 +10,9 @@ if (!isset($_GET["id"])) {
     header("Location: gestionAerolineas.php");
 
     exit;
-
 }
 
 $codAerolinea = $_GET["id"];
-
 
 // SI SE ENVIÓ EL FORMULARIO
 
@@ -26,112 +24,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $pais = $_POST["codPais"];
 
 
-    // ACTUALIZAR AEROLÍNEA
+    // MODIFICAR AEROLÍNEA
 
-    $consulta = "UPDATE Aerolineas
-                 SET nombreAerolinea = ?,
-                     codigoIATA = ?,
-                     descripcionAerolinea = ?,
-                     codPais = ?
-                 WHERE codAerolinea = ?";
+    if (modificarAerolinea($conexion, $codAerolinea, $nombre, $iata, $descripcion, $pais)) {
 
-
-    $stmt = $conexion->prepare($consulta);
-
-
-    $stmt->bind_param(
-        "ssssi",
-        $nombre,
-        $iata,
-        $descripcion,
-        $pais,
-        $codAerolinea
-    );
-
-
-    if ($stmt->execute()) {
-
-
-        // REGISTRAR ACTIVIDAD
-
-        $usuario = "Administrador";
-
-        $accion = "Modificó la aerolínea " . $nombre;
-
-
-        $consultaActividad = "INSERT INTO Actividad
-                              (
-                                  usuarioActividad,
-                                  accionActividad
-                              )
-                              VALUES (?, ?)";
-
-
-        $stmtActividad = $conexion->prepare(
-            $consultaActividad
-        );
-
-
-        $stmtActividad->bind_param(
-            "ss",
-            $usuario,
-            $accion
-        );
-
-
-        $stmtActividad->execute();
-
-        $stmtActividad->close();
-
+        registrarActividad($conexion,"Administrador","Modificó la aerolínea " . $nombre);
 
         // VOLVER A GESTIÓN DE AEROLÍNEAS
 
-        header(
-            "Location: gestionAerolineas.php?modificada=1"
-        );
+        header("Location: gestionAerolineas.php?modificada=1");
 
         exit;
-
 
     } else {
 
         $mensaje = "Ocurrió un error al modificar la aerolínea.";
 
     }
-
-
-    $stmt->close();
-
 }
-
 
 // BUSCAR LOS DATOS ACTUALES
 
-$consulta = "SELECT *
-             FROM Aerolineas
-             WHERE codAerolinea = ?";
-
-
-$stmt = $conexion->prepare($consulta);
-
-
-$stmt->bind_param(
-    "i",
-    $codAerolinea
-);
-
-
-$stmt->execute();
-
-
-$resultado = $stmt->get_result();
-
-
-$aerolinea = $resultado->fetch_assoc();
-
-
-$stmt->close();
-
+$aerolinea = obtenerAerolinea($conexion,$codAerolinea);
 
 // SI NO EXISTE LA AEROLÍNEA
 
@@ -140,7 +54,6 @@ if (!$aerolinea) {
     header("Location: gestionAerolineas.php");
 
     exit;
-
 }
 
 ?>

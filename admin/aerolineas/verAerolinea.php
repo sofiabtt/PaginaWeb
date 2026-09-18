@@ -1,29 +1,15 @@
 <?php
 
-include "../../php/conexionBD.php";
-
+include "../../php/consultasAerolineas.php";
 
 // OBTENER EL CÓDIGO DE LA AEROLÍNEA
 
 $id = $_GET["id"];
 $origen = $_GET["origen"] ?? "";
 
-
 // BUSCAR LA AEROLÍNEA
 
-$consulta = "SELECT *
-             FROM Aerolineas
-             WHERE codAerolinea = ?";
-
-$stmt = $conexion->prepare($consulta);
-
-$stmt->bind_param("i", $id);
-
-$stmt->execute();
-
-$resultado = $stmt->get_result();
-
-$aerolinea = $resultado->fetch_assoc();
+$aerolinea = obtenerAerolinea($conexion, $id);
 
 ?>
 
@@ -112,7 +98,7 @@ $aerolinea = $resultado->fetch_assoc();
                             Estado:
                         </strong>
 
-                        <?php if ($aerolinea["activo"] == 1) { ?>
+                        <?php if ($aerolinea["activoAerolinea"] == 1) { ?>
 
                             <span class="badge bg-success">
                                 Activa
@@ -128,7 +114,7 @@ $aerolinea = $resultado->fetch_assoc();
 
                     </p>
 
-                    <?php if ($aerolinea["activo"] == 0) { ?>
+                    <?php if ($aerolinea["activoAerolinea"] == 0) { ?>
 
                         <p>
 
@@ -151,7 +137,7 @@ $aerolinea = $resultado->fetch_assoc();
                     <p>
 
                         <strong>
-                            Código:
+                            Código de aerolínea:
                         </strong>
 
                         <?php
@@ -184,7 +170,7 @@ $aerolinea = $resultado->fetch_assoc();
 
                         <?php
                         echo htmlspecialchars(
-                            $aerolinea["codPais"]
+                            $aerolinea["nombrePais"]
                         );
                         ?>
 

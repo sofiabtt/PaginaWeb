@@ -1,77 +1,24 @@
 <?php
 
-include "../../php/conexionBD.php";
+include "../../php/consultasAerolineas.php";
+include "../../php/registrarActividad.php";
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
 
     $nombre = $_POST["nombreAerolinea"];
     $iata = $_POST["codigoIATA"];
     $descripcion = $_POST["descripcionAerolinea"];
     $pais = $_POST["codPais"];
 
+    // CREAR AEROLÍNEA
 
-    // INSERTAR AEROLÍNEA
+    if (crearAerolinea($conexion, $nombre, $iata, $descripcion, $pais)) {
 
-    $consulta = "INSERT INTO Aerolineas
-                 (
-                     nombreAerolinea,
-                     codigoIATA,
-                     descripcionAerolinea,
-                     codPais
-                 )
-                 VALUES (?, ?, ?, ?)";
-
-
-    $stmt = $conexion->prepare($consulta);
-
-
-    $stmt->bind_param(
-        "ssss",
-        $nombre,
-        $iata,
-        $descripcion,
-        $pais
-    );
-
-
-    if ($stmt->execute()) {
-
-
-        // GUARDAR ACTIVIDAD
-
-        $accion = "Creó la aerolínea " . $nombre;
-
-        $usuario = "Administrador";
-
-
-        $consultaActividad = "INSERT INTO Actividad
-                              (
-                                  usuarioActividad,
-                                  accionActividad
-                              )
-                              VALUES (?, ?)";
-
-
-        $stmtActividad = $conexion->prepare(
-            $consultaActividad
-        );
-
-
-        $stmtActividad->bind_param(
-            "ss",
-            $usuario,
-            $accion
-        );
-
-
-        $stmtActividad->execute();
-
-        $stmtActividad->close();
-
+        registrarActividad($conexion, "Administrador", "Creó la aerolínea " . $nombre);
 
         header("Location: gestionAerolineas.php?creada=1");
+
         exit;
 
     } else {
@@ -80,10 +27,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     }
 
-
-    $stmt->close();
-
 }
+
+$resultadoPaises = obtenerPaises($conexion);
 
 ?>
 
@@ -234,17 +180,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 for="codPais"
                                 class="form-label fw-semibold"
                             >
-                                Código de país
+                                País
                             </label>
 
-                            <input
-                                type="text"
-                                class="form-control"
+                            <select
+                                class="form-select"
                                 id="codPais"
                                 name="codPais"
-                                maxlength="3"
                                 required
                             >
+
+                                <option value="">
+                                    Seleccioná un país
+                                </option>
+
+                                <?php while ($pais = $resultadoPaises->fetch_assoc()) { ?>
+
+                                    <option value="<?php echo $pais["codPais"]; ?>">
+                                        <?php echo $pais["nombrePais"]; ?>
+                                    </option>
+
+                                <?php } ?>
+
+                            </select>
 
                         </div>
 

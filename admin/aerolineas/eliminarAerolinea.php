@@ -1,142 +1,55 @@
 <?php
 
-include "../../php/conexionBD.php";
-
-
-// VERIFICAR QUE SE RECIBIÓ EL ID
+include "../../php/consultasAerolineas.php";
+include "../../php/registrarActividad.php";
 
 if (!isset($_GET["id"])) {
 
     header("Location: gestionAerolineas.php");
 
     exit;
-
 }
-
 
 $codAerolinea = $_GET["id"];
 
-
 // BUSCAR LA AEROLÍNEA
 
-$consulta = "SELECT *
-             FROM Aerolineas
-             WHERE codAerolinea = ?
-             AND activoAerolinea = 1";
-
-
-$stmt = $conexion->prepare($consulta);
-
-
-$stmt->bind_param(
-    "i",
-    $codAerolinea
-);
-
-
-$stmt->execute();
-
-
-$resultado = $stmt->get_result();
-
-
-$aerolinea = $resultado->fetch_assoc();
-
-
-$stmt->close();
-
+$aerolinea = obtenerAerolinea($conexion,$codAerolinea);
 
 // SI NO EXISTE O YA ESTÁ DADA DE BAJA
 
-if (!$aerolinea) {
+if (!$aerolinea || $aerolinea["activoAerolinea"] != 1) {
 
     header("Location: gestionAerolineas.php");
 
     exit;
-
 }
-
 
 // SI SE CONFIRMÓ LA ELIMINACIÓN
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-
     // GUARDAMOS EL NOMBRE ANTES DE ELIMINAR
 
     $nombre = $aerolinea["nombreAerolinea"];
 
-
     // BAJA LÓGICA
 
-    $consulta = "UPDATE Aerolineas
-                 SET activo = 0,
-                     fechaEliminacion = NOW()
-                 WHERE codAerolinea = ?";
-
-
-    $stmt = $conexion->prepare($consulta);
-
-
-    $stmt->bind_param(
-        "i",
-        $codAerolinea
-    );
-
-
-    if ($stmt->execute()) {
-
+    if (eliminarAerolinea($conexion,$codAerolinea)) {
 
         // REGISTRAR ACTIVIDAD
 
-        $usuario = "Administrador";
+        registrarActividad($conexion,"Administrador","Eliminó la aerolínea " . $nombre);
 
-        $accion = "Eliminó la aerolínea " . $nombre;
-
-
-        $consultaActividad = "INSERT INTO Actividad
-                              (
-                                  usuarioActividad,
-                                  accionActividad
-                              )
-                              VALUES (?, ?)";
-
-
-        $stmtActividad = $conexion->prepare(
-            $consultaActividad
-        );
-
-
-        $stmtActividad->bind_param(
-            "ss",
-            $usuario,
-            $accion
-        );
-
-
-        $stmtActividad->execute();
-
-
-        $stmtActividad->close();
-
-
-        // VOLVER A LA LISTA
-
-        header(
-            "Location: gestionAerolineas.php?eliminada=1"
-        );
+        header("Location: gestionAerolineas.php?eliminada=1");
 
         exit;
-
 
     } else {
 
         $mensaje = "Ocurrió un error al eliminar la aerolínea.";
 
     }
-
-
-    $stmt->close();
 
 }
 
