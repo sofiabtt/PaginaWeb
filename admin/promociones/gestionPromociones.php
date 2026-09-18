@@ -12,7 +12,7 @@ if (!isset($_SESSION["tipoUsuario"]) || $_SESSION["tipoUsuario"] != "administrad
 
 include "../../php/conexionBD.php";
 include "../../php/consultasPromociones.php";
-include "../../php/registrarActividad.php";
+include "../../php/consultasActividad.php";
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {

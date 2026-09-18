@@ -18,7 +18,7 @@ $dotenv->load();
 include "../../php/conexionBD.php";
 include "../../php/consultasAerolineas.php";
 include "../../php/consultasCeos.php";
-include "../../php/registrarActividad.php";
+include "../../php/consultasActividad.php";
 
 
 // Variable para mostrar errores

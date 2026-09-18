@@ -2,7 +2,7 @@
 
 include "../../php/conexionBD.php";
 include "../../php/consultasNovedades.php";
-include "../../php/registrarActividad.php";
+include "../../php/consultasActividad.php";
 
 
 // VERIFICAR QUE SE RECIBIÓ EL ID

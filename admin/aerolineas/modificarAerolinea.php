@@ -1,7 +1,7 @@
 <?php
 
 include "../../php/consultasAerolineas.php";
-include "../../php/registrarActividad.php";
+include "../../php/consultasActividad.php";
 
 // OBTENER EL CÓDIGO DE LA AEROLÍNEA
 

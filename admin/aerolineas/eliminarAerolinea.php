@@ -1,7 +1,7 @@
 <?php
 
 include "../../php/consultasAerolineas.php";
-include "../../php/registrarActividad.php";
+include "../../php/consultasActividad.php";
 
 if (!isset($_GET["id"])) {
 

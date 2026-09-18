@@ -2,7 +2,7 @@
 
 include "../../php/conexionBD.php";
 include "../../php/consultasCeos.php";
-include "../../php/registrarActividad.php";
+include "../../php/consultasActividad.php";
 
 if (!isset($_GET["id"])) {
 

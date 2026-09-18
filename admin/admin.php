@@ -7,6 +7,7 @@ include "../php/consultasAerolineas.php";
 include "../php/consultasPromociones.php";
 include "../php/consultasNovedades.php";
 include "../php/consultasCeos.php";
+include "../php/consultasActividad.php";
 
 
 $aerolineas = cantidadAerolineasActivas($conexion);
@@ -17,13 +18,7 @@ $novedades = cantidadNovedades($conexion);
 
 $ceos = cantidadCeos($conexion);
 
-
-$consultaActividad = "SELECT *
-                      FROM Actividad
-                      ORDER BY fechaActividad DESC
-                      LIMIT 10";
-
-$resultadoActividad = $conexion->query($consultaActividad);
+$resultadoActividad = obtenerActividadesRecientes($conexion);
 
 ?>
 
