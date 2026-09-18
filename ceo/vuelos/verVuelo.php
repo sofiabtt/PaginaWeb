@@ -1,58 +1,34 @@
 <?php
 
-    session_start();
+session_start();
 
-    // VERIFICAR QUE SEA CEO
-
-    if (!isset($_SESSION["tipoUsuario"]) || $_SESSION["tipoUsuario"] != "ceo") {
-
-        header("Location: ../../inicioSesion.php");
-        exit();
-
-    }
+include "../../php/consultasCeos.php";
+include "../../php/consultasAerolineas.php";
+include "../../php/consultasVuelos.php";
 
 
-    include "../../php/conexionBD.php";
+verificarCeo();
+
+$codUsuario = obtenerCodCeo();
+
+$aerolinea = obtenerAerolineaPorCeo($conexion,$codUsuario);
 
 
-    // OBTENER EL CÓDIGO DEL VUELO
+if (!$aerolinea) {
 
-    $id = $_GET["id"];
-    $origen = $_GET["origen"] ?? "";
+    echo "El CEO no tiene una aerolínea asignada.";
+    exit();
 
-
-    // OBTENER EL CEO
-
-    if (!isset($_SESSION["codUsuario"])) {
-
-        echo "No se pudo identificar al CEO.";
-        exit();
-
-    }
-
-    $codUsuario = $_SESSION["codUsuario"];
+}
 
 
-    // BUSCAR EL VUELO Y VERIFICAR QUE PERTENEZCA A SU AEROLÍNEA
+$codAerolinea = $aerolinea["codAerolinea"];
 
-    $consulta = "
-        SELECT V.*
-        FROM Vuelos V
-        INNER JOIN Aerolineas A
-            ON V.codAerolinea = A.codAerolinea
-        WHERE V.codVuelo = ?
-          AND A.codUsuario = ?
-    ";
+$codVuelo = obtenerCodVuelo();
 
-    $stmt = $conexion->prepare($consulta);
+$vuelo = obtenerVuelo($conexion,$codVuelo,$codAerolinea);
 
-    $stmt->bind_param("ii", $id, $codUsuario);
-
-    $stmt->execute();
-
-    $resultado = $stmt->get_result();
-
-    $vuelo = $resultado->fetch_assoc();
+$origen = $_GET["origen"] ?? "";
 
 ?>
 
@@ -206,7 +182,7 @@
                     <p>
 
                         <strong>
-                            Código:
+                            Código del vuelo:
                         </strong>
 
                         <?php

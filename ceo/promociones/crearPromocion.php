@@ -2,185 +2,59 @@
 
 session_start();
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
-
-// =========================
-// VERIFICAR QUE SEA CEO
-// =========================
-
-if (
-    !isset($_SESSION["tipoUsuario"]) ||
-    $_SESSION["tipoUsuario"] != "ceo"
-) {
-
-    header("Location: ../../inicioSesion.php");
-    exit();
-
-}
-
-
-// =========================
-// CONEXIÓN
-// =========================
-
 include "../../php/conexionBD.php";
+include "../../php/consultasCeos.php";
+include "../../php/consultasAerolineas.php";
+include "../../php/consultasPromociones.php";
 
+verificarCeo();
+$codUsuario = obtenerCodCeo();
 
-// =========================
-// IDENTIFICAR AL CEO
-// =========================
+$aerolinea = obtenerAerolineaPorCeo($conexion,$codUsuario);
 
-if (!isset($_SESSION["codUsuario"])) {
-
-    echo "No se pudo identificar al CEO.";
-    exit();
-
-}
-
-$codUsuario = $_SESSION["codUsuario"];
-
-
-// =========================
-// OBTENER SU AEROLÍNEA
-// =========================
-
-$consultaAerolinea = $conexion->prepare("
-
-    SELECT codAerolinea
-
-    FROM Aerolineas
-
-    WHERE codUsuario = ?
-
-");
-
-$consultaAerolinea->bind_param(
-    "i",
-    $codUsuario
-);
-
-$consultaAerolinea->execute();
-
-$resultadoAerolinea =
-    $consultaAerolinea->get_result();
-
-
-if ($resultadoAerolinea->num_rows != 1) {
+if (!$aerolinea) {
 
     echo "El CEO no tiene una aerolínea asignada.";
     exit();
 
 }
 
-
-$aerolinea =
-    $resultadoAerolinea->fetch_assoc();
-
-$codAerolinea =
-    $aerolinea["codAerolinea"];
-
-$consultaAerolinea->close();
+$codAerolinea = $aerolinea["codAerolinea"];
 
 
-// =========================
 // PROCESAR FORMULARIO
-// =========================
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $descripcion =
-        trim($_POST["descripcion"]);
-
-    $descuento =
-        $_POST["descuento"];
+    $descripcion = trim($_POST["descripcion"]);
+    $descuento = $_POST["descuento"];
 
 
-    // =========================
-    // VALIDAR CAMPOS
-    // =========================
+    if (empty($descripcion) || empty($descuento)) {
 
-    if (
-        empty($descripcion) ||
-        empty($descuento)
-    ) {
-
-        $error =
-            "Debe completar todos los campos.";
+        $error = "Debe completar todos los campos.";
 
     } elseif ($descuento <= 0) {
 
-        $error =
-            "El descuento debe ser mayor a 0.";
+        $error = "El descuento debe ser mayor a 0.";
 
     } elseif ($descuento > 100) {
 
-        $error =
-            "El descuento no puede ser mayor a 100%.";
+        $error = "El descuento no puede ser mayor a 100%.";
 
     } else {
 
-
-        // =========================
-        // DATOS INICIALES
-        // =========================
-
-        $estadoPromocion =
-            "Pendiente";
-
-        $activoPromocion =
-            1;
-
-
-        // =========================
-        // INSERTAR PROMOCIÓN
-        // =========================
-
-        $consulta = $conexion->prepare("
-
-            INSERT INTO Promociones
-            (
-                descripcionPromocion,
-                descuentoPromocion,
-                codAerolinea,
-                estadoPromocion,
-                activoPromocion
-            )
-
-            VALUES (?, ?, ?, ?, ?)
-
-        ");
-
-
-        $consulta->bind_param(
-            "sdisi",
-            $descripcion,
-            $descuento,
-            $codAerolinea,
-            $estadoPromocion,
-            $activoPromocion
-        );
-
-
-        if ($consulta->execute()) {
-
-            $consulta->close();
+        if (crearPromocion($conexion,$descripcion,$descuento,$codAerolinea)) {
 
             header("Location: /PaginaWeb/ceo/promociones/gestionPromocion.php?mensaje=creada");
-            exit();
 
+            exit();
 
         } else {
 
-            $error =
-                "No se pudo crear la promoción.";
+            $error = "No se pudo crear la promoción.";
 
         }
-
-
-        $consulta->close();
 
     }
 

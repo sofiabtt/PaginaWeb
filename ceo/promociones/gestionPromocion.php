@@ -2,118 +2,31 @@
 
 session_start();
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
-
-// =========================
-// VERIFICAR QUE SEA CEO
-// =========================
-
-if (
-    !isset($_SESSION["tipoUsuario"]) ||
-    $_SESSION["tipoUsuario"] != "ceo"
-) {
-
-    header("Location: ../../inicioSesion.php");
-    exit();
-
-}
-
-
-// =========================
-// CONEXIÓN
-// =========================
-
 include "../../php/conexionBD.php";
+include "../../php/consultasCeos.php";
+include "../../php/consultasAerolineas.php";
+include "../../php/consultasPromociones.php";
 
 
-// =========================
-// IDENTIFICAR AL CEO
-// =========================
+verificarCeo();
+$codUsuario = obtenerCodCeo();
 
-if (!isset($_SESSION["codUsuario"])) {
-
-    echo "No se pudo identificar al CEO.";
-    exit();
-
-}
-
-$codUsuario = $_SESSION["codUsuario"];
-
-
-// =========================
 // OBTENER SU AEROLÍNEA
-// =========================
 
-$consultaAerolinea = $conexion->prepare("
+$aerolinea = obtenerAerolineaPorCeo($conexion, $codUsuario);
 
-    SELECT codAerolinea
-
-    FROM Aerolineas
-
-    WHERE codUsuario = ?
-
-");
-
-$consultaAerolinea->bind_param(
-    "i",
-    $codUsuario
-);
-
-$consultaAerolinea->execute();
-
-$resultadoAerolinea =
-    $consultaAerolinea->get_result();
-
-
-if ($resultadoAerolinea->num_rows != 1) {
+if (!$aerolinea) {
 
     echo "El CEO no tiene una aerolínea asignada.";
     exit();
 
 }
 
+$codAerolinea = $aerolinea["codAerolinea"];
 
-$aerolinea =
-    $resultadoAerolinea->fetch_assoc();
-
-$codAerolinea =
-    $aerolinea["codAerolinea"];
-
-$consultaAerolinea->close();
-
-
-// =========================
 // OBTENER PROMOCIONES
-// =========================
 
-$consulta = $conexion->prepare("
-
-    SELECT
-        codPromocion,
-        descripcionPromocion,
-        descuentoPromocion,
-        estadoPromocion
-
-    FROM Promociones
-
-    WHERE codAerolinea = ?
-      AND activoPromocion = 1
-
-    ORDER BY codPromocion DESC
-
-");
-
-$consulta->bind_param(
-    "i",
-    $codAerolinea
-);
-
-$consulta->execute();
-
-$resultado = $consulta->get_result();
+$resultado = obtenerPromocionesPorAerolinea($conexion,$codAerolinea);
 
 ?>
 

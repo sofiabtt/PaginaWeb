@@ -186,3 +186,25 @@ function cantidadAerolineasActivas($conexion)
 
     return $resultado->fetch_assoc()["cantidad"];
 }
+
+// OBTENER AEROLÍNEA DE UN CEO
+
+function obtenerAerolineaPorCeo($conexion, $codUsuario)
+{
+    $consulta = "SELECT codAerolinea
+                 FROM Aerolineas
+                 WHERE codUsuario = ?";
+
+    $stmt = $conexion->prepare($consulta);
+
+    $stmt->bind_param(
+        "i",
+        $codUsuario
+    );
+
+    $stmt->execute();
+
+    $resultado = $stmt->get_result();
+
+    return $resultado->fetch_assoc();
+}

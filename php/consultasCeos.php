@@ -226,3 +226,33 @@ function cantidadCeos($conexion)
 
     return $resultado->fetch_assoc()["cantidad"];
 }
+
+// VERIFICAR QUE SEA CEO
+
+function verificarCeo()
+{
+    if (
+        !isset($_SESSION["tipoUsuario"]) ||
+        $_SESSION["tipoUsuario"] != "ceo"
+    ) {
+
+        header("Location: ../../inicioSesion.php");
+        exit();
+
+    }
+}
+
+
+// OBTENER CÓDIGO DEL CEO
+
+function obtenerCodCeo()
+{
+    if (!isset($_SESSION["codUsuario"])) {
+
+        echo "No se pudo identificar al CEO.";
+        exit();
+
+    }
+
+    return $_SESSION["codUsuario"];
+}

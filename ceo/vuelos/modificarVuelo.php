@@ -2,145 +2,39 @@
 
 session_start();
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+include "../../php/consultasCeos.php";
+include "../../php/consultasAerolineas.php";
+include "../../php/consultasVuelos.php";
 
 
-// =========================
-// VERIFICAR QUE SEA CEO
-// =========================
+verificarCeo();
+$codUsuario = obtenerCodCeo();
 
-if (
-    !isset($_SESSION["tipoUsuario"]) ||
-    $_SESSION["tipoUsuario"] != "ceo"
-) {
+$aerolinea = obtenerAerolineaPorCeo($conexion,$codUsuario);
 
-    header("Location: ../../inicioSesion.php");
-    exit();
-
-}
-
-
-// =========================
-// CONEXIÓN
-// =========================
-
-include "../../php/conexionBD.php";
-
-
-// =========================
-// IDENTIFICAR AL CEO
-// =========================
-
-if (!isset($_SESSION["codUsuario"])) {
-
-    echo "No se pudo identificar al CEO.";
-    exit();
-
-}
-
-$codUsuario = $_SESSION["codUsuario"];
-
-
-// =========================
-// OBTENER SU AEROLÍNEA
-// =========================
-
-$consultaAerolinea = $conexion->prepare("
-    SELECT codAerolinea
-    FROM Aerolineas
-    WHERE codUsuario = ?
-");
-
-$consultaAerolinea->bind_param(
-    "i",
-    $codUsuario
-);
-
-$consultaAerolinea->execute();
-
-$resultadoAerolinea =
-    $consultaAerolinea->get_result();
-
-
-if ($resultadoAerolinea->num_rows != 1) {
+if (!$aerolinea) {
 
     echo "El CEO no tiene una aerolínea asignada.";
     exit();
 
 }
 
-$aerolinea =
-    $resultadoAerolinea->fetch_assoc();
+$codAerolinea =$aerolinea["codAerolinea"];
 
-$codAerolinea =
-    $aerolinea["codAerolinea"];
+$codVuelo = obtenerCodVuelo();
 
-$consultaAerolinea->close();
+$vuelo = obtenerVuelo($conexion,$codVuelo,$codAerolinea);
 
 
-// =========================
-// OBTENER ID DEL VUELO
-// =========================
-
-if (!isset($_GET["id"])) {
-
-    echo "Vuelo no especificado.";
-    exit();
-
-}
-
-$codVuelo = intval($_GET["id"]);
-
-
-// =========================
-// BUSCAR VUELO
-// =========================
-
-$consulta = $conexion->prepare("
-    SELECT
-        codVuelo,
-        origenVuelo,
-        destinoVuelo,
-        fechaSalidaVuelo,
-        horaSalidaVuelo,
-        precioVuelo,
-        asientosDisponibles
-
-    FROM Vuelos
-
-    WHERE codVuelo = ?
-      AND codAerolinea = ?
-      AND activoVuelo = 1
-");
-
-$consulta->bind_param(
-    "ii",
-    $codVuelo,
-    $codAerolinea
-);
-
-$consulta->execute();
-
-$resultado = $consulta->get_result();
-
-
-if ($resultado->num_rows != 1) {
+if (!$vuelo || $vuelo["activoVuelo"] != 1) {
 
     echo "El vuelo no existe o no pertenece a tu aerolínea.";
     exit();
 
 }
 
-$vuelo = $resultado->fetch_assoc();
 
-$consulta->close();
-
-
-// =========================
 // PROCESAR MODIFICACIÓN
-// =========================
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -163,9 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_POST["asientos"];
 
 
-    // =========================
     // VALIDACIONES
-    // =========================
 
     if (
         empty($origen) ||
@@ -176,79 +68,47 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         empty($asientos)
     ) {
 
-        $error =
-            "Debe completar todos los campos.";
+        $error = "Debe completar todos los campos.";
 
     } elseif ($origen == $destino) {
 
-        $error =
-            "El origen y el destino no pueden ser iguales.";
+        $error = "El origen y el destino no pueden ser iguales.";
+
+    } elseif (strtotime($fecha) < strtotime(date("Y-m-d"))) {
+
+        $error = "La fecha de salida no puede ser anterior a la fecha actual.";
 
     } elseif ($precio <= 0) {
 
-        $error =
-            "El precio debe ser mayor a 0.";
+        $error = "El precio debe ser mayor a 0.";
 
     } elseif ($asientos <= 0) {
 
-        $error =
-            "La cantidad de asientos debe ser mayor a 0.";
+        $error = "La cantidad de asientos debe ser mayor a 0.";
 
     } else {
 
+        if ( modificarVuelo(
+                $conexion,
+                $codVuelo,
+                $codAerolinea,
+                $origen,
+                $destino,
+                $fecha,
+                $hora,
+                $precio,
+                $asientos
+            )
+        ) {
 
-        // =========================
-        // ACTUALIZAR VUELO
-        // =========================
-
-        $actualizar = $conexion->prepare("
-            UPDATE Vuelos
-
-            SET
-                origenVuelo = ?,
-                destinoVuelo = ?,
-                fechaSalidaVuelo = ?,
-                horaSalidaVuelo = ?,
-                precioVuelo = ?,
-                asientosDisponibles = ?
-
-            WHERE codVuelo = ?
-            AND codAerolinea = ?
-            AND activo = 1
-        ");
-
-
-        $actualizar->bind_param(
-            "ssssdiii",
-            $origen,
-            $destino,
-            $fecha,
-            $hora,
-            $precio,
-            $asientos,
-            $codVuelo,
-            $codAerolinea
-        );
-
-
-        if ($actualizar->execute()) {
-
-            $actualizar->close();
-
-            header(
-                "Location: gestionVuelos.php?mensaje=modificado"
-            );
-
+            header("Location: gestionVuelos.php?mensaje=modificado");
             exit();
 
         } else {
 
-            $error =
-                "No se pudo modificar el vuelo.";
+            $error ="No se pudo modificar el vuelo.";
 
         }
-
-        $actualizar->close();
 
     }
 

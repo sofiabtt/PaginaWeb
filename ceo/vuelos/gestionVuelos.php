@@ -1,75 +1,29 @@
 <?php
 
-    session_start();
+session_start();
 
-    ini_set('display_errors', 1);
-    ini_set('display_startup_errors', 1);
-    error_reporting(E_ALL);
+include "../../php/consultasCeos.php";
+include "../../php/consultasAerolineas.php";
+include "../../php/consultasVuelos.php";
 
+verificarCeo();
+$codUsuario = obtenerCodCeo();
 
-    // VERIFICAR QUE SEA CEO
+$aerolinea = obtenerAerolineaPorCeo($conexion,$codUsuario);
 
-    if (!isset($_SESSION["tipoUsuario"]) || $_SESSION["tipoUsuario"] != "ceo") {
+if (!$aerolinea) {
 
-        header("Location: ../../inicioSesion.php");
-        exit();
+    echo "El CEO no tiene una aerolínea asignada.";
+    exit();
 
-    }
+}
 
+$codAerolinea = $aerolinea["codAerolinea"];
 
-    // CONEXIÓN
-
-    include "../../php/conexionBD.php";
-
-    if (!isset($_SESSION["codUsuario"])) {
-        echo "No se pudo identificar al CEO.";
-        exit();
-    }
-
-    $codUsuario = $_SESSION["codUsuario"];
-
-    $consultaAerolinea = $conexion->prepare("
-        SELECT codAerolinea
-        FROM Aerolineas
-        WHERE codUsuario = ?
-    ");
-
-    $consultaAerolinea->bind_param("i", $codUsuario);
-
-    $consultaAerolinea->execute();
-
-    $resultadoAerolinea = $consultaAerolinea->get_result();
-
-    if ($resultadoAerolinea->num_rows != 1) {
-        echo "El CEO no tiene una aerolínea asignada.";
-        exit();
-    }
-
-    $aerolinea = $resultadoAerolinea->fetch_assoc();
-
-    $codAerolinea = $aerolinea["codAerolinea"];
-
-    $consultaAerolinea->close();
-
-
-    // OBTENER VUELOS DE LA AEROLÍNEA
-
-    $consulta = $conexion->prepare("
-        SELECT *
-        FROM Vuelos
-        WHERE codAerolinea = ?
-          AND activoVuelo = 1
-        ORDER BY fechaSalidaVuelo ASC, horaSalidaVuelo ASC
-    ");
-
-    $consulta->bind_param("i", $codAerolinea);
-
-    $consulta->execute();
-
-    $resultado = $consulta->get_result();
+// OBTENER VUELOS
+$resultado = obtenerVuelosPorAerolinea($conexion,$codAerolinea);
 
 ?>
-
 
 <!DOCTYPE html>
 

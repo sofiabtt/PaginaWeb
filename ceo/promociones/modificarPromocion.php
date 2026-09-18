@@ -2,87 +2,27 @@
 
 session_start();
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
-
-// =========================
-// VERIFICAR QUE SEA CEO
-// =========================
-
-if (
-    !isset($_SESSION["tipoUsuario"]) ||
-    $_SESSION["tipoUsuario"] != "ceo"
-) {
-
-    header("Location: ../../inicioSesion.php");
-    exit();
-
-}
-
-
-// =========================
-// CONEXIÓN
-// =========================
-
 include "../../php/conexionBD.php";
+include "../../php/consultasCeos.php";
+include "../../php/consultasAerolineas.php";
+include "../../php/consultasPromociones.php";
 
+verificarCeo();
+$codUsuario = obtenerCodCeo();
 
-// =========================
-// IDENTIFICAR AL CEO
-// =========================
+$aerolinea = obtenerAerolineaPorCeo($conexion,$codUsuario);
 
-if (!isset($_SESSION["codUsuario"])) {
-
-    echo "No se pudo identificar al CEO.";
-    exit();
-
-}
-
-$codUsuario = $_SESSION["codUsuario"];
-
-
-// =========================
-// OBTENER SU AEROLÍNEA
-// =========================
-
-$consultaAerolinea = $conexion->prepare("
-    SELECT codAerolinea
-    FROM Aerolineas
-    WHERE codUsuario = ?
-");
-
-$consultaAerolinea->bind_param(
-    "i",
-    $codUsuario
-);
-
-$consultaAerolinea->execute();
-
-$resultadoAerolinea =
-    $consultaAerolinea->get_result();
-
-
-if ($resultadoAerolinea->num_rows != 1) {
+if (!$aerolinea) {
 
     echo "El CEO no tiene una aerolínea asignada.";
     exit();
 
 }
 
-$aerolinea =
-    $resultadoAerolinea->fetch_assoc();
-
-$codAerolinea =
-    $aerolinea["codAerolinea"];
-
-$consultaAerolinea->close();
+$codAerolinea = $aerolinea["codAerolinea"];
 
 
-// =========================
 // OBTENER ID DE PROMOCIÓN
-// =========================
 
 if (!isset($_GET["id"])) {
 
@@ -93,65 +33,27 @@ if (!isset($_GET["id"])) {
 
 $codPromocion = intval($_GET["id"]);
 
-
-// =========================
 // BUSCAR PROMOCIÓN
-// =========================
 
-$consulta = $conexion->prepare("
-    SELECT
-        codPromocion,
-        descripcionPromocion,
-        descuentoPromocion,
-        estadoPromocion
+$promocion = obtenerPromocion($conexion,$codPromocion,$codAerolinea);
 
-    FROM Promociones
-
-    WHERE codPromocion = ?
-      AND codAerolinea = ?
-      AND activoPromocion = 1
-");
-
-$consulta->bind_param(
-    "ii",
-    $codPromocion,
-    $codAerolinea
-);
-
-$consulta->execute();
-
-$resultado = $consulta->get_result();
-
-
-if ($resultado->num_rows != 1) {
+if (!$promocion) {
 
     echo "La promoción no existe o no pertenece a tu aerolínea.";
     exit();
 
 }
 
-$promocion = $resultado->fetch_assoc();
 
-$consulta->close();
-
-
-// =========================
 // PROCESAR MODIFICACIÓN
-// =========================
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $descripcion =
-        trim($_POST["descripcion"]);
-
-    $descuento =
-        $_POST["descuento"];
+    $descripcion = trim($_POST["descripcion"]);
+    $descuento = $_POST["descuento"];
 
 
-    if (
-        empty($descripcion) ||
-        empty($descuento)
-    ) {
+    if (empty($descripcion) || empty($descuento)) {
 
         $error = "Debe completar todos los campos.";
 
@@ -165,47 +67,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     } else {
 
+        if (modificarPromocion($conexion, $codPromocion, $codAerolinea, $descripcion, $descuento)) {
 
-        $actualizar = $conexion->prepare("
-            UPDATE Promociones
-
-            SET
-                descripcionPromocion = ?,
-                descuentoPromocion = ?,
-                estadoPromocion = 'Pendiente'
-
-            WHERE codPromocion = ?
-              AND codAerolinea = ?
-        ");
-
-
-        $actualizar->bind_param(
-            "sdii",
-            $descripcion,
-            $descuento,
-            $codPromocion,
-            $codAerolinea
-        );
-
-
-        if ($actualizar->execute()) {
-
-            $actualizar->close();
-
-            header(
-                "Location: gestionPromocion.php?mensaje=modificada"
-            );
-
+            header("Location: gestionPromocion.php?mensaje=modificada");
             exit();
 
         } else {
 
-            $error =
-                "No se pudo modificar la promoción.";
+            $error = "No se pudo modificar la promoción.";
 
         }
-
-        $actualizar->close();
 
     }
 

@@ -2,151 +2,62 @@
 
 session_start();
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+include "../php/consultasCeos.php";
+include "../php/consultasAerolineas.php";
+include "../php/consultasVuelos.php";
+include "../php/consultasPromociones.php";
 
-include "../php/conexionBD.php";
-
-
-// VERIFICAR QUE SEA CEO
-
-if (!isset($_SESSION["tipoUsuario"]) || $_SESSION["tipoUsuario"] != "ceo") {
-
-    header("Location: ../inicioSesion.php");
-    exit();
-
-}
-
-
-// DATOS DEL CEO
-
+verificarCeo();
 
 $nombreCEO = $_SESSION["nombreUsuario"];
 
-$codUsuario = $_SESSION["codUsuario"];
-
+$codUsuario = obtenerCodCeo();
 
 // DATOS DE LA AEROLÍNEA
 
-$consultaAerolinea = $conexion->prepare(
-    "SELECT codAerolinea, nombreAerolinea
-     FROM Aerolineas
-     WHERE codUsuario = ?
-     AND activoAerolinea = 1"
-);
+$aerolinea = obtenerAerolineaPorCeo($conexion,$codUsuario);
 
-$consultaAerolinea->bind_param("i", $codUsuario);
+if (!$aerolinea) {
 
-$consultaAerolinea->execute();
+    echo "El CEO no tiene una aerolínea asignada.";
+    exit();
 
-$resultadoAerolinea = $consultaAerolinea->get_result();
-
-$aerolinea = $resultadoAerolinea->fetch_assoc();
+}
 
 $codAerolinea = $aerolinea["codAerolinea"];
 
 
 // CANTIDAD DE VUELOS
 
-$consultaVuelos = $conexion->prepare("
-    SELECT COUNT(*) AS cantidad
-    FROM Vuelos
-    WHERE codAerolinea = ?
-      AND activoVuelo = 1
-");
-
-$consultaVuelos->bind_param("i", $codAerolinea);
-
-$consultaVuelos->execute();
-
-$resultadoVuelos = $consultaVuelos->get_result();
-
-$vuelos = $resultadoVuelos->fetch_assoc();
-
-$cantidadVuelos = $vuelos["cantidad"];
+$cantidadVuelos = cantidadVuelosPorAerolinea($conexion,$codAerolinea);
 
 // CANTIDAD DE PROMOCIONES
 
-$consultaPromociones = $conexion->prepare(
-    "SELECT COUNT(*) AS cantidad
-     FROM Promociones
-     WHERE codAerolinea = ?"
-);
-
-$consultaPromociones->bind_param("i", $codAerolinea);
-
-$consultaPromociones->execute();
-
-$resultadoPromociones = $consultaPromociones->get_result();
-
-$promociones = $resultadoPromociones->fetch_assoc();
-
+$cantidadPromociones = cantidadPromocionesPorAerolinea($conexion,$codAerolinea);
 
 // CANTIDAD DE PROMOCIONES PENDIENTES
 
-$consultaPendientes = $conexion->prepare(
-    "SELECT COUNT(*) AS cantidad
-     FROM Promociones
-     WHERE codAerolinea = ?
-     AND estadoPromocion = 'Pendiente'"
-);
-
-$consultaPendientes->bind_param("i", $codAerolinea);
-
-$consultaPendientes->execute();
-
-$resultadoPendientes = $consultaPendientes->get_result();
-
-$promocionesPendientes = $resultadoPendientes->fetch_assoc();
+$promocionesPendientes = cantidadPromocionesPendientesPorAerolinea($conexion,$codAerolinea);
 
 // PRÓXIMOS VUELOS
 
-$consultaProximosVuelos = $conexion->prepare(
-
-    "SELECT codVuelo, origenVuelo, destinoVuelo,
-
-            fechaSalidaVuelo, horaSalidaVuelo, asientosDisponibles
-
-     FROM Vuelos
-
-     WHERE codAerolinea = ?
-       AND activoVuelo = 1
-
-     ORDER BY fechaSalidaVuelo ASC, horaSalidaVuelo ASC
-
-     LIMIT 5"
-
-);
-
-$consultaProximosVuelos->bind_param("i", $codAerolinea);
-
-$consultaProximosVuelos->execute();
-
-$resultadoProximosVuelos = $consultaProximosVuelos->get_result();
-
-
-// CERRAR CONEXIONES
-
-$consultaAerolinea->close();
-$consultaVuelos->close();
-$consultaPromociones->close();
-$consultaPendientes->close();
-$consultaProximosVuelos->close();
-
-$conexion->close();
+$resultadoProximosVuelos = obtenerProximosVuelos($conexion,$codAerolinea);
 
 ?>
 
 
 <!DOCTYPE html>
+
 <html lang="es">
 
 <head>
 
     <meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Nuvia - CEO</title>
 
@@ -239,7 +150,7 @@ $conexion->close();
                         <p class="numero-resumen">
 
                             <?php
-                            echo $vuelos["cantidad"];
+                            echo $cantidadVuelos;
                             ?>
 
                         </p>
@@ -265,7 +176,7 @@ $conexion->close();
                         <p class="numero-resumen">
 
                             <?php
-                            echo $promociones["cantidad"];
+                            echo $cantidadPromociones;
                             ?>
 
                         </p>
@@ -291,7 +202,7 @@ $conexion->close();
                         <p class="numero-resumen">
 
                             <?php
-                            echo $promocionesPendientes["cantidad"];
+                            echo $promocionesPendientes;
                             ?>
 
                         </p>
@@ -337,143 +248,144 @@ $conexion->close();
 
         <!-- PRÓXIMOS VUELOS -->
 
-    <section class="actividad-admin">
+        <section class="actividad-admin">
 
-        <div class="encabezado-seccion">
+            <div class="encabezado-seccion">
 
-            <div>
+                <div>
 
-                <h2>
-                    Próximos vuelos
-                </h2>
+                    <h2>
+                        Próximos vuelos
+                    </h2>
 
-                <p>
-                    Estos son los próximos vuelos programados
-                    de tu aerolínea.
-                </p>
+                    <p>
+                        Estos son los próximos vuelos programados
+                        de tu aerolínea.
+                    </p>
+
+                </div>
 
             </div>
 
-        </div>
+
+            <div class="tabla-contenedor">
+
+                <table class="table align-middle">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Código
+                            </th>
+
+                            <th>
+                                Origen
+                            </th>
+
+                            <th>
+                                Destino
+                            </th>
+
+                            <th>
+                                Fecha
+                            </th>
+
+                            <th>
+                                Hora
+                            </th>
+
+                            <th>
+                                Asientos disponibles
+                            </th>
+
+                        </tr>
+
+                    </thead>
 
 
-        <div class="tabla-contenedor">
+                    <tbody>
 
-            <table class="table align-middle">
+                        <?php if ($resultadoProximosVuelos->num_rows > 0) { ?>
 
-                <thead>
+                            <?php while ($vuelo = $resultadoProximosVuelos->fetch_assoc()) { ?>
 
-                    <tr>
+                                <tr>
 
-                        <th>
-                            Código
-                        </th>
+                                    <td>
+                                        <?php
+                                        echo $vuelo["codVuelo"];
+                                        ?>
+                                    </td>
 
-                        <th>
-                            Origen
-                        </th>
+                                    <td>
+                                        <?php
+                                        echo htmlspecialchars(
+                                            $vuelo["origenVuelo"]
+                                        );
+                                        ?>
+                                    </td>
 
-                        <th>
-                            Destino
-                        </th>
+                                    <td>
+                                        <?php
+                                        echo htmlspecialchars(
+                                            $vuelo["destinoVuelo"]
+                                        );
+                                        ?>
+                                    </td>
 
-                        <th>
-                            Fecha
-                        </th>
+                                    <td>
+                                        <?php
+                                        echo date(
+                                            "d/m/Y",
+                                            strtotime(
+                                                $vuelo["fechaSalidaVuelo"]
+                                            )
+                                        );
+                                        ?>
+                                    </td>
 
-                        <th>
-                            Hora
-                        </th>
+                                    <td>
+                                        <?php
+                                        echo htmlspecialchars(
+                                            $vuelo["horaSalidaVuelo"]
+                                        );
+                                        ?>
+                                    </td>
 
-                        <th>
-                            Asientos disponibles
-                        </th>
+                                    <td>
+                                        <?php
+                                        echo $vuelo["asientosDisponibles"];
+                                        ?>
+                                    </td>
 
-                    </tr>
+                                </tr>
 
-                </thead>
+                            <?php } ?>
 
-
-                <tbody>
-
-                    <?php if ($resultadoProximosVuelos->num_rows > 0) { ?>
-
-                        <?php while ($vuelo = $resultadoProximosVuelos->fetch_assoc()) { ?>
+                        <?php } else { ?>
 
                             <tr>
 
-                                <td>
-                                    <?php
-                                    echo $vuelo["codVuelo"];
-                                    ?>
-                                </td>
-
-                                <td>
-                                    <?php
-                                    echo htmlspecialchars(
-                                        $vuelo["origenVuelo"]
-                                    );
-                                    ?>
-                                </td>
-
-                                <td>
-                                    <?php
-                                    echo htmlspecialchars(
-                                        $vuelo["destinoVuelo"]
-                                    );
-                                    ?>
-                                </td>
-
-                                <td>
-                                    <?php
-                                    echo date(
-                                        "d/m/Y",
-                                        strtotime($vuelo["fechaSalidaVuelo"])
-                                    );
-                                    ?>
-                                </td>
-
-                                <td>
-                                    <?php
-                                    echo htmlspecialchars(
-                                        $vuelo["horaSalidaVuelo"]
-                                    );
-                                    ?>
-                                </td>
-
-                                <td>
-                                    <?php
-                                    echo $vuelo["asientosDisponibles"];
-                                    ?>
+                                <td
+                                    colspan="6"
+                                    class="text-center"
+                                >
+                                    No hay vuelos próximos.
                                 </td>
 
                             </tr>
 
                         <?php } ?>
 
-                    <?php } else { ?>
+                    </tbody>
 
-                        <tr>
+                </table>
 
-                            <td
-                                colspan="6"
-                                class="text-center"
-                            >
-                                No hay vuelos próximos.
+            </div>
 
-                            </td>
-
-                        </tr>
-
-                    <?php } ?>
-
-                </tbody>
-
-            </table>
-
-        </div>
-
-    </section>
+        </section>
 
 
     </main>
@@ -487,4 +399,3 @@ $conexion->close();
 </body>
 
 </html>
-
