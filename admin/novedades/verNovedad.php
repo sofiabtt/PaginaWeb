@@ -1,30 +1,13 @@
 <?php
 
 include "../../php/conexionBD.php";
-
-
-// OBTENER EL CÓDIGO DE LA NOVEDAD
+include "../../php/consultasNovedades.php";
 
 $id = $_GET["id"];
 
 $origen = $_GET["origen"] ?? "";
 
-
-// BUSCAR LA NOVEDAD
-
-$consulta = "SELECT *
-             FROM Novedades
-             WHERE codNovedad = ?";
-
-$stmt = $conexion->prepare($consulta);
-
-$stmt->bind_param("i", $id);
-
-$stmt->execute();
-
-$resultado = $stmt->get_result();
-
-$novedad = $resultado->fetch_assoc();
+$novedad = obtenerNovedad($conexion, $id);
 
 ?>
 

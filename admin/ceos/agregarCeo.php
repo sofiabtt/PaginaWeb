@@ -2,45 +2,30 @@
 
 session_start();
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
-
-// =========================
-// PHPMailer
-// =========================
-
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 require '../../vendor/autoload.php';
 
-
-// =========================
 // .ENV
-// =========================
 
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../..');
 
 $dotenv->load();
 
-
-// =========================
-// CONEXIÓN
-// =========================
+// CONEXIÓN Y CONSULTAS
 
 include "../../php/conexionBD.php";
+include "../../php/consultasAerolineas.php";
+include "../../php/consultasCeos.php";
+include "../../php/registrarActividad.php";
 
 
 // Variable para mostrar errores
 
 $error = "";
 
-
-// =========================
 // CREAR CEO
-// =========================
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -49,46 +34,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $telefono = trim($_POST["telefono"]);
     $codAerolinea = $_POST["codAerolinea"];
 
+    // VERIFICAR EMAIL
 
-    // =========================
-    // VERIFICAR SI EL EMAIL YA EXISTE
-    // =========================
-
-    $verificarEmail = $conexion->prepare("
-        SELECT codUsuario
-        FROM Usuarios
-        WHERE emailUsuario = ?
-    ");
-
-    $verificarEmail->bind_param(
-        "s",
-        $email
-    );
-
-    $verificarEmail->execute();
-
-    $resultadoEmail = $verificarEmail->get_result();
-
-    if ($resultadoEmail->num_rows > 0) {
+    if (emailExiste($conexion, $email)) {
 
         $error = "El email ingresado ya pertenece a otro usuario.";
 
     }
 
-    $verificarEmail->close();
-
-
-    // Si no existe el email, continuar
+    // CONTINUAR SI NO HAY ERROR
 
     if ($error == "") {
 
-
-        // =========================
         // GENERAR TOKEN
-        // =========================
 
         $token = bin2hex(random_bytes(32));
-
 
         // El enlace vence en 24 horas
 
@@ -97,43 +57,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             strtotime("+24 hours")
         );
 
-
-        // =========================
         // DATOS DEL CEO
-        // =========================
 
         $tipoUsuario = "ceo";
-
-        // Todavía no completó la creación de su cuenta
-
         $verificado = 0;
-
-        // Todavía no tiene contraseña
-
         $clave = NULL;
 
+        // CREAR CEO
 
-        // =========================
-        // INSERTAR CEO
-        // =========================
-
-        $consulta = $conexion->prepare("
-            INSERT INTO Usuarios (
-                nombreUsuario,
-                claveUsuario,
-                tipoUsuario,
-                emailUsuario,
-                telefonoUsuario,
-                verificado,
-                tokenVerificacion,
-                fechaVerificacion
-            )
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-        ");
-
-
-        $consulta->bind_param(
-            "sssssiss",
+        $codUsuarioNuevo = crearCeo(
+            $conexion,
             $nombre,
             $clave,
             $tipoUsuario,
@@ -145,77 +78,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         );
 
 
-        // =========================
-        // GUARDAR CEO
-        // =========================
+        if ($codUsuarioNuevo !== false) {
 
-        if ($consulta->execute()) {
+            asignarCeoAerolinea($conexion, $codUsuarioNuevo, $codAerolinea);
 
-            $codUsuarioNuevo = $conexion->insert_id;
+            registrarActividad($conexion, "Administrador", "Creó un nuevo CEO: " . $nombre);
 
-
-            // =========================
-            // ASIGNAR CEO A LA AEROLÍNEA
-            // =========================
-
-            $asignarAerolinea = $conexion->prepare("
-                UPDATE Aerolineas
-                SET codUsuario = ?
-                WHERE codAerolinea = ?
-                AND activoAerolinea = 1
-            ");
-
-
-            $asignarAerolinea->bind_param(
-                "ii",
-                $codUsuarioNuevo,
-                $codAerolinea
-            );
-
-
-            $asignarAerolinea->execute();
-
-            $asignarAerolinea->close();
-
-
-            // =========================
-            // REGISTRAR ACTIVIDAD
-            // =========================
-
-            $usuarioActividad = "Administrador";
-
-            $accionActividad =
-                "Creó un nuevo CEO: " . $nombre;
-
-
-            $actividad = $conexion->prepare("
-                INSERT INTO Actividad
-                (
-                    usuarioActividad,
-                    accionActividad
-                )
-                VALUES (?, ?)
-            ");
-
-
-            $actividad->bind_param(
-                "ss",
-                $usuarioActividad,
-                $accionActividad
-            );
-
-
-            $actividad->execute();
-
-            $actividad->close();
-
-
-            // =========================
             // ENVIAR EMAIL
-            // =========================
 
             $mail = new PHPMailer(true);
-
 
             try {
 
@@ -238,24 +109,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 $mail->Port = 587;
 
-
                 // Remitente
 
-                $mail->setFrom(
-                    $_ENV['GMAIL_USUARIO'],
-                    'Nuvia'
-                );
-
+                $mail->setFrom($_ENV['GMAIL_USUARIO'], 'Nuvia');
 
                 // Destinatario
 
                 $mail->addAddress($email);
 
-
                 // HTML
 
                 $mail->isHTML(true);
-
 
                 // Asunto
 
@@ -318,13 +182,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 ";
 
-
                 // Enviar email
 
                 $mail->send();
-
-
-                // Volver a gestión de CEOs
 
                 header("Location: gestionCeos.php");
 
@@ -337,9 +197,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     "El CEO fue creado correctamente, "
                     . "pero no se pudo enviar el correo: "
                     . $mail->ErrorInfo;
-
             }
-
 
         } else {
 
@@ -348,25 +206,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         }
 
-        $consulta->close();
-
     }
 
 }
 
-
-// =========================
 // OBTENER AEROLÍNEAS ACTIVAS
-// =========================
 
-$consultaAerolineas = $conexion->query("
-    SELECT
-        codAerolinea,
-        nombreAerolinea
-    FROM Aerolineas
-    WHERE activoAerolinea = 1
-    ORDER BY nombreAerolinea
-");
+$consultaAerolineas = obtenerAerolineasActivas($conexion);
 
 ?>
 

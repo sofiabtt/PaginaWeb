@@ -2,7 +2,8 @@
 
 include "conexionBD.php";
 
-// CREAR AEROLINEA
+
+// CREAR AEROLÍNEA
 
 function crearAerolinea($conexion, $nombre, $iata, $descripcion, $pais)
 {
@@ -43,6 +44,7 @@ function obtenerAerolineasActivas($conexion)
 
     return $conexion->query($consulta);
 }
+
 
 
 // OBTENER AEROLÍNEAS INACTIVAS
@@ -86,9 +88,17 @@ function obtenerAerolinea($conexion, $codAerolinea)
     return $resultado->fetch_assoc();
 }
 
-// MODIFICAR UNA AEROLINEA
 
-function modificarAerolinea($conexion, $codAerolinea, $nombre, $codigoIATA, $descripcion, $codPais)
+// MODIFICAR UNA AEROLÍNEA
+
+function modificarAerolinea(
+    $conexion,
+    $codAerolinea,
+    $nombre,
+    $codigoIATA,
+    $descripcion,
+    $codPais
+)
 {
     $consulta = "UPDATE Aerolineas
                  SET nombreAerolinea = ?,
@@ -111,7 +121,8 @@ function modificarAerolinea($conexion, $codAerolinea, $nombre, $codigoIATA, $des
     return $stmt->execute();
 }
 
-// BAJA LOGICA
+
+// BAJA LÓGICA
 
 function eliminarAerolinea($conexion, $codAerolinea)
 {
@@ -130,6 +141,8 @@ function eliminarAerolinea($conexion, $codAerolinea)
     return $stmt->execute();
 }
 
+// OBTENER PAÍSES
+
 function obtenerPaises($conexion)
 {
     $consulta = "SELECT codPais, nombrePais
@@ -137,4 +150,39 @@ function obtenerPaises($conexion)
                  ORDER BY nombrePais";
 
     return $conexion->query($consulta);
+}
+
+
+// ASIGNAR CEO A UNA AEROLÍNEA
+
+function asignarCeoAerolinea($conexion, $codUsuario, $codAerolinea)
+{
+    $consulta = "UPDATE Aerolineas
+                 SET codUsuario = ?
+                 WHERE codAerolinea = ?
+                 AND activoAerolinea = 1";
+
+    $stmt = $conexion->prepare($consulta);
+
+    $stmt->bind_param(
+        "ii",
+        $codUsuario,
+        $codAerolinea
+    );
+
+    return $stmt->execute();
+}
+
+
+// CANTIDAD DE AEROLÍNEAS ACTIVAS
+
+function cantidadAerolineasActivas($conexion)
+{
+    $consulta = "SELECT COUNT(*) AS cantidad
+                 FROM Aerolineas
+                 WHERE activoAerolinea = 1";
+
+    $resultado = $conexion->query($consulta);
+
+    return $resultado->fetch_assoc()["cantidad"];
 }

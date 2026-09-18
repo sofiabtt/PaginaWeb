@@ -121,6 +121,10 @@ CREATE TABLE `Usuarios` (
 
     `fechaVerificacion` datetime DEFAULT NULL,
 
+    `activoUsuario` TINYINT(1) NOT NULL DEFAULT 1,
+
+    `fechaEliminacion` DATETIME DEFAULT NULL,
+
     PRIMARY KEY (`codUsuario`),
 
     UNIQUE KEY `uk_usuarios_email` (`emailUsuario`)

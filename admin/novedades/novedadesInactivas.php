@@ -1,16 +1,9 @@
 <?php
 
 include "../../php/conexionBD.php";
+include "../../php/consultasNovedades.php";
 
-
-// OBTENER LAS NOVEDADES DADAS DE BAJA
-
-$consulta = "SELECT *
-             FROM Novedades
-             WHERE activoNovedad = 0
-             ORDER BY fechaEliminacion DESC";
-
-$resultado = $conexion->query($consulta);
+$resultado = obtenerNovedadesInactivas($conexion);
 
 ?>
 

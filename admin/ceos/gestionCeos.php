@@ -1,18 +1,21 @@
 <?php
 
 include "../../php/conexionBD.php";
+include "../../php/consultasAerolineas.php";
+include "../../php/consultasCeos.php";
 
-$consultaAerolineas = $conexion->query("
-    SELECT COUNT(*) AS cantidad
-    FROM Aerolineas
-    WHERE activoAerolinea = 1
-");
+// CANTIDAD DE AEROLÍNEAS ACTIVAS
 
-$cantidadAerolineas = $consultaAerolineas->fetch_assoc()["cantidad"];
+$cantidadAerolineas = cantidadAerolineasActivas($conexion);
+
+// OBTENER CEOs
+
+$consulta = obtenerCeos($conexion);
 
 ?>
 
 <!DOCTYPE html>
+
 <html lang="es">
 
 <head>
@@ -91,8 +94,11 @@ $cantidadAerolineas = $consultaAerolineas->fetch_assoc()["cantidad"];
                     href="agregarCeo.php"
                     class="btn btn-primary"
                 >
+
                     <i class="bi bi-plus-lg"></i>
+
                     Agregar CEO
+
                 </a>
 
             <?php } else { ?>
@@ -101,7 +107,11 @@ $cantidadAerolineas = $consultaAerolineas->fetch_assoc()["cantidad"];
                     class="text-muted"
                     title="Primero debe existir al menos una aerolínea activa"
                 >
-                    <strong>Debe agregar una aerolínea para crear un CEO</strong>
+
+                    <strong>
+                        Debe agregar una aerolínea para crear un CEO
+                    </strong>
+
                 </span>
 
             <?php } ?>
@@ -147,36 +157,19 @@ $cantidadAerolineas = $consultaAerolineas->fetch_assoc()["cantidad"];
 
                 <?php
 
-                $consulta = $conexion->query("
-
-                    SELECT
-                        u.codUsuario,
-                        u.nombreUsuario,
-                        u.emailUsuario,
-                        u.verificado,
-                        a.nombreAerolinea
-
-                    FROM Usuarios u
-
-                    LEFT JOIN Aerolineas a
-                        ON a.codUsuario = u.codUsuario
-
-                    WHERE u.tipoUsuario = 'ceo'
-
-                    ORDER BY u.nombreUsuario
-
-                ");
-
                 if (!$consulta) {
-                    die("Error en la consulta: " . $conexion->error);
+
+                    die(
+                        "Error en la consulta: "
+                        . $conexion->error
+                    );
+
                 }
 
 
                 while ($ceo = $consulta->fetch_assoc()) {
 
-
                 ?>
-
 
                     <tr>
 
@@ -196,7 +189,6 @@ $cantidadAerolineas = $consultaAerolineas->fetch_assoc()["cantidad"];
                         </td>
 
 
-
                         <!-- EMAIL -->
 
                         <td>
@@ -210,7 +202,6 @@ $cantidadAerolineas = $consultaAerolineas->fetch_assoc()["cantidad"];
                             ?>
 
                         </td>
-
 
 
                         <!-- AEROLÍNEA -->
@@ -232,29 +223,33 @@ $cantidadAerolineas = $consultaAerolineas->fetch_assoc()["cantidad"];
                         </td>
 
 
-
                         <!-- ESTADO -->
 
                         <td>
 
-
                             <?php
 
-                            if (
-                                $ceo["verificado"] == 0
-                            ) {
+                            if ($ceo["verificado"] == 0) {
 
                             ?>
 
-                                <h6 style="color: gray";>Pendiente</h6>
+                                <span class="badge bg-warning text-dark">
 
+                                    Pendiente
+
+                                </span>
 
                             <?php
 
                             } else {
 
                             ?>
-                                <h6 style="color: green";>Activo</h6>
+
+                                <span class="badge bg-success">
+
+                                    Activo
+
+                                </span>
 
                             <?php
 
@@ -262,28 +257,15 @@ $cantidadAerolineas = $consultaAerolineas->fetch_assoc()["cantidad"];
 
                             ?>
 
-
                         </td>
-
 
 
                         <!-- ACCIONES -->
 
                         <td>
 
-
                             <a
-                                href="editar-ceo.php?id=<?php echo $ceo["codUsuario"]; ?>"
-                                class="btn btn-sm btn-warning"
-                            >
-
-                                <i class="bi bi-pencil"></i>
-
-                            </a>
-
-
-                            <a
-                                href="eliminar-ceo.php?id=<?php echo $ceo["codUsuario"]; ?>"
+                                href="eliminarCeo.php?id=<?php echo $ceo["codUsuario"]; ?>"
                                 class="btn btn-sm btn-danger"
                             >
 
@@ -291,12 +273,10 @@ $cantidadAerolineas = $consultaAerolineas->fetch_assoc()["cantidad"];
 
                             </a>
 
-
                         </td>
 
 
                     </tr>
-
 
                 <?php
 
@@ -315,9 +295,7 @@ $cantidadAerolineas = $consultaAerolineas->fetch_assoc()["cantidad"];
     </main>
 
 
-
     <script src="../../js/bootstrap.bundle.min.js"></script>
-
 
 </body>
 

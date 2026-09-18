@@ -1,13 +1,12 @@
 <?php
 
 include "../php/conexionBD.php";
+include "../php/consultasUsuarios.php";
 
-
-// ADMINISTRADOR
 $codAdmin = 1;
 
-
 // SI SE ENVIO EL FORMULARIO
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $nombre = $_POST["nombreUsuario"];
@@ -16,28 +15,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
     // ACTUALIZAR DATOS DEL ADMIN
-    $consulta = "UPDATE Usuarios
-                 SET nombreUsuario = ?,
-                     emailUsuario = ?,
-                     telefonoUsuario = ?
-                 WHERE codUsuario = ?";
 
-
-    $stmt = $conexion->prepare($consulta);
-
-    $stmt->bind_param(
-        "sssi",
-        $nombre,
-        $email,
-        $telefono,
-        $codAdmin
-    );
-
-
-    if ($stmt->execute()) {
+    if (modificarUsuario($conexion, $codAdmin, $nombre, $email, $telefono)) {
 
         // REDIRIGIR DESPUES DE GUARDAR
-        header("Location: perfil-admin.php?actualizado=1");
+
+        header("Location: perfilAdmin.php?actualizado=1");
 
         exit;
 
@@ -47,40 +30,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     }
 
-
-    $stmt->close();
-
 }
 
-
 // MOSTRAR MENSAJE SOLO SI SE ACABA DE ACTUALIZAR
+
 if (isset($_GET["actualizado"])) {
 
     $mensaje = "Los datos se actualizaron correctamente.";
 
 }
 
-
 // BUSCAR LOS DATOS DEL ADMIN
-$consulta = "SELECT nombreUsuario, emailUsuario, telefonoUsuario
-             FROM Usuarios
-             WHERE codUsuario = ?";
-
-
-$stmt = $conexion->prepare($consulta);
-
-$stmt->bind_param(
-    "i",
-    $codAdmin
-);
-
-$stmt->execute();
-
-$resultado = $stmt->get_result();
-
-$admin = $resultado->fetch_assoc();
-
-$stmt->close();
+$admin = obtenerUsuario($conexion, $codAdmin);
 
 ?>
 
@@ -236,7 +197,7 @@ $stmt->close();
 
                     <form
                         method="POST"
-                        action="perfil-admin.php"
+                        action="perfilAdmin.php"
                         class="text-start"
                     >
 

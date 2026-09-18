@@ -1,55 +1,22 @@
 <?php
+
 session_start();
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 include "../php/conexionBD.php";
+include "../php/consultasAerolineas.php";
+include "../php/consultasPromociones.php";
+include "../php/consultasNovedades.php";
+include "../php/consultasCeos.php";
 
 
-// CANTIDAD DE AEROLÍNEAS ACTIVAS
+$aerolineas = cantidadAerolineasActivas($conexion);
 
-$consultaAerolineas = "
-    SELECT COUNT(*) AS cantidad
-    FROM Aerolineas
-    WHERE activoAerolinea = 1
-";
+$promocionesPendientes = cantidadPromocionesPendientes($conexion);
 
-$resultadoAerolineas = $conexion->query($consultaAerolineas);
-$aerolineas = $resultadoAerolineas->fetch_assoc();
+$novedades = cantidadNovedades($conexion);
 
-// CANTIDAD DE PROMOCIONES PENDIENTES
+$ceos = cantidadCeos($conexion);
 
-$consultaPromociones = "SELECT COUNT(*) AS cantidad
-                        FROM Promociones
-                        WHERE estadoPromocion = 'Pendiente'";
-
-$resultadoPromociones = $conexion->query($consultaPromociones);
-
-$promocionesPendientes = $resultadoPromociones->fetch_assoc();
-
-
-// CANTIDAD DE NOVEDADES
-
-$consultaNovedades = "SELECT COUNT(*) AS cantidad
-                      FROM Novedades";
-
-$resultadoNovedades = $conexion->query($consultaNovedades);
-
-$novedades = $resultadoNovedades->fetch_assoc();
-
-// CANTIDAD DE CEOs
-
-$consultaCEOs = "SELECT COUNT(*) AS cantidad
-                 FROM Usuarios
-                 WHERE tipoUsuario = 'ceo'";
-
-$resultadoCEOs = $conexion->query($consultaCEOs);
-
-$ceos = $resultadoCEOs->fetch_assoc();
-
-// ACTIVIDAD RECIENTE
 
 $consultaActividad = "SELECT *
                       FROM Actividad
@@ -90,6 +57,7 @@ $resultadoActividad = $conexion->query($consultaActividad);
 
     <?php include "includes/navbarAdmin.php"; ?>
 
+
     <main class="contenido-admin">
 
 
@@ -110,7 +78,7 @@ $resultadoActividad = $conexion->query($consultaActividad);
 
 
 
-        <!--RESUMEN-->
+        <!-- RESUMEN -->
 
         <section class="resumen-admin">
 
@@ -133,7 +101,7 @@ $resultadoActividad = $conexion->query($consultaActividad);
                         </h3>
 
                         <p class="numero-resumen">
-                            <?php echo $aerolineas["cantidad"]; ?>
+                            <?php echo $aerolineas; ?>
                         </p>
 
                     </div>
@@ -152,7 +120,7 @@ $resultadoActividad = $conexion->query($consultaActividad);
                         </h3>
 
                         <p class="numero-resumen">
-                            <?php echo $promocionesPendientes["cantidad"]; ?>
+                            <?php echo $promocionesPendientes; ?>
                         </p>
 
                     </div>
@@ -171,7 +139,7 @@ $resultadoActividad = $conexion->query($consultaActividad);
                         </h3>
 
                         <p class="numero-resumen">
-                            <?php echo $novedades["cantidad"]; ?>
+                            <?php echo $novedades; ?>
                         </p>
 
                     </div>
@@ -190,7 +158,7 @@ $resultadoActividad = $conexion->query($consultaActividad);
                         </h3>
 
                         <p class="numero-resumen">
-                            <?php echo $ceos["cantidad"]; ?>
+                            <?php echo $ceos; ?>
                         </p>
 
                     </div>
@@ -204,7 +172,7 @@ $resultadoActividad = $conexion->query($consultaActividad);
 
 
 
-        <!--ACTIVIDAD RECIENTE-->
+        <!-- ACTIVIDAD RECIENTE -->
 
         <section class="actividad-admin">
 
@@ -225,12 +193,6 @@ $resultadoActividad = $conexion->query($consultaActividad);
 
             </div>
 
-
-            <!--
-                Esta tabla queda vacía.
-                Más adelante PHP podrá cargar los registros
-                provenientes de la base de datos.
-            -->
 
             <div class="tabla-contenedor">
 
@@ -302,10 +264,12 @@ $resultadoActividad = $conexion->query($consultaActividad);
 
 
     </main>
+
+
     <?php include "../includes/footer.php"; ?>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 
 </html>
-

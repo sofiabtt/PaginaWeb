@@ -1,6 +1,7 @@
 <?php
 
 include "../../php/conexionBD.php";
+include "../../php/consultasNovedades.php";
 
 $error = "";
 
@@ -11,38 +12,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $fechaExpiracion = $_POST["fechaExpiracionNovedad"];
 
     if (empty($texto) || empty($fechaPublicacion) || empty($fechaExpiracion)) {
+
         die("Todos los campos son obligatorios.");
+
     }
 
     if ($fechaExpiracion < $fechaPublicacion) {
+
         $error = "La fecha de expiración no puede ser anterior a la fecha de publicación.";
+
     }
 
     if (strtotime($fechaPublicacion) < strtotime(date("Y-m-d"))) {
+
         $error = "La fecha de publicación no puede ser anterior a la fecha actual.";
+
     }
 
     if (empty($error)) {
 
-        $sql = "INSERT INTO Novedades
-                (textoNovedad, fechaPublicacionNovedad, fechaExpiracionNovedad)
-                VALUES (?, ?, ?)";
+        if (crearNovedad($conexion,$texto,$fechaPublicacion,$fechaExpiracion)) {
 
-        $stmt = $conexion->prepare($sql);
-
-        $stmt->bind_param(
-            "sss",
-            $texto,
-            $fechaPublicacion,
-            $fechaExpiracion
-        );
-
-        if ($stmt->execute()) {
             header("Location: gestionNovedades.php");
+
             exit;
+
         }
+
     }
 }
+
 ?>
 
 <!DOCTYPE html>

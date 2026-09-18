@@ -2,16 +2,10 @@
 
 session_start();
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 include "../../php/conexionBD.php";
+include "../../php/consultasCeos.php";
 
-
-// =========================
 // COMPROBAR QUE HAYA TOKEN
-// =========================
 
 if (!isset($_GET["token"]) && !isset($_POST["token"])) {
 
@@ -21,41 +15,16 @@ if (!isset($_GET["token"]) && !isset($_POST["token"])) {
 
 }
 
-
 // Tomamos el token de la URL o del formulario
 
 $token = $_GET["token"] ?? $_POST["token"];
 
 
-// =========================
 // BUSCAR EL CEO
-// =========================
 
-$consulta = $conexion->prepare("
-    SELECT
-        codUsuario,
-        nombreUsuario,
-        emailUsuario,
-        tokenVerificacion,
-        fechaVerificacion
-    FROM Usuarios
-    WHERE tokenVerificacion = ?
-      AND tipoUsuario = 'ceo'
-");
+$ceo = obtenerCeoPorToken($conexion, $token);
 
-$consulta->bind_param(
-    "s",
-    $token
-);
-
-$consulta->execute();
-
-$resultado = $consulta->get_result();
-
-
-// Si no encontró el token
-
-if ($resultado->num_rows != 1) {
+if ($ceo === null) {
 
     echo "El enlace no es válido o ya fue utilizado.";
 
@@ -63,13 +32,7 @@ if ($resultado->num_rows != 1) {
 
 }
 
-
-$ceo = $resultado->fetch_assoc();
-
-
-// =========================
 // COMPROBAR VENCIMIENTO
-// =========================
 
 if (
     empty($ceo["fechaVerificacion"]) ||
@@ -82,18 +45,13 @@ if (
 
 }
 
-
-// =========================
 // GUARDAR NUEVA CONTRASEÑA
-// =========================
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
 
     $nuevaClave = $_POST["nuevaClave"];
 
     $repetirClave = $_POST["repetirClave"];
-
 
     // Comprobar que no estén vacías
 
@@ -106,7 +64,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     }
 
-
     // Comprobar que coincidan
 
     elseif ($nuevaClave !== $repetirClave) {
@@ -117,43 +74,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
     else {
-
-
-        // =========================
         // ENCRIPTAR CONTRASEÑA
-        // =========================
 
         $claveHash = password_hash(
             $nuevaClave,
             PASSWORD_DEFAULT
         );
 
-
-        // =========================
         // ACTUALIZAR CEO
-        // =========================
 
-        $actualizar = $conexion->prepare("
-            UPDATE Usuarios
-
-            SET
-                claveUsuario = ?,
-                verificado = 1,
-                tokenVerificacion = NULL,
-                fechaVerificacion = NULL
-
-            WHERE codUsuario = ?
-        ");
-
-
-        $actualizar->bind_param(
-            "si",
-            $claveHash,
-            $ceo["codUsuario"]
-        );
-
-
-        if ($actualizar->execute()) {
+        if (
+            crearClaveCeo(
+                $conexion,
+                $ceo["codUsuario"],
+                $claveHash
+            )
+        ) {
 
             $exito = true;
 
@@ -255,25 +191,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </header>
 
 
-
-    <!-- =========================
-         CONTENIDO
-    ========================== -->
-
     <main class="d-flex justify-content-center align-items-center">
-
-
-        
 
 
         <?php if (isset($exito)) { ?>
 
             <section class="rectangulo-formulario formulario-exito">
 
-
-                <!-- =========================
-                     CONTRASEÑA CREADA
-                ========================== -->
 
                 <div class="text-center">
 
@@ -323,10 +247,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <section class="rectangulo-formulario">
 
 
-                <!-- =========================
-                     FORMULARIO
-                ========================== -->
-
                 <h1 class="text-center mb-4 texto-negro">
 
                     Crear contraseña
@@ -363,7 +283,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                     <div class="alerta-en-rojo text-center mb-3">
 
-                        <?php echo $error; ?>
+                        <?php echo htmlspecialchars($error); ?>
 
                     </div>
 
@@ -382,9 +302,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     >
 
 
-                    <!-- =========================
-                         NUEVA CONTRASEÑA
-                    ========================== -->
+                    <!-- NUEVA CONTRASEÑA -->
 
                     <div class="mb-4">
 
@@ -426,10 +344,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </div>
 
 
-
-                    <!-- =========================
-                         REPETIR CONTRASEÑA
-                    ========================== -->
+                    <!-- REPETIR CONTRASEÑA -->
 
                     <div class="mb-4">
 
@@ -495,17 +410,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </main>
 
 
-
-    <!-- Bootstrap JS -->
-
     <script
         src="../../js/bootstrap.bundle.min.js"
     ></script>
 
 
-    <!-- =========================
-         MOSTRAR / OCULTAR CONTRASEÑA
-    ========================== -->
+    <!-- MOSTRAR / OCULTAR CONTRASEÑA -->
 
     <script>
 

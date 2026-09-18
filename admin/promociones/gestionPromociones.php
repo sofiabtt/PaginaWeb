@@ -1,70 +1,80 @@
 <?php
+
 session_start();
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 
 if (!isset($_SESSION["tipoUsuario"]) || $_SESSION["tipoUsuario"] != "administrador") {
+
     header("Location: ../../inicioSesion.php");
+
     exit();
+
 }
 
 include "../../php/conexionBD.php";
+include "../../php/consultasPromociones.php";
+include "../../php/registrarActividad.php";
+
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
     $codPromocion = intval($_POST["codPromocion"]);
+
     $accion = $_POST["accion"] ?? "";
 
     if ($accion == "aprobar") {
+
         $nuevoEstado = "Aprobada";
+
     } elseif ($accion == "rechazar") {
+
         $nuevoEstado = "Rechazada";
+
     } else {
+
         $nuevoEstado = "";
+
     }
+
 
     if ($nuevoEstado != "") {
-        $actualizar = $conexion->prepare("UPDATE Promociones SET estadoPromocion = ? WHERE codPromocion = ? AND activoPromocion = 1");
-        $actualizar->bind_param("si", $nuevoEstado, $codPromocion);
-        $actualizar->execute();
-        $actualizar->close();
 
-        header("Location: gestionPromociones.php?mensaje=actualizada");
-        exit();
+        if (cambiarEstadoPromocion($conexion, $codPromocion, $nuevoEstado)) {
+
+            if ($nuevoEstado == "Aprobada") {
+
+                $accionActividad = "Aprobó la promoción " . $codPromocion;
+
+            } else {
+
+                $accionActividad = "Rechazó la promoción " . $codPromocion;
+
+            }
+
+            registrarActividad($conexion, "Administrador", $accionActividad);
+
+            header("Location: gestionPromociones.php?mensaje=actualizada");
+
+            exit();
+
+        }
+
     }
+
 }
 
-$consulta = $conexion->query("
-    SELECT
-        p.codPromocion,
-        p.descripcionPromocion,
-        p.descuentoPromocion,
-        p.estadoPromocion,
-        a.nombreAerolinea,
-        u.nombreUsuario AS nombreCeo
+// OBTENER PROMOCIONES
 
-    FROM Promociones p
-
-    INNER JOIN Aerolineas a
-        ON p.codAerolinea = a.codAerolinea
-
-    LEFT JOIN Usuarios u
-        ON a.codUsuario = u.codUsuario
-
-    WHERE p.activoPromocion = 1
-
-    ORDER BY
-        CASE
-            WHEN p.estadoPromocion = 'Pendiente' THEN 0
-            ELSE 1
-        END,
-        p.codPromocion DESC
-");
+$consulta = obtenerPromocionesActivas($conexion);
 
 if (!$consulta) {
-    die("Error al cargar las promociones: " . $conexion->error);
+
+    die( "Error al cargar las promociones: ". $conexion->error);
+
 }
+
 ?>
+
+
 <!DOCTYPE html>
 <html lang="es">
 <head>

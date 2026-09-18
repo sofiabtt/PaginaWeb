@@ -1,65 +1,62 @@
 <?php
 
 include "../../php/conexionBD.php";
-include "../../php/consultasNovedades.php";
+include "../../php/consultasCeos.php";
 include "../../php/registrarActividad.php";
-
-
-// VERIFICAR QUE SE RECIBIÓ EL ID
 
 if (!isset($_GET["id"])) {
 
-    header("Location: gestionNovedades.php");
+    header("Location: gestionCeos.php");
 
     exit;
-
 }
 
-$codNovedad = $_GET["id"];
+$codUsuario = $_GET["id"];
 
-// BUSCAR LA NOVEDAD
+// BUSCAR EL CEO
 
-$novedad = obtenerNovedad($conexion,$codNovedad);
+$ceo = obtenerCeo($conexion, $codUsuario);
 
+// SI NO EXISTE
 
-// SI NO EXISTE O YA ESTÁ DADA DE BAJA
+if (!$ceo) {
 
-if (!$novedad || $novedad["activoNovedad"] != 1) {
-
-    header("Location: gestionNovedades.php");
+    header("Location: gestionCeos.php");
 
     exit;
-
 }
 
 // SI SE CONFIRMÓ LA ELIMINACIÓN
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    // GUARDAMOS EL TEXTO ANTES DE ELIMINAR
+    // GUARDAMOS LOS DATOS ANTES DE ELIMINAR
 
-    $texto = $novedad["textoNovedad"];
+    $nombre = $ceo["nombreUsuario"];
+    $aerolinea = $ceo["nombreAerolinea"];
 
-    // BAJA LÓGICA
+    // BAJA LÓGICA Y DESVINCULACIÓN DE LA AEROLÍNEA
 
-    if (eliminarNovedad($conexion, $codNovedad)) {
+    if (eliminarCeo($conexion, $codUsuario)) {
 
-        registrarActividad($conexion,"Administrador","Eliminó la novedad " . $texto);
+        // REGISTRAR ACTIVIDAD
 
-        header("Location: gestionNovedades.php?eliminada=1");
+        registrarActividad($conexion, "Administrador", "Eliminó el CEO " . $nombre);
+
+        header("Location: gestionCeos.php?eliminado=1");
 
         exit;
 
-
     } else {
 
-        $mensaje = "Ocurrió un error al eliminar la novedad.";
+        $mensaje = "Ocurrió un error al eliminar el CEO.";
 
     }
 
 }
 
 ?>
+
 
 <!DOCTYPE html>
 
@@ -122,11 +119,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div>
 
                 <h1>
-                    Eliminar novedad
+                    Eliminar CEO
                 </h1>
 
                 <p>
-                    Confirmá la eliminación de la novedad.
+                    Confirmá la eliminación del CEO.
                 </p>
 
             </div>
@@ -168,7 +165,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                     <h2 class="mt-3">
 
-                        ¿Eliminar esta novedad?
+                        ¿Eliminar este CEO?
 
                     </h2>
 
@@ -184,11 +181,48 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                         <?php
                         echo htmlspecialchars(
-                            $novedad["textoNovedad"]
+                            $ceo["nombreUsuario"]
                         );
                         ?>
 
                     </h4>
+
+
+                    <?php if ($aerolinea) { ?>
+
+                        <p class="text-muted mt-3">
+
+                            El CEO está vinculado a la aerolínea:
+
+                        </p>
+
+                        <h5>
+
+                            <?php
+                            echo htmlspecialchars($aerolinea);
+                            ?>
+
+                        </h5>
+
+                        <div class="alert alert-warning mt-3">
+
+                            <i class="bi bi-info-circle"></i>
+
+                            Al eliminar este CEO, también se
+                            <strong>desvinculará de la aerolínea</strong>.
+                            La aerolínea no será eliminada.
+
+                        </div>
+
+                    <?php } else { ?>
+
+                        <p class="text-muted mt-3">
+
+                            Este CEO no está vinculado a ninguna aerolínea.
+
+                        </p>
+
+                    <?php } ?>
 
 
                     <p class="text-muted mt-3">
@@ -207,7 +241,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
                         <a
-                            href="/PaginaWeb/admin/novedades/gestionNovedades.php"
+                            href="/PaginaWeb/admin/ceos/gestionCeos.php"
                             class="btn btn-secondary"
                         >
 
@@ -218,7 +252,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                         <form
                             method="POST"
-                            action="eliminarNovedad.php?id=<?php echo $codNovedad; ?>"
+                            action="eliminarCeo.php?id=<?php echo $codUsuario; ?>"
                         >
 
                             <button
@@ -252,4 +286,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </body>
 
 </html>
-

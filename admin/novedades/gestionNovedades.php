@@ -1,14 +1,12 @@
-
 <?php
-include "../../php/conexionBD.php"; //conexion base
 
-$consulta = "SELECT *
-             FROM Novedades
-             WHERE activoNovedad = 1
-             ORDER BY codNovedad";
+include "../../php/conexionBD.php";
+include "../../php/consultasNovedades.php";
 
-$resultado = $conexion->query($consulta); //guarda en rdo
+$resultado = obtenerNovedadesActivas($conexion);
+
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 
