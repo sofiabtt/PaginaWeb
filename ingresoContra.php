@@ -113,9 +113,9 @@
                     <div>
                         <p class="texto-registro mb-1 texto-negro">
                             Olvidé la contraseña
-                        </p>
+                    </p>
 
-                        <a href="recuperarContrasena.php" class="btn btn-outline-primary">
+                        <a href="usuarioNOregistrado/enviarRecuperacion.php" class="btn btn-outline-primary">
                             Recuperar
                         </a>
                     </div>

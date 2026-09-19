@@ -3,15 +3,12 @@
 
 session_start();
 
-include "php/consultasVuelos.php";
-
-
+include "php/conexionBD.php";
 $tipoViaje = $_GET["tipoViaje"] ?? "soloIda";
 $origen = $_GET["origen"] ?? "";
 $destino = $_GET["destino"] ?? "";
 $fechaIda = $_GET["fechaIda"] ?? "";
 $fechaVuelta = $_GET["fechaVuelta"] ?? "";
-
 
 if (!isset($_GET["codVuelo"])) {
 
@@ -374,13 +371,19 @@ if (
                         <a
                             href="resultadosVuelos.php?tipoViaje=idaVuelta&origen=<?php echo urlencode($origen); ?>&destino=<?php echo urlencode($destino); ?>&fechaIda=<?php echo urlencode($fechaIda); ?>&fechaVuelta=<?php echo urlencode($fechaVuelta); ?>#vuelo-vuelta"
                             style="
-                                display: block;
-                                font-size: 22px;
-                                font-weight: 700;
+                                display: inline-flex;
+                                align-items: center;
+                                gap: 6px;
+                                font-size: 16px;
+                                font-weight: 600;
+                                color: #7a4a2e;
+                                text-decoration: none;
+                                margin-top: 10px;
                                 margin-bottom: 15px;
                             "
                         >
-                            ← Elegí tu vuelo de vuelta
+                            <i class="bi bi-arrow-left"></i>
+                            Elegí tu vuelo de vuelta
                         </a>
 
                     <?php } ?>
