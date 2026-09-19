@@ -10,10 +10,10 @@ if (isset($_SESSION["tipoUsuario"])) {
 }
 ?>
 
-<nav class="navbar navbar-expand-lg">
+<nav class="navbar navbar-expand-xl">
     <div class="container-fluid">
-        <a class="navbar-brand" href="home.php">
-            <img src="imagenes/logo.png" alt="Logo Nuvia">
+        <a class="navbar-brand" href="#">
+            <img src="/PaginaWeb/imagenes/logo.png" alt="Logo Nuvia">
 
             <h1>Nuvia</h1>
         </a>
@@ -35,118 +35,118 @@ if (isset($_SESSION["tipoUsuario"])) {
             <?php } ?>
 
             <div class="navbar-nav-general">
-                <a class="nav-link" href="home.php">Inicio</a>
-                <a class="nav-link" href="#">Contacto</a>
+                <a class="nav-link" href="/PaginaWeb/home.php">Inicio</a>
                 <a class="nav-link" href="#">Destinos</a>
                 <a class="nav-link" href="/PaginaWeb/usuario/novedades.php">Novedades</a>
                 <a class="nav-link" href="#">Ofertas</a>
 
                 <?php if ($estaLogueado && $tipoUsuario === "usuario") { ?>
 
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="/PaginaWeb/usuario/historialCompras.php">
+                        Historial de compras
+                    </a>
+
+                    <a class="nav-link" href="/PaginaWeb/home.php#buscador">
                         <i class="bi bi-search"></i>
                         Buscar vuelos
                     </a>
 
-                    <a class="nav-link" href="usuario/reservas/gestionReservas.php">
+                    <a class="nav-link" href="/PaginaWeb/usuario/reservas/gestionReservas.php">
                         <i class="bi bi-ticket-perforated"></i>
                         Mis reservas
                     </a>
 
                 <?php } elseif ($estaLogueado && $tipoUsuario === "administrador") { ?>
-                    <a class="nav-link" href="admin/admin.php">
+                    <a class="nav-link" href="/PaginaWeb/admin/admin.php">
                         <i class="bi bi-calendar3"></i>
                         Ir al panel de gestión
                     </a>
                 <?php } elseif ($estaLogueado && $tipoUsuario === "ceo") { ?>
-                    <a class="nav-link" href="ceo/ceo.php">
+                    <a class="nav-link" href="/PaginaWeb/ceo/ceo.php">
                         <i class="bi bi-calendar3"></i>
                         Ir al panel de gestión
                     </a>
                 <?php } ?>
             </div>
 
-            <div class="navbar-nav align-items-lg-center">
+            <?php if ($estaLogueado) { ?>
 
-                <?php if ($estaLogueado) { ?>
+                <div class="opciones-cuenta dropdown">
+                    <button class="info-usuario dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        <i class="bi bi-person-circle"></i>
+                        Hola, <?php echo htmlspecialchars($primerNombre); ?>!
+                    </button>
+                    <ul class="menu-usuarios dropdown-menu dropdown-menu-end">
+                        <li>
+                            <a class="dropdown-item" href="/PaginaWeb/usuario/perfil.php">
+                                <i class="bi bi-person"></i>
+                                Mi perfil
+                            </a>
+                        </li>
 
-                    <div class="opciones-cuenta dropdown">
-                        <button class="info-usuario dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            <i class="bi bi-person-circle"></i>
-                            Hola, <?php echo htmlspecialchars($primerNombre); ?>!
-                        </button>
-                        <ul class="menu-usuarios dropdown-menu dropdown-menu-end">
-                            <li>
-                                <a class="dropdown-item" href="#">
-                                    <i class="bi bi-person"></i>
-                                    Mi perfil
-                                </a>
-                            </li>
+                        <li><hr class="dropdown-divider"></li>
 
-                            <li><hr class="dropdown-divider"></li>
+                        <li>
+                            <a class="dropdown-item" href="/PaginaWeb/php/cerrarSesion.php">
+                                <i class="bi bi-box-arrow-right"></i>
+                                Cerrar sesión
+                            </a>
+                        </li>
+                    </ul>
+                </div>
 
-                            <li>
-                                <a class="dropdown-item" href="php/cerrarSesion.php">
-                                    <i class="bi bi-box-arrow-right"></i>
-                                    Cerrar sesión
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+                <div class="usuario-mobile">
+                    <a class="nav-link" href="/PaginaWeb/usuario/perfil.php">
+                        <i class="bi bi-person"></i>
+                        Mi perfil
+                    </a>
 
-                    <div class="usuario-mobile">
-                        <a class="nav-link" href="#">
-                            <i class="bi bi-person"></i>
-                            Mi perfil
-                        </a>
+                    <a class="nav-link" href="/PaginaWeb/php/cerrarSesion.php">
+                        <i class="bi bi-box-arrow-right"></i>
+                        Cerrar sesión
+                    </a>
+                </div>
 
-                        <a class="nav-link" href="php/cerrarSesion.php">
-                            <i class="bi bi-box-arrow-right"></i>
-                            Cerrar sesión
-                        </a>
-                    </div>
+            <?php } else { ?>
 
-                <?php } else { ?>
+                <div class="opciones-cuenta dropdown">
+                    <button class="info-usuario dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        <i class="bi bi-person-circle"></i>
+                    </button>
+                    <ul class="menu-usuarios dropdown-menu dropdown-menu-end">
+                        <li>
+                            <a class="dropdown-item" href="/PaginaWeb/inicioSesion.php">
+                                <i class="bi bi-person"></i>
+                                Iniciar sesión
+                            </a>
+                        </li>
 
-                    <div class="opciones-cuenta dropdown">
-                        <button class="info-usuario dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            <i class="bi bi-person-circle"></i>
-                        </button>
-                        <ul class="menu-usuarios dropdown-menu dropdown-menu-end">
-                            <li>
-                                <a class="dropdown-item" href="inicioSesion.php">
-                                    <i class="bi bi-person"></i>
-                                    Iniciar sesión
-                                </a>
-                            </li>
+                        <li><hr class="dropdown-divider"></li>
 
-                            <li><hr class="dropdown-divider"></li>
+                        <li>
+                            <a class="dropdown-item" href="/PaginaWeb/registro.php">
+                                <i class="bi bi-person-plus"></i>
+                                Registrarse
+                            </a>
+                        </li>
+                    </ul>
+                </div>
 
-                            <li>
-                                <a class="dropdown-item" href="registro.php">
-                                    <i class="bi bi-person-plus"></i>
-                                    Registrarse
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+                <div class="usuario-mobile">
+                    <a class="nav-link" href="/PaginaWeb/inicioSesion.php">
+                        <i class="bi bi-person"></i>
+                        Iniciar sesión
+                    </a>
 
-                    <div class="usuario-mobile">
-                        <a class="nav-link" href="inicioSesion.php">
-                            <i class="bi bi-person"></i>
-                            Iniciar sesión
-                        </a>
-
-                        <a class="nav-link" href="registro.php">
-                            <i class="bi bi-person-plus"></i>
-                            Registrarse
-                        </a>
-                    </div>
+                    <a class="nav-link" href="/PaginaWeb/registro.php">
+                        <i class="bi bi-person-plus"></i>
+                        Registrarse
+                    </a>
+                </div>
 
                 <?php } ?>
-            </div>
         </div>
     </div>
 </nav>

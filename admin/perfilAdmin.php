@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 include "../php/conexionBD.php";
 include "../php/consultasUsuarios.php";
 
@@ -86,6 +88,7 @@ $admin = obtenerUsuario($conexion, $codAdmin);
         href="../css/estilos-admin.css"
     >
 
+    <link rel="stylesheet" href="../css/navbar.css">
 
     <!-- Favicon -->
 
@@ -382,6 +385,7 @@ $admin = obtenerUsuario($conexion, $codAdmin);
 
     </main>
 
+    <script src="/PaginaWeb/js/bootstrap.bundle.min.js"></script>
 
 </body>
 

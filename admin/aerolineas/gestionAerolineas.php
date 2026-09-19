@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 include "../../php/consultasAerolineas.php";
 
@@ -47,6 +48,7 @@ $resultado = obtenerAerolineasActivas($conexion);
         href="../../css/estilos-admin.css"
     >
 
+    <link rel="stylesheet" href="../../css/navbar.css">
 
     <!-- Favicon -->
 
@@ -233,8 +235,8 @@ $resultado = obtenerAerolineasActivas($conexion);
 
 
     </main>
-    
-<script src="../../js/bootstrap.bundle.min.js"></script>
+
+    <script src="/PaginaWeb/js/bootstrap.bundle.min.js"></script>
 
 </body>
 

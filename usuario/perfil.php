@@ -71,10 +71,11 @@ $usuario = obtenerPerfilUsuario(
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/bootstrap-icons.css">
     <link rel="stylesheet" href="../css/estilos-admin.css">
+    <link rel="stylesheet" href="/PaginaWeb/css/navbar.css">
     <link rel="icon" href="../imagenes/logo.png" type="image/png">
 </head>
 <body>
-    <?php include "includes/navbarUsuario.php"; ?>
+    <?php include ("../includes/navbar.php"); ?>
     <main class="contenido-admin">
         <section class="encabezado-contenido">
             <div><h1>Mi perfil</h1><p>Gestioná tu información personal.</p></div>

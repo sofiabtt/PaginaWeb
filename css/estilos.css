@@ -48,30 +48,6 @@ main {
     z-index: 1;
 }
 
-
-/* =========================
-   NAVBAR
-========================= */
-
-.navbar {
-    position: fixed;
-    width: 100%;
-    z-index: 10;
-    padding: 5px 60px;
-    background: white;
-}
-
-.navbar-brand img {
-    object-fit: contain;
-}
-
-.nav-link {
-    color: #222;
-    font-weight: 600;
-    margin-left: 25px;
-}
-
-
 /* =========================
    BOTÓN INGRESAR
 ========================= */

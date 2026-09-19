@@ -1,5 +1,8 @@
 <?php
 
+session_start();
+
+
 include "../../php/conexionBD.php";
 include "../../php/consultasNovedades.php";
 
@@ -23,6 +26,8 @@ $resultado = obtenerNovedadesActivas($conexion);
     <link rel="stylesheet" href="../../css/bootstrap-icons.css">
 
     <link rel="stylesheet" href="../../css/estilos-admin.css">
+
+    <link rel="stylesheet" href="../../css/navbar.css">
 
     <link rel="icon" type="image/png" href="../../imagenes/logo.png">
 

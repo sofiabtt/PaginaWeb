@@ -38,12 +38,14 @@ $consultaAeropuertos = $conexion->query("
     <link rel="icon" href="imagenes/logo.png" type="image/png">
 
     <link rel="stylesheet" href="css/bootstrap.min.css">
+
     <link rel="stylesheet" href="css/bootstrap-icons.css">
 
     <link rel="stylesheet" href="css/estiloshome.css?v=2">
     <link rel="stylesheet" href="css/estilos-usuario.css?v=2">
 
     <link rel="stylesheet" href="css/footer.css">
+
     <link rel="stylesheet" href="css/navbar.css">
     
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
@@ -59,7 +61,7 @@ $consultaAeropuertos = $conexion->query("
     <!-- BUSCADOR -->
 
 
-    <div class="contenedor-buscador">
+    <div id="buscador" class="contenedor-buscador">
 
 
         <div class="tipo-viaje">
@@ -550,8 +552,7 @@ radioIdaVuelta.addEventListener("change", function(){
 
 </script>
 
-<script src="js/bootstrap.bundle.min.js"></script>
-
+<script src="/PaginaWeb/js/bootstrap.bundle.min.js"></script>
 
 
 

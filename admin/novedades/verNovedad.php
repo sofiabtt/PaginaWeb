@@ -46,6 +46,7 @@ $novedad = obtenerNovedad($conexion, $id);
         href="../../css/estilos-admin.css"
     >
 
+    <link rel="stylesheet" href="../../css/navbar.css">
 
     <link
         rel="icon"

@@ -13,7 +13,9 @@ $resultado = obtenerReservasUsuario($conexion, $codUsuario);
 <head>
     <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nuvia - Mis reservas</title>
-    <link rel="stylesheet" href="../../css/bootstrap.min.css"><link rel="stylesheet" href="../../css/bootstrap-icons.css"><link rel="stylesheet" href="../../css/estilos-usuario.css">
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../css/bootstrap-icons.css">
+    <link rel="stylesheet" href="../../css/estilos-usuario.css">
     <style>
 
         html,
@@ -42,10 +44,10 @@ $resultado = obtenerReservasUsuario($conexion, $codUsuario);
         }
 
         </style>
+    <link rel="stylesheet" href="../../css/navbar.css">
 </head>
 <body>
-    <?php include "../includes/navbarUsuario.php"; ?>
-
+    <?php include ("../../includes/navbar.php"); ?>
     <main class="contenido-admin">
         <section class="encabezado-contenido"><div><h1>Mis reservas</h1><p>Consultá, confirmá o cancelá tus reservas.</p></div></section>
         <?php if (isset($_GET["creada"])) { ?><div class="alert alert-success">La reserva se creó y quedó pendiente de pago.</div><?php } ?>

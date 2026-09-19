@@ -1,117 +1,102 @@
-<nav class="navbar navbar-expand-lg">
+<?php
+if (isset($_SESSION["tipoUsuario"])) {
+    $primerNombre = explode(" ", $_SESSION["nombreUsuario"])[0];
+} else {
+    $primerNombre = null;
+}
+?>
 
-    <a
-        class="navbar-brand"
-        href="/PaginaWeb/ceo/ceo.php"
-    >
+<nav class="navbar navbar-expand-xl">
+    <div class="container-fluid">
 
-        <img
-            src="/PaginaWeb/imagenes/logo.png"
-            alt="Logo AeroFly"
-            width="60"
-            height="60"
-        >
-        <span class="fw-bold fs-4">
-            Nuvia
-        </span>
+        <a class="navbar-brand" href="/PaginaWeb/ceo/ceo.php">
+            <img src="/PaginaWeb/imagenes/logo.png" alt="Logo Nuvia">
 
-    </a>
-
-
-    <div class="menu-admin-navbar">
-
-
-        <a
-            class="nav-link"
-            href="/PaginaWeb/ceo/ceo.php"
-        >
-            Inicio
+            <h1>Nuvia</h1>
         </a>
 
-        <a
-            class="nav-link"
-            href="/PaginaWeb/ceo/vuelos/gestionVuelos.php"
-        >
-            Vuelos
-        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-        <a
-            class="nav-link"
-            href="/PaginaWeb/ceo/promociones/gestionPromocion.php"
-        >
-            Promociones
-        </a>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 
-        <a
-            class="nav-link"
-            href="/PaginaWeb/ceo/reportes/reportes.php"
-        >
-            Reportes
-        </a>
+            <div class="navbar-nav-general">
 
-        <div class="dropdown">
+                <div class="usuario-mobile">
+                    <span class="saludo">
+                        <i class="bi bi-person-circle"></i>
+                        Hola, <?php echo htmlspecialchars($primerNombre); ?>!
+                    </span>
+                </div>
 
-            <button
-                class="usuario-admin dropdown-toggle"
-                type="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-            >
+                <a class="nav-link" href="/PaginaWeb/home.php">
+                    Inicio
+                </a>
 
-                <i class="bi bi-person-circle"></i>
+                <a class="nav-link" href="/PaginaWeb/ceo/vuelos/gestionVuelos.php">
+                    Vuelos
+                </a>
+                
+                <a class="nav-link" href="/PaginaWeb/ceo/promociones/gestionPromocion.php">
+                    Promociones
+                </a>
 
-                CEO
-
-            </button>
+                <a class="nav-link" href="/PaginaWeb/ceo/reportes/reportes.php">
+                    Reportes
+                </a>
 
 
-            <ul
-                class="dropdown-menu dropdown-menu-end menu-admin"
-            >
+                <div class="dropdown">
 
-                <li>
+                    <div class="opciones-cuenta dropdown">
 
-                    <a
-                        class="dropdown-item"
-                        href="/PaginaWeb/ceo/perfilCeo.php"
-                    >
+                        <button class="info-usuario dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            <i class="bi bi-person-circle"></i>
+                            Hola, <?php echo htmlspecialchars($primerNombre); ?>!
+                        </button>
+                        
+                        <ul class="menu-usuarios dropdown-menu dropdown-menu-end">
 
-                        <i class="bi bi-person"></i>
+                            <li>
+                                <a class="dropdown-item" href="/PaginaWeb/admin/perfilAdmin.php">
+                                    <i class="bi bi-person"></i>
+                                    Mi perfil
+                                </a>
+                            </li>
 
-                        Ver perfil
+                            <li><hr class="dropdown-divider"></li>
 
-                    </a>
+                            <li>
+                                <a class="dropdown-item" href="/PaginaWeb/php/cerrarSesion.php">
+                                    <i class="bi bi-box-arrow-right"></i>
+                                    Cerrar sesión
+                                </a>
+                            </li>
 
-                </li>
+                        </ul>
 
+                        <div class="usuario-mobile">
+                            <a class="nav-link" href="/PaginaWeb/admin/perfilAdmin.php">
+                                <i class="bi bi-person"></i>
+                                Mi perfil
+                            </a>
 
-                <li>
+                            <a class="nav-link" href="/PaginaWeb/php/cerrarSesion.php">
+                                <i class="bi bi-box-arrow-right"></i>
+                                Cerrar sesión
+                            </a>
+                        </div>
 
-                    <hr class="dropdown-divider">
+                    </div>
 
-                </li>
+                </div>
 
-
-                <li>
-
-                    <a
-                        class="dropdown-item"
-                        href="/PaginaWeb/home.php"
-                    >
-
-                        <i class="bi bi-box-arrow-right"></i>
-
-                        Cerrar sesión
-
-                    </a>
-
-                </li>
-
-            </ul>
+            </div>
 
         </div>
-
-
+        
     </div>
 
 </nav>

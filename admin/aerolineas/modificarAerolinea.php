@@ -100,6 +100,7 @@ if (!$aerolinea) {
         href="../../css/estilos-admin.css"
     >
 
+    <link rel="stylesheet" href="../../css/navbar.css">
 
     <!-- Favicon -->
 

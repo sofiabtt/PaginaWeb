@@ -71,6 +71,8 @@ $resultado = obtenerVuelosPorAerolinea($conexion,$codAerolinea);
         href="../../css/estilos-admin.css"
     >
 
+    <link rel="stylesheet" href="/PaginaWeb/css/navbar.css">
+
 </head>
 
 
