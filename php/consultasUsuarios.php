@@ -173,3 +173,29 @@ function actualizarPerfilUsuario(
 
     return $actualizar->execute();
 }
+
+// OBTENER USUARIO POR EMAIL PARA INICIO DE SESIÓN
+
+function obtenerUsuarioPorEmail($conexion, $email)
+{
+    $consulta = $conexion->prepare(
+        "SELECT codUsuario,
+                nombreUsuario,
+                claveUsuario,
+                tipoUsuario,
+                verificado
+         FROM Usuarios
+         WHERE emailUsuario = ?"
+    );
+
+    $consulta->bind_param(
+        "s",
+        $email
+    );
+
+    $consulta->execute();
+
+    return $consulta
+        ->get_result()
+        ->fetch_assoc();
+}

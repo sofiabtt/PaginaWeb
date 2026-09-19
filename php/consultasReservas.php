@@ -9,7 +9,7 @@ function obtenerHistorialCompras($conexion, $codUsuario)
 {
     $consulta = $conexion->prepare(
         "SELECT r.codReserva,
-                r.fechaReservae,
+                r.fechaReserva,
                 v.origenVuelo,
                 v.destinoVuelo,
                 v.fechaSalidaVuelo,
@@ -20,7 +20,7 @@ function obtenerHistorialCompras($conexion, $codUsuario)
          INNER JOIN Aerolineas a ON a.codAerolinea = v.codAerolinea
          WHERE r.codUsuario = ?
            AND r.estadoReserva = 'confirmada'
-         ORDER BY r.fechaReservae DESC, r.codReserva DESC"
+         ORDER BY r.fechaReserva DESC, r.codReserva DESC"
     );
 
     $consulta->bind_param(
@@ -348,45 +348,3 @@ function crearReserva($conexion, $codUsuario, $codVuelo, $cantidadPasajeros)
     }
 }
 
-// OBTENER DETALLE DE VUELO CONFIRMADO DEL USUARIO
-
-function obtenerVueloUsuario($conexion, $codVuelo, $codUsuario)
-{
-    $consulta = $conexion->prepare(
-        "SELECT 
-            v.*,
-            a.nombreAerolinea,
-            p.descripcionPromocion,
-            p.descuentoPromocion,
-            r.cantidadPasajerosReserva,
-            r.precioFinalReserva,
-            r.fechaReserva,
-            r.estadoReserva
-         FROM Vuelos v
-         INNER JOIN Aerolineas a
-            ON a.codAerolinea = v.codAerolinea
-         INNER JOIN Reservas r
-            ON r.codVuelo = v.codVuelo
-         LEFT JOIN Promociones p
-            ON p.codAerolinea = v.codAerolinea
-            AND p.estadoPromocion = 'Aprobada'
-            AND p.activoPromocion = 1
-         WHERE v.codVuelo = ?
-           AND r.codUsuario = ?
-           AND r.estadoReserva = 'confirmada'
-         ORDER BY r.fechaReserva DESC
-         LIMIT 1"
-    );
-
-    $consulta->bind_param(
-        "ii",
-        $codVuelo,
-        $codUsuario
-    );
-
-    $consulta->execute();
-
-    return $consulta
-        ->get_result()
-        ->fetch_assoc();
-}

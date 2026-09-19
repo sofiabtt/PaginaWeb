@@ -360,40 +360,67 @@ function buscarVuelosUsuario($conexion, $origen, $destino, $fecha)
     return $consulta->get_result();
 }
 
-// OBTENER DETALLE DE VUELO CONFIRMADO DEL USUARIO
+// OBTENER DETALLE DE VUELO PARA USUARIO
 
-function obtenerVueloUsuario($conexion, $codVuelo, $codUsuario)
+function obtenerVueloUsuario($conexion, $codVuelo)
 {
     $consulta = $conexion->prepare(
-        "SELECT 
+        "SELECT
             v.*,
             a.nombreAerolinea,
             p.descripcionPromocion,
-            p.descuentoPromocion,
-            r.cantidadPasajerosReserva,
-            r.precioFinalReserva,
-            r.fechaReserva,
-            r.estadoReserva
+            p.descuentoPromocion
          FROM Vuelos v
          INNER JOIN Aerolineas a
             ON a.codAerolinea = v.codAerolinea
-         INNER JOIN Reservas r
-            ON r.codVuelo = v.codVuelo
          LEFT JOIN Promociones p
             ON p.codAerolinea = v.codAerolinea
             AND p.estadoPromocion = 'Aprobada'
             AND p.activoPromocion = 1
          WHERE v.codVuelo = ?
-           AND r.codUsuario = ?
-           AND r.estadoReserva = 'confirmada'
-         ORDER BY r.fechaReserva DESC
+           AND v.activoVuelo = 1
+           AND v.asientosDisponibles > 0
+           AND v.fechaSalidaVuelo >= CURDATE()
          LIMIT 1"
     );
 
     $consulta->bind_param(
-        "ii",
-        $codVuelo,
-        $codUsuario
+        "i",
+        $codVuelo
+    );
+
+    $consulta->execute();
+
+    return $consulta
+        ->get_result()
+        ->fetch_assoc();
+}
+// OBTENER VUELO ELEGIDO
+
+function obtenerVueloElegido($conexion, $codVuelo)
+{
+    $consulta = $conexion->prepare(
+        "SELECT
+            v.codVuelo,
+            v.origenVuelo,
+            v.destinoVuelo,
+            v.fechaSalidaVuelo,
+            v.horaSalidaVuelo,
+            v.precioVuelo,
+            v.asientosDisponibles,
+            a.nombreAerolinea
+         FROM Vuelos v
+         INNER JOIN Aerolineas a
+            ON v.codAerolinea = a.codAerolinea
+        WHERE v.codVuelo = ?
+            AND v.activoVuelo = 1
+            AND v.asientosDisponibles > 0
+            AND v.fechaSalidaVuelo >= CURDATE()
+    );
+
+    $consulta->bind_param(
+        "i",
+        $codVuelo
     );
 
     $consulta->execute();

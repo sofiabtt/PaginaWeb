@@ -23,8 +23,7 @@ $codUsuario = (int) $_SESSION["codUsuario"];
 
 $vuelo = obtenerVueloUsuario(
     $conexion,
-    $codVuelo,
-    $codUsuario
+    $codVuelo
 );
 
 
@@ -153,23 +152,14 @@ $precioFinal =
                     </div>
 
                     <div class="col-md-6">
-                        <strong>Cantidad de pasajeros</strong>
-                        <p>
-                            <?php
-                            echo (int)
-                                $vuelo["cantidadPasajerosReserva"];
-                            ?>
-                        </p>
-                    </div>
+                        <strong>Precio por pasajero</strong>
 
-                    <div class="col-md-6">
-                        <strong>Precio pagado</strong>
-                        <p class="fw-bold">
-                            $
+                         <p class="fw-bold">
+                             $
                             <?php
                             echo number_format(
-                                (float) $vuelo["precioFinalReserva"],
-                                0,
+                                (float) $vuelo["precioVuelo"],
+                                 0,
                                 ",",
                                 "."
                             );
@@ -177,14 +167,20 @@ $precioFinal =
                         </p>
                     </div>
 
+
                     <div class="col-md-6">
-                        <strong>Estado de la reserva</strong>
+                        <strong>Asientos disponibles</strong>
+
                         <p>
-                            <span class="badge bg-success">
-                                Confirmada
-                            </span>
+                            <?php
+                            echo (int) $vuelo["asientosDisponibles"];
+                            ?>
                         </p>
                     </div>
+
+                    
+
+        
 
                     <div class="col-md-12">
                         <strong>Promoción</strong>
@@ -220,6 +216,18 @@ $precioFinal =
                         <?php } ?>
 
                     </div>
+
+                    <div class="col-12 mt-4">
+
+                    <a
+                        href="../../vueloElegido.php?codVuelo=<?php echo (int) $vuelo["codVuelo"]; ?>"
+                        class="btn btn-primary"
+                    >
+                        <i class="bi bi-airplane"></i>
+                        Reservar vuelo
+                    </a>
+
+                </div>
 
                 </div>
 

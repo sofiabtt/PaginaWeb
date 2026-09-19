@@ -1,104 +1,119 @@
 <?php
+
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 session_start();
 
+include "consultasUsuarios.php";
+
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $contrasena = $_POST["contrasena"];
+
     $gmail = $_SESSION["gmailIngreso"];
 
-    include "conexionBD.php";
 
-    $consulta = $conexion->prepare(
-        "SELECT codUsuario, nombreUsuario, claveUsuario, tipoUsuario,
-                verificado
-         FROM Usuarios
-         WHERE emailUsuario = ?"
+    $usuario = obtenerUsuarioPorEmail(
+        $conexion,
+        $gmail
     );
 
-    $consulta->bind_param("s", $gmail);
-
-    $consulta->execute();
-
-    $resultado = $consulta->get_result();
-
-    $usuario = $resultado->fetch_assoc();
 
     if (
-        $usuario
-        && password_verify($contrasena, $usuario["claveUsuario"])
-        && (int) $usuario["verificado"] !== 1
+        $usuario &&
+        password_verify(
+            $contrasena,
+            $usuario["claveUsuario"]
+        ) &&
+        (int) $usuario["verificado"] !== 1
     ) {
 
-        $destino = "../ingresoContra.php?error=no_verificado";
+        $destino =
+            "../ingresoContra.php?error=no_verificado";
 
-    } elseif ($usuario && password_verify($contrasena, $usuario["claveUsuario"])) {
+
+    } elseif (
+        $usuario &&
+        password_verify(
+            $contrasena,
+            $usuario["claveUsuario"]
+        )
+    ) {
 
         // Guardamos los datos del usuario en la sesión
 
-        $_SESSION["codUsuario"] = $usuario["codUsuario"];
+        $_SESSION["codUsuario"] =
+            $usuario["codUsuario"];
 
-        $_SESSION["nombreUsuario"] = $usuario["nombreUsuario"];
+        $_SESSION["nombreUsuario"] =
+            $usuario["nombreUsuario"];
 
-        $_SESSION["tipoUsuario"] = $usuario["tipoUsuario"];
+        $_SESSION["tipoUsuario"] =
+            $usuario["tipoUsuario"];
 
-        
+        $_SESSION["usuario"] =
+            $gmail;
 
 
-        // Según el tipo de usuario, definimos a dónde entra
-
-        $_SESSION["usuario"] = $gmail;
-        $_SESSION["tipoUsuario"] = $usuario["tipoUsuario"];
+        // Según el tipo de usuario,
+        // definimos a dónde entra
 
         $destino = "../home.php";
+
 
         if ($usuario["tipoUsuario"] == "usuario") {
 
             if (
-                isset($_SESSION["reservaTemporal"])
-                && isset($_SESSION["reservaTemporal"]["codVuelo"])
+                isset($_SESSION["reservaTemporal"]) &&
+                isset(
+                    $_SESSION["reservaTemporal"]["codVuelo"]
+                )
             ) {
 
-                $_SESSION["restaurarReservaTemporal"] = true;
+                $_SESSION["restaurarReservaTemporal"] =
+                    true;
 
-                $codVuelo = $_SESSION["reservaTemporal"]["codVuelo"];
+                $codVuelo =
+                    $_SESSION["reservaTemporal"]["codVuelo"];
 
                 $destino =
-                    "../vueloElegido.php?codVuelo=" . $codVuelo;
+                    "../vueloElegido.php?codVuelo="
+                    . $codVuelo;
 
             } else {
 
-                $destino = "../usuario/usuario.php";
-
+                $destino =
+                    "../usuario/usuario.php";
             }
         }
 
 
-        if ($usuario["tipoUsuario"] == "administrador") {
+        if (
+            $usuario["tipoUsuario"] ==
+            "administrador"
+        ) {
 
-            $destino = "../admin/admin.php";
-
+            $destino =
+                "../admin/admin.php";
         }
 
 
         if ($usuario["tipoUsuario"] == "ceo") {
 
-            $destino = "../ceo/ceo.php";
-
+            $destino =
+                "../ceo/ceo.php";
         }
 
 
     } else {
 
-        $destino = "../ingresoContra.php?error=contrasena";
-
+        $destino =
+            "../ingresoContra.php?error=contrasena";
     }
 
-
-    $consulta->close();
 
     $conexion->close();
 
@@ -106,8 +121,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     header("Location: $destino");
 
     exit();
-
 }
 
 ?>
-

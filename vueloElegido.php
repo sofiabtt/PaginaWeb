@@ -3,45 +3,33 @@
 
 session_start();
 
-include "php/conexionBD.php";
+include "php/consultasVuelos.php";
+
+
 $tipoViaje = $_GET["tipoViaje"] ?? "soloIda";
 $origen = $_GET["origen"] ?? "";
 $destino = $_GET["destino"] ?? "";
 $fechaIda = $_GET["fechaIda"] ?? "";
 $fechaVuelta = $_GET["fechaVuelta"] ?? "";
 
+
 if (!isset($_GET["codVuelo"])) {
+
     die("No se seleccionó ningún vuelo.");
 }
 
+
 $codVuelo = (int) $_GET["codVuelo"];
 
-$consulta = $conexion->prepare("
-    SELECT
-        V.codVuelo,
-        V.origenVuelo,
-        V.destinoVuelo,
-        V.fechaSalidaVuelo,
-        V.horaSalidaVuelo,
-        V.precioVuelo,
-        V.asientosDisponibles,
-        A.nombreAerolinea
-    FROM Vuelos V
-    INNER JOIN Aerolineas A
-        ON V.codAerolinea = A.codAerolinea
-    WHERE V.codVuelo = ?
-    AND V.activoVuelo = 1
-");
 
-$consulta->bind_param("i", $codVuelo);
+$vuelo = obtenerVueloElegido(
+    $conexion,
+    $codVuelo
+);
 
-$consulta->execute();
-
-$resultado = $consulta->get_result();
-
-$vuelo = $resultado->fetch_assoc();
 
 if (!$vuelo) {
+
     die("No se encontró el vuelo seleccionado.");
 }
 
