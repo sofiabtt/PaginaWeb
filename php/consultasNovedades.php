@@ -142,3 +142,21 @@ function cantidadNovedades($conexion)
 
     return $resultado->fetch_assoc()["cantidad"];
 }
+
+// OBTENER NOVEDADES VIGENTES PARA USUARIO
+
+function obtenerNovedadesVigentes($conexion)
+{
+    $consulta = "
+        SELECT textoNovedad,
+               fechaPublicacionNovedad,
+               fechaExpiracionNovedad
+        FROM Novedades
+        WHERE activoNovedad = 1
+          AND fechaPublicacionNovedad <= CURDATE()
+          AND fechaExpiracionNovedad >= CURDATE()
+        ORDER BY fechaPublicacionNovedad DESC
+    ";
+
+    return $conexion->query($consulta);
+}

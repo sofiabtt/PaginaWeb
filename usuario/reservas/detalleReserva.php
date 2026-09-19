@@ -2,7 +2,10 @@
 
 require "../includes/protegerUsuario.php";
 
-include "../../php/conexionBD.php";
+<?php
+
+require "../includes/protegerUsuario.php";
+include "../../php/consultasReservas.php";
 
 
 if (!isset($_GET["id"])) {
@@ -13,58 +16,26 @@ if (!isset($_GET["id"])) {
 }
 
 
-$codReserva =
-    (int) $_GET["id"];
+$codReserva = (int) $_GET["id"];
 
-$codUsuario =
-    (int) $_SESSION["codUsuario"];
+$codUsuario = (int) $_SESSION["codUsuario"];
 
 
-
-$consulta = $conexion->prepare(
-    "SELECT
-        r.codReserva,
-        r.fechaReserva,
-        r.estadoReserva,
-        r.precioFinalReserva,
-
-        v.codVuelo,
-        v.origenVuelo,
-        v.destinoVuelo,
-        v.fechaSalidaVuelo,
-        v.horaSalidaVuelo,
-
-        a.nombreAerolinea
-
-    FROM Reservas r
-
-    INNER JOIN Vuelos v
-        ON v.codVuelo = r.codVuelo
-
-    INNER JOIN Aerolineas a
-        ON a.codAerolinea = v.codAerolinea
-
-    WHERE r.codReserva = ?
-    AND r.codUsuario = ?"
-);
-
-
-$consulta->bind_param(
-    "ii",
+$reserva = obtenerDetalleReserva(
+    $conexion,
     $codReserva,
     $codUsuario
 );
 
 
-$consulta->execute();
+if (!$reserva) {
 
+    header("Location: gestionReservas.php");
+    exit();
 
-$resultado =
-    $consulta->get_result();
+}
 
-
-$reserva =
-    $resultado->fetch_assoc();
+?>
 
 
 
@@ -395,7 +366,7 @@ include "../includes/navbarUsuario.php";
 
 <?php
 
-$consulta->close();
+
 $conexion->close();
 
 ?>

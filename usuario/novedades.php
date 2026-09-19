@@ -1,15 +1,11 @@
 <?php
 
 require "includes/protegerUsuario.php";
-include "../php/conexionBD.php";
-$resultado = $conexion->query(
-    "SELECT textoNovedad, fechaPublicacionNovedad, fechaExpiracionNovedad
-     FROM Novedades
-     WHERE activoNovedad = 1
-       AND fechaPublicacionNovedad <= CURDATE()
-       AND fechaExpiracionNovedad >= CURDATE()
-     ORDER BY fechaPublicacionNovedad DESC"
-);
+include "../php/consultasNovedades.php";
+
+
+$resultado = obtenerNovedadesVigentes($conexion);
+
 ?>
 <!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Nuvia - Novedades</title><link rel="stylesheet" href="../css/bootstrap.min.css"><link rel="stylesheet" href="../css/bootstrap-icons.css"><link rel="stylesheet" href="../css/estilos-admin.css"></head><body>
 <?php include "includes/navbarUsuario.php"; ?>

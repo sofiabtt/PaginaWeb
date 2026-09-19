@@ -42,6 +42,24 @@ if ($tipos !== "") {
 $consulta->execute();
 $resultado = $consulta->get_result();
 
+?><?php
+
+require "../includes/protegerUsuario.php";
+include "../../php/consultasVuelos.php";
+
+
+$origen = trim($_GET["origen"] ?? "");
+$destino = trim($_GET["destino"] ?? "");
+$fecha = trim($_GET["fecha"] ?? "");
+
+
+$resultado = buscarVuelosUsuario(
+    $conexion,
+    $origen,
+    $destino,
+    $fecha
+);
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -107,4 +125,4 @@ $resultado = $consulta->get_result();
     <script src="../../js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-<?php $consulta->close(); $conexion->close(); ?>
+<?php $consulta->close(); 

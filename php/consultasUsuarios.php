@@ -91,3 +91,85 @@ function obtenerUsuariosPaginados($conexion, $porPagina,$inicio)
 
     return $consulta->get_result();
 }
+
+// OBTENER PERFIL DE USUARIO
+
+function obtenerPerfilUsuario($conexion, $codUsuario)
+{
+    $consulta = $conexion->prepare(
+        "SELECT nombreUsuario,
+                emailUsuario,
+                telefonoUsuario
+         FROM Usuarios
+         WHERE codUsuario = ?
+           AND tipoUsuario = 'usuario'"
+    );
+
+    $consulta->bind_param(
+        "i",
+        $codUsuario
+    );
+
+    $consulta->execute();
+
+    return $consulta
+        ->get_result()
+        ->fetch_assoc();
+}
+
+
+// ACTUALIZAR PERFIL DE USUARIO
+
+function actualizarPerfilUsuario(
+    $conexion,
+    $codUsuario,
+    $nombre,
+    $telefono,
+    $claveNueva
+) {
+
+    if ($claveNueva !== "") {
+
+        $hash = password_hash(
+            $claveNueva,
+            PASSWORD_DEFAULT
+        );
+
+        $actualizar = $conexion->prepare(
+            "UPDATE Usuarios
+             SET nombreUsuario = ?,
+                 telefonoUsuario = ?,
+                 claveUsuario = ?
+             WHERE codUsuario = ?
+               AND tipoUsuario = 'usuario'"
+        );
+
+        $actualizar->bind_param(
+            "sssi",
+            $nombre,
+            $telefono,
+            $hash,
+            $codUsuario
+        );
+
+    } else {
+
+        $actualizar = $conexion->prepare(
+            "UPDATE Usuarios
+             SET nombreUsuario = ?,
+                 telefonoUsuario = ?
+             WHERE codUsuario = ?
+               AND tipoUsuario = 'usuario'"
+        );
+
+        $actualizar->bind_param(
+            "ssi",
+            $nombre,
+            $telefono,
+            $codUsuario
+        );
+    }
+
+
+    return $actualizar->execute();
+}

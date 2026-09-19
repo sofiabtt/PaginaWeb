@@ -1,22 +1,11 @@
 <?php
 
 require "../includes/protegerUsuario.php";
-include "../../php/conexionBD.php";
+include "../../php/consultasReservas.php";
 
 $codUsuario = (int) $_SESSION["codUsuario"];
-$consulta = $conexion->prepare(
-    "SELECT r.codReserva, r.fechaReserva, r.estadoReserva,
-            v.origenVuelo, v.destinoVuelo, v.fechaSalidaVuelo,
-            v.horaSalidaVuelo, r.precioFinalReserva, a.nombreAerolinea
-     FROM Reservas r
-     INNER JOIN Vuelos v ON v.codVuelo = r.codVuelo
-     INNER JOIN Aerolineas a ON a.codAerolinea = v.codAerolinea
-     WHERE r.codUsuario = ? AND r.estadoReserva <> 'cancelada'
-     ORDER BY v.fechaSalidaVuelo, v.horaSalidaVuelo"
-);
-$consulta->bind_param("i", $codUsuario);
-$consulta->execute();
-$resultado = $consulta->get_result();
+
+$resultado = obtenerReservasUsuario($conexion, $codUsuario);
 
 ?>
 <!DOCTYPE html>
@@ -343,4 +332,4 @@ function cerrarModalCancelar() {
 </script>
 </body>
 </html>
-<?php $consulta->close(); $conexion->close(); ?>
+<?php $consulta->close(); 

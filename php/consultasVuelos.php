@@ -292,3 +292,113 @@ function obtenerProximosVuelos(
 
     return $consulta->get_result();
 }
+
+// BUSCAR VUELOS DISPONIBLES PARA USUARIO
+
+function buscarVuelosUsuario($conexion, $origen, $destino, $fecha)
+{
+    $sql = "SELECT v.codVuelo,
+                   v.origenVuelo,
+                   v.destinoVuelo,
+                   v.fechaSalidaVuelo,
+                   v.horaSalidaVuelo,
+                   v.precioVuelo,
+                   v.asientosDisponibles,
+                   a.nombreAerolinea
+            FROM Vuelos v
+            INNER JOIN Aerolineas a
+                ON a.codAerolinea = v.codAerolinea
+            WHERE v.activoVuelo = 1
+              AND v.asientosDisponibles > 0
+              AND v.fechaSalidaVuelo >= CURDATE()";
+
+    $tipos = "";
+    $valores = [];
+
+
+    if ($origen !== "") {
+
+        $sql .= " AND v.origenVuelo LIKE ?";
+        $tipos .= "s";
+        $valores[] = "%" . $origen . "%";
+    }
+
+
+    if ($destino !== "") {
+
+        $sql .= " AND v.destinoVuelo LIKE ?";
+        $tipos .= "s";
+        $valores[] = "%" . $destino . "%";
+    }
+
+
+    if ($fecha !== "") {
+
+        $sql .= " AND v.fechaSalidaVuelo = ?";
+        $tipos .= "s";
+        $valores[] = $fecha;
+    }
+
+
+    $sql .= " ORDER BY v.fechaSalidaVuelo, v.horaSalidaVuelo";
+
+
+    $consulta = $conexion->prepare($sql);
+
+
+    if ($tipos !== "") {
+
+        $consulta->bind_param(
+            $tipos,
+            ...$valores
+        );
+    }
+
+
+    $consulta->execute();
+
+    return $consulta->get_result();
+}
+
+// OBTENER DETALLE DE VUELO CONFIRMADO DEL USUARIO
+
+function obtenerVueloUsuario($conexion, $codVuelo, $codUsuario)
+{
+    $consulta = $conexion->prepare(
+        "SELECT 
+            v.*,
+            a.nombreAerolinea,
+            p.descripcionPromocion,
+            p.descuentoPromocion,
+            r.cantidadPasajerosReserva,
+            r.precioFinalReserva,
+            r.fechaReserva,
+            r.estadoReserva
+         FROM Vuelos v
+         INNER JOIN Aerolineas a
+            ON a.codAerolinea = v.codAerolinea
+         INNER JOIN Reservas r
+            ON r.codVuelo = v.codVuelo
+         LEFT JOIN Promociones p
+            ON p.codAerolinea = v.codAerolinea
+            AND p.estadoPromocion = 'Aprobada'
+            AND p.activoPromocion = 1
+         WHERE v.codVuelo = ?
+           AND r.codUsuario = ?
+           AND r.estadoReserva = 'confirmada'
+         ORDER BY r.fechaReserva DESC
+         LIMIT 1"
+    );
+
+    $consulta->bind_param(
+        "ii",
+        $codVuelo,
+        $codUsuario
+    );
+
+    $consulta->execute();
+
+    return $consulta
+        ->get_result()
+        ->fetch_assoc();
+}

@@ -1,58 +1,47 @@
 <?php
 
 require "../includes/protegerUsuario.php";
-include "../../php/conexionBD.php";
+include "../../php/consultasVuelos.php";
 
-$codVuelo = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
+
+$codVuelo = filter_input(
+    INPUT_GET,
+    "id",
+    FILTER_VALIDATE_INT
+);
+
+
 if (!$codVuelo) {
+
     header("Location: buscarVuelos.php");
     exit();
 }
 
+
 $codUsuario = (int) $_SESSION["codUsuario"];
 
-$consulta = $conexion->prepare(
-    "SELECT 
-        v.*,
-        a.nombreAerolinea,
-        p.descripcionPromocion,
-        p.descuentoPromocion,
-        r.cantidadPasajerosReserva,
-        r.precioFinalReserva,
-        r.fechaReserva,
-        r.estadoReserva
-     FROM Vuelos v
-     INNER JOIN Aerolineas a
-        ON a.codAerolinea = v.codAerolinea
-     INNER JOIN Reservas r
-        ON r.codVuelo = v.codVuelo
-     LEFT JOIN Promociones p
-        ON p.codAerolinea = v.codAerolinea
-        AND p.estadoPromocion = 'Aprobada'
-        AND p.activoPromocion = 1
-     WHERE v.codVuelo = ?
-       AND r.codUsuario = ?
-       AND r.estadoReserva = 'confirmada'
-     ORDER BY r.fechaReserva DESC
-     LIMIT 1"
-);
 
-$consulta->bind_param(
-    "ii",
+$vuelo = obtenerVueloUsuario(
+    $conexion,
     $codVuelo,
     $codUsuario
 );
 
-$consulta->execute();
-
-$vuelo = $consulta->get_result()->fetch_assoc();
 
 if (!$vuelo) {
+
     header("Location: buscarVuelos.php");
     exit();
 }
-$descuento = (float) ($vuelo["descuentoPromocion"] ?? 0);
-$precioFinal = (float) $vuelo["precioVuelo"] * (1 - $descuento / 100);
+
+
+$descuento =
+    (float) ($vuelo["descuentoPromocion"] ?? 0);
+
+
+$precioFinal =
+    (float) $vuelo["precioVuelo"]
+    * (1 - $descuento / 100);
 
 ?>
 <!DOCTYPE html>
@@ -240,4 +229,4 @@ $precioFinal = (float) $vuelo["precioVuelo"] * (1 - $descuento / 100);
     <script src="../../js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-<?php $consulta->close(); $conexion->close(); ?>
+<?php $consulta->close(); 

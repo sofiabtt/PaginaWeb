@@ -1,51 +1,65 @@
-<?php
+<<?php
 
 require "includes/protegerUsuario.php";
-include "../php/conexionBD.php";
+include "../php/consultasUsuarios.php";
+
 
 $codUsuario = (int) $_SESSION["codUsuario"];
+
 $mensaje = null;
 $error = null;
 
+
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
+
     $nombre = trim($_POST["nombre"] ?? "");
     $telefono = trim($_POST["telefono"] ?? "");
     $claveNueva = $_POST["claveNueva"] ?? "";
 
-    if ($nombre === "" || $telefono === "") {
-        $error = "Completá el nombre y el teléfono.";
-    } elseif ($claveNueva !== "" && strlen($claveNueva) < 8) {
-        $error = "La contraseña debe tener al menos 8 caracteres.";
-    } else {
-        if ($claveNueva !== "") {
-            $hash = password_hash($claveNueva, PASSWORD_DEFAULT);
-            $actualizar = $conexion->prepare(
-                "UPDATE Usuarios SET nombreUsuario = ?, telefonoUsuario = ?, claveUsuario = ?
-                 WHERE codUsuario = ? AND tipoUsuario = 'usuario'"
-            );
-            $actualizar->bind_param("sssi", $nombre, $telefono, $hash, $codUsuario);
-        } else {
-            $actualizar = $conexion->prepare(
-                "UPDATE Usuarios SET nombreUsuario = ?, telefonoUsuario = ?
-                 WHERE codUsuario = ? AND tipoUsuario = 'usuario'"
-            );
-            $actualizar->bind_param("ssi", $nombre, $telefono, $codUsuario);
-        }
 
-        $actualizar->execute();
-        $actualizar->close();
-        $_SESSION["nombreUsuario"] = $nombre;
-        $mensaje = "El perfil se actualizó correctamente.";
+    if ($nombre === "" || $telefono === "") {
+
+        $error = "Completá el nombre y el teléfono.";
+
+    } elseif (
+        $claveNueva !== "" &&
+        strlen($claveNueva) < 8
+    ) {
+
+        $error =
+            "La contraseña debe tener al menos 8 caracteres.";
+
+    } else {
+
+        $actualizado = actualizarPerfilUsuario(
+            $conexion,
+            $codUsuario,
+            $nombre,
+            $telefono,
+            $claveNueva
+        );
+
+
+        if ($actualizado) {
+
+            $_SESSION["nombreUsuario"] = $nombre;
+
+            $mensaje =
+                "El perfil se actualizó correctamente.";
+
+        } else {
+
+            $error =
+                "No se pudo actualizar el perfil.";
+        }
     }
 }
 
-$consulta = $conexion->prepare(
-    "SELECT nombreUsuario, emailUsuario, telefonoUsuario
-     FROM Usuarios WHERE codUsuario = ? AND tipoUsuario = 'usuario'"
+
+$usuario = obtenerPerfilUsuario(
+    $conexion,
+    $codUsuario
 );
-$consulta->bind_param("i", $codUsuario);
-$consulta->execute();
-$usuario = $consulta->get_result()->fetch_assoc();
 
 ?>
 <!DOCTYPE html>
@@ -97,4 +111,4 @@ $usuario = $consulta->get_result()->fetch_assoc();
     <script src="../js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-<?php $consulta->close(); $conexion->close(); ?>
+<?php $consulta->close(); 
