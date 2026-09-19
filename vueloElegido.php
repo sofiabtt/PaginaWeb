@@ -4,12 +4,56 @@
 session_start();
 
 include "php/conexionBD.php";
-$tipoViaje = $_GET["tipoViaje"] ?? "soloIda";
-$origen = $_GET["origen"] ?? "";
-$destino = $_GET["destino"] ?? "";
-$fechaIda = $_GET["fechaIda"] ?? "";
-$fechaVuelta = $_GET["fechaVuelta"] ?? "";
+// Guardamos los datos del viaje para que no se pierdan
+// si el usuario tiene que iniciar sesión.
+if (isset($_GET["tipoViaje"])) {
+    $_SESSION["tipoViajeReserva"] = $_GET["tipoViaje"];
+}
 
+if (isset($_GET["origen"])) {
+    $_SESSION["origenReserva"] = $_GET["origen"];
+}
+
+if (isset($_GET["destino"])) {
+    $_SESSION["destinoReserva"] = $_GET["destino"];
+}
+
+if (isset($_GET["fechaIda"])) {
+    $_SESSION["fechaIdaReserva"] = $_GET["fechaIda"];
+}
+
+if (isset($_GET["fechaVuelta"])) {
+    $_SESSION["fechaVueltaReserva"] = $_GET["fechaVuelta"];
+}
+
+
+// Recuperamos primero de la URL y, si ya no están,
+// de la sesión.
+
+$tipoViaje =
+    $_GET["tipoViaje"]
+    ?? $_SESSION["tipoViajeReserva"]
+    ?? "soloIda";
+
+$origen =
+    $_GET["origen"]
+    ?? $_SESSION["origenReserva"]
+    ?? "";
+
+$destino =
+    $_GET["destino"]
+    ?? $_SESSION["destinoReserva"]
+    ?? "";
+
+$fechaIda =
+    $_GET["fechaIda"]
+    ?? $_SESSION["fechaIdaReserva"]
+    ?? "";
+
+$fechaVuelta =
+    $_GET["fechaVuelta"]
+    ?? $_SESSION["fechaVueltaReserva"]
+    ?? "";
 if (!isset($_GET["codVuelo"])) {
     die("No se seleccionó ningún vuelo.");
 }
@@ -386,13 +430,19 @@ if (
                         <a
                             href="resultadosVuelos.php?tipoViaje=idaVuelta&origen=<?php echo urlencode($origen); ?>&destino=<?php echo urlencode($destino); ?>&fechaIda=<?php echo urlencode($fechaIda); ?>&fechaVuelta=<?php echo urlencode($fechaVuelta); ?>#vuelo-vuelta"
                             style="
-                                display: block;
-                                font-size: 22px;
-                                font-weight: 700;
+                                display: inline-flex;
+                                align-items: center;
+                                gap: 6px;
+                                font-size: 16px;
+                                font-weight: 600;
+                                color: #7a4a2e;
+                                text-decoration: none;
+                                margin-top: 10px;
                                 margin-bottom: 15px;
                             "
                         >
-                            ← Elegí tu vuelo de vuelta
+                            <i class="bi bi-arrow-left"></i>
+                            Elegí tu vuelo de vuelta
                         </a>
 
                     <?php } ?>

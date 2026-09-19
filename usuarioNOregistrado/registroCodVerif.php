@@ -12,11 +12,11 @@ session_start();
 
         <title>Nuvia - Registro</title>
 
-        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="../css/bootstrap.min.css">
 
-        <link rel="stylesheet" href="css/estilos.css">
+        <link rel="stylesheet" href="../css/estilos.css">
         
-        <link rel="icon" type="image/png" href="imagenes/logo.png">
+        <link rel="icon" type="image/png" href="../imagenes/logo.png">
         
     </head>
     <body>
@@ -25,7 +25,7 @@ session_start();
 
             <a class="navbar-brand">
                 <img
-                src="imagenes/logo.png"
+                src="../imagenes/logo.png"
                 alt="logo"
                 width="60"
                 height="60">
@@ -61,7 +61,7 @@ session_start();
                 Crear Cuenta
             </h1>
 
-            <form action="php/verificarCod.php" method="POST">
+            <form action="../php/verificarCod.php" method="POST">
                 
 
                 <div class="mb-4">
@@ -98,7 +98,7 @@ session_start();
                             Desea volver?
                         </p>
 
-                        <a href="registro.html" class="btn btn-outline-primary">
+                        <a href="../registro.html" class="btn btn-outline-primary">
                             Atrás
                         </a>
                     </div>
@@ -112,7 +112,7 @@ session_start();
             </form>
 
         </section>
-        <a href="home.php" class="boton-atras">
+        <a href="../home.php" class="boton-atras">
             ← Inicio
         </a>
 

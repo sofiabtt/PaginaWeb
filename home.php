@@ -40,6 +40,8 @@ $consultaAeropuertos = $conexion->query("
     <link rel="stylesheet" href="css/bootstrap.min.css">
 
     <link rel="stylesheet" href="css/estiloshome.css?v=2">
+    <link rel="stylesheet" href="css/estilos-usuario.css?v=2">
+
     <link rel="stylesheet" href="css/footer.css">
     
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
@@ -55,7 +57,18 @@ $consultaAeropuertos = $conexion->query("
 
     <!-- NAVBAR -->
 
-    <?php include("includes/navbar.php"); ?>
+    <?php
+
+    if (
+        isset($_SESSION["tipoUsuario"]) &&
+        $_SESSION["tipoUsuario"] === "usuario"
+    ) {
+        include "usuario/includes/navbarUsuario.php";
+    } else {
+        include "includes/navbar.php";
+    }
+
+    ?>
 
 
 
@@ -258,7 +271,9 @@ $consultaAeropuertos = $conexion->query("
         <div class="contenedor-tarjetas">
 
 
-            <div class="tarjeta-destino">
+            <div class="tarjeta-destino"
+            onclick="abrirOferta('Río de Janeiro - GIG - Aeropuerto Internacional de Río de Janeiro-Galeão')"
+            style="cursor: pointer;">
 
 
                 <img
@@ -267,7 +282,7 @@ $consultaAeropuertos = $conexion->query("
 
 
                 <h4>
-                    Brasil
+                    Brasil,   Rio De Janeiro
                 </h4>
 
 
@@ -275,16 +290,19 @@ $consultaAeropuertos = $conexion->query("
 
 
 
-            <div class="tarjeta-destino">
+            <div class="tarjeta-destino"
+                onclick="abrirOferta('Buenos Aires - EZE - Aeropuerto Internacional Ministro Pistarini')"
+                style="cursor: pointer;">
 
 
                 <img
                     src="imagenes/bsas.jpg"
-                    alt="Destino Buenos Aires">
+                    alt="Destino Buenos Aires"
+                    >
 
 
                 <h4>
-                    Buenos Aires
+                    Argentina,  Buenos Aires
                 </h4>
 
 
@@ -292,16 +310,19 @@ $consultaAeropuertos = $conexion->query("
 
 
 
-            <div class="tarjeta-destino">
+            <div class="tarjeta-destino"
+                onclick="abrirOferta('Madrid - MAD - Aeropuerto Adolfo Suárez Madrid-Barajas')"
+                style="cursor: pointer;">
 
 
                 <img
                     src="imagenes/madrid.jpg"
-                    alt="Destino Madrid">
+                    alt="Destino Madrid"
+                    >
 
 
                 <h4>
-                    Madrid
+                    España,   Madrid
                 </h4>
 
 
@@ -309,7 +330,9 @@ $consultaAeropuertos = $conexion->query("
 
 
 
-            <div class="tarjeta-destino">
+            <div class="tarjeta-destino"
+            onclick="abrirOferta('Roma - FCO - Aeropuerto Internacional Leonardo da Vinci')"
+            style="cursor: pointer;">
 
 
                 <img
@@ -318,7 +341,7 @@ $consultaAeropuertos = $conexion->query("
 
 
                 <h4>
-                    Roma
+                    Italia,   Roma
                 </h4>
 
 
@@ -336,14 +359,9 @@ $consultaAeropuertos = $conexion->query("
 
 <?php include("includes/footer.php"); ?>
 
-
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
 <!-- JAVASCRIPT -->
-
-
-
-
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
 <script>
 
@@ -525,12 +543,159 @@ radioIdaVuelta.addEventListener("change", function(){
 
 });
 
-</script>
 
+    function abrirOferta(destino) {
+
+            document.getElementById("destinoOferta").value =
+                destino;
+
+            document.getElementById("nombreDestinoOferta").textContent =
+                destino;
+
+            document.getElementById("modalOferta").style.display =
+                "flex";
+        }
+
+
+        function cerrarOferta() {
+
+            document.getElementById("modalOferta").style.display =
+                "none";
+        }
+
+
+</script>
 
 <script src="js/bootstrap.bundle.min.js"></script>
 
 
+
+
+
+<!-- FORMULARIO DE LOS DESTINOS OFRECIDOS -->
+    <div id="modalOferta" class="modal-oferta">
+
+        <div class="modal-oferta-contenido">
+
+            <button
+                type="button"
+                class="cerrar-oferta"
+                onclick="cerrarOferta()"
+            >
+                ×
+            </button>
+
+            <h2>Encontrá tu vuelo</h2>
+
+            <p class="destino-oferta">
+                Destino:
+                <strong id="nombreDestinoOferta"></strong>
+            </p>
+
+            <form action="resultadosVuelos.php" method="GET">
+
+                <!-- Siempre va a ser solo ida -->
+                <input
+                    type="hidden"
+                    name="tipoViaje"
+                    value="soloIda"
+                >
+
+                <!-- Destino elegido desde la burbuja -->
+                <input
+                    type="hidden"
+                    name="destino"
+                    id="destinoOferta"
+                >
+
+                <div class="campo-oferta">
+
+                    <label for="origenOferta">
+                        ¿Desde dónde viajás?
+                    </label>
+
+                    <select
+                        name="origen"
+                        id="origenOferta"
+                        required
+                    >
+                        <option value="">
+                            Seleccioná un aeropuerto
+                        </option>
+
+                        <?php
+
+                        $consultaOrigenes = $conexion->query("
+                            SELECT
+                                a.codigoIATA,
+                                a.nombreAeropuerto,
+                                c.nombreCiudad,
+                                p.nombrePais
+                            FROM Aeropuertos a
+                            INNER JOIN Ciudades c
+                                ON a.codCiudad = c.codCiudad
+                            INNER JOIN Paises p
+                                ON c.codPais = p.codPais
+                            ORDER BY c.nombreCiudad ASC, a.codigoIATA ASC
+                        ");
+
+                        while ($origenBD = $consultaOrigenes->fetch_assoc()) {
+
+                            $origenCompleto =
+                                $origenBD["nombreCiudad"]
+                                . " - "
+                                . $origenBD["codigoIATA"]
+                                . " - "
+                                . $origenBD["nombreAeropuerto"];
+
+                            $origenSeguro = htmlspecialchars(
+                                $origenCompleto,
+                                ENT_QUOTES,
+                                "UTF-8"
+                            );
+
+                            echo "
+                                <option value=\"$origenSeguro\">
+                                    $origenSeguro
+                                </option>
+                            ";
+                        }
+
+                        ?>
+
+                    </select>
+
+                </div>
+
+
+                <div class="campo-oferta">
+
+                    <label for="fechaOferta">
+                        Fecha de ida
+                    </label>
+
+                    <input
+                        type="date"
+                        name="fechaIda"
+                        id="fechaOferta"
+                        required
+                    >
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="boton-buscar-oferta"
+                >
+                    Buscar vuelos
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
 </body>
 
 </html>

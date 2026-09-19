@@ -407,3 +407,91 @@ body{
     color: #444;
     padding-left: 18px;
 }
+.modal-oferta {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+
+    justify-content: center;
+    align-items: center;
+
+    z-index: 9999;
+}
+
+.modal-oferta-contenido {
+    position: relative;
+    width: 90%;
+    max-width: 430px;
+
+    background: white;
+
+    padding: 30px;
+
+    border-radius: 18px;
+
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+}
+
+.modal-oferta-contenido h2 {
+    margin-bottom: 8px;
+}
+
+.destino-oferta {
+    margin-bottom: 25px;
+    color: #666;
+}
+
+.campo-oferta {
+    margin-bottom: 18px;
+}
+
+.campo-oferta label {
+    display: block;
+
+    font-weight: 600;
+
+    margin-bottom: 7px;
+}
+
+.campo-oferta select,
+.campo-oferta input {
+    width: 100%;
+
+    padding: 11px 12px;
+
+    border: 1px solid #ccc;
+    border-radius: 8px;
+
+    font-size: 15px;
+}
+
+.boton-buscar-oferta {
+    width: 100%;
+
+    border: none;
+    border-radius: 9px;
+
+    padding: 12px;
+
+    background: #7a482b;
+    color: white;
+
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.cerrar-oferta {
+    position: absolute;
+
+    top: 12px;
+    right: 16px;
+
+    border: none;
+    background: none;
+
+    font-size: 25px;
+
+    cursor: pointer;
+}
