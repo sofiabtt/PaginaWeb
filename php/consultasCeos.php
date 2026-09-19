@@ -236,7 +236,7 @@ function verificarCeo()
         $_SESSION["tipoUsuario"] != "ceo"
     ) {
 
-        header("Location: ../../inicioSesion.php");
+        header("Location: ../inicioSesion.php");
         exit();
 
     }

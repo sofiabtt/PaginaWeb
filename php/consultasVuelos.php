@@ -415,7 +415,7 @@ function obtenerVueloElegido($conexion, $codVuelo)
         WHERE v.codVuelo = ?
             AND v.activoVuelo = 1
             AND v.asientosDisponibles > 0
-            AND v.fechaSalidaVuelo >= CURDATE()
+            AND v.fechaSalidaVuelo >= CURDATE()"
     );
 
     $consulta->bind_param(

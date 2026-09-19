@@ -1,6 +1,6 @@
 <?php
 
-include "../../php/conexionBD.php";
+
 include "../../php/consultasAerolineas.php";
 include "../../php/consultasCeos.php";
 

@@ -7,7 +7,10 @@ include "../php/consultasAerolineas.php";
 include "../php/consultasVuelos.php";
 include "../php/consultasPromociones.php";
 
+
+
 verificarCeo();
+
 
 $nombreCEO = $_SESSION["nombreUsuario"];
 

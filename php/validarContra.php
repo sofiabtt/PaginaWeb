@@ -41,6 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $contrasena,
             $usuario["claveUsuario"]
         )
+
     ) {
 
         // Guardamos los datos del usuario en la sesión
