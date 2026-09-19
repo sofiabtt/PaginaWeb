@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
 
-    include "../conexionBD.php";
+    include "../php/conexionBD.php";
 
     $claveHash = password_hash(
         $contrasena,
@@ -107,7 +107,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             /* Remitente */
             $mail->setFrom(
                 $_ENV['GMAIL_USUARIO'],
-                'Aerolineas'
+                'Nuvia Aerolineas'
             );
 
             /* Destinatario */
