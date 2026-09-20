@@ -110,25 +110,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 'Nuvia Aerolineas'
             );
 
-            /* Destinatario */
             $mail->addAddress($gmail);
 
-            /* Contenido */
             $mail->isHTML(true);
 
-            $mail->Subject = 'Verifica tu cuenta';
-
-            $esHttps = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on';
-            $protocolo = $esHttps ? 'https' : 'http';
-            $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
-            $rutaProyecto = rtrim(dirname(dirname($_SERVER['SCRIPT_NAME'])), '/');
-            $enlaceVerificacion = $protocolo . '://' . $host
-                . $rutaProyecto . '/php/verificarCuenta.php?token='
-                . urlencode($tokenVerificacion);
+            $mail->Subject = 'Verificá tu cuenta de Nuvia';
 
             $mail->Body = "
                 <h2>Verificación de cuenta</h2>
                 <p>Hola " . htmlspecialchars($nombreApellido) . ",</p>
+                <p>Gracias por registrarte en Nuvia.</p>
                 <p>Hacé clic en el siguiente enlace para validar tu cuenta:</p>
                 <p><a href=\"$enlaceVerificacion\">Verificar mi cuenta</a></p>
                 <p>El enlace vence dentro de 24 horas.</p>
