@@ -111,7 +111,6 @@ if (
     <?php include "includes/navbarUsuario.php"; ?>
 
 
-
     <!-- =========================
          BUSCADOR
     ========================== -->

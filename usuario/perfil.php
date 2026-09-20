@@ -3,19 +3,16 @@
 require "includes/protegerUsuario.php";
 include "../php/consultasUsuarios.php";
 
-
 $codUsuario = (int) $_SESSION["codUsuario"];
 
 $mensaje = null;
 $error = null;
-
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     $nombre = trim($_POST["nombre"] ?? "");
     $telefono = trim($_POST["telefono"] ?? "");
     $claveNueva = $_POST["claveNueva"] ?? "";
-
 
     if ($nombre === "" || $telefono === "") {
 
@@ -26,8 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         strlen($claveNueva) < 8
     ) {
 
-        $error =
-            "La contraseña debe tener al menos 8 caracteres.";
+        $error = "La contraseña debe tener al menos 8 caracteres.";
 
     } else {
 
@@ -39,22 +35,18 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $claveNueva
         );
 
-
         if ($actualizado) {
 
             $_SESSION["nombreUsuario"] = $nombre;
 
-            $mensaje =
-                "El perfil se actualizó correctamente.";
+            $mensaje = "El perfil se actualizó correctamente.";
 
         } else {
 
-            $error =
-                "No se pudo actualizar el perfil.";
+            $error = "No se pudo actualizar el perfil.";
         }
     }
 }
-
 
 $usuario = obtenerPerfilUsuario(
     $conexion,
@@ -62,54 +54,141 @@ $usuario = obtenerPerfilUsuario(
 );
 
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Nuvia - Mi perfil</title>
+
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/bootstrap-icons.css">
     <link rel="stylesheet" href="../css/estilos-admin.css">
     <link rel="stylesheet" href="/PaginaWeb/css/navbar.css">
     <link rel="icon" href="../imagenes/logo.png" type="image/png">
+
 </head>
+
 <body>
-    <?php include ("../includes/navbar.php"); ?>
+
+    <?php include("../includes/navbar.php"); ?>
+
     <main class="contenido-admin">
+
         <section class="encabezado-contenido">
-            <div><h1>Mi perfil</h1><p>Gestioná tu información personal.</p></div>
+
+            <div>
+                <h1>Mi perfil</h1>
+                <p>Gestioná tu información personal.</p>
+            </div>
+
         </section>
 
-        <?php if ($mensaje) { ?><div class="alert alert-success"><?php echo $mensaje; ?></div><?php } ?>
-        <?php if ($error) { ?><div class="alert alert-danger"><?php echo $error; ?></div><?php } ?>
+        <?php if ($mensaje) { ?>
+
+            <div class="alert alert-success">
+                <?php echo $mensaje; ?>
+            </div>
+
+        <?php } ?>
+
+        <?php if ($error) { ?>
+
+            <div class="alert alert-danger">
+                <?php echo $error; ?>
+            </div>
+
+        <?php } ?>
 
         <section class="perfil-card">
+
             <form method="POST">
+
                 <div class="mb-3">
-                    <label for="nombre" class="form-label">Nombre y apellido</label>
-                    <input id="nombre" name="nombre" class="form-control" required
-                           value="<?php echo htmlspecialchars($usuario["nombreUsuario"]); ?>">
+
+                    <label for="nombre" class="form-label">
+                        Nombre y apellido
+                    </label>
+
+                    <input
+                        id="nombre"
+                        name="nombre"
+                        class="form-control"
+                        required
+                        value="<?php echo htmlspecialchars($usuario["nombreUsuario"]); ?>"
+                    >
+
                 </div>
+
                 <div class="mb-3">
-                    <label for="email" class="form-label">Email</label>
-                    <input id="email" class="form-control" disabled
-                           value="<?php echo htmlspecialchars($usuario["emailUsuario"]); ?>">
+
+                    <label for="email" class="form-label">
+                        Email
+                    </label>
+
+                    <input
+                        id="email"
+                        class="form-control"
+                        disabled
+                        value="<?php echo htmlspecialchars($usuario["emailUsuario"]); ?>"
+                    >
+
                 </div>
+
                 <div class="mb-3">
-                    <label for="telefono" class="form-label">Teléfono</label>
-                    <input id="telefono" name="telefono" class="form-control" required
-                           value="<?php echo htmlspecialchars($usuario["telefonoUsuario"]); ?>">
+
+                    <label for="telefono" class="form-label">
+                        Teléfono
+                    </label>
+
+                    <input
+                        id="telefono"
+                        name="telefono"
+                        class="form-control"
+                        required
+                        value="<?php echo htmlspecialchars($usuario["telefonoUsuario"]); ?>"
+                    >
+
                 </div>
+
                 <div class="mb-4">
-                    <label for="claveNueva" class="form-label">Nueva contraseña (opcional)</label>
-                    <input type="password" id="claveNueva" name="claveNueva" class="form-control" minlength="8">
+
+                    <label for="claveNueva" class="form-label">
+                        Nueva contraseña (opcional)
+                    </label>
+
+                    <input
+                        type="password"
+                        id="claveNueva"
+                        name="claveNueva"
+                        class="form-control"
+                        minlength="8"
+                    >
+
                 </div>
-                <button class="btn btn-primary" type="submit">Guardar cambios</button>
+
+                <button class="btn btn-primary" type="submit">
+                    Guardar cambios
+                </button>
+
             </form>
+
         </section>
+
     </main>
+
     <script src="../js/bootstrap.bundle.min.js"></script>
+
 </body>
+
 </html>
-<?php $consulta->close(); 
+
+<?php
+
+$consulta->close();
+
+?>
