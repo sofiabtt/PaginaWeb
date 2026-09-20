@@ -29,24 +29,13 @@ include "php/filtrosVuelos.php";
     <link rel="stylesheet" href="css/estilosResultados.css?v=5">
     <link rel="stylesheet" href="css/estilos-usuario.css?v=2">
     <link rel="stylesheet" href="css/footer.css">
-
+    <link rel="stylesheet" href="css/navbar.css">
 
 </head>
 
 <body>
 
-<?php
-
-if (
-    isset($_SESSION["tipoUsuario"]) &&
-    $_SESSION["tipoUsuario"] === "usuario"
-) {
-    include "usuario/includes/navbarUsuario.php";
-} else {
-    include "includes/navbar.php";
-}
-
-?>
+<?php include ("includes/navbar.php"); ?>
 
 <main class="contenido-resultados">
 
@@ -1568,10 +1557,7 @@ if (
 </main>
 
 
-<script
-    src="js/bootstrap.bundle.min.js"
-></script>
-
+<script src="js/bootstrap.bundle.min.js"></script>
 
 </body>
 

@@ -61,6 +61,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <link rel="stylesheet" href="../../css/estilos-admin.css">
 
+    <link rel="stylesheet" href="../../css/navbar.css">
+
     <link rel="icon" type="image/png" href="../../imagenes/logo.png">
 
 </head>

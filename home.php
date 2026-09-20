@@ -39,10 +39,14 @@ $consultaAeropuertos = $conexion->query("
 
     <link rel="stylesheet" href="css/bootstrap.min.css">
 
+    <link rel="stylesheet" href="css/bootstrap-icons.css">
+
     <link rel="stylesheet" href="css/estiloshome.css?v=2">
     <link rel="stylesheet" href="css/estilos-usuario.css?v=2">
 
     <link rel="stylesheet" href="css/footer.css">
+
+    <link rel="stylesheet" href="css/navbar.css">
     
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
@@ -51,31 +55,13 @@ $consultaAeropuertos = $conexion->query("
 
 <body>
 
+<?php include("includes/navbar.php"); ?>
 
 <section class="hero">
-
-
-    <!-- NAVBAR -->
-
-    <?php
-
-    if (
-        isset($_SESSION["tipoUsuario"]) &&
-        $_SESSION["tipoUsuario"] === "usuario"
-    ) {
-        include "usuario/includes/navbarUsuario.php";
-    } else {
-        include "includes/navbar.php";
-    }
-
-    ?>
-
-
-
     <!-- BUSCADOR -->
 
 
-    <div class="contenedor-buscador">
+    <div id="buscador" class="contenedor-buscador">
 
 
         <div class="tipo-viaje">
@@ -258,7 +244,7 @@ $consultaAeropuertos = $conexion->query("
     <!-- DESTINOS DESTACADOS -->
 
 
-    <section class="destinos-destacados">
+    <section id="destinos" class="destinos-destacados">
 
 
         <h4 class="titulo-destino">
@@ -566,8 +552,7 @@ radioIdaVuelta.addEventListener("change", function(){
 
 </script>
 
-<script src="js/bootstrap.bundle.min.js"></script>
-
+<script src="/PaginaWeb/js/bootstrap.bundle.min.js"></script>
 
 
 

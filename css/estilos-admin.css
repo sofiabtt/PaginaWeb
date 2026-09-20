@@ -15,137 +15,15 @@ body {
 }
 
 /* =========================
-   NAVBAR
-========================= */
-
-.navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 80px;
-    z-index: 10;
-    padding: 5px 60px;
-    background: white;
-    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.12);
-}
-
-/* =========================
-   LOGO
-========================= */
-
-.navbar-brand {
-    margin: 0;
-    padding: 0;
-}
-
-.navbar-brand img {
-    object-fit: contain;
-}
-
-/* =========================
-   MENÚ DEL NAVBAR
-========================= */
-
-.menu-admin-navbar {
-    margin-left: auto;
-    display: flex;
-    align-items: center;
-    gap: 25px;
-}
-
-.menu-admin-navbar .nav-link {
-    color: #222;
-    font-weight: 600;
-    text-decoration: none;
-    margin: 0;
-    padding: 10px 0;
-    white-space: nowrap;
-}
-
-.menu-admin-navbar .nav-link:hover {
-    color: #684028;
-}
-
-.menu-admin-navbar .nav-link.activo {
-    color: #684028;
-}
-
-/* =========================
-   BOTÓN DE USUARIO / ADMIN
-========================= */
-
-.usuario-admin {
-    background: transparent;
-    border: none;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: #684028;
-    font-size: 16px;
-    font-weight: bold;
-    padding: 10px;
-    cursor: pointer;
-    white-space: nowrap;
-}
-
-.usuario-admin:hover {
-    color: #72472c;
-}
-
-.usuario-admin i {
-    font-size: 22px;
-}
-
-/* =========================
-   MENÚ DESPLEGABLE
-========================= */
-
-.menu-admin {
-    min-width: 190px;
-    border: none;
-    border-radius: 15px;
-    padding: 8px;
-    background: white;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-}
-
-.menu-admin .dropdown-item {
-    color: #684028;
-    padding: 12px 15px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 14px;
-    font-weight: 600;
-}
-
-.menu-admin .dropdown-item i {
-    font-size: 18px;
-}
-
-.menu-admin .dropdown-item:hover {
-    background: #b8d8e8;
-    color: #684028;
-}
-
-.menu-admin .dropdown-divider {
-    margin: 6px 0;
-    border-color: #eee;
-}
-
-.menu-admin-navbar .dropdown {
-    margin-left: 5px;
-}
-
-/* =========================
    CONTENIDO PRINCIPAL
 ========================= */
 
 .contenido-admin {
     padding: 120px 60px 50px;
     max-width: 1400px;
+
+    width: 100%;
+
     margin: auto;
 }
 

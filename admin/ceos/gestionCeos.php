@@ -1,5 +1,6 @@
 <?php
 
+session_start();
 
 include "../../php/consultasAerolineas.php";
 include "../../php/consultasCeos.php";
@@ -53,6 +54,7 @@ $consulta = obtenerCeos($conexion);
         href="../../css/estilos-admin.css"
     >
 
+    <link rel="stylesheet" href="../../css/navbar.css">
 
     <!-- Favicon -->
 

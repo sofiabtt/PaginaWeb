@@ -276,11 +276,13 @@ CREATE TABLE `Reservas` (
 
     `codVuelo` int(11) NOT NULL,
 
-    `fechaReservae` varchar(10) NOT NULL,
+    `fechaReserva` varchar(10) NOT NULL,
 
     `estadoReserva` varchar(20) NOT NULL DEFAULT 'PendienteDePago',
 
     `precioFinalReserva` decimal(10,2) NOT NULL DEFAULT 0,
+
+    `cantidadPasajerosReserva` int(11) NOT NULL DEFAULT 1,
 
     PRIMARY KEY (`codReserva`),
 

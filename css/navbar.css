@@ -1,0 +1,248 @@
+@font-face {
+    font-family: 'Montserrat';
+    src: url('/PaginaWeb/css/fonts/Montserrat/Montserrat-Medium.ttf') format('truetype');
+    font-weight: 400;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 20px;
+}
+
+.navbar {
+    position: relative;
+    width: 100%;
+    min-height: 80px;
+    padding: 5px 15px;
+    background: #fff;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.12);
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding-right: 60px;
+}
+
+.navbar-brand img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+}
+
+.navbar-brand h1 {
+    line-height: 1;
+    margin: 0 0 0 12px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 26px;
+    letter-spacing: 0.1px;
+}
+
+.navbar-nav-general {
+    margin-left: auto;
+    padding-right: 30px;
+    display: flex;
+    align-items: center;
+    gap: 28px;
+}
+
+.nav-link {
+    color: #222;
+    font-weight: 600;
+    text-decoration: none;
+    margin: 0;
+    letter-spacing: 0.7px;
+}
+
+.nav-link:hover {
+    color: #684028;
+}
+
+.btn-iniciosesion {
+    background-color: transparent ;
+    color: #835a40 ;
+    border: 2px solid #835a40 ;
+    border-radius: 20px ;
+    font-weight: bold;
+    padding: 7px 15px;
+    text-decoration: none;
+}
+
+.btn-iniciosesion:hover {
+    background-color: #835a40 ;
+    color: white ;
+}
+
+.btn-registro{
+    background:#835a40;
+    color:white;
+    border:none;
+    border-radius:20px;
+    padding:10px 20px;
+    font-weight:bold;
+    text-decoration: none;
+}
+
+.btn-registro:hover{
+    background-color: #b1917d;
+}
+
+.opciones-acceso {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+}
+
+.usuario-mobile {
+    display: none;
+}
+
+.saludo {
+    color: #684028;
+    font-size: 16px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.saludo i {
+    font-size: 22px;
+}
+
+.info-usuario {
+    background: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #684028;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.info-usuario:hover {
+    color: #72472c;
+}
+
+.info-usuario i {
+    font-size: 22px;
+}
+
+.menu-usuarios {
+    min-width: 190px;
+    border: none;
+    border-radius: 15px;
+    padding: 8px;
+    background: white;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.menu-usuarios .dropdown-item {
+    color: #684028;
+    padding: 12px 15px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.menu-usuarios .dropdown-item:hover {
+    background: #b8d8e8;
+    color: #684028;
+}
+
+.menu-usuarios .dropdown-divider {
+    margin: 6px 0;
+    border-color: #ddd;
+}
+
+@media (max-width: 1199.98px) {
+    .navbar {
+        height: auto;
+        min-height: 60px;
+        padding: 5px 25px;
+    }
+    
+    .navbar-collapse {
+        width: 100%;
+        padding: 20px 0 15px;
+    }
+
+    .usuario-mobile {
+        display: block;
+        padding: 0 0 15px;
+        margin-bottom: 5px;
+        border-bottom: 1px solid #eee;
+    }
+
+    .usuario-mobile a {
+        padding: 10px 0 0;
+    }
+
+    .usuario-mobile hr {
+        margin: 6px 0;
+        border-color: #ddd;
+    }
+
+    .navbar-nav-general { 
+        flex-direction: column; 
+        align-items: flex-start; 
+        margin: 0; 
+        padding: 10px 0; 
+        gap: 0; 
+        width: 100%;
+    }
+
+    .navbar-nav-general .nav-link { 
+        width: 100%; 
+        padding: 5px 0; 
+    } 
+
+    .opciones-cuenta {
+        display: none;
+    }
+
+    .opciones-acceso {
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+        gap: 0;
+        margin: 0;
+        padding: 10px 0;
+    }
+
+    .opciones-acceso .nav-link {
+        width: 100%;
+        padding: 5px 0;
+    }
+
+    .opciones-acceso .btn-iniciosesion,
+    .opciones-acceso .btn-registro {
+        background: transparent;
+        border: none;
+        border-radius: 0;
+        padding: 5px 0;
+        color: #222;
+        font-weight: 600;
+    }
+
+    .opciones-acceso .btn-iniciosesion:hover,
+    .opciones-acceso .btn-registro:hover {
+        background: transparent;
+        color: #684028;
+    }
+}
+
+@media (min-width: 1200px) { 
+    .usuario-mobile { 
+        display: none; 
+    }
+} 

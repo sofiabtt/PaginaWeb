@@ -241,6 +241,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         href="../css/bootstrap.min.css"
     >
 
+    <link rel="stylesheet" href="../css/bootstrap-icons.css">
+
     <link
         rel="stylesheet"
         href="../css/estiloshome.css"
@@ -249,6 +251,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     rel="stylesheet"
     href="../css/estilosRecuperacion.css"
 >
+    <link rel="stylesheet" href="../css/navbar.css">
 
 </head>
 

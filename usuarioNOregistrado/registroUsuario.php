@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         || $telefono === ""
         || strlen($contrasena) < 8
     ) {
-        header("Location: ../registroDatosPersonales.html?error=datos_invalidos");
+        header("Location: ../registroDatosPersonales.php?error=datos_invalidos");
         exit();
     }
 

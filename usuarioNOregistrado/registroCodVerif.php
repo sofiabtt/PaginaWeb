@@ -98,7 +98,7 @@ session_start();
                             Desea volver?
                         </p>
 
-                        <a href="../registro.html" class="btn btn-outline-primary">
+                        <a href="../registro.php" class="btn btn-outline-primary">
                             Atrás
                         </a>
                     </div>

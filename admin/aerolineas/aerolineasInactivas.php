@@ -47,6 +47,7 @@ $resultado = obtenerAerolineasInactivas($conexion);
         href="../../css/estilos-admin.css"
     >
 
+    <link rel="stylesheet" href="../../css/navbar.css">
 
     <!-- Favicon -->
 

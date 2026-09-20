@@ -44,6 +44,7 @@ $resultadoActividad = obtenerActividadesRecientes($conexion);
 
     <!-- CSS del administrador -->
     <link rel="stylesheet" href="../css/estilos-admin.css">
+    <link rel="stylesheet" href="../css/navbar.css">
     <link rel="stylesheet" href="../css/footer.css">
 
 </head>
@@ -262,8 +263,7 @@ $resultadoActividad = obtenerActividadesRecientes($conexion);
 
 
     <?php include "../includes/footer.php"; ?>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/PaginaWeb/js/bootstrap.bundle.min.js"></script>
 
 </body>
 
