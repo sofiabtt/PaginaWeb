@@ -1,4 +1,9 @@
 <?php
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 if (isset($_SESSION["tipoUsuario"])) {
     $primerNombre = explode(" ", $_SESSION["nombreUsuario"])[0];
 } else {

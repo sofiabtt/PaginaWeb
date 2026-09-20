@@ -1,4 +1,9 @@
 <?php
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 $estaLogueado = isset($_SESSION["codUsuario"]);
 
 if ($estaLogueado) {
