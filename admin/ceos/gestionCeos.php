@@ -1,5 +1,6 @@
 <?php
 
+session_start();
 
 include "../../php/consultasAerolineas.php";
 include "../../php/consultasCeos.php";

@@ -1,10 +1,10 @@
 <?php
-if (isset($_SESSION["tipoUsuario"])) {
-    $estaLogueado = true;
+$estaLogueado = isset($_SESSION["codUsuario"]);
+
+if ($estaLogueado) {
     $tipoUsuario = $_SESSION["tipoUsuario"];
     $primerNombre = explode(" ", $_SESSION["nombreUsuario"])[0];
 } else {
-    $estaLogueado = false;
     $tipoUsuario = null;
     $primerNombre = null;
 }
@@ -36,11 +36,14 @@ if (isset($_SESSION["tipoUsuario"])) {
 
             <div class="navbar-nav-general">
                 <a class="nav-link" href="/PaginaWeb/home.php">Inicio</a>
-                <a class="nav-link" href="#">Destinos</a>
-                <a class="nav-link" href="/PaginaWeb/usuario/novedades.php">Novedades</a>
+                <a class="nav-link" href="/PaginaWeb/home.php#destinos">Destinos</a>
                 <a class="nav-link" href="#">Ofertas</a>
 
                 <?php if ($estaLogueado && $tipoUsuario === "usuario") { ?>
+
+                    <a class="nav-link" href="/PaginaWeb/usuario/novedades.php">
+                        Novedades
+                    </a>
 
                     <a class="nav-link" href="/PaginaWeb/usuario/historialCompras.php">
                         Historial de compras
@@ -57,11 +60,22 @@ if (isset($_SESSION["tipoUsuario"])) {
                     </a>
 
                 <?php } elseif ($estaLogueado && $tipoUsuario === "administrador") { ?>
+
+                    <a class="nav-link" href="/PaginaWeb/usuario/novedades.php">
+                        Novedades
+                    </a>
+
                     <a class="nav-link" href="/PaginaWeb/admin/admin.php">
                         <i class="bi bi-calendar3"></i>
                         Ir al panel de gestión
                     </a>
+
                 <?php } elseif ($estaLogueado && $tipoUsuario === "ceo") { ?>
+
+                    <a class="nav-link" href="/PaginaWeb/usuario/novedades.php">
+                        Novedades
+                    </a>
+
                     <a class="nav-link" href="/PaginaWeb/ceo/ceo.php">
                         <i class="bi bi-calendar3"></i>
                         Ir al panel de gestión
@@ -110,40 +124,17 @@ if (isset($_SESSION["tipoUsuario"])) {
 
             <?php } else { ?>
 
-                <div class="opciones-cuenta dropdown">
-                    <button class="info-usuario dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                        aria-expanded="false">
-                        <i class="bi bi-person-circle"></i>
-                    </button>
-                    <ul class="menu-usuarios dropdown-menu dropdown-menu-end">
-                        <li>
-                            <a class="dropdown-item" href="/PaginaWeb/inicioSesion.php">
-                                <i class="bi bi-person"></i>
-                                Iniciar sesión
-                            </a>
-                        </li>
-
-                        <li><hr class="dropdown-divider"></li>
-
-                        <li>
-                            <a class="dropdown-item" href="/PaginaWeb/registro.php">
-                                <i class="bi bi-person-plus"></i>
-                                Registrarse
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="usuario-mobile">
-                    <a class="nav-link" href="/PaginaWeb/inicioSesion.php">
-                        <i class="bi bi-person"></i>
+                <div class="opciones-acceso">
+                    <a class="nav-link btn-iniciosesion" href="inicioSesion.php">
+                        <i class="bi bi-person-check"></i>
                         Iniciar sesión
                     </a>
-
-                    <a class="nav-link" href="/PaginaWeb/registro.php">
+    
+                    <a class="nav-link btn-registro" href="registro.php">
                         <i class="bi bi-person-plus"></i>
-                        Registrarse
+                        Registrate
                     </a>
+
                 </div>
 
                 <?php } ?>

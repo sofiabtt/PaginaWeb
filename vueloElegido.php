@@ -4,6 +4,8 @@
 session_start();
 
 include "php/conexionBD.php";
+include"php/consultasVuelos.php";
+
 $tipoViaje = $_GET["tipoViaje"] ?? "soloIda";
 $origen = $_GET["origen"] ?? "";
 $destino = $_GET["destino"] ?? "";
@@ -70,6 +72,8 @@ if (!$vuelo) {
         href="css/estilosVueloElegido.css"
     >
 
+    <link rel="stylesheet" href="css/navbar.css">
+
 </head>
 
 
@@ -78,17 +82,7 @@ if (!$vuelo) {
 
 <?php
 
-if (
-    isset($_SESSION["tipoUsuario"]) &&
-    $_SESSION["tipoUsuario"] === "usuario"
-) {
-
-    include "usuario/includes/navbarUsuario.php";
-
-} else {
-
-    include "includes/navbar.php";
-}
+include"includes/navbar.php";
 
 ?>
 
@@ -484,7 +478,7 @@ function irAlRegistro() {
     .then(() => {
 
         window.location.href =
-            "registro.html";
+            "registro.php";
 
     })
     .catch(error => {
@@ -978,7 +972,7 @@ function reservar() {
     const usuarioRegistrado =
         <?php
         echo (
-            isset($_SESSION["tipoUsuario"])
+            isset($_SESSION["codUsuario"])
             && $_SESSION["tipoUsuario"] === "usuario"
         ) ? "true" : "false";
         ?>;
@@ -1112,6 +1106,8 @@ function reservar() {
                     behavior: "smooth"
                 });
 
+            } else {
+                alert("No se pudo completar la reserva: " + datos.mensaje);
             }
 
 

@@ -244,7 +244,7 @@ $consultaAeropuertos = $conexion->query("
     <!-- DESTINOS DESTACADOS -->
 
 
-    <section class="destinos-destacados">
+    <section id="destinos" class="destinos-destacados">
 
 
         <h4 class="titulo-destino">

@@ -191,7 +191,7 @@ function cantidadAerolineasActivas($conexion)
 
 function obtenerAerolineaPorCeo($conexion, $codUsuario)
 {
-    $consulta = "SELECT codAerolinea
+    $consulta = "SELECT codAerolinea, nombreAerolinea
                  FROM Aerolineas
                  WHERE codUsuario = ?";
 

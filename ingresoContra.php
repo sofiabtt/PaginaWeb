@@ -1,4 +1,12 @@
-<?php session_start();?>
+<?php 
+    session_start();
+
+    if (isset($_SESSION["codUsuario"])) {
+        header("Location: home.php");
+        exit();
+    }
+
+?>
 
 <!DOCTYPE html>
 
@@ -38,7 +46,7 @@
                 Inicio de sesión
             </h1>
 
-            <form action="php/validarContra.php" method="POST">
+            <form action="/PaginaWeb/php/validarContra.php" method="POST">
                 <!--aún no está conectado con PHP-->
 
                 <div class="mb-4">

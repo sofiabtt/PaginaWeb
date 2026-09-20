@@ -29,10 +29,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $usuario = $resultado->fetch_assoc();
 
+            //Todavía no se encuentra autenticado
             $_SESSION["gmailIngreso"] = $gmail;
-            $_SESSION["codUsuario"] = $usuario["codUsuario"];
-            $_SESSION["tipoUsuario"] = $usuario["tipoUsuario"];
-            $_SESSION["nombreUsuario"] = $usuario["nombreUsuario"];
 
             $consulta->close();
             $conexion->close();

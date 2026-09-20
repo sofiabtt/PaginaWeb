@@ -1,10 +1,14 @@
 <?php
+session_start();
+
+if (isset($_SESSION["codUsuario"])) {
+    header("Location: /PaginaWeb/home.php");
+    exit();
+}
 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-
-session_start();
 
 include "consultasUsuarios.php";
 
@@ -51,13 +55,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION["emailUsuario"] = $usuario["emailUsuario"];
         $_SESSION["tipoUsuario"] = $usuario["tipoUsuario"];
 
-        $_SESSION["usuario"] =
-            $gmail;
+        // Todos los usuarios ingresan al home
 
-
-        // Según el tipo de usuario, definimos a dónde entra
-
-        $destino = "../home.php";
+        $destino = "/PaginaWeb/home.php";
 
 
         if ($usuario["tipoUsuario"] == "usuario") {
@@ -79,30 +79,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     "../vueloElegido.php?codVuelo="
                     . $codVuelo;
 
-            } else {
-
-                $destino =
-                    "../usuario/usuario.php";
-            }
+            } 
         }
-
-
-        if (
-            $usuario["tipoUsuario"] ==
-            "administrador"
-        ) {
-
-            $destino = "../home.php";
-
-        }
-
-
-        if ($usuario["tipoUsuario"] == "ceo") {
-
-            $destino = "../home.php";
-
-        }
-
 
     } else {
 

@@ -1,4 +1,4 @@
-<<?php
+<?php
 
 require "includes/protegerUsuario.php";
 include "../php/consultasUsuarios.php";

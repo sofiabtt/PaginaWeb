@@ -19,4 +19,3 @@ $resultado = obtenerHistorialCompras($conexion, $codUsuario);
 <?php if ($resultado->num_rows === 0) { ?><tr><td colspan="5" class="text-center text-muted py-4">Todavía no tenés compras confirmadas.</td></tr><?php } ?>
 <?php while ($compra = $resultado->fetch_assoc()) { ?><tr><td>#<?php echo (int) $compra["codReserva"]; ?></td><td><?php echo htmlspecialchars($compra["nombreAerolinea"]); ?></td><td><?php echo htmlspecialchars($compra["origenVuelo"] . " - " . $compra["destinoVuelo"]); ?></td><td><?php echo date("d/m/Y", strtotime($compra["fechaSalidaVuelo"])); ?></td><td>$<?php echo number_format((float) $compra["precioFinalReserva"], 0, ",", "."); ?></td></tr><?php } ?>
 </tbody></table></section></main><script src="../js/bootstrap.bundle.min.js"></script></body></html>
-<?php $consulta->close(); 

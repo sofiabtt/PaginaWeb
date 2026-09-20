@@ -6,9 +6,11 @@
 
 html {
     scroll-behavior: smooth;
+    scroll-padding-top: 20px;
 }
 
 .navbar {
+    position: relative;
     width: 100%;
     min-height: 80px;
     padding: 5px 15px;
@@ -56,6 +58,41 @@ html {
 
 .nav-link:hover {
     color: #684028;
+}
+
+.btn-iniciosesion {
+    background-color: transparent ;
+    color: #835a40 ;
+    border: 2px solid #835a40 ;
+    border-radius: 20px ;
+    font-weight: bold;
+    padding: 7px 15px;
+    text-decoration: none;
+}
+
+.btn-iniciosesion:hover {
+    background-color: #835a40 ;
+    color: white ;
+}
+
+.btn-registro{
+    background:#835a40;
+    color:white;
+    border:none;
+    border-radius:20px;
+    padding:10px 20px;
+    font-weight:bold;
+    text-decoration: none;
+}
+
+.btn-registro:hover{
+    background-color: #b1917d;
+}
+
+.opciones-acceso {
+    display: flex;
+    align-items: center;
+    gap: 28px;
 }
 
 .usuario-mobile {
@@ -173,6 +210,35 @@ html {
         display: none;
     }
 
+    .opciones-acceso {
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+        gap: 0;
+        margin: 0;
+        padding: 10px 0;
+    }
+
+    .opciones-acceso .nav-link {
+        width: 100%;
+        padding: 5px 0;
+    }
+
+    .opciones-acceso .btn-iniciosesion,
+    .opciones-acceso .btn-registro {
+        background: transparent;
+        border: none;
+        border-radius: 0;
+        padding: 5px 0;
+        color: #222;
+        font-weight: 600;
+    }
+
+    .opciones-acceso .btn-iniciosesion:hover,
+    .opciones-acceso .btn-registro:hover {
+        background: transparent;
+        color: #684028;
+    }
 }
 
 @media (min-width: 1200px) { 

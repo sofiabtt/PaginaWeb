@@ -403,8 +403,6 @@ $resultado = obtenerVuelosPorAerolinea($conexion,$codAerolinea);
 
 <?php
 
-$consulta->close();
-
 $conexion->close();
 
 ?>

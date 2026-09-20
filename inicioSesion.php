@@ -1,3 +1,12 @@
+<?php 
+    session_start();
+
+    if (isset($_SESSION["codUsuario"])) {
+    header("Location: home.php");
+    exit();
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="es">
     
