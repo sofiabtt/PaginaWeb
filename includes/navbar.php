@@ -96,13 +96,37 @@ if ($estaLogueado) {
                         <i class="bi bi-person-circle"></i>
                         Hola, <?php echo htmlspecialchars($primerNombre); ?>!
                     </button>
+
                     <ul class="menu-usuarios dropdown-menu dropdown-menu-end">
-                        <li>
-                            <a class="dropdown-item" href="/PaginaWeb/usuario/perfil.php">
-                                <i class="bi bi-person"></i>
-                                Mi perfil
-                            </a>
-                        </li>
+
+                        <?php if ($tipoUsuario === "administrador") { ?>
+
+                            <li>
+                                <a class="dropdown-item" href="/PaginaWeb/admin/perfilAdmin.php">
+                                    <i class="bi bi-person"></i>
+                                    Mi perfil
+                                </a>
+                            </li>
+
+                        <?php } elseif($tipoUsuario === "ceo") { ?>
+
+                            <li>
+                                <a class="dropdown-item" href="/PaginaWeb/ceo/perfilCeo.php">
+                                    <i class="bi bi-person"></i>
+                                    Mi perfil
+                                </a>
+                            </li>
+
+                        <?php } elseif($tipoUsuario === "usuario") { ?>
+
+                            <li>
+                                <a class="dropdown-item" href="/PaginaWeb/usuario/perfil.php">
+                                    <i class="bi bi-person"></i>
+                                    Mi perfil
+                                </a>
+                            </li>
+
+                        <?php } ?>
 
                         <li><hr class="dropdown-divider"></li>
 
@@ -112,24 +136,47 @@ if ($estaLogueado) {
                                 Cerrar sesión
                             </a>
                         </li>
+
                     </ul>
+
                 </div>
 
+
                 <div class="usuario-mobile">
-                    <a class="nav-link" href="/PaginaWeb/usuario/perfil.php">
-                        <i class="bi bi-person"></i>
-                        Mi perfil
-                    </a>
+
+                    <?php if($tipoUsuario === "usuario") { ?>
+
+                        <a class="dropdown-item" href="/PaginaWeb/usuario/perfil.php">
+                            <i class="bi bi-person"></i>
+                            Mi perfil
+                        </a>
+
+                    <?php } elseif($tipoUsuario === "administrador") { ?>
+
+                        <a class="dropdown-item" href="/PaginaWeb/admin/perfilAdmin.php">
+                            <i class="bi bi-person"></i>
+                            Mi perfil
+                        </a>
+
+                    <?php } elseif($tipoUsuario === "ceo") { ?>
+
+                        <a class="dropdown-item" href="/PaginaWeb/ceo/perfilCeo.php">
+                            <i class="bi bi-person"></i>
+                            Mi perfil
+                        </a>
+                    <?php } ?>
 
                     <a class="nav-link" href="/PaginaWeb/php/cerrarSesion.php">
                         <i class="bi bi-box-arrow-right"></i>
                         Cerrar sesión
                     </a>
+
                 </div>
 
             <?php } else { ?>
 
                 <div class="opciones-acceso">
+
                     <a class="nav-link btn-iniciosesion" href="inicioSesion.php">
                         <i class="bi bi-person-check"></i>
                         Iniciar sesión
