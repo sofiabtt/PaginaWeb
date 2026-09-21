@@ -187,8 +187,4 @@ $usuario = obtenerPerfilUsuario(
 
 </html>
 
-<?php
 
-$consulta->close();
-
-?>
