@@ -15,20 +15,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST["emailUsuario"];
     $telefono = $_POST["telefonoUsuario"];
 
+    //Verificar que el mail ingresado no esté en uso por otra cuenta
+    $existente = obtenerUsuarioPorEmail($conexion, $email);
 
-    // ACTUALIZAR DATOS DEL ADMIN
+    if ($existente && (int) $existente["codUsuario"] !== $codAdmin) {
 
-    if (modificarUsuario($conexion, $codAdmin, $nombre, $email, $telefono)) {
-
-        // REDIRIGIR DESPUES DE GUARDAR
-
-        header("Location: perfilAdmin.php?actualizado=1");
-
-        exit;
+        $mensaje = "Ese email ya está en uso por otra cuenta.";
+        $error = true;
 
     } else {
+        // ACTUALIZAR DATOS DEL ADMIN
 
-        $mensaje = "Ocurrió un error al actualizar los datos.";
+        if (modificarUsuario($conexion, $codAdmin, $nombre, $email, $telefono)) {
+
+            // REDIRIGIR DESPUES DE GUARDAR
+
+            header("Location: perfilAdmin.php?actualizado=1");
+
+            exit;
+
+        } else {
+
+            $mensaje = "Ocurrió un error al actualizar los datos.";
+            $error = true;
+
+        }
 
     }
 
@@ -89,6 +100,7 @@ $admin = obtenerUsuario($conexion, $codAdmin);
     >
 
     <link rel="stylesheet" href="../css/navbar.css">
+    <link rel="stylesheet" href="../css/footer.css">
 
     <!-- Favicon -->
 
@@ -136,10 +148,7 @@ $admin = obtenerUsuario($conexion, $codAdmin);
 
         <?php if (isset($mensaje)) { ?>
 
-            <div
-                class="alert alert-success"
-                role="alert"
-            >
+            <div class="alert <?php echo isset($error) ? 'alert-danger' : 'alert-success'; ?>" role="alert">
 
                 <?php echo $mensaje; ?>
 
@@ -166,14 +175,8 @@ $admin = obtenerUsuario($conexion, $codAdmin);
                     <!-- ICONO ADMIN -->
 
                     <div
-                        class="rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3"
-                        style="
-                            width: 75px;
-                            height: 75px;
-                            background-color: #f3e9df;
-                            color: #684028;
-                            font-size: 34px;
-                        "
+                        class="icono rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3"
+                        
                     >
 
                         <i class="bi bi-person-fill"></i>
@@ -384,6 +387,8 @@ $admin = obtenerUsuario($conexion, $codAdmin);
 
 
     </main>
+
+    <?php include"../includes/footer.php"; ?>
 
     <script src="/PaginaWeb/js/bootstrap.bundle.min.js"></script>
 

@@ -26,6 +26,31 @@ function modificarUsuario($conexion, $codUsuario, $nombre, $email, $telefono)
     return $stmt->execute();
 }
 
+//MODIFICAR LA CONTRASEÑA DEL USUARIO
+function modificarContraseñaUsuario($conexion, $codUsuario, $claveNueva) {
+
+    //Generar el hash seguro de la contraseña
+    $hash = password_hash($claveNueva, PASSWORD_DEFAULT);
+
+    $sql = "UPDATE Usuarios SET claveUsuario = ? WHERE codUsuario = ?";
+
+    $consulta = mysqli_prepare($conexion, $sql);
+
+    if (!$consulta) {
+
+        return false;
+
+    }
+
+    mysqli_stmt_bind_param($consulta, "si", $hash, $codUsuario);
+
+    $resultado = mysqli_stmt_execute($consulta);
+
+    mysqli_stmt_close($consulta);
+
+    return $resultado;
+
+}
 
 // OBTENER USUARIO
 
@@ -124,6 +149,7 @@ function actualizarPerfilUsuario(
     $conexion,
     $codUsuario,
     $nombre,
+    $email,
     $telefono,
     $claveNueva
 ) {
@@ -138,6 +164,7 @@ function actualizarPerfilUsuario(
         $actualizar = $conexion->prepare(
             "UPDATE Usuarios
              SET nombreUsuario = ?,
+                 emailUsuario = ?,
                  telefonoUsuario = ?,
                  claveUsuario = ?
              WHERE codUsuario = ?
@@ -145,8 +172,9 @@ function actualizarPerfilUsuario(
         );
 
         $actualizar->bind_param(
-            "sssi",
+            "ssssi",
             $nombre,
+            $email,
             $telefono,
             $hash,
             $codUsuario
@@ -157,14 +185,16 @@ function actualizarPerfilUsuario(
         $actualizar = $conexion->prepare(
             "UPDATE Usuarios
              SET nombreUsuario = ?,
+                 emailUsuario = ?,
                  telefonoUsuario = ?
              WHERE codUsuario = ?
                AND tipoUsuario = 'usuario'"
         );
 
         $actualizar->bind_param(
-            "ssi",
+            "sssi",
             $nombre,
+            $email,
             $telefono,
             $codUsuario
         );

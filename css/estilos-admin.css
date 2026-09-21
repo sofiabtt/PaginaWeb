@@ -312,3 +312,14 @@ body {
     color: #666;
     margin-bottom: 20px;
 }
+
+
+/* ICONO */
+
+.icono {
+    width: 75px;
+    height: 75px;
+    background-color: #f3e9df;
+    color: #684028;
+    font-size: 34px;
+}

@@ -356,7 +356,6 @@ $resultado = obtenerPromocionesPorAerolinea($conexion,$codAerolinea);
 
 <?php
 
-$consulta->close();
 
 $conexion->close();
 
