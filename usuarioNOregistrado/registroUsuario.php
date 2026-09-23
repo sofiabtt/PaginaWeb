@@ -53,6 +53,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         strtotime('+24 hours')
     );
 
+    $enlaceVerificacion =
+        "http://localhost/PaginaWeb/php/verificarCuenta.php?token="
+        . urlencode($tokenVerificacion);
+
+
     $consulta = $conexion->prepare(
 
         "INSERT INTO Usuarios
@@ -114,7 +119,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $mail->isHTML(true);
 
-            $mail->Subject = 'Verificá tu cuenta de Nuvia';
+            $mail->Subject = 'Verifica tu cuenta de Nuvia';
 
             $mail->Body = "
                 <h2>Verificación de cuenta</h2>
