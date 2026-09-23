@@ -41,7 +41,6 @@ if ($estaLogueado) {
 
             <div class="navbar-nav-general">
                 <a class="nav-link" href="/PaginaWeb/home.php">Inicio</a>
-                <a class="nav-link" href="/PaginaWeb/home.php#destinos">Destinos</a>
                 <a class="nav-link" href="#">Ofertas</a>
 
                 <?php if ($estaLogueado && $tipoUsuario === "usuario") { ?>
@@ -53,15 +52,14 @@ if ($estaLogueado) {
                     <a class="nav-link" href="/PaginaWeb/usuario/historialCompras.php">
                         Historial de compras
                     </a>
+                    
+                    <a class="nav-link" href="/PaginaWeb/usuario/reservas/gestionReservas.php">
+                        Mis reservas
+                    </a>
 
                     <a class="nav-link" href="/PaginaWeb/home.php#buscador">
                         <i class="bi bi-search"></i>
                         Buscar vuelos
-                    </a>
-
-                    <a class="nav-link" href="/PaginaWeb/usuario/reservas/gestionReservas.php">
-                        <i class="bi bi-ticket-perforated"></i>
-                        Mis reservas
                     </a>
 
                 <?php } elseif ($estaLogueado && $tipoUsuario === "administrador") { ?>

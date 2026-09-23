@@ -9,11 +9,15 @@ html {
     scroll-padding-top: 20px;
 }
 
+i {
+    font-size: 15px!important;
+}
+
 .navbar {
     position: relative;
     width: 100%;
     min-height: 80px;
-    padding: 5px 15px;
+    padding: 5px 12px;
     background: #fff;
     box-shadow: 0 3px 15px rgba(0, 0, 0, 0.12);
 }
@@ -22,7 +26,7 @@ html {
     display: flex;
     align-items: center;
     margin: 0;
-    padding-right: 60px;
+    padding-right: 56px;
 }
 
 .navbar-brand img {
@@ -42,10 +46,10 @@ html {
 
 .navbar-nav-general {
     margin-left: auto;
-    padding-right: 30px;
+    padding-right: 14px;
     display: flex;
     align-items: center;
-    gap: 28px;
+    gap: 26px;
 }
 
 .nav-link {
