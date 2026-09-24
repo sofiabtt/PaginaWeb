@@ -119,6 +119,13 @@ $consultaAeropuertos = $conexion->query("
             action="resultadosVuelos.php"
             method="GET">
 
+            <input
+                type="hidden"
+                id="tipoViajeForm"
+                name="tipoViaje"
+                value="idaVuelta"
+            >
+
 
             <!-- TIPO DE VIAJE -->
             <div id="buscador-ing-datos">
@@ -356,6 +363,7 @@ const radioSoloIda = document.getElementById("solo-ida");
 
 const fechaIda = document.getElementById("fechaIda");
 const fechaVuelta = document.getElementById("fechaVuelta");
+const tipoViajeForm = document.getElementById("tipoViajeForm");
 
 
 let primeraFecha = null;
@@ -495,7 +503,9 @@ const calendario = flatpickr("#fechaViaje", {
 
 radioSoloIda.addEventListener("change", function(){
  
-    primeraFecha = null;
+    
+    tipoViajeForm.value = "soloIda";
+primeraFecha = null;
 
     calendario.clear();
 
@@ -515,7 +525,9 @@ radioSoloIda.addEventListener("change", function(){
 radioIdaVuelta.addEventListener("change", function(){
 
 
-    primeraFecha = null;
+    
+    tipoViajeForm.value = "idaVuelta";
+primeraFecha = null;
 
     calendario.clear();
 

@@ -5,7 +5,7 @@
 // DATOS RECIBIDOS DEL BUSCADOR
 // =====================================================
 
-$tipoViaje = $_GET["tipoViaje"] ?? "soloIda";
+$tipoViaje = $_GET["tipoViaje"] ?? $_SESSION["tipoViajeReserva"] ?? "soloIda";
 
 $origen = $_GET["origen"] ?? "";
 

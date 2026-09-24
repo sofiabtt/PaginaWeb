@@ -78,6 +78,11 @@
                         id="gmail"
                         name="gmail"
                         placeholder="nombreapellido@gmail.com"
+                        value="<?php
+                            echo isset($_GET["gmail"])
+                                ? htmlspecialchars($_GET["gmail"], ENT_QUOTES, "UTF-8")
+                                : "";
+                        ?>"
                         required
                     >
 

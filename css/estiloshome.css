@@ -88,7 +88,7 @@ body{
 .titulo-buscador {
     position: absolute;
     left: 0;
-    top: 10px;
+    top: 5px;
     font-size: 18px; /*tamaño de la letra*/
     letter-spacing: 0.3px;
 
@@ -103,7 +103,7 @@ body{
 
     z-index:3;
 
-    top:120px;
+    top:60px;
     left:50%;
     transform:translateX(-50%);
 
@@ -194,7 +194,7 @@ body{
 
 .destinos-destacados{
     position: absolute;
-    top: 300px;
+    top: 240px;
     width: 100%;
     text-align: center;
 }

@@ -5,7 +5,51 @@ include "../../php/consultasReservas.php";
 
 $codUsuario = (int) $_SESSION["codUsuario"];
 
+$desdeReserva =
+    isset($_GET["desdeReserva"])
+    && $_GET["desdeReserva"] === "1";
+
+$reservaDestacada =
+    isset($_GET["reserva"])
+    ? (int) $_GET["reserva"]
+    : 0;
+
 $resultado = obtenerReservasUsuario($conexion, $codUsuario);
+
+$cantidadReservas = $resultado->num_rows;
+
+$reservas = [];
+
+while ($filaReserva = $resultado->fetch_assoc()) {
+    $reservas[] = $filaReserva;
+}
+
+// Si venimos directamente de reservar, ponemos esa reserva primero
+// para que se vea junto con la línea de progreso.
+if ($desdeReserva && $reservaDestacada > 0) {
+
+    usort(
+        $reservas,
+        function ($a, $b) use ($reservaDestacada) {
+
+            $aEsDestacada =
+                (int) $a["codReserva"] === $reservaDestacada;
+
+            $bEsDestacada =
+                (int) $b["codReserva"] === $reservaDestacada;
+
+            if ($aEsDestacada && !$bEsDestacada) {
+                return -1;
+            }
+
+            if (!$aEsDestacada && $bEsDestacada) {
+                return 1;
+            }
+
+            return 0;
+        }
+    );
+}
 
 ?>
 <!DOCTYPE html>
@@ -16,39 +60,53 @@ $resultado = obtenerReservasUsuario($conexion, $codUsuario);
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/bootstrap-icons.css">
     <link rel="stylesheet" href="../../css/estilos-usuario.css">
-    <style>
+    <link rel="stylesheet" href="../../css/progresoReserva.css">
 
-        html,
-        body {
-            height: auto !important;
-            min-height: 100% !important;
-            overflow-y: scroll !important;
-            overflow-x: hidden;
-        }
-
-        body {
-            position: static !important;
-        }
-
-        .contenido-admin {
-            height: auto !important;
-            min-height: 100vh !important;
-            max-height: none !important;
-            overflow: visible !important;
-        }
-
-        .tabla-contenedor {
-            height: auto !important;
-            max-height: none !important;
-            overflow: visible !important;
-        }
-
-        </style>
     <link rel="stylesheet" href="../../css/navbar.css">
 </head>
 <body>
     <?php include ("../../includes/navbar.php"); ?>
-    <main class="contenido-admin">
+    <main class="contenido-admin gestion-reservas">
+
+        <?php if ($desdeReserva && $reservaDestacada > 0) { ?>
+            <section class="progreso-reserva">
+                <div class="progreso-titulo">
+                    <h2 class="meta-valor">Obtener vuelo</h2>
+                </div>
+
+                <div class="timeline-pasos">
+                    <div class="timeline-paso completado">
+                        <span class="timeline-punto"></span>
+                        <div class="timeline-contenido">
+                            <span class="timeline-etiqueta">Paso 1</span>
+                            <div class="timeline-nombre">Elegir vuelo de ida</div>
+                            <p class="timeline-detalle">Vuelo seleccionado.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-paso completado">
+                        <span class="timeline-punto"></span>
+                        <div class="timeline-contenido">
+                            <span class="timeline-etiqueta">Paso 2</span>
+                            <div class="timeline-nombre">Completar la reserva</div>
+                            <p class="timeline-detalle">Datos cargados y reserva creada.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-paso activo">
+                        <span class="timeline-punto"></span>
+                        <div class="timeline-contenido">
+                            <span class="timeline-etiqueta">Paso 3</span>
+                            <div class="timeline-nombre">Finalizar en Mis Reservas</div>
+                            <p class="timeline-detalle">
+                                Confirmá la reserva destacada para completar el proceso.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        <?php } ?>
+
         <section class="encabezado-contenido"><div><h1>Mis reservas</h1><p>Consultá, confirmá o cancelá tus reservas.</p></div></section>
         <?php if (isset($_GET["creada"])) { ?><div class="alert alert-success">La reserva se creó y quedó pendiente de pago.</div><?php } ?>
         <?php if (isset($_GET["confirmada"])) { ?><div class="alert alert-success">La reserva se confirmó correctamente.</div><?php } ?>
@@ -57,7 +115,7 @@ $resultado = obtenerReservasUsuario($conexion, $codUsuario);
         
         <p>
             Cantidad de reservas encontradas:
-            <?php echo $resultado->num_rows; ?>
+            <?php echo $cantidadReservas; ?>
         </p>
         <section class="tabla-contenedor">
             <table class="table align-middle">
@@ -74,7 +132,7 @@ $resultado = obtenerReservasUsuario($conexion, $codUsuario);
 
                 <tbody>
 
-                    <?php if ($resultado->num_rows === 0) { ?>
+                    <?php if ($cantidadReservas === 0) { ?>
 
                         <tr>
                             <td
@@ -88,10 +146,18 @@ $resultado = obtenerReservasUsuario($conexion, $codUsuario);
                     <?php } ?>
 
 
-                    <?php while ($reserva = $resultado->fetch_assoc()) { ?>
+                    <?php foreach ($reservas as $reserva) { ?>
+
+                        <?php
+                            $esReservaDestacada =
+                                $desdeReserva
+                                && $reservaDestacada > 0
+                                && (int) $reserva["codReserva"] === $reservaDestacada;
+                        ?>
 
                         <tr
-                            class="fila-reserva"
+                            id="<?php echo $esReservaDestacada ? 'reserva-destacada' : ''; ?>"
+                            class="fila-reserva<?php echo $esReservaDestacada ? ' reserva-destacada' : ''; ?>"
                             onclick="window.location.href='detalleReserva.php?id=<?php echo (int) $reserva["codReserva"]; ?>'"
                         >
 
@@ -100,6 +166,13 @@ $resultado = obtenerReservasUsuario($conexion, $codUsuario);
                                 <?php
                                 echo (int) $reserva["codReserva"];
                                 ?>
+
+                                <?php if ($esReservaDestacada) { ?>
+                                    <br>
+                                    <span class="marca-reserva-nueva">
+                                        Recién reservada
+                                    </span>
+                                <?php } ?>
                             </td>
 
 

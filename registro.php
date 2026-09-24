@@ -62,7 +62,7 @@
                             ¿Ya tienes cuenta?
                         </p>
 
-                        <a href="inicioSesion.php" class="btn btn-outline-primary">
+                        <a href="inicioSesion.php" id="linkInicioSesion" class="btn btn-outline-primary">
                             Inicio Sesión
                         </a>
                     </div>
@@ -101,6 +101,22 @@
     if (gmail !== null) {
         document.getElementById("gmail").value = gmail;
     }
+
+
+    //acá lo que hace es que si ya ingresaste un gmail en registrar, pero esa cuenta ya estaa previamente cargada, aparezca el gmail ya cargado en inisioSesion.php
+    const linkInicioSesion = document.getElementById("linkInicioSesion");
+
+    linkInicioSesion.addEventListener("click", function(event) {
+        const gmailIngresado = document.getElementById("gmail").value.trim();
+
+        if (gmailIngresado !== "") {
+            event.preventDefault();
+
+            window.location.href =
+                "inicioSesion.php?gmail=" +
+                encodeURIComponent(gmailIngresado);
+        }
+    });
 </script>
 </body>
 </html>

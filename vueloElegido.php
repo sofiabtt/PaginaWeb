@@ -4,13 +4,60 @@
 session_start();
 
 include "php/conexionBD.php";
-include"php/consultasVuelos.php";
+include "php/consultasVuelos.php";
 
-$tipoViaje = $_GET["tipoViaje"] ?? "soloIda";
-$origen = $_GET["origen"] ?? "";
-$destino = $_GET["destino"] ?? "";
-$fechaIda = $_GET["fechaIda"] ?? "";
-$fechaVuelta = $_GET["fechaVuelta"] ?? "";
+// Guardamos los datos de la búsqueda para que no se pierdan
+// si el usuario tiene que iniciar sesión o registrarse.
+if (isset($_GET["tipoViaje"])) {
+    $_SESSION["tipoViajeReserva"] = $_GET["tipoViaje"];
+}
+if (isset($_GET["origen"])) {
+    $_SESSION["origenReserva"] = $_GET["origen"];
+}
+if (isset($_GET["destino"])) {
+    $_SESSION["destinoReserva"] = $_GET["destino"];
+}
+if (isset($_GET["fechaIda"])) {
+    $_SESSION["fechaIdaReserva"] = $_GET["fechaIda"];
+}
+if (isset($_GET["fechaVuelta"])) {
+    $_SESSION["fechaVueltaReserva"] = $_GET["fechaVuelta"];
+}
+if (isset($_GET["tramo"])) {
+    $_SESSION["tramoReserva"] = $_GET["tramo"];
+}
+
+// Primero usamos lo recibido por URL y, si ya no viene,
+// recuperamos los datos guardados en la sesión.
+$tipoViaje =
+    $_GET["tipoViaje"]
+    ?? $_SESSION["tipoViajeReserva"]
+    ?? "soloIda";
+
+$origen =
+    $_GET["origen"]
+    ?? $_SESSION["origenReserva"]
+    ?? "";
+
+$destino =
+    $_GET["destino"]
+    ?? $_SESSION["destinoReserva"]
+    ?? "";
+
+$fechaIda =
+    $_GET["fechaIda"]
+    ?? $_SESSION["fechaIdaReserva"]
+    ?? "";
+
+$fechaVuelta =
+    $_GET["fechaVuelta"]
+    ?? $_SESSION["fechaVueltaReserva"]
+    ?? "";
+
+$tramo =
+    $_GET["tramo"]
+    ?? $_SESSION["tramoReserva"]
+    ?? "ida";
 
 if (!isset($_GET["codVuelo"])) {
 
@@ -74,6 +121,178 @@ if (!$vuelo) {
 
     <link rel="stylesheet" href="css/navbar.css">
 
+
+    <style>
+        .progreso-reserva {
+            background: #f8f6f3;
+            border: 1px solid rgba(122, 74, 46, 0.12);
+            border-radius: 22px;
+            padding: 24px 28px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .progreso-titulo {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 10px;
+            margin-bottom: 22px;
+        }
+
+        .progreso-titulo .meta-label {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #7a4a2e;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            margin: 0;
+        }
+
+        .progreso-titulo .meta-valor {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #2f2f2f;
+            margin: 0;
+        }
+
+        .timeline-pasos {
+            display: flex;
+            justify-content: space-between;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+
+        .timeline-paso {
+            flex: 1 1 220px;
+            min-width: 200px;
+            position: relative;
+            padding-top: 26px;
+        }
+
+        .timeline-paso::before {
+            content: "";
+            position: absolute;
+            top: 11px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: #d9d5d0;
+            z-index: 1;
+        }
+
+        .timeline-paso:last-child::before {
+            right: 50%;
+        }
+
+        .timeline-paso:first-child::before {
+            left: 50%;
+        }
+
+        .timeline-punto {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            transform: translateX(-50%);
+            background: #ffffff;
+            border: 3px solid #c7b8ab;
+            z-index: 2;
+        }
+
+        .timeline-paso.completado::before,
+        .timeline-paso.activo::before {
+            background: #9c673e;
+        }
+
+        .timeline-paso.completado .timeline-punto,
+        .timeline-paso.activo .timeline-punto {
+            border-color: #9c673e;
+            background: #9c673e;
+        }
+
+        .timeline-paso.activo .timeline-punto {
+            box-shadow: 0 0 0 6px rgba(156, 103, 62, 0.15);
+        }
+
+        .timeline-contenido {
+            text-align: center;
+        }
+
+        .timeline-etiqueta {
+            display: inline-block;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #7a4a2e;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            margin-bottom: 6px;
+        }
+
+        .timeline-nombre {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #2f2f2f;
+            margin-bottom: 4px;
+        }
+
+        .timeline-detalle {
+            font-size: 0.92rem;
+            color: #6f6f6f;
+            line-height: 1.4;
+            margin: 0 auto;
+            max-width: 220px;
+        }
+
+        @media (max-width: 767.98px) {
+            .progreso-reserva {
+                padding: 20px;
+            }
+
+            .timeline-pasos {
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .timeline-paso {
+                padding-top: 0;
+                padding-left: 42px;
+                min-width: auto;
+            }
+
+            .timeline-paso::before {
+                top: 0;
+                bottom: -16px;
+                left: 11px;
+                right: auto;
+                width: 3px;
+                height: auto;
+            }
+
+            .timeline-paso:first-child::before,
+            .timeline-paso:last-child::before {
+                left: 11px;
+                right: auto;
+            }
+
+            .timeline-punto {
+                top: 0;
+                left: 0;
+                transform: none;
+            }
+
+            .timeline-contenido {
+                text-align: left;
+            }
+
+            .timeline-detalle {
+                max-width: none;
+                margin: 0;
+            }
+        }
+    </style>
+
 </head>
 
 
@@ -90,6 +309,51 @@ include"includes/navbar.php";
 <main class="contenedor-vuelo-elegido">
 
     <div class="container">
+
+        <?php if ($tipoViaje === "soloIda"): ?>
+            <div class="progreso-reserva mb-5">
+                <div class="progreso-titulo">
+                    <p class="meta-label">Meta</p>
+                    <h2 class="meta-valor">Obtener vuelo</h2>
+                </div>
+
+                <div class="timeline-pasos">
+                    <div class="timeline-paso completado" id="pasoSoloIda1">
+                        <span class="timeline-punto"></span>
+                        <div class="timeline-contenido">
+                            <span class="timeline-etiqueta">Paso 1</span>
+                            <div class="timeline-nombre">Elegir vuelo de ida</div>
+                            <p class="timeline-detalle">
+                                Ya seleccionaste el vuelo que querés reservar.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-paso activo" id="pasoSoloIda2">
+                        <span class="timeline-punto"></span>
+                        <div class="timeline-contenido">
+                            <span class="timeline-etiqueta">Paso 2</span>
+                            <div class="timeline-nombre">Completar la reserva</div>
+                            <p class="timeline-detalle">
+                                Ingresá los datos de los pasajeros y confirmá la reserva.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-paso" id="pasoSoloIda3">
+                        <span class="timeline-punto"></span>
+                        <div class="timeline-contenido">
+                            <span class="timeline-etiqueta">Paso 3</span>
+                            <div class="timeline-nombre">Finalizar en Mis Reservas</div>
+                            <p class="timeline-detalle">
+                                Después de reservar, seguí el link a Mis Reservas para terminar.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <?php endif; ?>
+
 
         <h1 class="titulo-vuelo-elegido">
             Confirmá tu vuelo
@@ -360,7 +624,7 @@ include"includes/navbar.php";
                     style="display: none;"
                 >
 
-                    <?php if ($tipoViaje === "idaVuelta") { ?>
+                    <?php if ($tipoViaje === "idaVuelta" && $tramo === "ida") { ?>
 
                         <a
                             href="resultadosVuelos.php?tipoViaje=idaVuelta&origen=<?php echo urlencode($origen); ?>&destino=<?php echo urlencode($destino); ?>&fechaIda=<?php echo urlencode($fechaIda); ?>&fechaVuelta=<?php echo urlencode($fechaVuelta); ?>#vuelo-vuelta"
@@ -384,7 +648,10 @@ include"includes/navbar.php";
 
                     <p>
                         Selecciona el siguiente link para terminá de pagar tu vuelo en:
-                        <a href="usuario/reservas/gestionReservas.php">
+                        <a
+                            id="linkMisReservas"
+                            href="usuario/reservas/gestionReservas.php"
+                        >
                             Mis Reservas
                         </a>
                     </p>
@@ -466,6 +733,14 @@ function irAlRegistro() {
         "menores",
         menores
     );
+
+    // También conservamos los datos de la búsqueda ida/vuelta.
+    datosFormulario.append("tipoViaje", <?= json_encode($tipoViaje) ?>);
+    datosFormulario.append("origen", <?= json_encode($origen) ?>);
+    datosFormulario.append("destino", <?= json_encode($destino) ?>);
+    datosFormulario.append("fechaIda", <?= json_encode($fechaIda) ?>);
+    datosFormulario.append("fechaVuelta", <?= json_encode($fechaVuelta) ?>);
+    datosFormulario.append("tramo", <?= json_encode($tramo) ?>);
 
     fetch(
         "php/guardarReservaTemporal.php",
@@ -691,6 +966,21 @@ function crearFormulariosPasajeros() {
     }
 
 
+    // No permitimos fechas de nacimiento futuras.
+    const hoy = new Date().toISOString().split("T")[0];
+
+    document.querySelectorAll(
+        'input[name="fechaAdulto[]"], input[name="fechaMenor[]"]'
+    ).forEach(input => {
+        input.max = hoy;
+
+        // Limpiamos un posible error anterior cuando el usuario modifica la fecha.
+        input.addEventListener("input", function () {
+            this.setCustomValidity("");
+        });
+    });
+
+
     document.getElementById("datosPasajeros").style.display =
         "block";
 
@@ -699,12 +989,111 @@ function crearFormulariosPasajeros() {
         "none";
 
 
-    document.getElementById("datosPasajeros")
-        .scrollIntoView({
-            behavior: "smooth"
-        });
+    // Esperamos a que el navegador muestre la sección antes de movernos.
+    setTimeout(() => {
+        document.getElementById("datosPasajeros")
+            .scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+    }, 50);
 }
 
+
+
+
+function calcularEdad(fechaNacimiento) {
+    const hoy = new Date();
+
+    // Agregamos T00:00:00 para evitar desplazamientos por zona horaria.
+    const nacimiento = new Date(fechaNacimiento + "T00:00:00");
+
+    if (Number.isNaN(nacimiento.getTime()) || nacimiento > hoy) {
+        return null;
+    }
+
+    let edad = hoy.getFullYear() - nacimiento.getFullYear();
+
+    const mes = hoy.getMonth() - nacimiento.getMonth();
+
+    if (
+        mes < 0 ||
+        (mes === 0 && hoy.getDate() < nacimiento.getDate())
+    ) {
+        edad--;
+    }
+
+    return edad;
+}
+
+
+function validarEdadesPasajeros() {
+
+    // Adultos: 12 años o más
+    const fechasAdultos =
+        document.querySelectorAll('input[name="fechaAdulto[]"]');
+
+    for (let i = 0; i < fechasAdultos.length; i++) {
+
+        const input = fechasAdultos[i];
+        const edad = calcularEdad(input.value);
+
+        if (edad === null) {
+            input.setCustomValidity(
+                "Ingresá una fecha de nacimiento válida."
+            );
+            input.reportValidity();
+            input.focus();
+            return false;
+        }
+
+        if (edad < 12) {
+            input.setCustomValidity(
+                "Este pasajero tiene " + edad +
+                " años. Debe cargarse como menor."
+            );
+            input.reportValidity();
+            input.focus();
+            return false;
+        }
+
+        input.setCustomValidity("");
+    }
+
+
+    // Menores: menos de 12 años
+    const fechasMenores =
+        document.querySelectorAll('input[name="fechaMenor[]"]');
+
+    for (let i = 0; i < fechasMenores.length; i++) {
+
+        const input = fechasMenores[i];
+        const edad = calcularEdad(input.value);
+
+        if (edad === null) {
+            input.setCustomValidity(
+                "Ingresá una fecha de nacimiento válida."
+            );
+            input.reportValidity();
+            input.focus();
+            return false;
+        }
+
+        if (edad >= 12) {
+            input.setCustomValidity(
+                "Este pasajero tiene " + edad +
+                " años. Debe cargarse como adulto."
+            );
+            input.reportValidity();
+            input.focus();
+            return false;
+        }
+
+        input.setCustomValidity("");
+    }
+
+    return true;
+}
 
 
 function mostrarResumen() {
@@ -714,6 +1103,11 @@ function mostrarResumen() {
 
 
     if (!formulario.reportValidity()) {
+        return;
+    }
+
+    // Verificamos que las fechas coincidan con la categoría elegida.
+    if (!validarEdadesPasajeros()) {
         return;
     }
 
@@ -750,10 +1144,14 @@ function mostrarResumen() {
         .style.display = "block";
 
 
-    document.getElementById("resumenReserva")
-        .scrollIntoView({
-            behavior: "smooth"
-        });
+    // Esperamos a que el resumen quede visible antes de hacer scroll.
+    setTimeout(() => {
+        document.getElementById("resumenReserva")
+            .scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+    }, 50);
 }
 
 function irAlInicioSesion(event) {
@@ -779,6 +1177,13 @@ function irAlInicioSesion(event) {
 
     datosFormulario.append("adultos", adultos);
     datosFormulario.append("menores", menores);
+
+    datosFormulario.append("tipoViaje", <?= json_encode($tipoViaje) ?>);
+    datosFormulario.append("origen", <?= json_encode($origen) ?>);
+    datosFormulario.append("destino", <?= json_encode($destino) ?>);
+    datosFormulario.append("fechaIda", <?= json_encode($fechaIda) ?>);
+    datosFormulario.append("fechaVuelta", <?= json_encode($fechaVuelta) ?>);
+    datosFormulario.append("tramo", <?= json_encode($tramo) ?>);
 
     fetch(
         "php/guardarReservaTemporal.php",
@@ -1020,6 +1425,14 @@ function reservar() {
         menores
     );
 
+    // También conservamos los datos de la búsqueda ida/vuelta.
+    datosFormulario.append("tipoViaje", <?= json_encode($tipoViaje) ?>);
+    datosFormulario.append("origen", <?= json_encode($origen) ?>);
+    datosFormulario.append("destino", <?= json_encode($destino) ?>);
+    datosFormulario.append("fechaIda", <?= json_encode($fechaIda) ?>);
+    datosFormulario.append("fechaVuelta", <?= json_encode($fechaVuelta) ?>);
+    datosFormulario.append("tramo", <?= json_encode($tramo) ?>);
+
 
     // Primero guardamos los datos en la sesión
     fetch(
@@ -1068,6 +1481,16 @@ function reservar() {
 
             if (datos.ok) {
 
+                const linkMisReservas =
+                    document.getElementById("linkMisReservas");
+
+                if (linkMisReservas && datos.codReserva) {
+                    linkMisReservas.href =
+                        "usuario/reservas/gestionReservas.php" +
+                        "?desdeReserva=1" +
+                        "&reserva=" + encodeURIComponent(datos.codReserva);
+                }
+
                 const boton =
                     document.getElementById("btnReservar");
 
@@ -1077,6 +1500,20 @@ function reservar() {
 
                 document.getElementById("mensajeReserva")
                     .style.display = "block";
+
+                const paso1 = document.getElementById("pasoSoloIda1");
+                const paso2 = document.getElementById("pasoSoloIda2");
+                const paso3 = document.getElementById("pasoSoloIda3");
+
+                if (paso1 && paso2 && paso3) {
+                    paso1.classList.add("completado");
+                    paso1.classList.remove("activo");
+
+                    paso2.classList.add("completado");
+                    paso2.classList.remove("activo");
+
+                    paso3.classList.add("activo");
+                }
 
 
                 // REINICIAR DATOS DE PASAJEROS
@@ -1098,13 +1535,16 @@ function reservar() {
                 ).style.display = "none";
 
 
-                // Volver arriba al selector de pasajeros
-
-                document.getElementById(
-                    "seleccionPasajeros"
-                ).scrollIntoView({
-                    behavior: "smooth"
-                });
+                // Una vez que se ocultaron los formularios y el contenido
+                // terminó de acomodarse, llevamos al usuario al mensaje final.
+                setTimeout(() => {
+                    document.getElementById(
+                        "resumenReserva"
+                    ).scrollIntoView({
+                        behavior: "smooth",
+                        block: "center"
+                    });
+                }, 100);
 
             } else {
                 alert("No se pudo completar la reserva: " + datos.mensaje);
