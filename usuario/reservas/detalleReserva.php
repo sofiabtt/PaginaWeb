@@ -2,8 +2,6 @@
 
 require "../includes/protegerUsuario.php";
 
-<?php
-
 require "../includes/protegerUsuario.php";
 include "../../php/consultasReservas.php";
 

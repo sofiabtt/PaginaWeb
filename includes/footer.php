@@ -25,9 +25,9 @@ $paginaActual = basename($_SERVER["PHP_SELF"]);
                     <li><a href="/PaginaWeb/usuario/perfil.php">Mi perfil</a></li>
                     <li><a href="/PaginaWeb/php/cerrarSesion.php">Cerrar sesión</a></li>
                 <?php } else { ?>
-                    <li><a href="inicioSesion.php">Iniciar sesión</a></li>
-                    <li><a href="registroDatosPersonales.php">Registrarse</a></li>
-                    <li><a href="/PaginaWeb/recuperarContrasena.php">Recuperar contraseña</a></li> 
+                    <li><a href="/PaginaWeb/usuarioNOregistrado/inicioSesion.php">Iniciar sesión</a></li>
+                    <li><a href="/PaginaWeb/usuarioNOregistrado/registroDatosPersonales.php">Registrarse</a></li>
+                    <li><a href="/PaginaWeb/usuarioNOregistrado/enviarRecuperacion.php">Recuperar contraseña</a></li> 
                 <?php } ?>
                 
                 <?php if($tipoUsuario === "usuario") { ?>
@@ -55,18 +55,12 @@ $paginaActual = basename($_SERVER["PHP_SELF"]);
                     <div class="row">
                         <div class="col-6">
                             <ul>
-                                <li><a href="#">Inicio</a></li>
-                                <li><a href="#">Buscar vuelos</a></li>
+                                <li><a href="/PaginaWeb/index.php">Inicio</a></li>
+                                <li><a href="/PaginaWeb/usuarioNOregistrado/buscarVuelos.php">Buscar vuelos</a></li>
                                 <li><a href="#">Promociones vigentes</a></li>
-                                <li><a href="#">Novedades</a></li>
+                                <li><a href="/PaginaWeb/usuarioNOregistrado/novedades.php">Novedades</a></li>
                             </ul>
-                        </div>
-                        <div class="col-6">
-                            <ul>
-                                <li><a href="inicioSesion.php">Iniciar sesión</a></li>
-                                <li><a href="registroDatosPersonales.php">Registrarse</a></li>
-                            </ul>
-                        </div>
+                        
                     </div>
                 <?php } ?>
 
@@ -74,7 +68,7 @@ $paginaActual = basename($_SERVER["PHP_SELF"]);
                     <div class="row">
                         <div class="col-6">
                             <ul>
-                                <li><a href="#">Inicio</a></li>
+                                <li><a href="/PaginaWeb/usuario/usuario.php">Inicio</a></li>">Inicio</a></li>
                                 <li><a href="/PaginaWeb/usuario/vuelos/buscarVuelos.php">Buscar Vuelos</a></li>
                                 <li><a href="#">Promociones vigentes</a></li>
                                 <li><a href="/PaginaWeb/usuario/novedades.php">Novedades</a></li>
@@ -94,15 +88,15 @@ $paginaActual = basename($_SERVER["PHP_SELF"]);
                     <div class="row">
                         <div class="col-6">
                             <ul>
-                                <li><a href="#">Inicio</a></li>
-                                <li><a href="#">Gestión de aerolíneas</a></li>
-                                <li><a href="#">Gestión de novedades</a></li>
+                                <li><a href="/PaginaWeb/admin/admin.php">Inicio</a></li>
+                                <li><a href="/PaginaWeb/admin/aerolineas/gestionAerolineas.php">Gestión de aerolíneas</a></li>
+                                <li><a href="/PaginaWeb/admin/novedades/gestionNovedades.php">Gestión de novedades</a></li>
                             </ul>
                         </div>
                         <div class="col-6">
                             <ul>
-                                <li><a href="#">Aprobar promociones</a></li>
-                                <li><a href="#">Reportes</a></li>
+                                <li><a href="/PaginaWeb/admin/promociones/gestionPromocion.php">Aprobar promociones</a></li>
+                                <li><a href="/PaginaWeb/admin/reportes.php">Reportes</a></li>
                             </ul>
                         </div>
                     </div>
@@ -110,9 +104,9 @@ $paginaActual = basename($_SERVER["PHP_SELF"]);
 
                 <?php if($tipoUsuario === "ceo") { ?>
                     <ul>
-                        <li><a href="#">Inicio</a></li>
-                        <li><a href="#">Gestión de vuelos</a></li>
-                        <li><a href="#">Gestión de promociones</a></li>
+                        <li><a href="/PaginaWeb/ceo/ceo.php">Inicio</a></li>
+                        <li><a href="/PaginaWeb/ceo/vuelos/gestionVuelos.php">Gestión de vuelos</a></li>
+                        <li><a href="/PaginaWeb/ceo/promociones/gestionPromocion.php">Gestión de promociones</a></li>
                         <li><a href="#">Reportes</a></li>
                     </ul>
                 <?php } ?>
