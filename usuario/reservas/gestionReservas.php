@@ -14,6 +14,19 @@ $reservaDestacada =
     ? (int) $_GET["reserva"]
     : 0;
 
+$tipoViajeProceso =
+    $_GET["tipoViaje"]
+    ?? "soloIda";
+
+$tramoProceso =
+    $_GET["tramo"]
+    ?? "";
+
+$reservaIda =
+    isset($_GET["reservaIda"])
+    ? (int) $_GET["reservaIda"]
+    : 0;
+
 $resultado = obtenerReservasUsuario($conexion, $codUsuario);
 
 $cantidadReservas = $resultado->num_rows;
@@ -24,26 +37,90 @@ while ($filaReserva = $resultado->fetch_assoc()) {
     $reservas[] = $filaReserva;
 }
 
-// Si venimos directamente de reservar, ponemos esa reserva primero
-// para que se vea junto con la línea de progreso.
+$idaConfirmada = false;
+$vueltaConfirmada = false;
+
+if ($tipoViajeProceso === "idaVuelta") {
+
+    foreach ($reservas as $reservaProceso) {
+
+        $codigoProceso =
+            (int) $reservaProceso["codReserva"];
+
+        if (
+            $reservaIda > 0
+            && $codigoProceso === $reservaIda
+            && $reservaProceso["estadoReserva"] === "confirmada"
+        ) {
+            $idaConfirmada = true;
+        }
+
+        if (
+            $reservaDestacada > 0
+            && $codigoProceso === $reservaDestacada
+            && $reservaProceso["estadoReserva"] === "confirmada"
+        ) {
+            $vueltaConfirmada = true;
+        }
+    }
+}
+
+$viajeIdaVueltaFinalizado =
+    $tipoViajeProceso === "idaVuelta"
+    && $idaConfirmada
+    && $vueltaConfirmada;
+
+// Si venimos directamente de reservar, ponemos primero
+// las reservas que forman parte del recorrido actual.
 if ($desdeReserva && $reservaDestacada > 0) {
 
     usort(
         $reservas,
-        function ($a, $b) use ($reservaDestacada) {
+        function ($a, $b) use (
+            $reservaDestacada,
+            $reservaIda,
+            $tipoViajeProceso
+        ) {
 
-            $aEsDestacada =
-                (int) $a["codReserva"] === $reservaDestacada;
+            $ordenDestacadas = [];
 
-            $bEsDestacada =
-                (int) $b["codReserva"] === $reservaDestacada;
+            if (
+                $tipoViajeProceso === "idaVuelta"
+                && $reservaIda > 0
+            ) {
+                $ordenDestacadas[] = $reservaIda;
+            }
 
-            if ($aEsDestacada && !$bEsDestacada) {
+            $ordenDestacadas[] = $reservaDestacada;
+
+            $codA = (int) $a["codReserva"];
+            $codB = (int) $b["codReserva"];
+
+            $posA = array_search(
+                $codA,
+                $ordenDestacadas,
+                true
+            );
+
+            $posB = array_search(
+                $codB,
+                $ordenDestacadas,
+                true
+            );
+
+            $aDestacada = $posA !== false;
+            $bDestacada = $posB !== false;
+
+            if ($aDestacada && !$bDestacada) {
                 return -1;
             }
 
-            if (!$aEsDestacada && $bEsDestacada) {
+            if (!$aDestacada && $bDestacada) {
                 return 1;
+            }
+
+            if ($aDestacada && $bDestacada) {
+                return $posA <=> $posB;
             }
 
             return 0;
@@ -60,51 +137,125 @@ if ($desdeReserva && $reservaDestacada > 0) {
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/bootstrap-icons.css">
     <link rel="stylesheet" href="../../css/estilos-usuario.css">
-    <link rel="stylesheet" href="../../css/progresoReserva.css">
+    <link rel="stylesheet" href="../../css/progresoReserva.css?v=4">
 
     <link rel="stylesheet" href="../../css/navbar.css">
 </head>
 <body>
     <?php include ("../../includes/navbar.php"); ?>
     <main class="contenido-admin gestion-reservas">
-
         <?php if ($desdeReserva && $reservaDestacada > 0) { ?>
-            <section class="progreso-reserva">
-                <div class="progreso-titulo">
-                    <h2 class="meta-valor">Obtener vuelo</h2>
-                </div>
 
-                <div class="timeline-pasos">
-                    <div class="timeline-paso completado">
-                        <span class="timeline-punto"></span>
-                        <div class="timeline-contenido">
-                            <span class="timeline-etiqueta">Paso 1</span>
-                            <div class="timeline-nombre">Elegir vuelo de ida</div>
-                            <p class="timeline-detalle">Vuelo seleccionado.</p>
-                        </div>
+            <?php if ($tipoViajeProceso === "idaVuelta") { ?>
+
+                <section class="progreso-reserva progreso-ida-vuelta">
+                    <div class="progreso-titulo">
+                        <h2 class="meta-valor">Obtener vuelo</h2>
                     </div>
 
-                    <div class="timeline-paso completado">
-                        <span class="timeline-punto"></span>
-                        <div class="timeline-contenido">
-                            <span class="timeline-etiqueta">Paso 2</span>
-                            <div class="timeline-nombre">Completar la reserva</div>
-                            <p class="timeline-detalle">Datos cargados y reserva creada.</p>
+                    <div class="timeline-pasos cinco-pasos">
+
+                        <div class="timeline-paso completado">
+                            <span class="timeline-punto"></span>
+                            <div class="timeline-contenido">
+                                <span class="timeline-etiqueta">Paso 1</span>
+                                <div class="timeline-nombre">Elegir vuelo de ida</div>
+                                <p class="timeline-detalle">Vuelo de ida seleccionado.</p>
+                            </div>
                         </div>
+
+                        <div class="timeline-paso completado">
+                            <span class="timeline-punto"></span>
+                            <div class="timeline-contenido">
+                                <span class="timeline-etiqueta">Paso 2</span>
+                                <div class="timeline-nombre">Completar reserva de ida</div>
+                                <p class="timeline-detalle">Reserva de ida creada.</p>
+                            </div>
+                        </div>
+
+                        <div class="timeline-paso <?php echo $tramoProceso === 'vuelta' ? 'completado' : 'activo'; ?>">
+                            <span class="timeline-punto"></span>
+                            <div class="timeline-contenido">
+                                <span class="timeline-etiqueta">Paso 3</span>
+                                <div class="timeline-nombre">Elegir vuelo de vuelta</div>
+                                <p class="timeline-detalle">Seleccioná el vuelo de regreso.</p>
+                            </div>
+                        </div>
+
+                        <div class="timeline-paso <?php echo $tramoProceso === 'vuelta' ? 'completado' : ''; ?>">
+                            <span class="timeline-punto"></span>
+                            <div class="timeline-contenido">
+                                <span class="timeline-etiqueta">Paso 4</span>
+                                <div class="timeline-nombre">Completar reserva de vuelta</div>
+                                <p class="timeline-detalle">Reserva de vuelta creada.</p>
+                            </div>
+                        </div>
+
+                        <div
+                            class="timeline-paso <?php
+                                echo $viajeIdaVueltaFinalizado
+                                    ? 'completado'
+                                    : 'activo';
+                            ?>"
+                        >
+                            <span class="timeline-punto"></span>
+                            <div class="timeline-contenido">
+                                <span class="timeline-etiqueta">Paso 5</span>
+                                <div class="timeline-nombre">Finalizar en Mis Reservas</div>
+                                <p class="timeline-detalle">
+                                    <?php if ($viajeIdaVueltaFinalizado) { ?>
+                                        Ida y vuelta confirmadas. Viaje completado.
+                                    <?php } else { ?>
+                                        Confirmá la ida y la vuelta para completar el viaje.
+                                    <?php } ?>
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+
+            <?php } else { ?>
+
+                <section class="progreso-reserva">
+                    <div class="progreso-titulo">
+                        <h2 class="meta-valor">Obtener vuelo</h2>
                     </div>
 
-                    <div class="timeline-paso activo">
-                        <span class="timeline-punto"></span>
-                        <div class="timeline-contenido">
-                            <span class="timeline-etiqueta">Paso 3</span>
-                            <div class="timeline-nombre">Finalizar en Mis Reservas</div>
-                            <p class="timeline-detalle">
-                                Confirmá la reserva destacada para completar el proceso.
-                            </p>
+                    <div class="timeline-pasos">
+                        <div class="timeline-paso completado">
+                            <span class="timeline-punto"></span>
+                            <div class="timeline-contenido">
+                                <span class="timeline-etiqueta">Paso 1</span>
+                                <div class="timeline-nombre">Elegir vuelo de ida</div>
+                                <p class="timeline-detalle">Vuelo seleccionado.</p>
+                            </div>
+                        </div>
+
+                        <div class="timeline-paso completado">
+                            <span class="timeline-punto"></span>
+                            <div class="timeline-contenido">
+                                <span class="timeline-etiqueta">Paso 2</span>
+                                <div class="timeline-nombre">Completar la reserva</div>
+                                <p class="timeline-detalle">Datos cargados y reserva creada.</p>
+                            </div>
+                        </div>
+
+                        <div class="timeline-paso activo">
+                            <span class="timeline-punto"></span>
+                            <div class="timeline-contenido">
+                                <span class="timeline-etiqueta">Paso 3</span>
+                                <div class="timeline-nombre">Finalizar en Mis Reservas</div>
+                                <p class="timeline-detalle">
+                                    Confirmá la reserva destacada para completar el proceso.
+                                </p>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </section>
+                </section>
+
+            <?php } ?>
+
         <?php } ?>
 
         <section class="encabezado-contenido"><div><h1>Mis reservas</h1><p>Consultá, confirmá o cancelá tus reservas.</p></div></section>
@@ -149,10 +300,23 @@ if ($desdeReserva && $reservaDestacada > 0) {
                     <?php foreach ($reservas as $reserva) { ?>
 
                         <?php
-                            $esReservaDestacada =
+                            $codReservaActual =
+                                (int) $reserva["codReserva"];
+
+                            $esReservaIda =
+                                $desdeReserva
+                                && $tipoViajeProceso === "idaVuelta"
+                                && $reservaIda > 0
+                                && $codReservaActual === $reservaIda;
+
+                            $esReservaVuelta =
                                 $desdeReserva
                                 && $reservaDestacada > 0
-                                && (int) $reserva["codReserva"] === $reservaDestacada;
+                                && $codReservaActual === $reservaDestacada;
+
+                            $esReservaDestacada =
+                                $esReservaIda
+                                || $esReservaVuelta;
                         ?>
 
                         <tr
@@ -170,7 +334,15 @@ if ($desdeReserva && $reservaDestacada > 0) {
                                 <?php if ($esReservaDestacada) { ?>
                                     <br>
                                     <span class="marca-reserva-nueva">
-                                        Recién reservada
+                                        <?php
+                                            if ($esReservaIda && $tipoViajeProceso === "idaVuelta") {
+                                                echo "Ida recién reservada";
+                                            } elseif ($esReservaVuelta && $tipoViajeProceso === "idaVuelta") {
+                                                echo "Vuelta recién reservada";
+                                            } else {
+                                                echo "Recién reservada";
+                                            }
+                                        ?>
                                     </span>
                                 <?php } ?>
                             </td>
@@ -285,6 +457,45 @@ if ($desdeReserva && $reservaDestacada > 0) {
                                                 echo (int) $reserva["codReserva"];
                                                 ?>"
                                             >
+
+                                            <?php if (
+                                                $desdeReserva
+                                                && $tipoViajeProceso === "idaVuelta"
+                                                && $reservaIda > 0
+                                                && $reservaDestacada > 0
+                                            ) { ?>
+
+                                                <input
+                                                    type="hidden"
+                                                    name="desdeReserva"
+                                                    value="1"
+                                                >
+
+                                                <input
+                                                    type="hidden"
+                                                    name="tipoViaje"
+                                                    value="idaVuelta"
+                                                >
+
+                                                <input
+                                                    type="hidden"
+                                                    name="tramo"
+                                                    value="vuelta"
+                                                >
+
+                                                <input
+                                                    type="hidden"
+                                                    name="reservaIda"
+                                                    value="<?php echo $reservaIda; ?>"
+                                                >
+
+                                                <input
+                                                    type="hidden"
+                                                    name="reserva"
+                                                    value="<?php echo $reservaDestacada; ?>"
+                                                >
+
+                                            <?php } ?>
 
                                             <button
                                                 class="btn btn-sm btn-success"

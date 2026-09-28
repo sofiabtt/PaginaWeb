@@ -76,19 +76,21 @@
             z-index: 2;
         }
 
-        .timeline-paso.completado::before,
-        .timeline-paso.activo::before {
+        .timeline-paso.completado::before {
             background: #9c673e;
         }
 
-        .timeline-paso.completado .timeline-punto,
-        .timeline-paso.activo .timeline-punto {
+        .timeline-paso.completado .timeline-punto {
             border-color: #9c673e;
             background: #9c673e;
         }
 
+        /* El paso actual NO se pinta como completado:
+           queda gris y con una marca alrededor */
         .timeline-paso.activo .timeline-punto {
-            box-shadow: 0 0 0 6px rgba(156, 103, 62, 0.15);
+            border-color: #9b9b9b;
+            background: #d3d3d3;
+            box-shadow: 0 0 0 6px rgba(120, 120, 120, 0.16);
         }
 
         .timeline-contenido {
@@ -243,8 +245,12 @@
             left: 0;
             right: 0;
             height: 3px;
-            background: #9c673e;
+            background: #d9d5d0;
             z-index: 1;
+        }
+
+        .timeline-paso.completado::before {
+            background: #9c673e;
         }
 
         .timeline-paso:first-child::before {
@@ -263,13 +269,20 @@
             height: 24px;
             border-radius: 50%;
             transform: translateX(-50%);
-            border: 3px solid #9c673e;
-            background: #9c673e;
+            background: #ffffff;
+            border: 3px solid #c7b8ab;
             z-index: 2;
         }
 
+        .timeline-paso.completado .timeline-punto {
+            border-color: #9c673e;
+            background: #9c673e;
+        }
+
         .timeline-paso.activo .timeline-punto {
-            box-shadow: 0 0 0 6px rgba(156, 103, 62, 0.15);
+            border-color: #9b9b9b;
+            background: #d3d3d3;
+            box-shadow: 0 0 0 6px rgba(120, 120, 120, 0.16);
         }
 
         /* Reserva que se acaba de crear */
@@ -356,4 +369,91 @@
 .gestion-reservas .encabezado-contenido {
     margin-top: -15px;
     margin-bottom: 8px;
+}
+
+
+/* =====================================================
+   PROGRESO PARA VIAJES DE IDA Y VUELTA
+   ===================================================== */
+
+.timeline-pasos.cinco-pasos {
+    gap: 10px;
+    flex-wrap: nowrap;
+}
+
+.timeline-pasos.cinco-pasos .timeline-paso {
+    flex: 1 1 0;
+    min-width: 0;
+}
+
+.timeline-pasos.cinco-pasos .timeline-nombre {
+    font-size: 0.92rem;
+}
+
+.timeline-pasos.cinco-pasos .timeline-detalle {
+    font-size: 0.82rem;
+    max-width: 175px;
+}
+
+@media (max-width: 1050px) {
+    .timeline-pasos.cinco-pasos {
+        flex-wrap: wrap;
+    }
+
+    .timeline-pasos.cinco-pasos .timeline-paso {
+        flex: 1 1 180px;
+        min-width: 170px;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .timeline-pasos.cinco-pasos {
+        flex-direction: column;
+        flex-wrap: nowrap;
+        gap: 16px;
+    }
+
+    .timeline-pasos.cinco-pasos .timeline-paso {
+        min-width: auto;
+    }
+}
+
+
+/* =====================================================
+   ESTADOS VISUALES - REGLAS FINALES
+   Solo COMPLETADO = marrón
+   ACTIVO = gris marcado
+   PENDIENTE = blanco/gris
+   ===================================================== */
+
+.progreso-reserva .timeline-paso::before {
+    background: #d9d5d0 !important;
+}
+
+.progreso-reserva .timeline-paso .timeline-punto {
+    background: #ffffff !important;
+    border-color: #c7b8ab !important;
+    box-shadow: none !important;
+}
+
+/* Paso ya realizado */
+.progreso-reserva .timeline-paso.completado::before {
+    background: #9c673e !important;
+}
+
+.progreso-reserva .timeline-paso.completado .timeline-punto {
+    background: #9c673e !important;
+    border-color: #9c673e !important;
+    box-shadow: none !important;
+}
+
+/* Paso en el que está parado el usuario */
+.progreso-reserva .timeline-paso.activo::before {
+    background: #d9d5d0 !important;
+}
+
+.progreso-reserva .timeline-paso.activo .timeline-punto {
+    background: #d3d3d3 !important;
+    border-color: #8f8f8f !important;
+    box-shadow: 0 0 0 6px rgba(120, 120, 120, 0.18) !important;
 }

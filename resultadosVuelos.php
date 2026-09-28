@@ -6,6 +6,18 @@ include "php/conexionBD.php";
 
 include "php/filtrosVuelos.php";
 
+$etapa = $_GET["etapa"] ?? "";
+
+$reservaIda =
+    isset($_GET["reservaIda"])
+    ? (int) $_GET["reservaIda"]
+    : 0;
+
+$seleccionandoVuelta =
+    $tipoViaje === "idaVuelta"
+    && $etapa === "vuelta"
+    && $reservaIda > 0;
+
 ?>
 
 <!DOCTYPE html>
@@ -30,179 +42,7 @@ include "php/filtrosVuelos.php";
     <link rel="stylesheet" href="css/estilos-usuario.css?v=2">
     <link rel="stylesheet" href="css/footer.css">
     <link rel="stylesheet" href="css/navbar.css">
-
-
-    <style>
-        .progreso-reserva {
-            background: #f8f6f3;
-            border: 1px solid rgba(122, 74, 46, 0.12);
-            border-radius: 22px;
-            padding: 24px 28px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
-        }
-
-        .progreso-titulo {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: baseline;
-            gap: 10px;
-            margin-bottom: 22px;
-        }
-
-        .progreso-titulo .meta-label {
-            font-size: 0.95rem;
-            font-weight: 700;
-            color: #7a4a2e;
-            text-transform: uppercase;
-            letter-spacing: 0.04em;
-            margin: 0;
-        }
-
-        .progreso-titulo .meta-valor {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #2f2f2f;
-            margin: 0;
-        }
-
-        .timeline-pasos {
-            display: flex;
-            justify-content: space-between;
-            gap: 18px;
-            flex-wrap: wrap;
-        }
-
-        .timeline-paso {
-            flex: 1 1 220px;
-            min-width: 200px;
-            position: relative;
-            padding-top: 26px;
-        }
-
-        .timeline-paso::before {
-            content: "";
-            position: absolute;
-            top: 11px;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: #d9d5d0;
-            z-index: 1;
-        }
-
-        .timeline-paso:last-child::before {
-            right: 50%;
-        }
-
-        .timeline-paso:first-child::before {
-            left: 50%;
-        }
-
-        .timeline-punto {
-            position: absolute;
-            top: 0;
-            left: 50%;
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            transform: translateX(-50%);
-            background: #ffffff;
-            border: 3px solid #c7b8ab;
-            z-index: 2;
-        }
-
-        .timeline-paso.completado::before,
-        .timeline-paso.activo::before {
-            background: #9c673e;
-        }
-
-        .timeline-paso.completado .timeline-punto,
-        .timeline-paso.activo .timeline-punto {
-            border-color: #9c673e;
-            background: #9c673e;
-        }
-
-        .timeline-paso.activo .timeline-punto {
-            box-shadow: 0 0 0 6px rgba(156, 103, 62, 0.15);
-        }
-
-        .timeline-contenido {
-            text-align: center;
-        }
-
-        .timeline-etiqueta {
-            display: inline-block;
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: #7a4a2e;
-            text-transform: uppercase;
-            letter-spacing: 0.04em;
-            margin-bottom: 6px;
-        }
-
-        .timeline-nombre {
-            font-size: 1rem;
-            font-weight: 700;
-            color: #2f2f2f;
-            margin-bottom: 4px;
-        }
-
-        .timeline-detalle {
-            font-size: 0.92rem;
-            color: #6f6f6f;
-            line-height: 1.4;
-            margin: 0 auto;
-            max-width: 220px;
-        }
-
-        @media (max-width: 767.98px) {
-            .progreso-reserva {
-                padding: 20px;
-            }
-
-            .timeline-pasos {
-                flex-direction: column;
-                gap: 16px;
-            }
-
-            .timeline-paso {
-                padding-top: 0;
-                padding-left: 42px;
-                min-width: auto;
-            }
-
-            .timeline-paso::before {
-                top: 0;
-                bottom: -16px;
-                left: 11px;
-                right: auto;
-                width: 3px;
-                height: auto;
-            }
-
-            .timeline-paso:first-child::before,
-            .timeline-paso:last-child::before {
-                left: 11px;
-                right: auto;
-            }
-
-            .timeline-punto {
-                top: 0;
-                left: 0;
-                transform: none;
-            }
-
-            .timeline-contenido {
-                text-align: left;
-            }
-
-            .timeline-detalle {
-                max-width: none;
-                margin: 0;
-            }
-        }
-    </style>
-
+    <link rel="stylesheet" href="css/progresoReserva.css?v=4">
 </head>
 
 <body>
@@ -212,12 +52,11 @@ include "php/filtrosVuelos.php";
 <main class="contenido-resultados">
 
 
-    <div class="container-fluid px-4 pt-5">
-
+    <div class="container-fluid px-4 pt-2">
         <?php if ($tipoViaje === "soloIda"): ?>
+
             <div class="progreso-reserva mb-5">
                 <div class="progreso-titulo">
-
                     <h2 class="meta-valor">Obtener vuelo</h2>
                 </div>
 
@@ -256,6 +95,74 @@ include "php/filtrosVuelos.php";
                     </div>
                 </div>
             </div>
+
+        <?php elseif ($tipoViaje === "idaVuelta"): ?>
+
+            <div class="progreso-reserva progreso-ida-vuelta mb-5">
+                <div class="progreso-titulo">
+                    <h2 class="meta-valor">Obtener vuelo</h2>
+                </div>
+
+                <div class="timeline-pasos cinco-pasos">
+
+                    <div class="timeline-paso <?php echo $seleccionandoVuelta ? 'completado' : 'activo'; ?>">
+                        <span class="timeline-punto"></span>
+                        <div class="timeline-contenido">
+                            <span class="timeline-etiqueta">Paso 1</span>
+                            <div class="timeline-nombre">Elegir vuelo de ida</div>
+                            <p class="timeline-detalle">
+                                Seleccioná el vuelo de ida.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-paso <?php echo $seleccionandoVuelta ? 'completado' : ''; ?>">
+                        <span class="timeline-punto"></span>
+                        <div class="timeline-contenido">
+                            <span class="timeline-etiqueta">Paso 2</span>
+                            <div class="timeline-nombre">Completar reserva de ida</div>
+                            <p class="timeline-detalle">
+                                Cargá los pasajeros y reservá la ida.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-paso <?php echo $seleccionandoVuelta ? 'activo' : ''; ?>">
+                        <span class="timeline-punto"></span>
+                        <div class="timeline-contenido">
+                            <span class="timeline-etiqueta">Paso 3</span>
+                            <div class="timeline-nombre">Elegir vuelo de vuelta</div>
+                            <p class="timeline-detalle">
+                                Seleccioná el vuelo de regreso.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-paso">
+                        <span class="timeline-punto"></span>
+                        <div class="timeline-contenido">
+                            <span class="timeline-etiqueta">Paso 4</span>
+                            <div class="timeline-nombre">Completar reserva de vuelta</div>
+                            <p class="timeline-detalle">
+                                Cargá los pasajeros y reservá la vuelta.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-paso">
+                        <span class="timeline-punto"></span>
+                        <div class="timeline-contenido">
+                            <span class="timeline-etiqueta">Paso 5</span>
+                            <div class="timeline-nombre">Finalizar en Mis Reservas</div>
+                            <p class="timeline-detalle">
+                                Confirmá las reservas para completar el viaje.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
         <?php endif; ?>
 
 
@@ -497,7 +404,23 @@ include "php/filtrosVuelos.php";
                                     $fechaVuelta
                                 );
 
-                                ?>"
+                                ?>
+
+                            <?php if ($etapa !== ""): ?>
+                                <input
+                                    type="hidden"
+                                    name="etapa"
+                                    value="<?php echo htmlspecialchars($etapa); ?>"
+                                >
+                            <?php endif; ?>
+
+                            <?php if ($reservaIda > 0): ?>
+                                <input
+                                    type="hidden"
+                                    name="reservaIda"
+                                    value="<?php echo $reservaIda; ?>"
+                                >
+                            <?php endif; ?>"
                             >
 
 
@@ -1657,7 +1580,7 @@ include "php/filtrosVuelos.php";
 
 
                                                     <a
-                                                        href="vueloElegido.php?codVuelo=<?php echo $vuelo['codVuelo']; ?>&tramo=vuelta&tipoViaje=<?php echo urlencode($tipoViaje); ?>&origen=<?php echo urlencode($origen); ?>&destino=<?php echo urlencode($destino); ?>&fechaIda=<?php echo urlencode($fechaIda); ?>&fechaVuelta=<?php echo urlencode($fechaVuelta); ?>"
+                                                        href="vueloElegido.php?codVuelo=<?php echo $vuelo['codVuelo']; ?>&tramo=vuelta&tipoViaje=<?php echo urlencode($tipoViaje); ?>&origen=<?php echo urlencode($origen); ?>&destino=<?php echo urlencode($destino); ?>&fechaIda=<?php echo urlencode($fechaIda); ?>&fechaVuelta=<?php echo urlencode($fechaVuelta); ?>&etapa=vuelta&reservaIda=<?php echo $reservaIda; ?>"
                                                         class="btn btn-nuvia"
                                                     >
                                                         Elegir vuelo
