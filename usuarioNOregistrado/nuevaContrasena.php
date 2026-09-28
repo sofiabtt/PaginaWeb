@@ -108,125 +108,12 @@ if (
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/estiloshome.css">
     <link rel="stylesheet" href="../css/estilosRecuperacion.css">
-
+    <link rel="stylesheet" href="../css/navbar.css">
     <link
         rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
     >
 
-    <style>
-
-        .contenedor-nueva-contrasena {
-            min-height: 100vh;
-            background: #dff6fb;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 70px 20px 50px;
-        }
-
-        .tarjeta-nueva-contrasena {
-            width: 100%;
-            max-width: 440px;
-            background: white;
-            border-radius: 18px;
-            padding: 36px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
-        }
-
-        .tarjeta-nueva-contrasena h1 {
-            margin: 0 0 28px;
-            font-size: 30px;
-            font-weight: 600;
-            color: #222;
-        }
-
-        .campo-nueva-contrasena {
-            margin-bottom: 20px;
-        }
-
-        .campo-nueva-contrasena label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #333;
-        }
-
-        .grupo-contrasena {
-            display: flex;
-            width: 100%;
-        }
-
-        .grupo-contrasena input {
-            flex: 1;
-            min-width: 0;
-            height: 48px;
-            padding: 0 14px;
-            border: 1px solid #ced4da;
-            border-right: none;
-            border-radius: 9px 0 0 9px;
-            font-size: 15px;
-            outline: none;
-        }
-
-        .grupo-contrasena input:focus {
-            border-color: #7a482b;
-            box-shadow: 0 0 0 3px rgba(122, 72, 43, 0.10);
-        }
-
-        .boton-ojo-recuperacion {
-            width: 58px;
-            min-width: 58px;
-            height: 48px;
-
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
-            background: white;
-            color: #222;
-
-            border: 1px solid #ced4da;
-            border-radius: 0 9px 9px 0;
-
-            font-size: 20px;
-            cursor: pointer;
-        }
-
-        .boton-ojo-recuperacion:hover {
-            background: #f1f1f1;
-        }
-
-        .boton-cambiar-contrasena {
-            width: 100%;
-            margin-top: 4px;
-            padding: 13px;
-
-            border: none;
-            border-radius: 9px;
-
-            background: #7a482b;
-            color: white;
-
-            font-size: 16px;
-            font-weight: 600;
-
-            cursor: pointer;
-        }
-
-        .boton-cambiar-contrasena:hover {
-            background: #653a23;
-        }
-
-        .mensaje-error-recuperacion {
-            padding: 12px 14px;
-            margin-bottom: 20px;
-            border-radius: 9px;
-            background: #fdeaea;
-            color: #9b2c2c;
-        }
-
-    </style>
 
 </head>
 
