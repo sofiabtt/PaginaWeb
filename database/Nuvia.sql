@@ -278,7 +278,7 @@ CREATE TABLE `Reservas` (
 
     `fechaReserva` varchar(10) NOT NULL,
 
-    `estadoReserva` varchar(20) NOT NULL DEFAULT 'PendienteDePago',
+    `estadoReserva` varchar(20) NOT NULL DEFAULT 'pendiente de pago',
 
     `precioFinalReserva` decimal(10,2) NOT NULL DEFAULT 0,
 
@@ -293,6 +293,34 @@ CREATE TABLE `Reservas` (
     CONSTRAINT `fk_reservas_vuelo`
         FOREIGN KEY (`codVuelo`)
         REFERENCES `Vuelos` (`codVuelo`)
+
+) ENGINE=InnoDB
+  DEFAULT CHARSET=utf8mb4
+  COLLATE=utf8mb4_general_ci;
+
+
+-- =====================================================
+-- TABLA: PreferenciasPago
+-- Medio de pago que el usuario eligió recordar.
+-- =====================================================
+
+CREATE TABLE `PreferenciasPago` (
+
+    `codUsuario` int(11) NOT NULL,
+
+    `medioPago` varchar(30) NOT NULL,
+
+    `entidadPago` varchar(30) DEFAULT NULL,
+
+    `datoPago` varchar(100) DEFAULT NULL,
+
+    `ultimosDigitos` char(4) DEFAULT NULL,
+
+    PRIMARY KEY (`codUsuario`),
+
+    CONSTRAINT `fk_preferencias_usuario`
+        FOREIGN KEY (`codUsuario`)
+        REFERENCES `Usuarios` (`codUsuario`)
 
 ) ENGINE=InnoDB
   DEFAULT CHARSET=utf8mb4

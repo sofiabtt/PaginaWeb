@@ -445,66 +445,29 @@ if ($desdeReserva && $reservaDestacada > 0) {
 
                                         <!-- CONFIRMAR -->
 
-                                        <form
-                                            method="POST"
-                                            action="confirmarReserva.php"
-                                        >
+                                        <?php
+                                        $paramsPago = ["id" => $codReservaActual];
+ 
+                                        if (
+                                            $esReservaDestacada
+                                            && $tipoViajeProceso === "idaVuelta"
+                                            && $reservaIda > 0
+                                            && $reservaDestacada > 0
+                                        ) {
+                                            $paramsPago += [
+                                                "desdeReserva" => "1",
+                                                "tipoViaje"    => "idaVuelta",
+                                                "tramo"        => "vuelta",
+                                                "reservaIda"   => $reservaIda,
+                                                "reserva"      => $reservaDestacada
+                                            ];
+                                        }
+                                        ?>
 
-                                            <input
-                                                type="hidden"
-                                                name="id"
-                                                value="<?php
-                                                echo (int) $reserva["codReserva"];
-                                                ?>"
-                                            >
+                                        <a class="btn btn-sm btn-success" href="pagarReserva.php?<?php echo htmlspecialchars(http_build_query($paramsPago)); ?>">
+                                            Pagar y confirmar
+                                        </a>
 
-                                            <?php if (
-                                                $desdeReserva
-                                                && $tipoViajeProceso === "idaVuelta"
-                                                && $reservaIda > 0
-                                                && $reservaDestacada > 0
-                                            ) { ?>
-
-                                                <input
-                                                    type="hidden"
-                                                    name="desdeReserva"
-                                                    value="1"
-                                                >
-
-                                                <input
-                                                    type="hidden"
-                                                    name="tipoViaje"
-                                                    value="idaVuelta"
-                                                >
-
-                                                <input
-                                                    type="hidden"
-                                                    name="tramo"
-                                                    value="vuelta"
-                                                >
-
-                                                <input
-                                                    type="hidden"
-                                                    name="reservaIda"
-                                                    value="<?php echo $reservaIda; ?>"
-                                                >
-
-                                                <input
-                                                    type="hidden"
-                                                    name="reserva"
-                                                    value="<?php echo $reservaDestacada; ?>"
-                                                >
-
-                                            <?php } ?>
-
-                                            <button
-                                                class="btn btn-sm btn-success"
-                                                type="submit"
-                                            >
-                                                Confirmar
-                                            </button>
-
-                                        </form>
 
 
                                         <!-- CANCELAR -->

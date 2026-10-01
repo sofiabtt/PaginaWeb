@@ -1,0 +1,282 @@
+:root {
+    --pago-marron: #835a40;
+    --pago-marron-oscuro: #6f4933;
+    --pago-texto: #39291f;
+    --pago-suave: #5f574f;
+    --pago-borde: #d9d2cb;
+    --pago-fondo: #daf2f7;
+}
+
+body {
+    min-height: 100vh;
+    background: var(--pago-fondo);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.pago-contenedor {
+    padding: 48px 16px;
+}
+
+.pago-card {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 36px;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .08);
+}
+
+.pago-volver {
+    display: inline-block;
+    color: var(--pago-marron);
+    text-decoration: none;
+    padding: 4px 0;
+}
+
+.pago-volver:hover { text-decoration: underline; }
+
+.pago-card h1 {
+    margin: 18px 0 4px;
+    color: var(--pago-texto);
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.pago-subtitulo {
+    color: var(--pago-suave);
+    margin-bottom: 24px;
+}
+
+/* ---------- Resumen ---------- */
+.pago-resumen {
+    margin: 0 0 28px;
+    padding: 6px 20px;
+    background: #f8f5f2;
+    border-radius: 14px;
+}
+
+.pago-resumen > div {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 12px 0;
+    border-bottom: 1px solid #e8e1da;
+}
+
+.pago-resumen > div:last-child { border-bottom: 0; }
+
+.pago-resumen dt { color: var(--pago-suave); font-weight: 400; }
+.pago-resumen dd { margin: 0; font-weight: 700; text-align: right; color: var(--pago-texto); }
+
+.pago-total {
+    color: var(--pago-marron) !important;
+    font-size: 22px;
+}
+
+/* ---------- Medios de pago ---------- */
+.pago-metodos {
+    border: 0;
+    padding: 0;
+    margin: 0 0 20px;
+}
+
+.pago-metodos legend {
+    margin-bottom: 12px;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--pago-texto);
+}
+
+.pago-opcion {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    border: 1px solid var(--pago-borde);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: border-color .15s, background-color .15s;
+}
+
+.pago-opcion:hover { border-color: var(--pago-marron); }
+
+.pago-opcion > i {
+    font-size: 22px;
+    color: var(--pago-marron);
+}
+
+.pago-opcion input,
+.pago-recordar input {
+    accent-color: var(--pago-marron);
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+}
+
+.pago-opcion:has(input:checked) {
+    border-color: var(--pago-marron);
+    background: #fbf8f6;
+    box-shadow: inset 0 0 0 1px var(--pago-marron);
+}
+
+.pago-opcion:has(input:focus-visible) {
+    outline: 3px solid #1a73e8;
+    outline-offset: 2px;
+}
+
+/* ---------- Panel de datos ---------- */
+.pago-datos {
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid var(--pago-borde);
+    border-radius: 14px;
+    background: #fdfcfb;
+}
+
+.pago-datos[hidden],
+.pago-otra[hidden],
+.pago-boton-cargando[hidden],
+.pago-boton-texto[hidden] { display: none; }
+
+.pago-datos .form-label {
+    margin-top: 14px;
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: var(--pago-texto);
+}
+
+.pago-datos > .form-label:first-child,
+.pago-datos > .pago-ayuda + .form-label,
+.pago-fila .form-label { margin-top: 0; }
+
+.pago-datos > .pago-ayuda + .form-label { margin-top: 0; }
+
+.pago-fila {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-top: 14px;
+}
+
+.pago-otra { margin-top: 2px; }
+
+.pago-ayuda {
+    margin: 0 0 12px;
+    font-size: 14px;
+    color: var(--pago-suave);
+}
+
+.pago-cuenta {
+    padding: 14px 16px;
+    margin-bottom: 8px;
+    background: #f8f5f2;
+    border-radius: 10px;
+    border-left: 4px solid var(--pago-marron);
+}
+
+.pago-cuenta p {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin: 4px 0;
+    font-size: 15px;
+}
+
+.pago-cuenta span { color: var(--pago-suave); }
+.pago-cuenta strong { word-break: break-all; text-align: right; }
+
+.pago-datos .form-control,
+.pago-datos .form-select {
+    min-height: 46px;
+}
+
+.pago-datos .form-control:focus,
+.pago-datos .form-select:focus {
+    border-color: var(--pago-marron);
+    box-shadow: 0 0 0 .25rem rgba(131, 90, 64, .25);
+}
+
+.pago-error {
+    margin-top: 6px;
+    font-size: 14px;
+    color: #b02a37;
+}
+
+.pago-error::before {
+    content: "\26A0\FE0E  ";
+}
+
+/* ---------- Recordar / aviso ---------- */
+.pago-recordar {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin: 18px 0 10px;
+    cursor: pointer;
+}
+
+.pago-aviso {
+    color: var(--pago-suave);
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.pago-aviso i { color: var(--pago-marron); }
+
+/* ---------- Botón ---------- */
+.pago-boton {
+    width: 100%;
+    min-height: 52px;
+    padding: 14px;
+    border: 0;
+    border-radius: 12px;
+    background: var(--pago-marron);
+    color: #fff;
+    font-size: 17px;
+    font-weight: 700;
+    transition: background-color .15s;
+}
+
+.pago-boton:hover:not(:disabled) { background: var(--pago-marron-oscuro); }
+
+.pago-boton:disabled {
+    background: #a98f7e;
+    cursor: wait;
+}
+
+.pago-boton:focus-visible,
+.pago-volver:focus-visible,
+.pago-recordar input:focus-visible {
+    outline: 3px solid #1a73e8;
+    outline-offset: 3px;
+}
+
+.alert[tabindex="-1"]:focus { outline: none; }
+
+@media (prefers-reduced-motion: reduce) {
+    .pago-opcion,
+    .pago-boton { transition: none; }
+}
+
+@media (max-width: 576px) {
+    .pago-card { padding: 24px 18px; }
+    .pago-fila { grid-template-columns: 1fr; }
+    .pago-resumen > div { flex-direction: column; gap: 2px; }
+    .pago-resumen dd { text-align: left; }
+}
+
+
+/* ---------- Mostrar el panel del medio elegido ---------- */
+.pago-datos { display: none; }
+
+.pago-metodos:has(input[value="tarjeta"]:checked) ~ .pago-datos[data-pago="tarjeta"],
+.pago-metodos:has(input[value="transferencia"]:checked) ~ .pago-datos[data-pago="transferencia"],
+.pago-metodos:has(input[value="billetera"]:checked) ~ .pago-datos[data-pago="billetera"] {
+    display: block;
+}
+
+/* Navegadores muy viejos sin :has(): se muestran todos los paneles */
+@supports not selector(:has(*)) {
+    .pago-datos { display: block; }
+}

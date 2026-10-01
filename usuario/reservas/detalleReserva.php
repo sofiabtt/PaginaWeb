@@ -37,14 +37,7 @@ if (!$reserva) {
 
 
 
-if (!$reserva) {
 
-    header("Location: gestionReservas.php");
-    exit();
-
-}
-
-?>
 
 
 <!DOCTYPE html>
@@ -78,6 +71,8 @@ if (!$reserva) {
         href="../../css/estilos-admin.css"
     >
 
+    <link rel="stylesheet" href="../../css/navbar.css">
+
 </head>
 
 
@@ -86,7 +81,7 @@ if (!$reserva) {
 
 <?php
 
-include "../includes/navbarUsuario.php";
+include "../../includes/navbar.php";
 
 ?>
 
