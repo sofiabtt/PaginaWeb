@@ -49,6 +49,11 @@ if (isset($_SESSION["tipoUsuario"])) {
                     Aerolíneas
                 </a>
 
+                <!-- VUELOS -->
+                <a class="nav-link" href="/PaginaWeb/admin/vuelos/gestionVuelos.php">
+                    Vuelos
+                </a>
+
                 <!-- PROMOCIONES -->
                 <a class="nav-link" href="/PaginaWeb/admin/promociones/gestionPromociones.php">
                     Promociones
@@ -62,6 +67,11 @@ if (isset($_SESSION["tipoUsuario"])) {
                 <!-- REPORTES -->
                 <a class="nav-link" href="/PaginaWeb/admin/reportes.php">
                     Reportes
+                </a>
+
+                <!-- USUARIOS -->
+                <a class="nav-link" href="/PaginaWeb/admin/usuarios/gestionUsuarios.php">
+                    Usuarios
                 </a>
 
                 <!-- CEOs -->

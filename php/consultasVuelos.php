@@ -429,3 +429,37 @@ function obtenerVueloElegido($conexion, $codVuelo)
         ->get_result()
         ->fetch_assoc();
 }
+
+// OBTENER TODOS LOS VUELOS PARA ADMINISTRADOR
+
+function obtenerTodosLosVuelos($conexion)
+{
+    $consulta = $conexion->prepare(
+        "SELECT
+            v.codVuelo,
+            v.origenVuelo,
+            v.destinoVuelo,
+            v.fechaSalidaVuelo,
+            v.horaSalidaVuelo,
+            v.precioVuelo,
+            v.asientosDisponibles,
+            v.activoVuelo,
+            v.fechaEliminacion,
+            a.nombreAerolinea,
+            a.codigoIATA
+
+         FROM Vuelos v
+
+         INNER JOIN Aerolineas a
+            ON a.codAerolinea = v.codAerolinea
+
+         ORDER BY
+            v.activoVuelo DESC,
+            v.fechaSalidaVuelo ASC,
+            v.horaSalidaVuelo ASC"
+    );
+
+    $consulta->execute();
+
+    return $consulta->get_result();
+}

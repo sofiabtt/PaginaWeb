@@ -356,3 +356,6 @@ body {
     font-size: 34px;
 }
 
+.precio-vuelo {
+    white-space: nowrap;
+}
