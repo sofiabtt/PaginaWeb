@@ -32,10 +32,87 @@ function obtenerHistorialCompras($conexion, $codUsuario)
 
     return $consulta->get_result();
 }
+
+// CANCELAR RESERVAS PENDIENTES VENCIDAS
+
+function cancelarReservasVencidas($conexion)
+{
+    $conexion->begin_transaction();
+
+    try {
+
+        // Buscamos las reservas pendientes que ya superaron los 30 minutos
+        // y las bloqueamos mientras se procesan.
+        $consulta = $conexion->prepare(
+            "SELECT codReserva,
+                    codVuelo,
+                    cantidadPasajerosReserva
+             FROM Reservas
+             WHERE estadoReserva = 'pendiente de pago'
+               AND fechaReserva <= DATE_SUB(NOW(), INTERVAL 30 MINUTE)
+             FOR UPDATE"
+        );
+
+        $consulta->execute();
+
+        $resultado = $consulta->get_result();
+
+
+        while ($reserva = $resultado->fetch_assoc()) {
+
+            // Devolvemos los asientos al vuelo
+            $devolver = $conexion->prepare(
+                "UPDATE Vuelos
+                 SET asientosDisponibles =
+                     asientosDisponibles + ?
+                 WHERE codVuelo = ?"
+            );
+
+            $devolver->bind_param(
+                "ii",
+                $reserva["cantidadPasajerosReserva"],
+                $reserva["codVuelo"]
+            );
+
+            $devolver->execute();
+
+
+            // Cancelamos la reserva
+            $cancelar = $conexion->prepare(
+                "UPDATE Reservas
+                 SET estadoReserva = 'cancelada'
+                 WHERE codReserva = ?
+                   AND estadoReserva = 'pendiente de pago'"
+            );
+
+            $cancelar->bind_param(
+                "i",
+                $reserva["codReserva"]
+            );
+
+            $cancelar->execute();
+        }
+
+
+        $conexion->commit();
+
+        return true;
+
+
+    } catch (Throwable $e) {
+
+        $conexion->rollback();
+
+        return false;
+    }
+}
+
 // OBTENER RESERVAS ACTIVAS DE UN USUARIO
 
 function obtenerReservasUsuario($conexion, $codUsuario)
 {
+    cancelarReservasVencidas($conexion);
+
     $consulta = $conexion->prepare(
         "SELECT r.codReserva,
                 r.fechaReserva,
@@ -106,12 +183,16 @@ function obtenerDetalleReserva($conexion, $codReserva, $codUsuario)
 
 function confirmarReserva($conexion, $codReserva, $codUsuario)
 {
+    // Primero cancelamos las reservas que ya vencieron
+    cancelarReservasVencidas($conexion);
+
     $consulta = $conexion->prepare(
         "UPDATE Reservas
          SET estadoReserva = 'confirmada'
          WHERE codReserva = ?
            AND codUsuario = ?
-           AND estadoReserva = 'pendiente de pago'"
+           AND estadoReserva = 'pendiente de pago'
+           AND fechaReserva > DATE_SUB(NOW(), INTERVAL 30 MINUTE)"
     );
 
     $consulta->bind_param(

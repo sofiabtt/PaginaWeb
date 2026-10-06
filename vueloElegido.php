@@ -1587,6 +1587,12 @@ $precioTotal = $totalPasajeros * (float) $vuelo["precioVuelo"];
                             Reservar
                         </button>
 
+                        <p class="mensaje-reserva">
+                            <i class="bi bi-clock"></i>
+                            Una vez realizada la reserva, tendrás 30 minutos para completar el pago.
+                            Pasado ese tiempo, la reserva se cancelará automáticamente.
+                        </p>
+
                     </form>
 
                 </div>

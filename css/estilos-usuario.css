@@ -532,3 +532,36 @@ body {
     min-height: 100vh;
     overflow: visible;
 }
+
+.tiempo-pago {
+    margin-top: 7px;
+    color: #684028;
+    font-size: 13px;
+    font-weight: 600;
+
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.tiempo-pago i {
+    font-size: 14px;
+}
+
+.marca-reserva-nueva {
+    display: inline-block;
+
+    margin-top: 6px;
+    padding: 2px 7px;
+
+    background-color: #f3ebe6;
+    color: #684028;
+
+    border: 1px solid #d8c1b2;
+    border-radius: 6px;
+
+    font-size: 11px;
+    font-weight: 600;
+
+    white-space: nowrap;
+}
