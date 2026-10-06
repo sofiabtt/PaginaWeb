@@ -565,3 +565,10 @@ body {
 
     white-space: nowrap;
 }
+
+/* PRECIO EN TABLA DE RESERVAS */
+
+.gestion-reservas .precio-reserva {
+    white-space: nowrap;
+    min-width: 100px;
+}

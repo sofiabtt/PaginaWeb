@@ -20,6 +20,8 @@ $resultado = obtenerNovedadesVigentes($conexion);
     <link rel="stylesheet" href="../css/bootstrap-icons.css">
     <link rel="stylesheet" href="../css/estilos-admin.css">
     <link rel="stylesheet" href="../css/navbar.css">
+    <link rel="stylesheet" href="../css/footer.css">
+
 </head>
 
 <body>
@@ -79,6 +81,8 @@ $resultado = obtenerNovedadesVigentes($conexion);
     </main>
 
     <script src="../js/bootstrap.bundle.min.js"></script>
+
+    <?php include("../includes/footer.php"); ?>
 
 </body>
 

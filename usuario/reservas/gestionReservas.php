@@ -180,6 +180,8 @@ if ($desdeReserva && $reservaDestacada > 0) {
 
     <link rel="stylesheet" href="../../css/navbar.css">
 
+    <link rel="stylesheet" href="../../css/footer.css">
+
 </head>
 
 <body>
@@ -515,7 +517,7 @@ if ($desdeReserva && $reservaDestacada > 0) {
 
                         <th>Salida</th>
 
-                        <th>Precio</th>
+                        <th class="precio-reserva">Precio</th>
 
                         <th>Estado</th>
 
@@ -720,18 +722,17 @@ if ($desdeReserva && $reservaDestacada > 0) {
                             </td>
 
 
-                            <td class="align-middle">
-
-                                $
+                            <td class="align-middle precio-reserva">
 
                                 <?php
 
-                                echo number_format(
-                                    (float) $reserva["precioFinalReserva"],
-                                    0,
-                                    ",",
-                                    "."
-                                );
+                                echo "$ "
+                                    . number_format(
+                                        (float) $reserva["precioFinalReserva"],
+                                        0,
+                                        ",",
+                                        "."
+                                    );
 
                                 ?>
 
@@ -1004,6 +1005,7 @@ if ($desdeReserva && $reservaDestacada > 0) {
 
     </script>
 
+    <?php include ("../../includes/footer.php"); ?>
 
 </body>
 
