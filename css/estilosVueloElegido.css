@@ -213,7 +213,6 @@ html {
 .boton-principal,
 .boton-pagar {
     background: #835a40;
-
     color: white;
 
     border: none;
@@ -227,16 +226,39 @@ html {
     cursor: pointer;
 
     transition: background-color 0.2s,
-                transform 0.2s;
+                transform 0.2s,
+                box-shadow 0.2s;
 }
 
 .boton-principal:hover,
 .boton-pagar:hover {
     background: #684028;
+    color: white;
 
     transform: translateY(-1px);
 }
 
+/* FOCO CON TAB */
+.boton-principal:focus,
+.boton-principal:focus-visible,
+.boton-pagar:focus,
+.boton-pagar:focus-visible {
+    background: #835a40;
+    color: white;
+
+    outline: none;
+
+    box-shadow: 0 0 0 0.25rem rgba(104, 64, 40, 0.25);
+}
+
+/* CUANDO SE PRESIONA */
+.boton-principal:active,
+.boton-pagar:active {
+    background: #684028;
+    color: white;
+
+    transform: none;
+}
 
 /* =========================
    FORMULARIOS PASAJEROS

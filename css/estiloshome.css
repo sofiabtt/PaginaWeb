@@ -11,6 +11,15 @@ body{
 
 }
 
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    outline: 3px solid #7a482b;
+    outline-offset: 3px;
+}
+
 
 /* HERO */
 
@@ -192,43 +201,52 @@ body{
 
 /* TARJETAS DE VIAJES */
 
-.destinos-destacados{
+.destinos-destacados {
     position: absolute;
-    top: 240px;
+    top: 300px;
     width: 100%;
     text-align: center;
 }
-.titulo-destino{
+
+.titulo-destino {
     font-size: 25px;
     font-weight: 500;
     
     letter-spacing: 1px;
-    margin-bottom: 30px; /*dejá 30 píxeles de espacio por debajo de ese elemento.*/
-
+    margin-bottom: 30px;
 }
-.contenedor-tarjetas{
+
+.contenedor-tarjetas {
     display: flex;
     justify-content: center;
-    gap: 55px; /*separacion entre las tarjetas*/
+    gap: 55px;
 }
 
-
-.tarjeta-destino{
+.tarjeta-destino {
     width: 200px;
     height: 210px;
     border-radius: 20px;
     overflow: hidden;
     position: relative;
+    cursor: pointer;
 
+    border: none;
+    font-family: inherit;
+    text-align: inherit;
 }
-.tarjeta-destino img {
 
+/* PARA QUE SE VEA CUANDO LLEGÁS CON TAB */
+.tarjeta-destino:focus-visible {
+    outline: 3px solid #7a482b;
+    outline-offset: 4px;
+}
+
+.tarjeta-destino img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     border-radius: 20px;
-    transition: 0.4s; /* para cuando el mouse se apolle sobre la imagen no cambie rapidamente al filtro*/
-
+    transition: 0.4s;
 }
 
 .tarjeta-destino img:hover {
@@ -239,10 +257,10 @@ body{
 .tarjeta-destino h4 {
     position: absolute;
 
-    top: 50%; /*lo centra al titulo*/
+    top: 50%;
     left: 50%;
 
-    transform: translate(-50%, -50%); /*el texto queda centrado*/
+    transform: translate(-50%, -50%);
 
     color: white;
     font-size: 24px;

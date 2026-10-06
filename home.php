@@ -251,101 +251,103 @@ $consultaAeropuertos = $conexion->query("
     <!-- DESTINOS DESTACADOS -->
 
 
-    <section id="destinos" class="destinos-destacados">
+    <!-- DESTINOS DESTACADOS -->
+
+<section id="destinos" class="destinos-destacados">
+
+    <h4 class="titulo-destino">
+        Viaja por el mundo
+    </h4>
 
 
-        <h4 class="titulo-destino">
+    <div class="contenedor-tarjetas">
 
-            Viaja por el mundo
+        <!-- BRASIL -->
 
-        </h4>
-
-
-        <div class="contenedor-tarjetas">
-
-
-            <div class="tarjeta-destino"
+        <button
+            type="button"
+            class="tarjeta-destino"
             onclick="abrirOferta('Río de Janeiro - GIG - Aeropuerto Internacional de Río de Janeiro-Galeão')"
-            style="cursor: pointer;">
+            aria-label="Buscar vuelos a Río de Janeiro, Brasil"
+        >
+
+            <img
+                src="imagenes/brasil.jpg"
+                alt=""
+            >
+
+            <h4>
+                Brasil, Rio De Janeiro
+            </h4>
+
+        </button>
 
 
-                <img
-                    src="imagenes/brasil.jpg"
-                    alt="Destino Brasil">
+        <!-- BUENOS AIRES -->
+
+        <button
+            type="button"
+            class="tarjeta-destino"
+            onclick="abrirOferta('Buenos Aires - EZE - Aeropuerto Internacional Ministro Pistarini')"
+            aria-label="Buscar vuelos a Buenos Aires, Argentina"
+        >
+
+            <img
+                src="imagenes/bsas.jpg"
+                alt=""
+            >
+
+            <h4>
+                Argentina, Buenos Aires
+            </h4>
+
+        </button>
 
 
-                <h4>
-                    Brasil,   Rio De Janeiro
-                </h4>
+        <!-- MADRID -->
+
+        <button
+            type="button"
+            class="tarjeta-destino"
+            onclick="abrirOferta('Madrid - MAD - Aeropuerto Adolfo Suárez Madrid-Barajas')"
+            aria-label="Buscar vuelos a Madrid, España"
+        >
+
+            <img
+                src="imagenes/madrid.jpg"
+                alt=""
+            >
+
+            <h4>
+                España, Madrid
+            </h4>
+
+        </button>
 
 
-            </div>
+        <!-- ROMA -->
 
-
-
-            <div class="tarjeta-destino"
-                onclick="abrirOferta('Buenos Aires - EZE - Aeropuerto Internacional Ministro Pistarini')"
-                style="cursor: pointer;">
-
-
-                <img
-                    src="imagenes/bsas.jpg"
-                    alt="Destino Buenos Aires"
-                    >
-
-
-                <h4>
-                    Argentina,  Buenos Aires
-                </h4>
-
-
-            </div>
-
-
-
-            <div class="tarjeta-destino"
-                onclick="abrirOferta('Madrid - MAD - Aeropuerto Adolfo Suárez Madrid-Barajas')"
-                style="cursor: pointer;">
-
-
-                <img
-                    src="imagenes/madrid.jpg"
-                    alt="Destino Madrid"
-                    >
-
-
-                <h4>
-                    España,   Madrid
-                </h4>
-
-
-            </div>
-
-
-
-            <div class="tarjeta-destino"
+        <button
+            type="button"
+            class="tarjeta-destino"
             onclick="abrirOferta('Roma - FCO - Aeropuerto Internacional Leonardo da Vinci')"
-            style="cursor: pointer;">
+            aria-label="Buscar vuelos a Roma, Italia"
+        >
 
+            <img
+                src="imagenes/roma.jpg"
+                alt=""
+            >
 
-                <img
-                    src="imagenes/roma.jpg"
-                    alt="Destino Roma">
+            <h4>
+                Italia, Roma
+            </h4>
 
+        </button>
 
-                <h4>
-                    Italia,   Roma
-                </h4>
+    </div>
 
-
-            </div>
-
-
-        </div>
-
-
-    </section>
-
+</section>
 
 </section>
 

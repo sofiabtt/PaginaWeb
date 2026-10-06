@@ -61,6 +61,40 @@ body {
     color: white;
 }
 
+/* CUANDO SE PRESIONA EL BOTÓN */
+.btn-primary:active,
+.btn-primary.active,
+.btn-primary:first-child:active {
+    background-color: #72472c;
+    border-color: #72472c;
+    color: white;
+}
+
+/* CUANDO EL BOTÓN TIENE EL FOCO */
+.btn-primary:focus,
+.btn-primary:focus-visible {
+    background-color: #684028;
+    border-color: #684028;
+    color: white;
+    box-shadow: 0 0 0 0.25rem rgba(104, 64, 40, 0.25);
+}
+
+/* VARIABLES DE BOOTSTRAP PARA BTN-PRIMARY */
+.btn-primary {
+    --bs-btn-bg: #684028;
+    --bs-btn-border-color: #684028;
+
+    --bs-btn-hover-bg: #72472c;
+    --bs-btn-hover-border-color: #72472c;
+
+    --bs-btn-active-bg: #72472c;
+    --bs-btn-active-border-color: #72472c;
+
+    --bs-btn-color: #ffffff;
+    --bs-btn-hover-color: #ffffff;
+    --bs-btn-active-color: #ffffff;
+}
+
 /* =========================
    ENCABEZADO DEL CONTENIDO
 ========================= */
@@ -321,3 +355,4 @@ body {
     color: #684028;
     font-size: 34px;
 }
+

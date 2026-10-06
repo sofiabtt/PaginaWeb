@@ -210,33 +210,66 @@ body {
 /* BOTONES NUVIA */
 
 .btn-nuvia {
-    background: #684028;
+    background-color: #684028;
     border-color: #684028;
     color: white;
     font-weight: 700;
     border-radius: 9px;
 }
 
-
 .btn-nuvia:hover {
-    background: #72472c;
+    background-color: #72472c;
     border-color: #72472c;
     color: white;
 }
 
+/* CUANDO LLEGÁS CON TAB */
+.btn-nuvia:focus,
+.btn-nuvia:focus-visible {
+    background-color: #684028;
+    border-color: #684028;
+    color: white;
+    box-shadow: 0 0 0 0.25rem rgba(104, 64, 40, 0.25);
+}
+
+/* CUANDO LO PRESIONÁS */
+.btn-nuvia:active {
+    background-color: #72472c !important;
+    border-color: #72472c !important;
+    color: white !important;
+}
+
+
+/* BOTÓN OUTLINE */
 
 .btn-outline-nuvia {
+    background-color: transparent;
     color: #684028;
     border-color: #684028;
     font-weight: 600;
     border-radius: 9px;
 }
 
-
 .btn-outline-nuvia:hover {
-    background: #684028;
+    background-color: #684028;
     border-color: #684028;
     color: white;
+}
+
+/* CUANDO LLEGÁS CON TAB */
+.btn-outline-nuvia:focus,
+.btn-outline-nuvia:focus-visible {
+    background-color: #684028;
+    border-color: #684028;
+    color: white;
+    box-shadow: 0 0 0 0.25rem rgba(104, 64, 40, 0.25);
+}
+
+/* CUANDO LO PRESIONÁS */
+.btn-outline-nuvia:active {
+    background-color: #72472c !important;
+    border-color: #72472c !important;
+    color: white !important;
 }
 
 
