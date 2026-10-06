@@ -53,11 +53,16 @@ if (
 
         $error = "Las contraseñas no coinciden.";
 
-    } elseif (strlen($contrasena) < 6) {
+    } elseif (
+        strlen($contrasena) < 6 ||
+        !preg_match('/[A-Z]/', $contrasena) ||
+        !preg_match('/[0-9]/', $contrasena)
+    ) {
 
-        $error = "La contraseña debe tener al menos 6 caracteres.";
+        $error = "La contraseña debe tener al menos 6 caracteres, una letra mayúscula y un número.";
 
     } else {
+
 
         $hash = password_hash(
             $contrasena,
@@ -104,16 +109,21 @@ if (
     >
 
     <title>Nueva contraseña</title>
+    
+    <link
+        rel="icon"
+        type="image/png"
+        href="/PaginaWeb/imagenes/logo.png"
+    >
 
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/estiloshome.css">
     <link rel="stylesheet" href="../css/estilosRecuperacion.css">
-    <link rel="stylesheet" href="../css/navbar.css">
+
     <link
         rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
     >
-
 
 </head>
 

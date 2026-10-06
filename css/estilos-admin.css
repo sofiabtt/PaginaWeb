@@ -19,11 +19,9 @@ body {
 ========================= */
 
 .contenido-admin {
-    padding: 120px 60px 50px;
+    padding: 40px 60px 50px;
     max-width: 1400px;
-
     width: 100%;
-
     margin: auto;
 }
 

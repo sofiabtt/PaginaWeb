@@ -4,12 +4,14 @@ session_start();
 
 include "../../php/consultasReservas.php";
 
-header("Content-Type: application/json");
-
 mysqli_report(
     MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT
 );
 
+
+// =====================================
+// VERIFICAR QUE EL USUARIO ESTÉ LOGUEADO
+// =====================================
 
 if (
     !isset($_SESSION["codUsuario"]) ||
@@ -17,38 +19,85 @@ if (
     $_SESSION["tipoUsuario"] !== "usuario"
 ) {
 
-    echo json_encode([
-        "ok" => false,
-        "mensaje" => "Debe iniciar sesión."
-    ]);
+    header(
+        "Location: ../../inicioSesion.php"
+    );
 
     exit();
 }
 
+
+// =====================================
+// VERIFICAR RESERVA TEMPORAL
+// =====================================
 
 if (!isset($_SESSION["reservaTemporal"])) {
 
-    echo json_encode([
-        "ok" => false,
-        "mensaje" => "No se encontraron los datos de la reserva."
-    ]);
-
-    exit();
+    die(
+        "No se encontraron los datos de la reserva."
+    );
 }
 
 
-$reservaTemporal = $_SESSION["reservaTemporal"];
+// =====================================
+// OBTENER DATOS
+// =====================================
 
-$codUsuario = (int) $_SESSION["codUsuario"];
+$reservaTemporal =
+    $_SESSION["reservaTemporal"];
 
-$codVuelo = (int) $reservaTemporal["codVuelo"];
+$codUsuario =
+    (int) $_SESSION["codUsuario"];
 
-$adultos = (int) $reservaTemporal["adultos"];
+$codVuelo =
+    (int) $reservaTemporal["codVuelo"];
 
-$menores = (int) $reservaTemporal["menores"];
+$adultos =
+    (int) $reservaTemporal["adultos"];
 
-$cantidadPasajeros = $adultos + $menores;
+$menores =
+    (int) $reservaTemporal["menores"];
 
+$cantidadPasajeros =
+    $adultos + $menores;
+
+
+// Datos del tipo de viaje
+
+$tipoViaje =
+    $reservaTemporal["tipoViaje"]
+    ?? "soloIda";
+
+$origen =
+    $reservaTemporal["origen"]
+    ?? "";
+
+$destino =
+    $reservaTemporal["destino"]
+    ?? "";
+
+$fechaIda =
+    $reservaTemporal["fechaIda"]
+    ?? "";
+
+$fechaVuelta =
+    $reservaTemporal["fechaVuelta"]
+    ?? "";
+
+$tramo =
+    $reservaTemporal["tramo"]
+    ?? "ida";
+
+$reservaIda =
+    (int) (
+        $reservaTemporal["reservaIda"]
+        ?? 0
+    );
+
+
+// =====================================
+// CREAR RESERVA
+// =====================================
 
 $resultado = crearReserva(
     $conexion,
@@ -58,12 +107,109 @@ $resultado = crearReserva(
 );
 
 
-if ($resultado["ok"]) {
+// =====================================
+// SI HUBO ERROR
+// =====================================
 
-    unset($_SESSION["reservaTemporal"]);
+if (!$resultado["ok"]) {
+
+    die(
+        "No se pudo completar la reserva: "
+        . htmlspecialchars(
+            $resultado["mensaje"]
+            ?? "Error desconocido."
+        )
+    );
 }
 
 
-echo json_encode($resultado);
+// =====================================
+// RESERVA CREADA
+// =====================================
 
-$conexion->close();
+$codReserva =
+    (int) $resultado["codReserva"];
+
+
+// Ya no necesitamos la reserva temporal
+
+unset($_SESSION["reservaTemporal"]);
+
+unset($_SESSION["crearReservaDesdeVuelo"]);
+
+
+// =====================================
+// IDA Y VUELTA - RESERVA DE IDA
+// =====================================
+
+if (
+    $tipoViaje === "idaVuelta"
+    && $tramo === "ida"
+) {
+
+    /*
+        Ya reservamos la ida.
+
+        Ahora mandamos al usuario a elegir
+        el vuelo de vuelta.
+    */
+
+    $url =
+        "../../resultadosVuelos.php"
+        . "?tipoViaje=idaVuelta"
+        . "&origen=" . urlencode($origen)
+        . "&destino=" . urlencode($destino)
+        . "&fechaIda=" . urlencode($fechaIda)
+        . "&fechaVuelta=" . urlencode($fechaVuelta)
+        . "&etapa=vuelta"
+        . "&reservaIda=" . $codReserva
+        . "#vuelo-vuelta";
+
+    header(
+        "Location: " . $url
+    );
+
+    exit();
+}
+
+
+// =====================================
+// IDA Y VUELTA - RESERVA DE VUELTA
+// =====================================
+
+if (
+    $tipoViaje === "idaVuelta"
+    && $tramo === "vuelta"
+) {
+
+    $url =
+        "gestionReservas.php"
+        . "?desdeReserva=1"
+        . "&tipoViaje=idaVuelta"
+        . "&tramo=vuelta"
+        . "&reservaIda=" . $reservaIda
+        . "&reserva=" . $codReserva;
+
+    header(
+        "Location: " . $url
+    );
+
+    exit();
+}
+
+
+// =====================================
+// SOLO IDA
+// =====================================
+
+$url =
+    "gestionReservas.php"
+    . "?desdeReserva=1"
+    . "&tipoViaje=soloIda"
+    . "&reserva=" . $codReserva;
+
+header(
+    "Location: " . $url
+);
+
+exit();

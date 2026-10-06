@@ -13,7 +13,7 @@ body {
 .contenido-resultados {
     max-width: 1400px;
     margin: 0 auto;
-    padding-top: 40px;
+    padding-top: 15px;
     padding-bottom: 70px;
 }
 
@@ -422,6 +422,35 @@ body {
 .sin-vuelos p {
     color: #666;
     margin-bottom: 25px;
+}
+
+.volver-buscador {
+    margin-left: 20px;
+    margin-bottom: 0;
+}
+
+.volver-buscador a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    color: #684028;
+    text-decoration: none;
+    font-weight: 600;
+
+    padding: 8px 14px;
+    border-radius: 8px;
+
+    transition: 0.2s;
+}
+
+.volver-buscador a:hover {
+    background-color: #f3ebe6;
+    color: #684028;
+}
+
+.volver-buscador i {
+    font-size: 18px;
 }
 
 

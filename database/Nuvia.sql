@@ -276,7 +276,7 @@ CREATE TABLE `Reservas` (
 
     `codVuelo` int(11) NOT NULL,
 
-    `fechaReserva` varchar(10) NOT NULL,
+    `fechaReserva` DATETIME NOT NULL,
 
     `estadoReserva` varchar(20) NOT NULL DEFAULT 'pendiente de pago',
 

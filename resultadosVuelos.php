@@ -51,6 +51,13 @@ $seleccionandoVuelta =
 
 <main class="contenido-resultados">
 
+    <div class="volver-buscador">
+        <a href="home.php#buscador-vuelos">
+            <i class="bi bi-arrow-left"></i>
+            Volver al buscador
+        </a>
+    </div>
+
 
     <div class="container-fluid px-4 pt-2">
         <?php if ($tipoViaje === "soloIda"): ?>

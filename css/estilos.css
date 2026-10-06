@@ -25,12 +25,10 @@ body {
 
 body::before {
     content: "";
-
     position: fixed;
-
     inset: 0;
 
-    background: rgba(255,255,255,0.4);
+    background: rgba(255, 255, 255, 0.4);
 
     z-index: 0;
 }
@@ -42,11 +40,10 @@ body::before {
 
 main {
     flex: 1;
-
     position: relative;
-
     z-index: 1;
 }
+
 
 /* =========================
    BOTÓN INGRESAR
@@ -54,39 +51,30 @@ main {
 
 .btn-menu {
     background: #684028;
-
     color: white;
 
     border: none;
-
     border-radius: 25px;
 
     padding: 12px 30px;
 
     font-weight: bold;
-
     text-decoration: none;
 }
 
-
-/* HOVER DEL BOTÓN */
-
 .btn-menu:hover {
     background: #72472c;
-
     color: white;
 }
 
 
 /* =========================
-   BOTÓN REGISTRARSE
+   BOTÓN PRINCIPAL
 ========================= */
 
 .btn-primary {
     background: #684028;
-
     border-color: #684028;
-
     color: white;
 
     border-radius: 25px;
@@ -96,12 +84,9 @@ main {
     font-weight: bold;
 }
 
-
 .btn-primary:hover {
     background: #72472c;
-
     border-color: #72472c;
-
     color: white;
 }
 
@@ -134,7 +119,6 @@ main {
 
 .rectangulo-formulario {
     width: 100%;
-
     max-width: 450px;
 
     padding: 35px;
@@ -142,34 +126,46 @@ main {
     background-color: white;
 
     border: 1px solid #dddddd;
-
     border-radius: 12px;
 
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-
 .rectangulo-formulario h1 {
     font-size: 28px;
 }
-
 
 .texto-registro {
     font-size: 13px;
 }
 
-
 .texto-negro {
     color: black;
 }
+
+
+/* =========================
+   INPUTS
+========================= */
+
 .form-control {
     border-radius: 12px;
 }
-.barra-contra {
+
+
+/* =========================
+   CONTRASEÑA
+========================= */
+
+.grupo-contrasena {
     display: flex;
+    width: 100%;
 }
 
-.barra-contra .form-control {
+.grupo-contrasena .form-control {
+    flex: 1;
+    min-width: 0;
+
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
 }
@@ -177,31 +173,38 @@ main {
 .boton-ojo {
     width: 70px;
     min-width: 70px;
+
     background-color: white;
+
     font-size: 24px;
+
     border: 1px solid #ced4da;
+    border-left: 0;
 
     border-top-right-radius: 12px;
     border-bottom-right-radius: 12px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-.boton-ojo:hover{
+
+.boton-ojo:hover {
     background-color: rgb(204, 200, 200);
 }
 
 
 /* =========================
-   BOTÓN ATRÁS
+   BOTÓN ATRÁS / INICIO
 ========================= */
 
 .boton-atras {
     position: absolute;
 
     bottom: 80px;
-
     left: 20%;
 
     background-color: #684028;
-
     color: white;
 
     text-decoration: none;
@@ -213,20 +216,21 @@ main {
     font-weight: bold;
 }
 
-
 .boton-atras:hover {
     background-color: #72472c;
-
     color: white;
 }
+
+
 /* =========================
-   AVDERTENCIAS
+   ADVERTENCIAS
 ========================= */
 
-.alerta-en-rojo{
+.alerta-en-rojo {
     color: red;
     font-size: 12px;
 }
+
 
 /* =========================
    MENSAJE CONTRASEÑA CREADA
@@ -236,8 +240,63 @@ main {
     min-height: 360px;
 
     display: flex;
-
     flex-direction: column;
 
     justify-content: center;
+}
+
+/* =========================
+   VERIFICACIÓN DE CUENTA
+========================= */
+
+.verificacion-contenido {
+    text-align: center;
+}
+
+.icono-verificacion {
+    width: 85px;
+    height: 85px;
+
+    margin: 0 auto 22px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: #f3ebe6;
+
+    border-radius: 50%;
+
+    color: #684028;
+    font-size: 40px;
+}
+
+.verificacion-contenido h1 {
+    color: #684028;
+
+    font-size: 28px;
+    font-weight: 700;
+
+    margin-bottom: 15px;
+}
+
+.verificacion-texto {
+    color: #444;
+
+    font-size: 16px;
+    line-height: 1.5;
+
+    margin-bottom: 10px;
+}
+
+.verificacion-aclaracion {
+    color: #777;
+
+    font-size: 14px;
+
+    margin-bottom: 25px;
+}
+
+.verificacion-contenido .btn-primary {
+    min-width: 170px;
 }

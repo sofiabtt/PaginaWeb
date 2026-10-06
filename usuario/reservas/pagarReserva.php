@@ -181,6 +181,7 @@ $queryVolver = $contexto ? "?" . http_build_query($contexto) : "";
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nuvia - Pagar reserva</title>
+    <link rel="icon" type="image/png" href="/PaginaWeb/imagenes/logo.png">
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/bootstrap-icons.css">
     <link rel="stylesheet" href="../../css/navbar.css">

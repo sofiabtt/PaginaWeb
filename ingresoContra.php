@@ -54,7 +54,7 @@
                         Ingrese Contraseña:
                     </label>
                     
-                    <div class="barra-contra">
+                    <div class="grupo-contrasena">
 
                         <input
                             type="password"

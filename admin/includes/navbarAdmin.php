@@ -40,6 +40,10 @@ if (isset($_SESSION["tipoUsuario"])) {
                     Inicio
                 </a>
 
+                <a class="nav-link" href="/PaginaWeb/admin/admin.php">
+                    Panel
+                </a>
+
                 <!-- AEROLÍNEAS -->
                 <a class="nav-link" href="/PaginaWeb/admin/aerolineas/gestionAerolineas.php">
                     Aerolíneas

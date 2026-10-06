@@ -2,110 +2,431 @@ body {
     background: #daf2f7;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
+
+/* =========================
+   CONTENEDOR GENERAL
+========================= */
+
 .contenedor-vuelo-elegido {
-    padding: 140px 0 60px;
+    width: 86%;
+    max-width: 1200px;
+
+    margin: 0 auto;
+
+    padding: 35px 0 70px;
 }
 
 .titulo-vuelo-elegido {
-    color: black;
+    color: #2c2c2c;
+
+    font-size: 36px;
     font-weight: 700;
-    margin-bottom: 30px;
+
+    margin-bottom: 25px;
 }
 
-.tarjeta-vuelo-elegido,
-.tarjeta-formulario {
-    border: none;
-    border-radius: 20px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+
+/* =========================
+   TARJETA DEL VUELO
+========================= */
+
+.tarjeta-vuelo-elegido {
+    background: white;
+
+    border: 1px solid rgba(104, 64, 40, 0.08);
+    border-radius: 18px;
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+
+    margin-bottom: 28px;
 }
 
-.tarjeta-vuelo-elegido .card-body,
-.tarjeta-formulario .card-body {
-    padding: 30px;
+.tarjeta-vuelo-elegido .card-body {
+    padding: 28px 32px;
 }
 
 .aerolinea-vuelo {
-    color: #835a40;
-    font-weight: bold;
+    color: #684028;
+
+    font-weight: 700;
     font-size: 18px;
+
+    margin-bottom: 22px;
 }
 
 .texto-secundario {
     display: block;
+
     color: #777;
-    font-size: 14px;
+
+    font-size: 13px;
+
     margin-bottom: 5px;
 }
 
 .flecha-vuelo {
-    font-size: 28px;
-    color: #835a40;
+    color: #a06a45;
+
+    font-size: 23px;
+
+    margin: 0 15px;
 }
 
 .datos-secundarios {
     display: flex;
+    align-items: center;
+
     gap: 25px;
+
     flex-wrap: wrap;
+
     color: #666;
+
+    font-size: 14px;
+
+    margin-top: 22px;
 }
 
 .precio-vuelo-elegido {
     color: #684028;
+
+    font-size: 30px;
     font-weight: 700;
-    margin-top: 5px;
+
+    margin: 3px 0 0;
 }
+
+
+/* =========================
+   CONTENEDOR DE RESERVA
+========================= */
+
+.contenedor-reserva {
+    width: 86%;
+    max-width: 1200px;
+
+    margin: 0 auto 80px;
+}
+
+
+/* =========================
+   TARJETA PASAJEROS
+========================= */
+
+.tarjeta-reserva {
+    width: 100%;
+    max-width: none;
+
+    background: white;
+
+    border: 1px solid rgba(104, 64, 40, 0.08);
+    border-radius: 18px;
+
+    padding: 30px 32px;
+
+    margin-bottom: 25px;
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+}
+
+.tarjeta-reserva h2 {
+    color: #2c2c2c;
+
+    font-size: 24px;
+    font-weight: 600;
+
+    margin: 0 0 25px;
+}
+
+
+/* =========================
+   CANTIDAD DE PASAJEROS
+========================= */
+
+.fila-pasajeros {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 25px;
+
+    margin-bottom: 25px;
+}
+
+.campo-pasajero {
+    width: 100%;
+}
+
+.campo-pasajero label {
+    display: block;
+
+    color: #333;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    margin-bottom: 8px;
+}
+
+.campo-pasajero input {
+    width: 100%;
+
+    padding: 12px 14px;
+
+    background: #fff;
+
+    border: 1px solid #d5d5d5;
+    border-radius: 10px;
+
+    font-size: 15px;
+
+    outline: none;
+
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.campo-pasajero input:focus {
+    border-color: #835a40;
+
+    box-shadow: 0 0 0 3px rgba(131, 90, 64, 0.12);
+}
+
+.campo-pasajero small {
+    display: block;
+
+    color: #888;
+
+    font-size: 13px;
+
+    margin-top: 6px;
+}
+
+
+/* =========================
+   BOTÓN PRINCIPAL
+========================= */
+
+.boton-principal,
+.boton-pagar {
+    background: #835a40;
+
+    color: white;
+
+    border: none;
+    border-radius: 25px;
+
+    padding: 12px 30px;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: background-color 0.2s,
+                transform 0.2s;
+}
+
+.boton-principal:hover,
+.boton-pagar:hover {
+    background: #684028;
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================
+   FORMULARIOS PASAJEROS
+========================= */
 
 .tarjeta-formulario {
-    max-width: 500px;
-}
-
-.btn-pagar {
     width: 100%;
-    background: #835a40;
-    color: white;
-    border: none;
-    padding: 12px;
-    border-radius: 10px;
-    font-weight: bold;
+    max-width: none;
+
+    background: white;
+
+    border: 1px solid rgba(104, 64, 40, 0.08);
+    border-radius: 18px;
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
 }
 
-.btn-pagar:hover {
-    background: #b1917d;
-    color: white;
+.tarjeta-formulario .card-body {
+    padding: 30px 32px;
 }
+
+.pasajero-card {
+    padding: 22px 0;
+
+    border-bottom: 1px solid #eeeeee;
+}
+
+.pasajero-card:first-child {
+    padding-top: 0;
+}
+
+.pasajero-card:last-child {
+    border-bottom: none;
+}
+
+.pasajero-card h3 {
+    color: #684028;
+
+    font-size: 20px;
+    font-weight: 600;
+
+    margin-bottom: 20px;
+}
+
+.grid-datos {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 18px 22px;
+}
+
+.grid-datos label {
+    display: block;
+
+    color: #333;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    margin-bottom: 7px;
+}
+
+.grid-datos input {
+    width: 100%;
+
+    padding: 11px 13px;
+
+    border: 1px solid #d5d5d5;
+    border-radius: 10px;
+
+    outline: none;
+}
+
+.grid-datos input:focus {
+    border-color: #835a40;
+
+    box-shadow: 0 0 0 3px rgba(131, 90, 64, 0.12);
+}
+
+
+/* =========================
+   RESUMEN DE PRECIO
+========================= */
 
 .dato-reserva {
     display: flex;
+
     justify-content: space-between;
     align-items: center;
 
     padding: 15px 0;
 
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #eeeeee;
 
-    font-size: 16px;
+    font-size: 15px;
 }
 
 .dato-reserva strong {
     color: #684028;
-    font-size: 18px;
+
+    font-size: 17px;
 }
 
+.detalle-precio {
+    display: flex;
+
+    justify-content: space-between;
+
+    margin: 15px 0;
+
+    font-size: 16px;
+}
+
+.detalle-precio.total,
 .total-reserva {
-    border-top: 2px solid #835a40;
-    border-bottom: none;
+    border-top: 2px solid #e7d9d0;
 
     margin-top: 20px;
     padding-top: 20px;
+
+    color: #684028;
+
+    font-size: 21px;
+}
+
+.total-reserva {
+    border-bottom: none;
 }
 
 .total-reserva strong {
     font-size: 24px;
 }
 
-.tarjeta-formulario {
-    max-width: 550px;
+
+/* =========================
+   MENSAJES
+========================= */
+
+.mensaje-error {
+    color: #b00020;
+
+    margin-bottom: 15px;
 }
+
+.mensaje-reserva {
+    color: #666;
+
+    font-size: 13px;
+
+    margin-top: 12px;
+}
+
+.mensaje-reserva a,
+.ya-tengo-cuenta {
+    color: #835a40;
+
+    font-weight: 600;
+
+    text-decoration: none;
+}
+
+.mensaje-reserva a:hover,
+.ya-tengo-cuenta:hover {
+    color: #684028;
+
+    text-decoration: underline;
+}
+
+
+/* =========================
+   ESTADOS DEL BOTÓN
+========================= */
+
+.boton-pagar.apretado,
+.boton-pagar.reservado {
+    background: #999;
+
+    color: white;
+
+    cursor: default;
+
+    transform: none;
+}
+
+
+/* =========================
+   MODAL
+========================= */
+
 .modal-registro {
     display: none;
 
@@ -136,38 +457,48 @@ body {
 }
 
 .modal-icono {
-    font-size: 50px;
     color: #835a40;
+
+    font-size: 50px;
+
     margin-bottom: 15px;
 }
 
 .modal-contenido h3 {
     color: #684028;
+
     margin-bottom: 15px;
 }
 
 .modal-contenido p {
     color: #666;
+
     line-height: 1.5;
+
     margin-bottom: 25px;
 }
 
 .modal-botones {
     display: flex;
+
     justify-content: center;
+
     gap: 15px;
 }
 
 .btn-cancelar,
 .btn-ir-registro {
     border: none;
-    border-radius: 10px;
-    padding: 10px 20px;
-    font-weight: bold;
+    border-radius: 25px;
+
+    padding: 10px 22px;
+
+    font-weight: 600;
 }
 
 .btn-cancelar {
     background: #eeeeee;
+
     color: #555;
 }
 
@@ -177,168 +508,47 @@ body {
 
 .btn-ir-registro {
     background: #835a40;
+
     color: white;
 }
 
 .btn-ir-registro:hover {
-    background: #b1917d;
-}
-.contenedor-reserva {
-    width: 82%;
-    margin: 24px auto 80px;
-}
-
-.tarjeta-reserva {
-    background: white;
-    border-radius: 20px;
-    padding: 32px;
-    margin-bottom: 24px;
-    max-width: 650px;
-    box-shadow: 0 5px 18px rgba(0,0,0,0.05);
-}
-
-.tarjeta-reserva h2 {
-    margin-top: 0;
-    margin-bottom: 28px;
-    font-size: 28px;
-}
-
-.fila-pasajeros {
-    display: flex;
-    gap: 30px;
-    margin-bottom: 20px;
-}
-
-.campo-pasajero {
-    flex: 1;
-}
-
-.campo-pasajero label {
-    display: block;
-    font-weight: 600;
-    margin-bottom: 8px;
-}
-
-.campo-pasajero input {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 16px;
-}
-
-.campo-pasajero small {
-    display: block;
-    margin-top: 5px;
-    color: #777;
-}
-
-.mensaje-error {
-    color: #b00020;
-    margin-bottom: 15px;
-}
-
-.boton-principal,
-.boton-pagar {
-    background: #8b5e3c;
-    color: white;
-    border: none;
-    padding: 13px 28px;
-    border-radius: 25px;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-.boton-principal:hover,
-.boton-pagar:hover {
-    opacity: 0.9;
-}
-
-.boton-pagar.apretado {
-    background: #999;
-    color: white;
-}
-/* Formulario de cada pasajero */
-
-.pasajero-card {
-    padding: 22px 0;
-    border-bottom: 1px solid #ddd;
-}
-
-.pasajero-card:last-child {
-    border-bottom: none;
-}
-
-.pasajero-card h3 {
-    margin-bottom: 18px;
-    color: #75472e;
-}
-
-.grid-datos {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 18px;
-}
-
-.grid-datos label {
-    display: block;
-    margin-bottom: 6px;
-    font-weight: 500;
-}
-
-.grid-datos input {
-    width: 100%;
-    padding: 11px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
+    background: #684028;
 }
 
 
-/* Resumen */
+/* =========================
+   RESPONSIVE
+========================= */
 
-.detalle-precio {
-    display: flex;
-    justify-content: space-between;
-    margin: 15px 0;
-    font-size: 17px;
-}
+@media (max-width: 768px) {
 
-.detalle-precio.total {
-    font-size: 22px;
-    color: #75472e;
-}
+    .contenedor-vuelo-elegido,
+    .contenedor-reserva {
+        width: 92%;
+    }
 
-.ya-tengo-cuenta {
-    display: inline-block;
-    margin-bottom: 20px;
-    color: #835a40;
-    text-decoration: none;
-    font-weight: 600;
-}
+    .contenedor-vuelo-elegido {
+        padding-top: 100px;
+    }
 
-.ya-tengo-cuenta:hover {
-    text-decoration: underline;
-    color: #684028;
-}
+    .titulo-vuelo-elegido {
+        font-size: 30px;
+    }
 
+    .fila-pasajeros,
+    .grid-datos {
+        grid-template-columns: 1fr;
+    }
 
-.boton-pagar.reservado {
-    background: #999;
-    color: white;
-    cursor: default;
-}
-.mensaje-reserva {
-    margin-top: 10px;
-    font-size: 13px;
-    color: #666;
-}
+    .tarjeta-vuelo-elegido .card-body,
+    .tarjeta-formulario .card-body,
+    .tarjeta-reserva {
+        padding: 24px;
+    }
 
-.mensaje-reserva a {
-    color: #835a40;
-    font-weight: 600;
-    text-decoration: none;
-}
+    .datos-secundarios {
+        gap: 15px;
+    }
 
-.mensaje-reserva a:hover {
-    text-decoration: underline;
 }

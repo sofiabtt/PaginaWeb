@@ -54,8 +54,6 @@ if (
     <title>Nuvia - Usuario</title>
 
 
-    <!-- Favicon -->
-
     <link
         rel="icon"
         href="../imagenes/logo.png"
@@ -109,11 +107,6 @@ if (
 <section class="hero">
 
     <?php include "includes/navbarUsuario.php"; ?>
-
-
-    <!-- =========================
-         BUSCADOR
-    ========================== -->
 
 <div class="contenedor-buscador">
 

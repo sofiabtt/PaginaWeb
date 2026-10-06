@@ -175,12 +175,12 @@ if ($estaLogueado) {
 
                 <div class="opciones-acceso">
 
-                    <a class="nav-link btn-iniciosesion" href="inicioSesion.php">
+                    <a class="nav-link btn-iniciosesion" href="/PaginaWeb/inicioSesion.php">
                         <i class="bi bi-person-check"></i>
                         Iniciar sesión
                     </a>
     
-                    <a class="nav-link btn-registro" href="registro.php">
+                    <a class="nav-link btn-registro" href="/PaginaWeb/registro.php">
                         <i class="bi bi-person-plus"></i>
                         Registrate
                     </a>

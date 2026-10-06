@@ -39,6 +39,10 @@ if (isset($_SESSION["tipoUsuario"])) {
                     Inicio
                 </a>
 
+                <a class="nav-link" href="/PaginaWeb/ceo/ceo.php">
+                    Panel
+                </a>
+
                 <a class="nav-link" href="/PaginaWeb/ceo/vuelos/gestionVuelos.php">
                     Vuelos
                 </a>

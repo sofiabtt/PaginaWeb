@@ -7,17 +7,22 @@ use PHPMailer\PHPMailer\Exception;
 
 require '../../vendor/autoload.php';
 
+
 // .ENV
 
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../..');
 
 $dotenv->load();
 
+
 // CONEXIÓN Y CONSULTAS
 
 include "../../php/conexionBD.php";
+
 include "../../php/consultasAerolineas.php";
+
 include "../../php/consultasCeos.php";
+
 include "../../php/consultasActividad.php";
 
 
@@ -25,14 +30,19 @@ include "../../php/consultasActividad.php";
 
 $error = "";
 
+
 // CREAR CEO
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $nombre = trim($_POST["nombre"]);
+
     $email = trim($_POST["email"]);
+
     $telefono = trim($_POST["telefono"]);
+
     $codAerolinea = $_POST["codAerolinea"];
+
 
     // VERIFICAR EMAIL
 
@@ -42,6 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     }
 
+
     // CONTINUAR SI NO HAY ERROR
 
     if ($error == "") {
@@ -50,6 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $token = bin2hex(random_bytes(32));
 
+
         // El enlace vence en 24 horas
 
         $fechaVerificacion = date(
@@ -57,11 +69,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             strtotime("+24 hours")
         );
 
+
         // DATOS DEL CEO
 
         $tipoUsuario = "ceo";
+
         $verificado = 0;
+
         $clave = NULL;
+
 
         // CREAR CEO
 
@@ -80,13 +96,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($codUsuarioNuevo !== false) {
 
-            asignarCeoAerolinea($conexion, $codUsuarioNuevo, $codAerolinea);
+            asignarCeoAerolinea(
+                $conexion,
+                $codUsuarioNuevo,
+                $codAerolinea
+            );
 
-            registrarActividad($conexion, "Administrador", "Creó un nuevo CEO: " . $nombre);
+
+            registrarActividad(
+                $conexion,
+                "Administrador",
+                "Creó un nuevo CEO: " . $nombre
+            );
+
 
             // ENVIAR EMAIL
 
             $mail = new PHPMailer(true);
+
 
             try {
 
@@ -109,22 +136,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 $mail->Port = 587;
 
+
                 // Remitente
 
-                $mail->setFrom($_ENV['GMAIL_USUARIO'], 'Nuvia');
+                $mail->setFrom(
+                    $_ENV['GMAIL_USUARIO'],
+                    'Nuvia'
+                );
+
 
                 // Destinatario
 
                 $mail->addAddress($email);
 
+
                 // HTML
 
                 $mail->isHTML(true);
-
-                // Asunto
-
-                $mail->Subject =
-                    'Activa tu cuenta de CEO';
 
 
                 // Enlace para crear contraseña
@@ -134,57 +162,174 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     . urlencode($token);
 
 
+                // Asunto
+
+                $mail->Subject =
+                    'Activa tu cuenta de CEO en Nuvia';
+
+
                 // Contenido del correo
 
                 $mail->Body = "
+                <!DOCTYPE html>
+                <html lang='es'>
 
-                    <h2>Bienvenido a Nuvia</h2>
+                <body style='
+                    margin: 0;
+                    padding: 0;
+                    background-color: #f3f6f7;
+                    font-family: Arial, Helvetica, sans-serif;
+                '>
 
-                    <p>
-                        Hola <strong>$nombre</strong>,
-                    </p>
+                    <div style='
+                        width: 100%;
+                        padding: 40px 20px;
+                        box-sizing: border-box;
+                    '>
 
-                    <p>
-                        El administrador ha creado una cuenta de CEO
-                        para vos.
-                    </p>
+                        <div style='
+                            max-width: 520px;
+                            margin: 0 auto;
+                            background-color: #ffffff;
+                            border-radius: 14px;
+                            overflow: hidden;
+                            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+                        '>
 
-                    <p>
-                        Para comenzar a utilizar tu cuenta,
-                        necesitás crear una contraseña.
-                    </p>
+                            <!-- ENCABEZADO -->
 
-                    <p>
-                        Hacé clic en el siguiente botón:
-                    </p>
+                            <div style='
+                                background-color: #684028;
+                                padding: 25px;
+                                text-align: center;
+                            '>
 
-                    <p>
+                                <h1 style='
+                                    margin: 0;
+                                    color: white;
+                                    font-size: 30px;
+                                '>
+                                    Nuvia
+                                </h1>
 
-                        <a href='$enlace'
-                           style='
-                           background-color:#684028;
-                           color:white;
-                           padding:12px 20px;
-                           text-decoration:none;
-                           border-radius:5px;
-                           display:inline-block;
-                           '>
+                            </div>
 
-                            Crear mi contraseña
 
-                        </a>
+                            <!-- CONTENIDO -->
 
-                    </p>
+                            <div style='
+                                padding: 35px;
+                                text-align: center;
+                            '>
 
-                    <p>
-                        Este enlace será válido durante 24 horas.
-                    </p>
+                                <h2 style='
+                                    color: #684028;
+                                    margin-top: 0;
+                                    margin-bottom: 20px;
+                                    font-size: 24px;
+                                '>
+                                    Bienvenido a Nuvia
+                                </h2>
 
+
+                                <p style='
+                                    color: #333333;
+                                    font-size: 16px;
+                                    line-height: 1.6;
+                                    margin-bottom: 12px;
+                                '>
+                                    Hola <strong>"
+                                    . htmlspecialchars($nombre)
+                                    . "</strong>,
+                                </p>
+
+
+                                <p style='
+                                    color: #555555;
+                                    font-size: 15px;
+                                    line-height: 1.6;
+                                    margin-bottom: 28px;
+                                '>
+                                    Fuiste registrado como CEO de una aerolínea
+                                    en Nuvia. Para activar tu cuenta y acceder
+                                    a la plataforma, primero tenés que crear
+                                    tu contraseña.
+                                </p>
+
+
+                                <!-- BOTÓN -->
+
+                                <a
+                                    href='" . htmlspecialchars($enlace) . "'
+                                    style='
+                                        display: inline-block;
+                                        background-color: #684028;
+                                        color: #ffffff;
+                                        text-decoration: none;
+                                        padding: 13px 30px;
+                                        border-radius: 25px;
+                                        font-size: 15px;
+                                        font-weight: bold;
+                                    '
+                                >
+                                    Crear mi contraseña
+                                </a>
+
+
+                                <p style='
+                                    color: #888888;
+                                    font-size: 13px;
+                                    line-height: 1.5;
+                                    margin-top: 28px;
+                                    margin-bottom: 0;
+                                '>
+                                    Este enlace estará disponible durante 24 horas.
+                                </p>
+
+                            </div>
+
+
+                            <!-- PIE -->
+
+                            <div style='
+                                background-color: #f7f3f1;
+                                padding: 18px 30px;
+                                text-align: center;
+                            '>
+
+                                <p style='
+                                    margin: 0;
+                                    color: #888888;
+                                    font-size: 12px;
+                                '>
+                                    Si no esperabas recibir esta invitación,
+                                    podés ignorar este correo.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </body>
+
+                </html>
                 ";
+
+
+                $mail->AltBody =
+                    "Hola $nombre. "
+                    . "Fuiste registrado como CEO de una aerolínea en Nuvia. "
+                    . "Para activar tu cuenta, creá tu contraseña ingresando al siguiente enlace: "
+                    . $enlace
+                    . " El enlace vence dentro de 24 horas.";
+
 
                 // Enviar email
 
                 $mail->send();
+
 
                 header("Location: gestionCeos.php");
 
@@ -197,7 +342,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     "El CEO fue creado correctamente, "
                     . "pero no se pudo enviar el correo: "
                     . $mail->ErrorInfo;
+
             }
+
 
         } else {
 
@@ -210,9 +357,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 }
 
+
 // OBTENER AEROLÍNEAS ACTIVAS
 
-$consultaAerolineas = obtenerAerolineasActivas($conexion);
+$consultaAerolineas =
+    obtenerAerolineasActivas($conexion);
 
 ?>
 
@@ -255,7 +404,11 @@ $consultaAerolineas = obtenerAerolineasActivas($conexion);
         href="../../css/estilos-admin.css"
     >
 
-    <link rel="stylesheet" href="../../css/navbar.css">
+    <link
+        rel="stylesheet"
+        href="../../css/navbar.css"
+    >
+
 
     <!-- Favicon -->
 
@@ -410,21 +563,27 @@ $consultaAerolineas = obtenerAerolineasActivas($conexion);
                             <option
                                 value="<?php echo $aerolinea["codAerolinea"]; ?>"
                                 <?php
+
                                 if (
                                     isset($_POST["codAerolinea"])
                                     &&
                                     $_POST["codAerolinea"]
                                     == $aerolinea["codAerolinea"]
                                 ) {
+
                                     echo "selected";
+
                                 }
+
                                 ?>
                             >
 
                                 <?php
+
                                 echo htmlspecialchars(
                                     $aerolinea["nombreAerolinea"]
                                 );
+
                                 ?>
 
                             </option>
@@ -466,9 +625,7 @@ $consultaAerolineas = obtenerAerolineasActivas($conexion);
                         href="gestionCeos.php"
                         class="btn btn-secondary"
                     >
-
                         Cancelar
-
                     </a>
 
                 </div>

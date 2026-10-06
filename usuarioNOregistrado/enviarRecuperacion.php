@@ -7,7 +7,6 @@ session_start();
 include "../php/conexionBD.php";
 
 require "../vendor/autoload.php";
-require "../vendor/autoload.php";
 
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..');
 $dotenv->load();
@@ -139,58 +138,163 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 $mail->isHTML(true);
 
                 $mail->Subject =
-                    "Recuperación de contraseña - Nuvia";
+                    "Recuperacion de contraseña - Nuvia";
 
 
                 $mail->Body = "
+                <!DOCTYPE html>
+                <html lang='es'>
 
-                    <h2>Recuperación de contraseña</h2>
+                <body style='
+                    margin: 0;
+                    padding: 0;
+                    background-color: #f3f6f7;
+                    font-family: Arial, Helvetica, sans-serif;
+                '>
 
-                    <p>
-                        Hola " .
-                        htmlspecialchars(
-                            $usuario["nombreUsuario"]
-                        ) .
-                        ".
-                    </p>
+                    <div style='
+                        width: 100%;
+                        padding: 40px 20px;
+                        box-sizing: border-box;
+                    '>
 
-                    <p>
-                        Recibimos una solicitud para cambiar
-                        la contraseña de tu cuenta de Nuvia.
-                    </p>
+                        <div style='
+                            max-width: 520px;
+                            margin: 0 auto;
+                            background-color: #ffffff;
+                            border-radius: 14px;
+                            overflow: hidden;
+                            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+                        '>
 
-                    <p>
-                        Hacé clic en el siguiente botón
-                        para crear una nueva contraseña:
-                    </p>
+                            <!-- ENCABEZADO -->
 
-                    <p>
-                        <a
-                            href='" . $linkRecuperacion . "'
-                            style='
-                                display:inline-block;
-                                padding:12px 20px;
-                                background:#7a482b;
-                                color:white;
-                                text-decoration:none;
-                                border-radius:8px;
-                                font-weight:bold;
-                            '
-                        >
-                            Crear nueva contraseña
-                        </a>
-                    </p>
+                            <div style='
+                                background-color: #684028;
+                                padding: 25px;
+                                text-align: center;
+                            '>
 
-                    <p>
-                        Este enlace vence en 1 hora.
-                    </p>
+                                <h1 style='
+                                    margin: 0;
+                                    color: white;
+                                    font-size: 30px;
+                                '>
+                                    Nuvia
+                                </h1>
 
-                    <p>
-                        Si no solicitaste este cambio,
-                        podés ignorar este correo.
-                    </p>
+                            </div>
 
+
+                            <!-- CONTENIDO -->
+
+                            <div style='
+                                padding: 35px;
+                                text-align: center;
+                            '>
+
+                                <h2 style='
+                                    color: #684028;
+                                    margin-top: 0;
+                                    margin-bottom: 20px;
+                                    font-size: 24px;
+                                '>
+                                    Recuperá tu contraseña
+                                </h2>
+
+
+                                <p style='
+                                    color: #333333;
+                                    font-size: 16px;
+                                    line-height: 1.6;
+                                    margin-bottom: 12px;
+                                '>
+                                    Hola <strong>"
+                                    . htmlspecialchars($usuario["nombreUsuario"])
+                                    . "</strong>,
+                                </p>
+
+
+                                <p style='
+                                    color: #555555;
+                                    font-size: 15px;
+                                    line-height: 1.6;
+                                    margin-bottom: 28px;
+                                '>
+                                    Recibimos una solicitud para cambiar
+                                    la contraseña de tu cuenta de Nuvia.
+                                    Para crear una nueva contraseña,
+                                    hacé clic en el siguiente botón.
+                                </p>
+
+
+                                <!-- BOTÓN -->
+
+                                <a
+                                    href='" . htmlspecialchars($linkRecuperacion) . "'
+                                    style='
+                                        display: inline-block;
+                                        background-color: #684028;
+                                        color: #ffffff;
+                                        text-decoration: none;
+                                        padding: 13px 30px;
+                                        border-radius: 25px;
+                                        font-size: 15px;
+                                        font-weight: bold;
+                                    '
+                                >
+                                    Crear nueva contraseña
+                                </a>
+
+
+                                <p style='
+                                    color: #888888;
+                                    font-size: 13px;
+                                    line-height: 1.5;
+                                    margin-top: 28px;
+                                    margin-bottom: 0;
+                                '>
+                                    Este enlace estará disponible durante 1 hora.
+                                </p>
+
+                            </div>
+
+
+                            <!-- PIE -->
+
+                            <div style='
+                                background-color: #f7f3f1;
+                                padding: 18px 30px;
+                                text-align: center;
+                            '>
+
+                                <p style='
+                                    margin: 0;
+                                    color: #888888;
+                                    font-size: 12px;
+                                '>
+                                    Si no solicitaste un cambio de contraseña,
+                                    podés ignorar este correo.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </body>
+
+                </html>
                 ";
+
+
+                $mail->AltBody =
+                    "Hola " . $usuario["nombreUsuario"] . ". "
+                    . "Recibimos una solicitud para cambiar la contraseña de tu cuenta de Nuvia. "
+                    . "Para crear una nueva contraseña ingresá al siguiente enlace: "
+                    . $linkRecuperacion
+                    . " El enlace vence dentro de 1 hora.";
 
 
                 $mail->send();
@@ -235,6 +339,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     >
 
     <title>Recuperar contraseña</title>
+    
 
     <link
         rel="stylesheet"

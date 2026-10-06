@@ -55,6 +55,12 @@ if (!$reserva) {
 
     <title>Nuvia - Detalle de reserva</title>
 
+    <link
+        rel="icon"
+        type="image/png"
+        href="/PaginaWeb/imagenes/logo.png"
+    >
+
 
     <link
         rel="stylesheet"

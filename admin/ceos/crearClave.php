@@ -70,8 +70,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $error = "Las contraseñas no coinciden.";
 
-    }
+    } elseif (
+        strlen($nuevaClave) < 6 ||
+        !preg_match('/[A-Z]/', $nuevaClave) ||
+        !preg_match('/[0-9]/', $nuevaClave)
+    ) {
 
+        $error = "La contraseña debe tener al menos 6 caracteres, una letra mayúscula y un número.";
+
+    }
 
     else {
         // ENCRIPTAR CONTRASEÑA
@@ -293,6 +300,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 id="nuevaClave"
                                 name="nuevaClave"
                                 placeholder="Ingrese una contraseña"
+                                minlength="6"
                                 required
                             >
 
@@ -321,11 +329,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             for="repetirClave"
                             class="form-label texto-negro"
                         >
-
                             Repetir contraseña:
-
                         </label>
-
 
                         <div class="barra-contra">
 
@@ -335,9 +340,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 id="repetirClave"
                                 name="repetirClave"
                                 placeholder="Repita su contraseña"
+                                minlength="6"
                                 required
                             >
-
 
                             <button
                                 type="button"
@@ -345,14 +350,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 onclick="mostrarContrasena('repetirClave', 'boton-ojo-repetir')"
                                 id="boton-ojo-repetir"
                             >
-
                                 <i class="bi bi-eye"></i>
-
                             </button>
 
                         </div>
 
                     </div>
+
+
+                    <!-- REQUISITOS DE CONTRASEÑA -->
+
+                    <p class="text-muted text-center mb-3" style="font-size: 12px;">
+
+                        La contraseña debe tener mínimo 6 caracteres,
+                        una letra mayúscula y un número.
+                    </p>
 
 
                     <div class="text-center">
@@ -361,9 +373,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             type="submit"
                             class="btn btn-primary"
                         >
-
                             Crear contraseña
-
                         </button>
 
                     </div>

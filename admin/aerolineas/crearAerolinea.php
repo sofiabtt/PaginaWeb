@@ -3,31 +3,53 @@
 include "../../php/consultasAerolineas.php";
 include "../../php/consultasActividad.php";
 
+$nombre = "";
+$iata = "";
+$descripcion = "";
+$codPais = "";
+$mensaje = "";
+
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $nombre = $_POST["nombreAerolinea"];
-    $iata = $_POST["codigoIATA"];
-    $descripcion = $_POST["descripcionAerolinea"];
-    $pais = $_POST["codPais"];
+    $nombre = trim($_POST["nombreAerolinea"]);
+    $iata = strtoupper(trim($_POST["codigoIATA"]));
+    $descripcion = trim($_POST["descripcionAerolinea"]);
+    $codPais = $_POST["codPais"];
 
-    // CREAR AEROLÍNEA
 
-    if (crearAerolinea($conexion, $nombre, $iata, $descripcion, $pais)) {
+    // VALIDAR CÓDIGO IATA
 
-        registrarActividad($conexion, "Administrador", "Creó la aerolínea " . $nombre);
+    if (!preg_match('/^[A-Z]{3}$/', $iata)) {
 
-        header("Location: gestionAerolineas.php?creada=1");
-
-        exit;
+        $mensaje = "El código IATA debe tener exactamente 3 letras.";
 
     } else {
 
-        $mensaje = "Ocurrió un error al crear la aerolínea.";
+        // CREAR AEROLÍNEA
+
+        if (crearAerolinea($conexion, $nombre, $iata, $descripcion, $codPais)) {
+
+            registrarActividad(
+                $conexion,
+                "Administrador",
+                "Creó la aerolínea " . $nombre
+            );
+
+            header("Location: gestionAerolineas.php?creada=1");
+
+            exit;
+
+        } else {
+
+            $mensaje = "Ocurrió un error al crear la aerolínea.";
+
+        }
 
     }
 
 }
+
 
 $resultadoPaises = obtenerPaises($conexion);
 
@@ -66,7 +88,10 @@ $resultadoPaises = obtenerPaises($conexion);
         href="../../css/estilos-admin.css"
     >
 
-    <link rel="stylesheet" href="../../css/navbar.css">
+    <link
+        rel="stylesheet"
+        href="../../css/navbar.css"
+    >
 
     <link
         rel="icon"
@@ -104,7 +129,7 @@ $resultadoPaises = obtenerPaises($conexion);
 
 
 
-        <?php if (isset($mensaje)) { ?>
+        <?php if ($mensaje != "") { ?>
 
             <div class="alert alert-danger">
 
@@ -133,6 +158,8 @@ $resultadoPaises = obtenerPaises($conexion);
                     >
 
 
+                        <!-- NOMBRE -->
+
                         <div class="mb-3">
 
                             <label
@@ -147,12 +174,15 @@ $resultadoPaises = obtenerPaises($conexion);
                                 class="form-control"
                                 id="nombreAerolinea"
                                 name="nombreAerolinea"
+                                value="<?php echo htmlspecialchars($nombre); ?>"
                                 required
                             >
 
                         </div>
 
 
+
+                        <!-- CÓDIGO IATA -->
 
                         <div class="mb-3">
 
@@ -161,6 +191,11 @@ $resultadoPaises = obtenerPaises($conexion);
                                 class="form-label fw-semibold"
                             >
                                 Código IATA
+
+                                <span class="text-muted fw-normal">
+                                    (3 letras)
+                                </span>
+
                             </label>
 
                             <input
@@ -168,13 +203,19 @@ $resultadoPaises = obtenerPaises($conexion);
                                 class="form-control"
                                 id="codigoIATA"
                                 name="codigoIATA"
+                                minlength="3"
                                 maxlength="3"
+                                pattern="[A-Za-z]{3}"
+                                title="El código IATA debe tener exactamente 3 letras."
+                                value="<?php echo htmlspecialchars($iata); ?>"
                                 required
                             >
 
                         </div>
 
 
+
+                        <!-- PAÍS -->
 
                         <div class="mb-3">
 
@@ -196,19 +237,30 @@ $resultadoPaises = obtenerPaises($conexion);
                                     Seleccioná un país
                                 </option>
 
+
                                 <?php while ($pais = $resultadoPaises->fetch_assoc()) { ?>
 
-                                    <option value="<?php echo $pais["codPais"]; ?>">
-                                        <?php echo $pais["nombrePais"]; ?>
+                                    <option
+                                        value="<?php echo $pais["codPais"]; ?>"
+                                        <?php
+                                        if ($codPais == $pais["codPais"]) {
+                                            echo "selected";
+                                        }
+                                        ?>
+                                    >
+                                        <?php echo htmlspecialchars($pais["nombrePais"]); ?>
                                     </option>
 
                                 <?php } ?>
+
 
                             </select>
 
                         </div>
 
 
+
+                        <!-- DESCRIPCIÓN -->
 
                         <div class="mb-4">
 
@@ -225,11 +277,13 @@ $resultadoPaises = obtenerPaises($conexion);
                                 name="descripcionAerolinea"
                                 rows="4"
                                 required
-                            ></textarea>
+                            ><?php echo htmlspecialchars($descripcion); ?></textarea>
 
                         </div>
 
 
+
+                        <!-- BOTONES -->
 
                         <div class="d-flex justify-content-end gap-2">
 
