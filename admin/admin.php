@@ -1,27 +1,27 @@
 <?php
-
 session_start();
+
+// Control de acceso al panel
+if (!isset($_SESSION['codUsuario']) || strtolower($_SESSION['tipoUsuario'] ?? '') !== 'administrador') {
+    header("Location: ../inicioSesion.php");
+    exit();
+}
 
 include "../php/conexionBD.php";
 include "../php/consultasAerolineas.php";
 include "../php/consultasPromociones.php";
 include "../php/consultasNovedades.php";
 include "../php/consultasCeos.php";
+include "../php/consultasUsuarios.php"; // <-- 1. Agregamos el include
 include "../php/consultasActividad.php";
 
-
 $aerolineas = cantidadAerolineasActivas($conexion);
-
 $promocionesPendientes = cantidadPromocionesPendientes($conexion);
-
 $novedades = cantidadNovedades($conexion);
-
 $ceos = cantidadCeos($conexion);
-
+$usuarios = cantidadUsuarios($conexion); // <-- 2. Usamos la función existente
 $resultadoActividad = obtenerActividadesRecientes($conexion);
-
 ?>
-
 
 <!DOCTYPE html>
 <html lang="es">
@@ -78,94 +78,39 @@ $resultadoActividad = obtenerActividadesRecientes($conexion);
 
         <section class="resumen-admin">
 
-            <h2>
-                Resumen del sistema
-            </h2>
+            <h2 class="h4 mb-3 text-dark">Resumen del sistema</h2>
 
+            <div class="row g-3 mb-4">
+                <!-- Tarjeta Aerolíneas -->
+                <div class="col-md-6 col-lg-3">
+                    <a href="aerolineas/gestionAerolineas.php" class="text-decoration-none text-reset">
+                        <div class="card border-0 shadow-sm rounded-4 p-3 h-100 d-flex flex-row align-items-center">
+                            <div class="me-3 text-primary fs-2">
+                                <i class="bi bi-airplane"></i>
+                            </div>
+                            <div>
+                                <div class="text-muted small">Aerolíneas activas</div>
+                                <div class="fs-3 fw-bold text-dark"><?php echo $aerolineas; ?></div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
 
-            <div class="resumen-grid">
-
-
-                <article class="resumen-item">
-
-                    <i class="bi bi-airplane"></i>
-
-                    <div>
-
-                        <h3>
-                            Aerolíneas activas
-                        </h3>
-
-                        <p class="numero-resumen">
-                            <?php echo $aerolineas; ?>
-                        </p>
-
-                    </div>
-
-                </article>
-
-
-                <article class="resumen-item">
-
-                    <i class="bi bi-tag"></i>
-
-                    <div>
-
-                        <h3>
-                            Promociones pendientes
-                        </h3>
-
-                        <p class="numero-resumen">
-                            <?php echo $promocionesPendientes; ?>
-                        </p>
-
-                    </div>
-
-                </article>
-
-
-                <article class="resumen-item">
-
-                    <i class="bi bi-newspaper"></i>
-
-                    <div>
-
-                        <h3>
-                            Novedades publicadas
-                        </h3>
-
-                        <p class="numero-resumen">
-                            <?php echo $novedades; ?>
-                        </p>
-
-                    </div>
-
-                </article>
-
-
-                <article class="resumen-item">
-
-                    <i class="bi bi-people"></i>
-
-                    <div>
-
-                        <h3>
-                            CEOs registrados
-                        </h3>
-
-                        <p class="numero-resumen">
-                            <?php echo $ceos; ?>
-                        </p>
-
-                    </div>
-
-                </article>
-
-
+                <!-- Tarjeta Usuarios Registrados -->
+                <div class="col-md-6 col-lg-3">
+                    <a href="reportes/usuarios.php" class="text-decoration-none text-reset">
+                        <div class="card border-0 shadow-sm rounded-4 p-3 h-100 d-flex flex-row align-items-center">
+                            <div class="me-3 text-primary fs-2">
+                                <i class="bi bi-people"></i>
+                            </div>
+                            <div>
+                                <div class="text-muted small">Usuarios registrados</div>
+                                <div class="fs-3 fw-bold text-dark"><?php echo $usuarios; ?></div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
             </div>
-
-        </section>
-
 
 
         <!-- ACTIVIDAD RECIENTE -->

@@ -16,7 +16,6 @@ if (isset($_SESSION["tipoUsuario"])) {
 
         <a class="navbar-brand" href="/PaginaWeb/admin/admin.php">
             <img src="/PaginaWeb/imagenes/logo.png" alt="Logo Nuvia">
-
             <h1>Nuvia</h1>
         </a>
 
@@ -40,6 +39,7 @@ if (isset($_SESSION["tipoUsuario"])) {
                     Inicio
                 </a>
 
+                <!-- PANEL ADMIN -->
                 <a class="nav-link" href="/PaginaWeb/admin/admin.php">
                     Panel
                 </a>
@@ -69,8 +69,8 @@ if (isset($_SESSION["tipoUsuario"])) {
                     Reportes
                 </a>
 
-                <!-- USUARIOS -->
-                <a class="nav-link" href="/PaginaWeb/admin/usuarios/gestionUsuarios.php">
+                <!-- USUARIOS (Enlace único y correcto) -->
+                <a class="nav-link" href="/PaginaWeb/admin/reportes/usuarios.php">
                     Usuarios
                 </a>
 

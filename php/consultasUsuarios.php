@@ -1,231 +1,83 @@
 <?php
+// Archivo: PaginaWeb/php/consultasUsuarios.php
+include_once __DIR__ . "/conexionBD.php";
 
-include "conexionBD.php";
-
-
-// MODIFICAR USUARIO
-
-function modificarUsuario($conexion, $codUsuario, $nombre, $email, $telefono)
-{
-    $consulta = "UPDATE Usuarios
-                 SET nombreUsuario = ?,
-                     emailUsuario = ?,
-                     telefonoUsuario = ?
-                 WHERE codUsuario = ?";
-
-    $stmt = $conexion->prepare($consulta);
-
-    $stmt->bind_param(
-        "sssi",
-        $nombre,
-        $email,
-        $telefono,
-        $codUsuario
-    );
-
-    return $stmt->execute();
-}
-
-//MODIFICAR LA CONTRASEÑA DEL USUARIO
-function modificarContraseñaUsuario($conexion, $codUsuario, $claveNueva) {
-
-    //Generar el hash seguro de la contraseña
-    $hash = password_hash($claveNueva, PASSWORD_DEFAULT);
-
-    $sql = "UPDATE Usuarios SET claveUsuario = ? WHERE codUsuario = ?";
-
-    $consulta = mysqli_prepare($conexion, $sql);
-
-    if (!$consulta) {
-
-        return false;
-
-    }
-
-    mysqli_stmt_bind_param($consulta, "si", $hash, $codUsuario);
-
-    $resultado = mysqli_stmt_execute($consulta);
-
-    mysqli_stmt_close($consulta);
-
-    return $resultado;
-
-}
-
-// OBTENER USUARIO
-
-function obtenerUsuario($conexion, $codUsuario)
-{
-    $consulta = "SELECT nombreUsuario,
-                        emailUsuario,
-                        telefonoUsuario
-                 FROM Usuarios
-                 WHERE codUsuario = ?";
-
-    $stmt = $conexion->prepare($consulta);
-
-    $stmt->bind_param(
-        "i",
-        $codUsuario
-    );
-
-    $stmt->execute();
-
-    $resultado = $stmt->get_result();
-
-    return $resultado->fetch_assoc();
-}
-
-// CANTIDAD DE USUARIOS
-
+/**
+ * Cantidad total de usuarios para el panel de Admin
+ */
 function cantidadUsuarios($conexion)
 {
-    $consulta = "SELECT COUNT(*) AS cantidad
-                 FROM Usuarios
-                 WHERE tipoUsuario = 'usuario'";
-
-    $resultado = $conexion->query($consulta);
-
-    return $resultado->fetch_assoc()["cantidad"];
+    $sql = "SELECT COUNT(*) AS total FROM Usuarios";
+    $res = mysqli_query($conexion, $sql);
+    if ($res && ($fila = mysqli_fetch_assoc($res))) {
+        return (int)$fila['total'];
+    }
+    return 0;
 }
 
-
-// OBTENER USUARIOS PAGINADOS
-
-function obtenerUsuariosPaginados($conexion, $porPagina,$inicio)
+/**
+ * Cantidad de usuarios filtrados para la paginación
+ */
+function cantidadUsuariosReporte($conexion, $rol = '', $busqueda = '')
 {
-    $consulta = $conexion->prepare(
-        "SELECT codUsuario,
-                nombreUsuario,
-                emailUsuario,
-                telefonoUsuario,
-                verificado
-         FROM Usuarios
-         WHERE tipoUsuario = 'usuario'
-         ORDER BY codUsuario DESC
-         LIMIT ? OFFSET ?"
-    );
+    $where = ["1=1"];
 
-    $consulta->bind_param(
-        "ii",
-        $porPagina,
-        $inicio
-    );
-
-    $consulta->execute();
-
-    return $consulta->get_result();
-}
-
-// OBTENER PERFIL DE USUARIO
-
-function obtenerPerfilUsuario($conexion, $codUsuario)
-{
-    $consulta = $conexion->prepare(
-        "SELECT nombreUsuario,
-                emailUsuario,
-                telefonoUsuario
-         FROM Usuarios
-         WHERE codUsuario = ?
-           AND tipoUsuario = 'usuario'"
-    );
-
-    $consulta->bind_param(
-        "i",
-        $codUsuario
-    );
-
-    $consulta->execute();
-
-    return $consulta
-        ->get_result()
-        ->fetch_assoc();
-}
-
-
-// ACTUALIZAR PERFIL DE USUARIO
-
-function actualizarPerfilUsuario(
-    $conexion,
-    $codUsuario,
-    $nombre,
-    $email,
-    $telefono,
-    $claveNueva
-) {
-
-    if ($claveNueva !== "") {
-
-        $hash = password_hash(
-            $claveNueva,
-            PASSWORD_DEFAULT
-        );
-
-        $actualizar = $conexion->prepare(
-            "UPDATE Usuarios
-             SET nombreUsuario = ?,
-                 emailUsuario = ?,
-                 telefonoUsuario = ?,
-                 claveUsuario = ?
-             WHERE codUsuario = ?
-               AND tipoUsuario = 'usuario'"
-        );
-
-        $actualizar->bind_param(
-            "ssssi",
-            $nombre,
-            $email,
-            $telefono,
-            $hash,
-            $codUsuario
-        );
-
-    } else {
-
-        $actualizar = $conexion->prepare(
-            "UPDATE Usuarios
-             SET nombreUsuario = ?,
-                 emailUsuario = ?,
-                 telefonoUsuario = ?
-             WHERE codUsuario = ?
-               AND tipoUsuario = 'usuario'"
-        );
-
-        $actualizar->bind_param(
-            "sssi",
-            $nombre,
-            $email,
-            $telefono,
-            $codUsuario
-        );
+    if ($rol !== '') {
+        if ($rol === 'usuario' || $rol === 'cliente') {
+            $where[] = "tipoUsuario IN ('usuario', 'cliente')";
+        } else {
+            $rolEsc = mysqli_real_escape_string($conexion, $rol);
+            $where[] = "tipoUsuario = '$rolEsc'";
+        }
     }
 
+    if ($busqueda !== '') {
+        $busqEsc = mysqli_real_escape_string($conexion, $busqueda);
+        $where[] = "(nombreUsuario LIKE '%$busqEsc%' OR emailUsuario LIKE '%$busqEsc%')";
+    }
 
-    return $actualizar->execute();
+    $whereSql = implode(" AND ", $where);
+    $sql = "SELECT COUNT(*) AS total FROM Usuarios WHERE $whereSql";
+    $res = mysqli_query($conexion, $sql);
+
+    if ($res && ($fila = mysqli_fetch_assoc($res))) {
+        return (int)$fila['total'];
+    }
+    return 0;
 }
 
-// OBTENER USUARIO POR EMAIL PARA INICIO DE SESIÓN
-
-function obtenerUsuarioPorEmail($conexion, $email)
+/**
+ * Obtener usuarios paginados y filtrados para la tabla
+ */
+function obtenerUsuariosReporte($conexion, $porPagina, $inicio, $rol = '', $busqueda = '')
 {
-    $consulta = $conexion->prepare(
-        "SELECT codUsuario,
-                nombreUsuario,
-                claveUsuario,
-                tipoUsuario,
-                verificado
-         FROM Usuarios
-         WHERE emailUsuario = ?"
-    );
+    $where = ["1=1"];
 
-    $consulta->bind_param(
-        "s",
-        $email
-    );
+    if ($rol !== '') {
+        if ($rol === 'usuario' || $rol === 'cliente') {
+            $where[] = "tipoUsuario IN ('usuario', 'cliente')";
+        } else {
+            $rolEsc = mysqli_real_escape_string($conexion, $rol);
+            $where[] = "tipoUsuario = '$rolEsc'";
+        }
+    }
 
-    $consulta->execute();
+    if ($busqueda !== '') {
+        $busqEsc = mysqli_real_escape_string($conexion, $busqueda);
+        $where[] = "(nombreUsuario LIKE '%$busqEsc%' OR emailUsuario LIKE '%$busqEsc%')";
+    }
 
-    return $consulta
-        ->get_result()
-        ->fetch_assoc();
+    $whereSql = implode(" AND ", $where);
+    $sql = "SELECT codUsuario,
+                   nombreUsuario,
+                   emailUsuario,
+                   telefonoUsuario,
+                   tipoUsuario,
+                   verificado
+            FROM Usuarios
+            WHERE $whereSql
+            ORDER BY codUsuario DESC
+            LIMIT $inicio, $porPagina";
+
+    return mysqli_query($conexion, $sql);
 }

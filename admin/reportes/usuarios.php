@@ -1,333 +1,202 @@
 <?php
-
 session_start();
 
-if (
-    !isset($_SESSION["tipoUsuario"]) ||
-    $_SESSION["tipoUsuario"] !== "administrador"
-) {
-
+// Control de acceso: solo Administrador
+if (!isset($_SESSION['codUsuario']) || strtolower($_SESSION['tipoUsuario'] ?? '') !== 'administrador') {
     header("Location: ../../inicioSesion.php");
-
     exit();
-
 }
 
-include "../../php/conexionBD.php";
-include "../../php/consultasUsuarios.php";
+include_once __DIR__ . "/../../php/conexionBD.php";
+include_once __DIR__ . "/../../php/consultasUsuarios.php";
+
+// Filtros y Paginación
+$filtroRol = isset($_GET['rol']) ? trim($_GET['rol']) : '';
+$busqueda  = isset($_GET['buscar']) ? trim($_GET['buscar']) : '';
 
 $porPagina = 10;
+$paginaActual = isset($_GET['pag']) ? max(1, intval($_GET['pag'])) : 1;
+$inicio = ($paginaActual - 1) * $porPagina;
 
-$pagina = max(1, filter_input(INPUT_GET,"pagina",FILTER_VALIDATE_INT) ?: 1);
+// Consultas
+$totalUsuarios = cantidadUsuariosReporte($conexion, $filtroRol, $busqueda);
+$totalPaginas  = ceil($totalUsuarios / $porPagina);
+$resultado     = obtenerUsuariosReporte($conexion, $porPagina, $inicio, $filtroRol, $busqueda);
 
-$inicio = ($pagina - 1) * $porPagina;
-
-// CANTIDAD TOTAL DE USUARIOS
-
-$total = cantidadUsuarios($conexion);
-
-$totalPaginas = max(1,(int) ceil($total / $porPagina));
-
-
-if ($pagina > $totalPaginas) {
-
-    $pagina = $totalPaginas;
-
-    $inicio = ($pagina - 1) * $porPagina;
-
-}
-
-// OBTENER USUARIOS
-
-$resultado = obtenerUsuariosPaginados($conexion,$porPagina,$inicio);
-
+// Detección automática de la ruta a CSS (por si está en admin/ o en admin/reportes/)
+$rutaBase = file_exists(__DIR__ . '/../../css/bootstrap.min.css') ? '../../' : '../';
 ?>
-
-
 <!DOCTYPE html>
-
 <html lang="es">
-
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuvia Admin - Usuarios Registrados</title>
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <!-- Hojas de estilo locales -->
+    <link rel="stylesheet" href="<?php echo $rutaBase; ?>css/bootstrap.min.css">
+    <link rel="stylesheet" href="<?php echo $rutaBase; ?>css/bootstrap-icons.css">
+    <link rel="stylesheet" href="<?php echo $rutaBase; ?>css/navbar.css">
+    <link rel="stylesheet" href="<?php echo $rutaBase; ?>css/estilos-admin.css">
 
-    <title>
-        Nuvia - Reporte de usuarios
-    </title>
+    <!-- Respaldo CDN para garantizar estilos de Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-
-    <!-- Bootstrap -->
-
-    <link
-        rel="stylesheet"
-        href="../../css/bootstrap.min.css"
-    >
-
-
-    <!-- Bootstrap Icons -->
-
-    <link
-        rel="stylesheet"
-        href="../../css/bootstrap-icons.css"
-    >
-
-
-    <!-- CSS del administrador -->
-
-    <link
-        rel="stylesheet"
-        href="../../css/estilos-admin.css"
-    >
-
-
-    <!-- Favicon -->
-
-    <link
-        rel="icon"
-        type="image/png"
-        href="../../imagenes/logo.png"
-    >
-
+    <style>
+        /* Regla de seguridad: evita que el logo del avión se desborde */
+        .navbar-brand img, img[src*="avion"], img[alt*="logo" i] {
+            max-height: 42px !important;
+            width: auto !important;
+            display: inline-block;
+        }
+        .navbar-nav {
+            list-style: none !important;
+        }
+    </style>
 </head>
+<body class="bg-light">
 
+    <?php 
+        // Inclusión segura del navbar
+        $pathNavbar = file_exists(__DIR__ . '/../includes/navbarAdmin.php') 
+            ? __DIR__ . '/../includes/navbarAdmin.php' 
+            : __DIR__ . '/includes/navbarAdmin.php';
+        include $pathNavbar; 
+    ?>
 
-<body>
-
-
-    <!-- NAVBAR -->
-
-    <?php include "../includes/navbarAdmin.php"; ?>
-
-
-    <main class="contenido-admin">
-
-
-        <!-- ENCABEZADO -->
-
-        <section class="encabezado-contenido">
-
+    <main class="container py-4">
+        <!-- Encabezado -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
             <div>
+                <a href="../admin.php" class="text-decoration-none text-muted mb-2 d-inline-block">
+                    <i class="bi bi-arrow-left"></i> Volver al Panel
+                </a>
+                <h1 class="h3 mb-0 text-dark fw-bold">Listado General de Usuarios</h1>
+                <p class="text-muted small mb-0">Total encontrados: <strong><?php echo $totalUsuarios; ?></strong></p>
+            </div>
+        </div>
 
-                <h1>
-                    Reporte de usuarios
-                </h1>
+        <!-- Filtros y Búsqueda -->
+        <div class="card border-0 shadow-sm rounded-4 mb-4">
+            <div class="card-body p-3">
+                <form method="GET" action="usuarios.php" class="row g-3 align-items-end">
+                    <div class="col-md-4">
+                        <label for="rol" class="form-label small text-muted fw-semibold">Filtrar por Rol</label>
+                        <select class="form-select" id="rol" name="rol">
+                            <option value="">Todos los usuarios</option>
+                            <option value="usuario" <?php if ($filtroRol === 'usuario' || $filtroRol === 'cliente') echo 'selected'; ?>>Clientes / Pasajeros</option>
+                            <option value="ceo" <?php if ($filtroRol === 'ceo') echo 'selected'; ?>>CEOs de Aerolínea</option>
+                            <option value="administrador" <?php if ($filtroRol === 'administrador') echo 'selected'; ?>>Administradores</option>
+                        </select>
+                    </div>
 
-                <p>
-                    <?php echo $total; ?>
-                    pasajeros registrados en el sistema.
-                </p>
+                    <div class="col-md-5">
+                        <label for="buscar" class="form-label small text-muted fw-semibold">Buscar por Nombre o Email</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-white"><i class="bi bi-search"></i></span>
+                            <input type="text" class="form-control" id="buscar" name="buscar" 
+                                   value="<?php echo htmlspecialchars($busqueda); ?>" placeholder="Ej: Perez, sofia@mail.com...">
+                        </div>
+                    </div>
 
+                    <div class="col-md-3 d-flex gap-2">
+                        <button type="submit" class="btn btn-primary w-100">
+                            <i class="bi bi-filter"></i> Filtrar
+                        </button>
+                        <?php if ($filtroRol !== '' || $busqueda !== ''): ?>
+                            <a href="usuarios.php" class="btn btn-outline-secondary">Limpiar</a>
+                        <?php endif; ?>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Tabla de Usuarios -->
+        <div class="card border-0 shadow-sm rounded-4">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-dark">
+                        <tr>
+                            <th scope="col" class="ps-3">ID</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Rol</th>
+                            <th scope="col">Teléfono</th>
+                            <th scope="col">Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php if ($resultado && mysqli_num_rows($resultado) > 0): ?>
+                            <?php while ($u = mysqli_fetch_assoc($resultado)): ?>
+                                <tr>
+                                    <td class="ps-3 fw-bold text-muted">#<?php echo $u['codUsuario']; ?></td>
+                                    <td class="fw-semibold text-dark">
+                                        <?php echo htmlspecialchars($u['nombreUsuario']); ?>
+                                    </td>
+                                    <td><?php echo htmlspecialchars($u['emailUsuario']); ?></td>
+                                    <td>
+                                        <?php 
+                                            $rol = strtolower($u['tipoUsuario'] ?? '');
+                                            if ($rol === 'administrador') {
+                                                echo '<span class="badge bg-danger">Administrador</span>';
+                                            } elseif ($rol === 'ceo') {
+                                                echo '<span class="badge bg-warning text-dark">CEO Aerolínea</span>';
+                                            } else {
+                                                echo '<span class="badge bg-primary">Cliente</span>';
+                                            }
+                                        ?>
+                                    </td>
+                                    <td><?php echo htmlspecialchars($u['telefonoUsuario'] ?? '-'); ?></td>
+                                    <td>
+                                        <?php if (!empty($u['verificado']) && $u['verificado'] == 1): ?>
+                                            <span class="badge bg-success">Verificado</span>
+                                        <?php else: ?>
+                                            <span class="badge bg-secondary">Pendiente</span>
+                                        <?php endif; ?>
+                                    </td>
+                                </tr>
+                            <?php endwhile; ?>
+                        <?php else: ?>
+                            <tr>
+                                <td colspan="6" class="text-center py-4 text-muted">
+                                    No se encontraron usuarios con los criterios seleccionados.
+                                </td>
+                            </tr>
+                        <?php endif; ?>
+                    </tbody>
+                </table>
             </div>
 
-
-            <a
-                class="btn btn-secondary"
-                href="../reportes.php"
-            >
-
-                <i class="bi bi-arrow-left"></i>
-
-                Volver
-
-            </a>
-
-        </section>
-
-
-
-        <!-- TABLA -->
-
-        <section class="tabla-contenedor">
-
-            <table class="table align-middle">
-
-                <thead>
-
-                    <tr>
-
-                        <th>
-                            Código
-                        </th>
-
-                        <th>
-                            Nombre
-                        </th>
-
-                        <th>
-                            Email
-                        </th>
-
-                        <th>
-                            Teléfono
-                        </th>
-
-                        <th>
-                            Estado
-                        </th>
-
-                    </tr>
-
-                </thead>
-
-
-                <tbody>
-
-
-                    <?php if ($resultado->num_rows === 0) { ?>
-
-                        <tr>
-
-                            <td
-                                colspan="5"
-                                class="text-center text-muted py-4"
-                            >
-
-                                No hay pasajeros registrados.
-
-                            </td>
-
-                        </tr>
-
-                    <?php } ?>
-
-
-                    <?php while ($usuario = $resultado->fetch_assoc()) { ?>
-
-                        <tr>
-
-                            <td>
-
-                                <?php
-                                echo (int) $usuario["codUsuario"];
-                                ?>
-
-                            </td>
-
-
-                            <td>
-
-                                <?php
-                                echo htmlspecialchars(
-                                    $usuario["nombreUsuario"]
-                                );
-                                ?>
-
-                            </td>
-
-
-                            <td>
-
-                                <?php
-                                echo htmlspecialchars(
-                                    $usuario["emailUsuario"]
-                                );
-                                ?>
-
-                            </td>
-
-
-                            <td>
-
-                                <?php
-                                echo htmlspecialchars(
-                                    $usuario["telefonoUsuario"]
-                                );
-                                ?>
-
-                            </td>
-
-
-                            <td>
-
-                                <span
-                                    class="badge <?php echo (int) $usuario["verificado"] === 1
-                                        ? "bg-success"
-                                        : "bg-warning text-dark"; ?>"
-                                >
-
-                                    <?php
-                                    echo (int) $usuario["verificado"] === 1
-                                        ? "Verificado"
-                                        : "Pendiente";
-                                    ?>
-
-                                </span>
-
-                            </td>
-
-                        </tr>
-
-                    <?php } ?>
-
-
-                </tbody>
-
-            </table>
-
-        </section>
-
-
-
-        <!-- PAGINACIÓN -->
-
-        <?php if ($totalPaginas > 1) { ?>
-
-            <nav
-                aria-label="Páginas del reporte"
-            >
-
-                <ul
-                    class="pagination justify-content-center mt-4"
-                >
-
-
-                    <?php for ($i = 1; $i <= $totalPaginas; $i++) { ?>
-
-                        <li
-                            class="page-item <?php echo $i === $pagina
-                                ? "active"
-                                : ""; ?>"
-                        >
-
-                            <a
-                                class="page-link"
-                                href="?pagina=<?php echo $i; ?>"
-                            >
-
-                                <?php echo $i; ?>
-
-                            </a>
-
-                        </li>
-
-                    <?php } ?>
-
-
-                </ul>
-
-            </nav>
-
-        <?php } ?>
-
-
+            <!-- Paginación -->
+            <?php if ($totalPaginas > 1): ?>
+                <div class="card-footer bg-white border-0 py-3 rounded-bottom-4">
+                    <nav aria-label="Navegación de páginas">
+                        <ul class="pagination justify-content-center mb-0">
+                            <li class="page-item <?php if ($paginaActual <= 1) echo 'disabled'; ?>">
+                                <a class="page-link" href="?pag=<?php echo $paginaActual - 1; ?>&rol=<?php echo urlencode($filtroRol); ?>&buscar=<?php echo urlencode($busqueda); ?>">Anterior</a>
+                            </li>
+                            <?php for ($i = 1; $i <= $totalPaginas; $i++): ?>
+                                <li class="page-item <?php if ($i == $paginaActual) echo 'active'; ?>">
+                                    <a class="page-link" href="?pag=<?php echo $i; ?>&rol=<?php echo urlencode($filtroRol); ?>&buscar=<?php echo urlencode($busqueda); ?>"><?php echo $i; ?></a>
+                                </li>
+                            <?php endfor; ?>
+                            <li class="page-item <?php if ($paginaActual >= $totalPaginas) echo 'disabled'; ?>">
+                                <a class="page-link" href="?pag=<?php echo $paginaActual + 1; ?>&rol=<?php echo urlencode($filtroRol); ?>&buscar=<?php echo urlencode($busqueda); ?>">Siguiente</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            <?php endif; ?>
+        </div>
     </main>
 
-
-    <script src="../../js/bootstrap.bundle.min.js"></script>
-
+    <?php 
+        $pathFooter = file_exists(__DIR__ . '/../includes/footerAdmin.php') 
+            ? __DIR__ . '/../includes/footerAdmin.php' 
+            : __DIR__ . '/includes/footerAdmin.php';
+        include $pathFooter; 
+    ?>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>
-
-
-<?php
-
-$conexion->close();
-
-?>
