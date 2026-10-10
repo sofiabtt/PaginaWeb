@@ -23,7 +23,6 @@ $totalUsuarios = cantidadUsuariosReporte($conexion, $filtroRol, $busqueda);
 $totalPaginas  = ceil($totalUsuarios / $porPagina);
 $resultado     = obtenerUsuariosReporte($conexion, $porPagina, $inicio, $filtroRol, $busqueda);
 
-// Detección automática de la ruta a CSS (por si está en admin/ o en admin/reportes/)
 $rutaBase = file_exists(__DIR__ . '/../../css/bootstrap.min.css') ? '../../' : '../';
 ?>
 <!DOCTYPE html>
@@ -31,34 +30,95 @@ $rutaBase = file_exists(__DIR__ . '/../../css/bootstrap.min.css') ? '../../' : '
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nuvia Admin - Usuarios Registrados</title>
+    <title>Nuvia Admin - Reporte de Usuarios</title>
 
-    <!-- Hojas de estilo locales -->
+    <!-- Estilos de pantalla -->
     <link rel="stylesheet" href="<?php echo $rutaBase; ?>css/bootstrap.min.css">
     <link rel="stylesheet" href="<?php echo $rutaBase; ?>css/bootstrap-icons.css">
     <link rel="stylesheet" href="<?php echo $rutaBase; ?>css/navbar.css">
     <link rel="stylesheet" href="<?php echo $rutaBase; ?>css/estilos-admin.css">
 
-    <!-- Respaldo CDN para garantizar estilos de Bootstrap -->
+    <!-- Respaldo CDN -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <style>
-        /* Regla de seguridad: evita que el logo del avión se desborde */
-        .navbar-brand img, img[src*="avion"], img[alt*="logo" i] {
-            max-height: 42px !important;
+        .navbar-brand img {
+            max-height: 40px !important;
             width: auto !important;
-            display: inline-block;
         }
-        .navbar-nav {
-            list-style: none !important;
+
+        /* ==========================================
+           REGLAS EXCLUSIVAS PARA IMPRESIÓN (@media print)
+           ========================================== */
+        @media print {
+            /* 1. Ocultar elementos innecesarios */
+            nav, 
+            .navbar, 
+            footer, 
+            .btn, 
+            form, 
+            .card-footer, 
+            .pagination, 
+            .d-print-none,
+            a[href="../admin.php"] {
+                display: none !important;
+            }
+
+            /* 2. Limpiar fondo y colores para ahorrar tinta */
+            body, .bg-light {
+                background: #ffffff !important;
+                color: #000000 !important;
+                font-size: 11pt;
+            }
+
+            .container {
+                max-width: 100% !important;
+                width: 100% !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+
+            .card {
+                border: none !important;
+                box-shadow: none !important;
+            }
+
+            /* 3. Tabla de ancho completo y bordes nítidos */
+            .table-responsive {
+                overflow: visible !important;
+            }
+
+            table {
+                width: 100% !important;
+                border-collapse: collapse !important;
+            }
+
+            .table-dark {
+                background-color: #f1f1f1 !important;
+                color: #000000 !important;
+                border-bottom: 2px solid #000000 !important;
+            }
+
+            th, td {
+                border: 1px solid #cccccc !important;
+                padding: 6px 8px !important;
+                color: #000000 !important;
+            }
+
+            /* 4. Badges legibles en impresión */
+            .badge {
+                border: 1px solid #333333 !important;
+                color: #000000 !important;
+                background-color: transparent !important;
+                font-weight: 600 !important;
+            }
         }
     </style>
 </head>
 <body class="bg-light">
 
     <?php 
-        // Inclusión segura del navbar
         $pathNavbar = file_exists(__DIR__ . '/../includes/navbarAdmin.php') 
             ? __DIR__ . '/../includes/navbarAdmin.php' 
             : __DIR__ . '/includes/navbarAdmin.php';
@@ -66,19 +126,37 @@ $rutaBase = file_exists(__DIR__ . '/../../css/bootstrap.min.css') ? '../../' : '
     ?>
 
     <main class="container py-4">
-        <!-- Encabezado -->
+
+        <!-- Membrete exclusivo para la hoja impresa (en pantalla está oculto) -->
+        <div class="d-none d-print-block mb-3 border-bottom pb-2">
+            <h2 class="h4 fw-bold mb-1">Nuvia - Sistema de Reservas de Vuelos</h2>
+            <p class="small text-muted mb-0">
+                <strong>Reporte:</strong> Padrón General de Usuarios Registrados &nbsp;|&nbsp; 
+                <strong>Fecha de emisión:</strong> <?php echo date('d/m/Y H:i'); ?> hs &nbsp;|&nbsp;
+                <strong>Emitido por:</strong> Administrador
+            </p>
+        </div>
+
+        <!-- Encabezado en pantalla -->
         <div class="d-flex justify-content-between align-items-center mb-4">
             <div>
-                <a href="../admin.php" class="text-decoration-none text-muted mb-2 d-inline-block">
+                <a href="../admin.php" class="text-decoration-none text-muted mb-2 d-inline-block d-print-none">
                     <i class="bi bi-arrow-left"></i> Volver al Panel
                 </a>
-                <h1 class="h3 mb-0 text-dark fw-bold">Listado General de Usuarios</h1>
+                <h1 class="h3 mb-0 text-dark fw-bold">Reporte de Usuarios</h1>
                 <p class="text-muted small mb-0">Total encontrados: <strong><?php echo $totalUsuarios; ?></strong></p>
+            </div>
+            
+            <!-- Botón Imprimir Reporte -->
+            <div class="d-print-none">
+                <button type="button" onclick="window.print();" class="btn btn-outline-dark shadow-sm">
+                    <i class="bi bi-printer me-1"></i> Imprimir Reporte
+                </button>
             </div>
         </div>
 
-        <!-- Filtros y Búsqueda -->
-        <div class="card border-0 shadow-sm rounded-4 mb-4">
+        <!-- Filtros y Búsqueda (se ocultan automáticamente al imprimir) -->
+        <div class="card border-0 shadow-sm rounded-4 mb-4 d-print-none">
             <div class="card-body p-3">
                 <form method="GET" action="usuarios.php" class="row g-3 align-items-end">
                     <div class="col-md-4">
@@ -112,7 +190,7 @@ $rutaBase = file_exists(__DIR__ . '/../../css/bootstrap.min.css') ? '../../' : '
             </div>
         </div>
 
-        <!-- Tabla de Usuarios -->
+        <!-- Tabla del Reporte -->
         <div class="card border-0 shadow-sm rounded-4">
             <div class="table-responsive">
                 <table class="table table-hover align-middle mb-0">
@@ -168,9 +246,9 @@ $rutaBase = file_exists(__DIR__ . '/../../css/bootstrap.min.css') ? '../../' : '
                 </table>
             </div>
 
-            <!-- Paginación -->
+            <!-- Paginación (se oculta al imprimir) -->
             <?php if ($totalPaginas > 1): ?>
-                <div class="card-footer bg-white border-0 py-3 rounded-bottom-4">
+                <div class="card-footer bg-white border-0 py-3 rounded-bottom-4 d-print-none">
                     <nav aria-label="Navegación de páginas">
                         <ul class="pagination justify-content-center mb-0">
                             <li class="page-item <?php if ($paginaActual <= 1) echo 'disabled'; ?>">
