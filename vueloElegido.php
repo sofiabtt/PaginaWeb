@@ -1164,18 +1164,12 @@ $precioTotal = $totalPasajeros * (float) $vuelo["precioVuelo"];
                                             Fecha de nacimiento
                                         </label>
 
-                                        <input
-                                            type="date"
-                                            name="fechaAdulto[]"
-                                            max="<?php echo date("Y-m-d"); ?>"
-                                            value="<?php
-                                                echo valorArray(
-                                                    $_POST["fechaAdulto"] ?? [],
-                                                    $i
-                                                );
-                                            ?>"
-                                            required
-                                        >
+                                        <input type="date" 
+                                                name="fechaAdulto[]" 
+                                                class="form-control" 
+                                                max="<?php echo date('Y-m-d'); ?>" 
+                                                min="<?php echo date('Y-m-d', strtotime('-115 years')); ?>" 
+                                                required>
 
                                     </div>
 
@@ -1272,18 +1266,12 @@ $precioTotal = $totalPasajeros * (float) $vuelo["precioVuelo"];
                                             Fecha de nacimiento
                                         </label>
 
-                                        <input
-                                            type="date"
-                                            name="fechaMenor[]"
-                                            max="<?php echo date("Y-m-d"); ?>"
-                                            value="<?php
-                                                echo valorArray(
-                                                    $_POST["fechaMenor"] ?? [],
-                                                    $i
-                                                );
-                                            ?>"
-                                            required
-                                        >
+                                        <input type="date" 
+                                                name="fechaMenor[]" 
+                                                class="form-control" 
+                                                max="<?php echo date('Y-m-d'); ?>" 
+                                                min="<?php echo date('Y-m-d', strtotime('-12 years')); ?>" 
+                                                required>
 
                                     </div>
 
