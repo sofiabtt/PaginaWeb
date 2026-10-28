@@ -1,4 +1,7 @@
-<?php session_start(); ?>
+<?php 
+require_once __DIR__ . '/../includes/verificarRol.php';
+verificarRol('administrador');
+?>
 
 <!DOCTYPE html>
 <html lang="es">

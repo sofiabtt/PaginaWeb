@@ -1,11 +1,7 @@
 <?php
-session_start();
 
-// Control de acceso: solo Administrador
-if (!isset($_SESSION['codUsuario']) || strtolower($_SESSION['tipoUsuario'] ?? '') !== 'administrador') {
-    header("Location: ../../inicioSesion.php");
-    exit();
-}
+require_once __DIR__ . '/../../includes/verificarRol.php';
+verificarRol('administrador');
 
 include_once __DIR__ . "/../../php/conexionBD.php";
 include_once __DIR__ . "/../../php/consultasUsuarios.php";

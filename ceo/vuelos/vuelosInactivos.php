@@ -1,6 +1,7 @@
 <?php
 
-session_start();
+require_once __DIR__ . '/../../includes/verificarRol.php';
+verificarRol('ceo');
 
 include "../../php/consultasCeos.php";
 include "../../php/consultasAerolineas.php";
@@ -66,7 +67,8 @@ $resultado = obtenerVuelosInactivos($conexion,$codAerolinea);
         rel="stylesheet"
         href="../../css/estilos-admin.css"
     >
-
+    <!-- CSS de la barra de navegación -->
+    <link rel="stylesheet" href="../../css/navbar.css">
 
     <!-- Favicon -->
 

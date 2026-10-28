@@ -1,11 +1,12 @@
 <?php
 
-session_start();
+require_once __DIR__ . '/../includes/verificarRol.php';
+verificarRol('administrador');
 
 include "../php/conexionBD.php";
 include "../php/consultasUsuarios.php";
 
-$codAdmin = 1;
+$codAdmin = $_SESSION["codUsuario"];
 
 // SI SE ENVIO EL FORMULARIO
 

@@ -1,5 +1,6 @@
 <?php
-
+require_once __DIR__ . '/../../includes/verificarRol.php';
+verificarRol('administrador');
 include "../../php/conexionBD.php";
 include "../../php/consultasCeos.php";
 include "../../php/consultasActividad.php";

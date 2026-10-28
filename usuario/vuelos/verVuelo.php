@@ -1,6 +1,7 @@
 <?php
+require_once __DIR__ . '/../../includes/verificarRol.php';
+verificarRol('usuario');
 
-require "../includes/protegerUsuario.php";
 include "../../php/consultasVuelos.php";
 
 

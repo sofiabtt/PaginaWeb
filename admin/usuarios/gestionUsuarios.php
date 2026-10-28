@@ -1,21 +1,9 @@
 <?php
 
-session_start();
+require_once __DIR__ . '/../../includes/verificarRol.php';
+verificarRol('administrador');
 
 include "../../php/consultasUsuarios.php";
-
-
-// VERIFICAR ADMINISTRADOR
-
-if (
-    !isset($_SESSION["codUsuario"]) ||
-    !isset($_SESSION["tipoUsuario"]) ||
-    $_SESSION["tipoUsuario"] !== "administrador"
-) {
-    header("Location: ../../inicioSesion.php");
-    exit();
-}
-
 
 // PAGINACIÓN
 

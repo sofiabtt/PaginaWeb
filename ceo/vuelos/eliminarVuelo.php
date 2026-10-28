@@ -1,6 +1,7 @@
 <?php
 
-session_start();
+require_once __DIR__ . '/../../includes/verificarRol.php';
+verificarRol('ceo');
 
 include "../../php/consultasCeos.php";
 include "../../php/consultasAerolineas.php";

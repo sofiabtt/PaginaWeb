@@ -1,9 +1,10 @@
 <?php
 
-session_start();
-
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+
+require_once __DIR__ . '/../../includes/verificarRol.php';
+verificarRol('administrador');
 
 require '../../vendor/autoload.php';
 

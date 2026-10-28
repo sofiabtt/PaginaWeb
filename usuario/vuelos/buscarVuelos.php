@@ -1,6 +1,8 @@
 <?php
 
-require "../includes/protegerUsuario.php";
+require_once __DIR__ . '/../includes/verificarRol.php';
+verificarRol('usuario');
+
 include "../../php/conexionBD.php";
 
 $origen = trim($_GET["origen"] ?? "");
@@ -57,7 +59,9 @@ $resultado = $consulta->get_result();
 
 <?php
 
-require "../includes/protegerUsuario.php";
+require_once __DIR__ . '/../../includes/verificarRol.php';
+verificarRol('usuario');
+
 include "../../php/consultasVuelos.php";
 
 $origen = trim($_GET["origen"] ?? "");

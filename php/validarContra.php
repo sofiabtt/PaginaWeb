@@ -48,6 +48,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     ) {
 
+        // Renovamos el identificador de sesión
+        session_regenerate_id(true);
         // Guardamos los datos del usuario en la sesión
 
         $_SESSION["codUsuario"] = $usuario["codUsuario"];

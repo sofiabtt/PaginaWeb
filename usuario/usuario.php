@@ -1,6 +1,7 @@
 <?php
+require_once __DIR__ . '/../includes/verificarRol.php';
+verificarRol('usuario');
 
-session_start();
 include "../php/conexionBD.php";
 
 $consultaAeropuertos = $conexion->query("

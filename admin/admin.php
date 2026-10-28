@@ -1,11 +1,6 @@
 <?php
-session_start();
-
-// Control de acceso al panel
-if (!isset($_SESSION['codUsuario']) || strtolower($_SESSION['tipoUsuario'] ?? '') !== 'administrador') {
-    header("Location: ../inicioSesion.php");
-    exit();
-}
+require_once __DIR__ . '/../includes/verificarRol.php';
+verificarRol('administrador');
 
 include "../php/conexionBD.php";
 include "../php/consultasAerolineas.php";

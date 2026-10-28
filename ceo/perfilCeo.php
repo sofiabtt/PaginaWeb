@@ -1,6 +1,7 @@
 <?php 
 
-session_start();
+require_once __DIR__ . '/../includes/verificarRol.php';
+verificarRol('ceo');
 
 if (!isset($_SESSION["codUsuario"]) || strtolower($_SESSION["tipoUsuario"] ?? "") !== "ceo") {
 
