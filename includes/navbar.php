@@ -41,7 +41,6 @@ if ($estaLogueado) {
 
             <div class="navbar-nav-general">
                 <a class="nav-link" href="/PaginaWeb/home.php">Inicio</a>
-                <a class="nav-link" href="#">Ofertas</a>
 
                 <?php if ($estaLogueado && $tipoUsuario === "usuario") { ?>
 
@@ -57,7 +56,7 @@ if ($estaLogueado) {
                         Mis reservas
                     </a>
 
-                    <a class="nav-link" href="/PaginaWeb/home.php#buscador">
+                    <a class="nav-link" href="/PaginaWeb/home.php">
                         <i class="bi bi-search"></i>
                         Buscar vuelos
                     </a>
