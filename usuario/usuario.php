@@ -10,12 +10,12 @@ $consultaAeropuertos = $conexion->query("
         a.nombreAeropuerto,
         c.nombreCiudad,
         p.nombrePais
-    FROM Aeropuertos a
+    FROM aeropuertos a
 
-    INNER JOIN Ciudades c
+    INNER JOIN ciudades c
         ON a.codCiudad = c.codCiudad
 
-    INNER JOIN Paises p
+    INNER JOIN paises p
         ON c.codPais = p.codPais
 
     ORDER BY

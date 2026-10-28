@@ -11,7 +11,7 @@ include "conexionBD.php";
 
 $consulta = $conexion->prepare(
     "SELECT codUsuario, fechaVerificacion
-     FROM Usuarios
+     FROM usuarios
      WHERE tokenVerificacion = ? AND verificado = 0"
 );
 $consulta->bind_param("s", $token);
@@ -30,7 +30,7 @@ if (
 }
 
 $actualizar = $conexion->prepare(
-    "UPDATE Usuarios
+    "UPDATE usuarios
      SET verificado = 1, tokenVerificacion = NULL, fechaVerificacion = NOW()
      WHERE codUsuario = ?"
 );

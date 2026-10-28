@@ -115,7 +115,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["csrf"])) {
     } else {
         //Confirmar la reserva (solo si sigue pendiente de pago)
         $actualizar = $conexion->prepare(
-            "UPDATE Reservas SET estadoReserva = 'confirmada'
+            "UPDATE reservas SET estadoReserva = 'confirmada'
              WHERE codReserva = ? AND codUsuario = ? AND estadoReserva = 'pendiente de pago'"
         );
         $actualizar->bind_param("ii", $id, $codUsuario);

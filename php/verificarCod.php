@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $consulta = $conexion->prepare(
         "SELECT tokenVerificacion, fechaVerificacion
-        FROM Usuarios
+        FROM usuarios
         WHERE emailUsuario = ?"
     );
 
@@ -41,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (strtotime($usuario["fechaVerificacion"]) >= time()) {
 
                 $actualizar = $conexion->prepare(
-                    "UPDATE Usuarios
+                    "UPDATE usuarios
                     SET verificado = 1,
                         tokenVerificacion = NULL,
                         fechaVerificacion = NOW()

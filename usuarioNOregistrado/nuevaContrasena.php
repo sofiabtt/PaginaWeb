@@ -17,7 +17,7 @@ if ($token !== "") {
         SELECT
             codUsuario,
             emailUsuario
-        FROM Usuarios
+        FROM usuarios
         WHERE tokenRecuperacion = ?
         AND expiracionTokenRecuperacion > NOW()
     ");
@@ -70,7 +70,7 @@ if (
         );
 
         $actualizar = $conexion->prepare("
-            UPDATE Usuarios
+            UPDATE usuarios
             SET
                 claveUsuario = ?,
                 tokenRecuperacion = NULL,

@@ -8,7 +8,7 @@ include "conexionBD.php";
 function crearVuelo($conexion,$codAerolinea,$origen,$destino,
 $fecha,$hora,$precio,$asientos)
 {
-    $consulta = "INSERT INTO Vuelos
+    $consulta = "INSERT INTO vuelos
                  (
                      codAerolinea,
                      origenVuelo,
@@ -43,7 +43,7 @@ function obtenerVuelosPorAerolinea($conexion,$codAerolinea)
 {
     $consulta = $conexion->prepare("
         SELECT *
-        FROM Vuelos
+        FROM vuelos
         WHERE codAerolinea = ?
           AND activoVuelo = 1
         ORDER BY
@@ -68,7 +68,7 @@ function obtenerVuelosInactivos($conexion,$codAerolinea)
 {
     $consulta = $conexion->prepare("
         SELECT *
-        FROM Vuelos
+        FROM vuelos
         WHERE activoVuelo = 0
           AND codAerolinea = ?
         ORDER BY fechaEliminacion DESC
@@ -102,7 +102,7 @@ function obtenerVuelo($conexion,$codVuelo,$codAerolinea)
             activoVuelo,
             fechaEliminacion
 
-        FROM Vuelos
+        FROM vuelos
 
         WHERE codVuelo = ?
           AND codAerolinea = ?
@@ -128,7 +128,7 @@ function modificarVuelo($conexion,$codVuelo,$codAerolinea,$origen,$destino,
 $fecha,$hora,$precio,$asientos)
 {
     $consulta = $conexion->prepare("
-        UPDATE Vuelos
+        UPDATE vuelos
 
         SET
             origenVuelo = ?,
@@ -164,7 +164,7 @@ $fecha,$hora,$precio,$asientos)
 function eliminarVuelo($conexion,$codVuelo,$codAerolinea)
 {
     $consulta = $conexion->prepare("
-        UPDATE Vuelos
+        UPDATE vuelos
 
         SET
             activoVuelo = 0,
@@ -196,12 +196,12 @@ function obtenerAeropuertos($conexion)
             c.nombreCiudad,
             p.nombrePais
 
-        FROM Aeropuertos a
+        FROM aeropuertos a
 
-        INNER JOIN Ciudades c
+        INNER JOIN ciudades c
             ON a.codCiudad = c.codCiudad
 
-        INNER JOIN Paises p
+        INNER JOIN paises p
             ON c.codPais = p.codPais
 
         ORDER BY
@@ -236,7 +236,7 @@ function cantidadVuelosPorAerolinea(
     $consulta = $conexion->prepare("
         SELECT COUNT(*) AS cantidad
 
-        FROM Vuelos
+        FROM vuelos
 
         WHERE codAerolinea = ?
           AND activoVuelo = 1
@@ -271,7 +271,7 @@ function obtenerProximosVuelos(
             horaSalidaVuelo,
             asientosDisponibles
 
-        FROM Vuelos
+        FROM vuelos
 
         WHERE codAerolinea = ?
           AND activoVuelo = 1
@@ -305,8 +305,8 @@ function buscarVuelosUsuario($conexion, $origen, $destino, $fecha)
                    v.precioVuelo,
                    v.asientosDisponibles,
                    a.nombreAerolinea
-            FROM Vuelos v
-            INNER JOIN Aerolineas a
+            FROM vuelos v
+            INNER JOIN aerolineas a
                 ON a.codAerolinea = v.codAerolinea
             WHERE v.activoVuelo = 1
               AND v.asientosDisponibles > 0
@@ -370,10 +370,10 @@ function obtenerVueloUsuario($conexion, $codVuelo)
             a.nombreAerolinea,
             p.descripcionPromocion,
             p.descuentoPromocion
-         FROM Vuelos v
-         INNER JOIN Aerolineas a
+         FROM vuelos v
+         INNER JOIN aerolineas a
             ON a.codAerolinea = v.codAerolinea
-         LEFT JOIN Promociones p
+         LEFT JOIN promociones p
             ON p.codAerolinea = v.codAerolinea
             AND p.estadoPromocion = 'Aprobada'
             AND p.activoPromocion = 1
@@ -409,8 +409,8 @@ function obtenerVueloElegido($conexion, $codVuelo)
             v.precioVuelo,
             v.asientosDisponibles,
             a.nombreAerolinea
-         FROM Vuelos v
-         INNER JOIN Aerolineas a
+         FROM vuelos v
+         INNER JOIN aerolineas a
             ON v.codAerolinea = a.codAerolinea
         WHERE v.codVuelo = ?
             AND v.activoVuelo = 1
@@ -448,9 +448,9 @@ function obtenerTodosLosVuelos($conexion)
             a.nombreAerolinea,
             a.codigoIATA
 
-         FROM Vuelos v
+         FROM vuelos v
 
-         INNER JOIN Aerolineas a
+         INNER JOIN aerolineas a
             ON a.codAerolinea = v.codAerolinea
 
          ORDER BY

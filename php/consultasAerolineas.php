@@ -7,7 +7,7 @@ include "conexionBD.php";
 
 function crearAerolinea($conexion, $nombre, $iata, $descripcion, $pais)
 {
-    $consulta = "INSERT INTO Aerolineas
+    $consulta = "INSERT INTO aerolineas
                  (
                      nombreAerolinea,
                      codigoIATA,
@@ -34,13 +34,13 @@ function crearAerolinea($conexion, $nombre, $iata, $descripcion, $pais)
 
 function obtenerAerolineasActivas($conexion)
 {
-    $consulta = "SELECT Aerolineas.*,
-                        Paises.nombrePais
-                 FROM Aerolineas
-                 INNER JOIN Paises
-                    ON Aerolineas.codPais = Paises.codPais
-                 WHERE Aerolineas.activoAerolinea = 1
-                 ORDER BY Aerolineas.codAerolinea";
+    $consulta = "SELECT aerolineas.*,
+                        paises.nombrePais
+                 FROM aerolineas
+                 INNER JOIN paises
+                    ON aerolineas.codPais = paises.codPais
+                 WHERE aerolineas.activoAerolinea = 1
+                 ORDER BY aerolineas.codAerolinea";
 
     return $conexion->query($consulta);
 }
@@ -51,13 +51,13 @@ function obtenerAerolineasActivas($conexion)
 
 function obtenerAerolineasInactivas($conexion)
 {
-    $consulta = "SELECT Aerolineas.*,
-                        Paises.nombrePais
-                 FROM Aerolineas
-                 INNER JOIN Paises
-                    ON Aerolineas.codPais = Paises.codPais
-                 WHERE Aerolineas.activoAerolinea = 0
-                 ORDER BY Aerolineas.fechaEliminacion DESC";
+    $consulta = "SELECT aerolineas.*,
+                        paises.nombrePais
+                 FROM aerolineas
+                 INNER JOIN paises
+                    ON aerolineas.codPais = paises.codPais
+                 WHERE aerolineas.activoAerolinea = 0
+                 ORDER BY aerolineas.fechaEliminacion DESC";
 
     return $conexion->query($consulta);
 }
@@ -67,12 +67,12 @@ function obtenerAerolineasInactivas($conexion)
 
 function obtenerAerolinea($conexion, $codAerolinea)
 {
-    $consulta = "SELECT Aerolineas.*,
-                        Paises.nombrePais
-                 FROM Aerolineas
-                 INNER JOIN Paises
-                    ON Aerolineas.codPais = Paises.codPais
-                 WHERE Aerolineas.codAerolinea = ?";
+    $consulta = "SELECT aerolineas.*,
+                        paises.nombrePais
+                 FROM aerolineas
+                 INNER JOIN paises
+                    ON aerolineas.codPais = paises.codPais
+                 WHERE aerolineas.codAerolinea = ?";
 
     $stmt = $conexion->prepare($consulta);
 
@@ -100,7 +100,7 @@ function modificarAerolinea(
     $codPais
 )
 {
-    $consulta = "UPDATE Aerolineas
+    $consulta = "UPDATE aerolineas
                  SET nombreAerolinea = ?,
                      codigoIATA = ?,
                      descripcionAerolinea = ?,
@@ -126,7 +126,7 @@ function modificarAerolinea(
 
 function eliminarAerolinea($conexion, $codAerolinea)
 {
-    $consulta = "UPDATE Aerolineas
+    $consulta = "UPDATE aerolineas
                  SET activoAerolinea = 0,
                      fechaEliminacion = NOW()
                  WHERE codAerolinea = ?";
@@ -146,7 +146,7 @@ function eliminarAerolinea($conexion, $codAerolinea)
 function obtenerPaises($conexion)
 {
     $consulta = "SELECT codPais, nombrePais
-                 FROM Paises
+                 FROM paises
                  ORDER BY nombrePais";
 
     return $conexion->query($consulta);
@@ -157,7 +157,7 @@ function obtenerPaises($conexion)
 
 function asignarCeoAerolinea($conexion, $codUsuario, $codAerolinea)
 {
-    $consulta = "UPDATE Aerolineas
+    $consulta = "UPDATE aerolineas
                  SET codUsuario = ?
                  WHERE codAerolinea = ?
                  AND activoAerolinea = 1";
@@ -179,7 +179,7 @@ function asignarCeoAerolinea($conexion, $codUsuario, $codAerolinea)
 function cantidadAerolineasActivas($conexion)
 {
     $consulta = "SELECT COUNT(*) AS cantidad
-                 FROM Aerolineas
+                 FROM aerolineas
                  WHERE activoAerolinea = 1";
 
     $resultado = $conexion->query($consulta);
@@ -193,7 +193,7 @@ function obtenerAerolineaPorCeo($conexion, $codUsuario)
 {
     $consulta = "SELECT codAerolinea,
                         nombreAerolinea
-                 FROM Aerolineas
+                 FROM aerolineas
                  WHERE codUsuario = ?";
 
     $stmt = $conexion->prepare($consulta);

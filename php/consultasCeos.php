@@ -7,14 +7,14 @@ include "conexionBD.php";
 
 function obtenerCeos($conexion)
 {
-    $consulta = "SELECT Usuarios.*,
-                        Aerolineas.nombreAerolinea
-                 FROM Usuarios
-                 LEFT JOIN Aerolineas
-                    ON Usuarios.codUsuario = Aerolineas.codUsuario
-                 WHERE Usuarios.tipoUsuario = 'ceo'
-                 AND Usuarios.activoUsuario = 1
-                 ORDER BY Usuarios.nombreUsuario";
+    $consulta = "SELECT usuarios.*,
+                        aerolineas.nombreAerolinea
+                 FROM usuarios
+                 LEFT JOIN aerolineas
+                    ON usuarios.codUsuario = aerolineas.codUsuario
+                 WHERE usuarios.tipoUsuario = 'ceo'
+                 AND usuarios.activoUsuario = 1
+                 ORDER BY usuarios.nombreUsuario";
 
     return $conexion->query($consulta);
 }
@@ -24,15 +24,15 @@ function obtenerCeos($conexion)
 
 function obtenerCeo($conexion, $codUsuario)
 {
-    $consulta = "SELECT Usuarios.*,
-                        Aerolineas.codAerolinea,
-                        Aerolineas.nombreAerolinea
-                 FROM Usuarios
-                 LEFT JOIN Aerolineas
-                    ON Usuarios.codUsuario = Aerolineas.codUsuario
-                 WHERE Usuarios.codUsuario = ?
-                 AND Usuarios.tipoUsuario = 'ceo'
-                 AND Usuarios.activoUsuario = 1";
+    $consulta = "SELECT usuarios.*,
+                        aerolineas.codAerolinea,
+                        aerolineas.nombreAerolinea
+                 FROM usuarios
+                 LEFT JOIN aerolineas
+                    ON usuarios.codUsuario = aerolineas.codUsuario
+                 WHERE usuarios.codUsuario = ?
+                 AND usuarios.tipoUsuario = 'ceo'
+                 AND usuarios.activoUsuario = 1";
 
     $stmt = $conexion->prepare($consulta);
 
@@ -59,7 +59,7 @@ function obtenerCeoPorToken($conexion, $token)
                         emailUsuario,
                         tokenVerificacion,
                         fechaVerificacion
-                 FROM Usuarios
+                 FROM usuarios
                  WHERE tokenVerificacion = ?
                  AND tipoUsuario = 'ceo'
                  AND activoUsuario = 1";
@@ -84,7 +84,7 @@ function obtenerCeoPorToken($conexion, $token)
 function emailExiste($conexion, $email)
 {
     $consulta = "SELECT codUsuario
-                 FROM Usuarios
+                 FROM usuarios
                  WHERE emailUsuario = ?";
 
     $stmt = $conexion->prepare($consulta);
@@ -116,7 +116,7 @@ function crearCeo(
     $fechaVerificacion
 )
 {
-    $consulta = "INSERT INTO Usuarios
+    $consulta = "INSERT INTO usuarios
                  (
                      nombreUsuario,
                      claveUsuario,
@@ -155,7 +155,7 @@ function crearCeo(
 
 function crearClaveCeo($conexion, $codUsuario, $claveHash)
 {
-    $consulta = "UPDATE Usuarios
+    $consulta = "UPDATE usuarios
                  SET claveUsuario = ?,
                      verificado = 1,
                      tokenVerificacion = NULL,
@@ -180,7 +180,7 @@ function eliminarCeo($conexion, $codUsuario)
 {
     // Desvincular CEO de la aerolínea
 
-    $consulta = "UPDATE Aerolineas
+    $consulta = "UPDATE aerolineas
                  SET codUsuario = NULL
                  WHERE codUsuario = ?";
 
@@ -198,7 +198,7 @@ function eliminarCeo($conexion, $codUsuario)
 
     // Dar de baja al CEO
 
-    $consulta = "UPDATE Usuarios
+    $consulta = "UPDATE usuarios
                  SET activoUsuario = 0,
                      fechaEliminacion = NOW()
                  WHERE codUsuario = ?
@@ -219,7 +219,7 @@ function eliminarCeo($conexion, $codUsuario)
 function cantidadCeos($conexion)
 {
     $consulta = "SELECT COUNT(*) AS cantidad
-                 FROM Usuarios
+                 FROM usuarios
                  WHERE tipoUsuario = 'ceo'";
 
     $resultado = $conexion->query($consulta);

@@ -12,7 +12,7 @@ include_once __DIR__ . "/conexionBD.php";
  */
 function cantidadUsuarios($conexion)
 {
-    $sql = "SELECT COUNT(*) AS total FROM Usuarios";
+    $sql = "SELECT COUNT(*) AS total FROM usuarios";
     $res = mysqli_query($conexion, $sql);
     if (!$res) {
         $sql = "SELECT COUNT(*) AS total FROM usuarios";
@@ -47,7 +47,7 @@ function cantidadUsuariosReporte($conexion, $rol = '', $busqueda = '')
 
     $whereSql = implode(" AND ", $where);
     
-    $sql = "SELECT COUNT(*) AS total FROM Usuarios WHERE $whereSql";
+    $sql = "SELECT COUNT(*) AS total FROM usuarios WHERE $whereSql";
     $res = mysqli_query($conexion, $sql);
     if (!$res) {
         $sql = "SELECT COUNT(*) AS total FROM usuarios WHERE $whereSql";
@@ -89,7 +89,7 @@ function obtenerUsuariosReporte($conexion, $porPagina, $inicio, $rol = '', $busq
                    telefonoUsuario,
                    tipoUsuario,
                    verificado
-            FROM Usuarios
+            FROM usuarios
             WHERE $whereSql
             ORDER BY codUsuario DESC
             LIMIT $inicio, $porPagina";
@@ -127,7 +127,7 @@ function obtenerUsuarioPorEmail($conexion, $email)
                 claveUsuario,
                 tipoUsuario,
                 verificado
-         FROM Usuarios
+         FROM usuarios
          WHERE emailUsuario = ?"
     );
 
@@ -164,7 +164,7 @@ function obtenerUsuario($conexion, $codUsuario)
         "SELECT nombreUsuario,
                 emailUsuario,
                 telefonoUsuario
-         FROM Usuarios
+         FROM usuarios
          WHERE codUsuario = ?"
     );
 
@@ -189,7 +189,7 @@ function obtenerUsuario($conexion, $codUsuario)
 
 function modificarUsuario($conexion, $codUsuario, $nombre, $email, $telefono)
 {
-    $consulta = "UPDATE Usuarios
+    $consulta = "UPDATE usuarios
                  SET nombreUsuario = ?,
                      emailUsuario = ?,
                      telefonoUsuario = ?
@@ -215,7 +215,7 @@ function modificarContraseñaUsuario($conexion, $codUsuario, $claveNueva)
 {
     $hash = password_hash($claveNueva, PASSWORD_DEFAULT);
 
-    $sql = "UPDATE Usuarios SET claveUsuario = ? WHERE codUsuario = ?";
+    $sql = "UPDATE usuarios SET claveUsuario = ? WHERE codUsuario = ?";
     $consulta = mysqli_prepare($conexion, $sql);
     if (!$consulta) {
         $sql = "UPDATE usuarios SET claveUsuario = ? WHERE codUsuario = ?";
@@ -241,7 +241,7 @@ function obtenerUsuariosPaginados($conexion, $porPagina, $inicio)
                 emailUsuario,
                 telefonoUsuario,
                 verificado
-         FROM Usuarios
+         FROM usuarios
          WHERE tipoUsuario = 'usuario'
          ORDER BY codUsuario DESC
          LIMIT ? OFFSET ?"
@@ -275,7 +275,7 @@ function obtenerPerfilUsuario($conexion, $codUsuario)
         "SELECT nombreUsuario,
                 emailUsuario,
                 telefonoUsuario
-         FROM Usuarios
+         FROM usuarios
          WHERE codUsuario = ?
            AND tipoUsuario = 'usuario'"
     );
@@ -305,7 +305,7 @@ function actualizarPerfilUsuario($conexion, $codUsuario, $nombre, $email, $telef
     if ($claveNueva !== "") {
         $hash = password_hash($claveNueva, PASSWORD_DEFAULT);
         $actualizar = $conexion->prepare(
-            "UPDATE Usuarios
+            "UPDATE usuarios
              SET nombreUsuario = ?,
                  emailUsuario = ?,
                  telefonoUsuario = ?,
@@ -329,7 +329,7 @@ function actualizarPerfilUsuario($conexion, $codUsuario, $nombre, $email, $telef
         $actualizar->bind_param("ssssi", $nombre, $email, $telefono, $hash, $codUsuario);
     } else {
         $actualizar = $conexion->prepare(
-            "UPDATE Usuarios
+            "UPDATE usuarios
              SET nombreUsuario = ?,
                  emailUsuario = ?,
                  telefonoUsuario = ?

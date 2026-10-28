@@ -12,8 +12,8 @@ $fecha = trim($_GET["fecha"] ?? "");
 $sql = "SELECT v.codVuelo, v.origenVuelo, v.destinoVuelo,
                v.fechaSalidaVuelo, v.horaSalidaVuelo, v.precioVuelo,
                v.asientosDisponibles, a.nombreAerolinea
-        FROM Vuelos v
-        INNER JOIN Aerolineas a ON a.codAerolinea = v.codAerolinea
+        FROM vuelos v
+        INNER JOIN aerolineas a ON a.codAerolinea = v.codAerolinea
         WHERE v.activoVuelo = 1
           AND v.asientosDisponibles > 0
           AND v.fechaSalidaVuelo >= CURDATE()";

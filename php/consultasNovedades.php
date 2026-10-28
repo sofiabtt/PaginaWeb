@@ -12,7 +12,7 @@ function crearNovedad(
     $fechaExpiracion
 )
 {
-    $consulta = "INSERT INTO Novedades
+    $consulta = "INSERT INTO novedades
                  (
                      textoNovedad,
                      fechaPublicacionNovedad,
@@ -38,7 +38,7 @@ function crearNovedad(
 function obtenerNovedadesActivas($conexion)
 {
     $consulta = "SELECT *
-                 FROM Novedades
+                 FROM novedades
                  WHERE activoNovedad = 1
                  ORDER BY codNovedad";
 
@@ -51,7 +51,7 @@ function obtenerNovedadesActivas($conexion)
 function obtenerNovedadesInactivas($conexion)
 {
     $consulta = "SELECT *
-                 FROM Novedades
+                 FROM novedades
                  WHERE activoNovedad = 0
                  ORDER BY fechaEliminacion DESC";
 
@@ -64,7 +64,7 @@ function obtenerNovedadesInactivas($conexion)
 function obtenerNovedad($conexion, $codNovedad)
 {
     $consulta = "SELECT *
-                 FROM Novedades
+                 FROM novedades
                  WHERE codNovedad = ?";
 
     $stmt = $conexion->prepare($consulta);
@@ -92,7 +92,7 @@ function modificarNovedad(
     $fechaExpiracion
 )
 {
-    $consulta = "UPDATE Novedades
+    $consulta = "UPDATE novedades
                  SET textoNovedad = ?,
                      fechaPublicacionNovedad = ?,
                      fechaExpiracionNovedad = ?
@@ -116,7 +116,7 @@ function modificarNovedad(
 
 function eliminarNovedad($conexion, $codNovedad)
 {
-    $consulta = "UPDATE Novedades
+    $consulta = "UPDATE novedades
                  SET activoNovedad = 0,
                      fechaEliminacion = NOW()
                  WHERE codNovedad = ?";
@@ -136,7 +136,7 @@ function eliminarNovedad($conexion, $codNovedad)
 function cantidadNovedades($conexion)
 {
     $consulta = "SELECT COUNT(*) AS cantidad
-                 FROM Novedades";
+                 FROM novedades";
 
     $resultado = $conexion->query($consulta);
 
@@ -151,7 +151,7 @@ function obtenerNovedadesVigentes($conexion)
         SELECT textoNovedad,
                fechaPublicacionNovedad,
                fechaExpiracionNovedad
-        FROM Novedades
+        FROM novedades
         WHERE activoNovedad = 1
           AND fechaPublicacionNovedad <= CURDATE()
           AND fechaExpiracionNovedad >= CURDATE()

@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $consulta = $conexion->prepare("
         SELECT codUsuario
-        FROM Usuarios
+        FROM usuarios
         WHERE emailUsuario = ?
     ");
 

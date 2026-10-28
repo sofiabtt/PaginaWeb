@@ -184,7 +184,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $consulta = $conexion->prepare(
 
-        "INSERT INTO Usuarios
+        "INSERT INTO usuarios
         (
             emailUsuario,
             nombreUsuario,

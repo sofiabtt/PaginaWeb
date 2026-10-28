@@ -23,16 +23,16 @@ SET time_zone = "+00:00";
 -- Base de datos
 --
 
-CREATE DATABASE IF NOT EXISTS `Nuvia`;
+CREATE DATABASE IF NOT EXISTS `nuvia`;
 
-USE `Nuvia`;
+USE `nuvia`;
 
 
 -- =====================================================
--- TABLA: Paises
+-- TABLA: paises
 -- =====================================================
 
-CREATE TABLE `Paises` (
+CREATE TABLE `paises` (
 
     `codPais` int(11) NOT NULL AUTO_INCREMENT,
 
@@ -48,10 +48,10 @@ CREATE TABLE `Paises` (
 
 
 -- =====================================================
--- TABLA: Ciudades
+-- TABLA: ciudades
 -- =====================================================
 
-CREATE TABLE `Ciudades` (
+CREATE TABLE `ciudades` (
 
     `codCiudad` int(11) NOT NULL AUTO_INCREMENT,
 
@@ -63,7 +63,7 @@ CREATE TABLE `Ciudades` (
 
     CONSTRAINT `fk_ciudades_pais`
         FOREIGN KEY (`codPais`)
-        REFERENCES `Paises` (`codPais`)
+        REFERENCES `paises` (`codPais`)
 
 ) ENGINE=InnoDB
   DEFAULT CHARSET=utf8mb4
@@ -71,10 +71,10 @@ CREATE TABLE `Ciudades` (
 
 
 -- =====================================================
--- TABLA: Aeropuertos
+-- TABLA: aeropuertos
 -- =====================================================
 
-CREATE TABLE `Aeropuertos` (
+CREATE TABLE `aeropuertos` (
 
     `codAeropuerto` int(11) NOT NULL AUTO_INCREMENT,
 
@@ -90,7 +90,7 @@ CREATE TABLE `Aeropuertos` (
 
     CONSTRAINT `fk_aeropuertos_ciudad`
         FOREIGN KEY (`codCiudad`)
-        REFERENCES `Ciudades` (`codCiudad`)
+        REFERENCES `ciudades` (`codCiudad`)
 
 ) ENGINE=InnoDB
   DEFAULT CHARSET=utf8mb4
@@ -98,10 +98,10 @@ CREATE TABLE `Aeropuertos` (
 
 
 -- =====================================================
--- TABLA: Usuarios
+-- TABLA: usuarios
 -- =====================================================
 
-CREATE TABLE `Usuarios` (
+CREATE TABLE `usuarios` (
 
     `codUsuario` int(11) NOT NULL AUTO_INCREMENT,
 
@@ -135,10 +135,10 @@ CREATE TABLE `Usuarios` (
 
 
 -- =====================================================
--- TABLA: Aerolineas
+-- TABLA: aerolineas
 -- =====================================================
 
-CREATE TABLE `Aerolineas` (
+CREATE TABLE `aerolineas` (
 
     `codAerolinea` int(11) NOT NULL AUTO_INCREMENT,
 
@@ -160,11 +160,11 @@ CREATE TABLE `Aerolineas` (
 
     CONSTRAINT `fk_aerolineas_pais`
         FOREIGN KEY (`codPais`)
-        REFERENCES `Paises` (`codPais`),
+        REFERENCES `paises` (`codPais`),
 
     CONSTRAINT `fk_aerolineas_usuario`
         FOREIGN KEY (`codUsuario`)
-        REFERENCES `Usuarios` (`codUsuario`)
+        REFERENCES `usuarios` (`codUsuario`)
 
 ) ENGINE=InnoDB
   DEFAULT CHARSET=utf8mb4
@@ -172,10 +172,10 @@ CREATE TABLE `Aerolineas` (
 
 
 -- =====================================================
--- TABLA: Novedades
+-- TABLA: novedades
 -- =====================================================
 
-CREATE TABLE `Novedades` (
+CREATE TABLE `novedades` (
 
     `codNovedad` int(11) NOT NULL AUTO_INCREMENT,
 
@@ -197,10 +197,10 @@ CREATE TABLE `Novedades` (
 
 
 -- =====================================================
--- TABLA: Promociones
+-- TABLA: promociones
 -- =====================================================
 
-CREATE TABLE `Promociones` (
+CREATE TABLE `promociones` (
 
     `codPromocion` int(11) NOT NULL AUTO_INCREMENT,
 
@@ -220,7 +220,7 @@ CREATE TABLE `Promociones` (
 
     CONSTRAINT `fk_promociones_aerolinea`
         FOREIGN KEY (`codAerolinea`)
-        REFERENCES `Aerolineas` (`codAerolinea`)
+        REFERENCES `aerolineas` (`codAerolinea`)
 
 ) ENGINE=InnoDB
   DEFAULT CHARSET=utf8mb4
@@ -228,10 +228,10 @@ CREATE TABLE `Promociones` (
 
 
 -- =====================================================
--- TABLA: Vuelos
+-- TABLA: vuelos
 -- =====================================================
 
-CREATE TABLE `Vuelos` (
+CREATE TABLE `vuelos` (
 
     `codVuelo` int(11) NOT NULL AUTO_INCREMENT,
 
@@ -257,7 +257,7 @@ CREATE TABLE `Vuelos` (
 
     CONSTRAINT `fk_vuelos_aerolinea`
         FOREIGN KEY (`codAerolinea`)
-        REFERENCES `Aerolineas` (`codAerolinea`)
+        REFERENCES `aerolineas` (`codAerolinea`)
 
 ) ENGINE=InnoDB
   DEFAULT CHARSET=utf8mb4
@@ -265,10 +265,10 @@ CREATE TABLE `Vuelos` (
 
 
 -- =====================================================
--- TABLA: Reservas
+-- TABLA: reservas
 -- =====================================================
 
-CREATE TABLE `Reservas` (
+CREATE TABLE `reservas` (
 
     `codReserva` int(11) NOT NULL AUTO_INCREMENT,
 
@@ -288,11 +288,11 @@ CREATE TABLE `Reservas` (
 
     CONSTRAINT `fk_reservas_usuario`
         FOREIGN KEY (`codUsuario`)
-        REFERENCES `Usuarios` (`codUsuario`),
+        REFERENCES `usuarios` (`codUsuario`),
 
     CONSTRAINT `fk_reservas_vuelo`
         FOREIGN KEY (`codVuelo`)
-        REFERENCES `Vuelos` (`codVuelo`)
+        REFERENCES `vuelos` (`codVuelo`)
 
 ) ENGINE=InnoDB
   DEFAULT CHARSET=utf8mb4
@@ -300,11 +300,11 @@ CREATE TABLE `Reservas` (
 
 
 -- =====================================================
--- TABLA: PreferenciasPago
+-- TABLA: preferenciasPago
 -- Medio de pago que el usuario eligió recordar.
 -- =====================================================
 
-CREATE TABLE `PreferenciasPago` (
+CREATE TABLE `preferenciasPago` (
 
     `codUsuario` int(11) NOT NULL,
 
@@ -320,7 +320,7 @@ CREATE TABLE `PreferenciasPago` (
 
     CONSTRAINT `fk_preferencias_usuario`
         FOREIGN KEY (`codUsuario`)
-        REFERENCES `Usuarios` (`codUsuario`)
+        REFERENCES `usuarios` (`codUsuario`)
 
 ) ENGINE=InnoDB
   DEFAULT CHARSET=utf8mb4
@@ -328,10 +328,10 @@ CREATE TABLE `PreferenciasPago` (
 
 
 -- =====================================================
--- TABLA: Actividad
+-- TABLA: actividad
 -- =====================================================
 
-CREATE TABLE `Actividad` (
+CREATE TABLE `actividad` (
 
     `codActividad` int(11) NOT NULL AUTO_INCREMENT,
 
@@ -349,10 +349,10 @@ CREATE TABLE `Actividad` (
 
 
 -- =====================================================
--- DATOS DE PAISES
+-- DATOS DE paises
 -- =====================================================
 
-INSERT INTO `Paises`
+INSERT INTO `paises`
 (
     `nombrePais`,
     `codigoISO`
@@ -371,10 +371,10 @@ VALUES
 
 
 -- =====================================================
--- DATOS DE CIUDADES
+-- DATOS DE ciudades
 -- =====================================================
 
-INSERT INTO `Ciudades`
+INSERT INTO `ciudades`
 (
     `nombreCiudad`,
     `codPais`
@@ -411,10 +411,10 @@ VALUES
 
 
 -- =====================================================
--- DATOS DE AEROPUERTOS
+-- DATOS DE aeropuertos
 -- =====================================================
 
-INSERT INTO `Aeropuertos`
+INSERT INTO `aeropuertos`
 (
     `codigoIATA`,
     `codigoICAO`,
@@ -454,10 +454,10 @@ VALUES
 
 
 -- =====================================================
--- DATOS DE USUARIOS
+-- DATOS DE usuarios
 -- =====================================================
 
-INSERT INTO `Usuarios`
+INSERT INTO `usuarios`
 (
     `codUsuario`,
     `nombreUsuario`,

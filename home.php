@@ -14,10 +14,10 @@ $consultaAeropuertos = $conexion->query("
         a.nombreAeropuerto,
         c.nombreCiudad,
         p.nombrePais
-    FROM Aeropuertos a
-    INNER JOIN Ciudades c
+    FROM aeropuertos a
+    INNER JOIN ciudades c
         ON a.codCiudad = c.codCiudad
-    INNER JOIN Paises p
+    INNER JOIN paises p
         ON c.codPais = p.codPais
     ORDER BY c.nombreCiudad ASC, a.codigoIATA ASC
 ");
@@ -630,10 +630,10 @@ primeraFecha = null;
                                 a.nombreAeropuerto,
                                 c.nombreCiudad,
                                 p.nombrePais
-                            FROM Aeropuertos a
-                            INNER JOIN Ciudades c
+                            FROM aeropuertos a
+                            INNER JOIN ciudades c
                                 ON a.codCiudad = c.codCiudad
-                            INNER JOIN Paises p
+                            INNER JOIN paises p
                                 ON c.codPais = p.codPais
                             ORDER BY c.nombreCiudad ASC, a.codigoIATA ASC
                         ");

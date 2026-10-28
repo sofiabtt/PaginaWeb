@@ -15,9 +15,9 @@ function obtenerHistorialCompras($conexion, $codUsuario)
                 v.fechaSalidaVuelo,
                 r.precioFinalReserva,
                 a.nombreAerolinea
-         FROM Reservas r
-         INNER JOIN Vuelos v ON v.codVuelo = r.codVuelo
-         INNER JOIN Aerolineas a ON a.codAerolinea = v.codAerolinea
+         FROM reservas r
+         INNER JOIN vuelos v ON v.codVuelo = r.codVuelo
+         INNER JOIN aerolineas a ON a.codAerolinea = v.codAerolinea
          WHERE r.codUsuario = ?
            AND r.estadoReserva = 'confirmada'
          ORDER BY r.fechaReserva DESC, r.codReserva DESC"
@@ -47,7 +47,7 @@ function cancelarReservasVencidas($conexion)
             "SELECT codReserva,
                     codVuelo,
                     cantidadPasajerosReserva
-             FROM Reservas
+             FROM reservas
              WHERE estadoReserva = 'pendiente de pago'
                AND fechaReserva <= DATE_SUB(NOW(), INTERVAL 30 MINUTE)
              FOR UPDATE"
@@ -62,7 +62,7 @@ function cancelarReservasVencidas($conexion)
 
             // Devolvemos los asientos al vuelo
             $devolver = $conexion->prepare(
-                "UPDATE Vuelos
+                "UPDATE vuelos
                  SET asientosDisponibles =
                      asientosDisponibles + ?
                  WHERE codVuelo = ?"
@@ -79,7 +79,7 @@ function cancelarReservasVencidas($conexion)
 
             // Cancelamos la reserva
             $cancelar = $conexion->prepare(
-                "UPDATE Reservas
+                "UPDATE reservas
                  SET estadoReserva = 'cancelada'
                  WHERE codReserva = ?
                    AND estadoReserva = 'pendiente de pago'"
@@ -123,9 +123,9 @@ function obtenerReservasUsuario($conexion, $codUsuario)
                 v.horaSalidaVuelo,
                 r.precioFinalReserva,
                 a.nombreAerolinea
-         FROM Reservas r
-         INNER JOIN Vuelos v ON v.codVuelo = r.codVuelo
-         INNER JOIN Aerolineas a ON a.codAerolinea = v.codAerolinea
+         FROM reservas r
+         INNER JOIN vuelos v ON v.codVuelo = r.codVuelo
+         INNER JOIN aerolineas a ON a.codAerolinea = v.codAerolinea
          WHERE r.codUsuario = ?
            AND r.estadoReserva <> 'cancelada'
          ORDER BY v.fechaSalidaVuelo, v.horaSalidaVuelo"
@@ -157,10 +157,10 @@ function obtenerDetalleReserva($conexion, $codReserva, $codUsuario)
             v.fechaSalidaVuelo,
             v.horaSalidaVuelo,
             a.nombreAerolinea
-         FROM Reservas r
-         INNER JOIN Vuelos v
+         FROM reservas r
+         INNER JOIN vuelos v
             ON v.codVuelo = r.codVuelo
-         INNER JOIN Aerolineas a
+         INNER JOIN aerolineas a
             ON a.codAerolinea = v.codAerolinea
          WHERE r.codReserva = ?
            AND r.codUsuario = ?"
@@ -187,7 +187,7 @@ function confirmarReserva($conexion, $codReserva, $codUsuario)
     cancelarReservasVencidas($conexion);
 
     $consulta = $conexion->prepare(
-        "UPDATE Reservas
+        "UPDATE reservas
          SET estadoReserva = 'confirmada'
          WHERE codReserva = ?
            AND codUsuario = ?
@@ -220,8 +220,8 @@ function cancelarReserva($conexion, $codReserva, $codUsuario)
                     r.cantidadPasajerosReserva,
                     v.fechaSalidaVuelo,
                     v.horaSalidaVuelo
-             FROM Reservas r
-             INNER JOIN Vuelos v
+             FROM reservas r
+             INNER JOIN vuelos v
                 ON v.codVuelo = r.codVuelo
              WHERE r.codReserva = ?
                AND r.codUsuario = ?
@@ -262,7 +262,7 @@ function cancelarReserva($conexion, $codReserva, $codUsuario)
 
 
         $cancelar = $conexion->prepare(
-            "UPDATE Reservas
+            "UPDATE reservas
              SET estadoReserva = 'cancelada'
              WHERE codReserva = ?
                AND codUsuario = ?"
@@ -278,7 +278,7 @@ function cancelarReserva($conexion, $codReserva, $codUsuario)
 
 
         $devolver = $conexion->prepare(
-            "UPDATE Vuelos
+            "UPDATE vuelos
              SET asientosDisponibles =
                  asientosDisponibles + ?
              WHERE codVuelo = ?"
@@ -316,7 +316,7 @@ function crearReserva($conexion, $codUsuario, $codVuelo, $cantidadPasajeros)
         // Bloqueamos el vuelo mientras se crea la reserva
         $consultaVuelo = $conexion->prepare(
             "SELECT precioVuelo, asientosDisponibles
-             FROM Vuelos
+             FROM vuelos
              WHERE codVuelo = ?
                AND activoVuelo = 1
              FOR UPDATE"
@@ -357,7 +357,7 @@ function crearReserva($conexion, $codUsuario, $codVuelo, $cantidadPasajeros)
 
         // Creamos la reserva
         $consulta = $conexion->prepare(
-            "INSERT INTO Reservas
+            "INSERT INTO reservas
             (
                 codUsuario,
                 codVuelo,
@@ -385,7 +385,7 @@ function crearReserva($conexion, $codUsuario, $codVuelo, $cantidadPasajeros)
 
         // Descontamos los asientos
         $actualizarAsientos = $conexion->prepare(
-            "UPDATE Vuelos
+            "UPDATE vuelos
              SET asientosDisponibles =
                  asientosDisponibles - ?
              WHERE codVuelo = ?

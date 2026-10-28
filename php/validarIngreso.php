@@ -16,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         include "conexionBD.php";
 
         $consulta = $conexion->prepare(
-            "SELECT * FROM Usuarios WHERE emailUsuario = ?"
+            "SELECT * FROM usuarios WHERE emailUsuario = ?"
         );
 
         $consulta->bind_param("s", $gmail);

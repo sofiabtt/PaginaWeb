@@ -15,12 +15,12 @@ function obtenerPromocionesActivas($conexion)
                         a.nombreAerolinea,
                         u.nombreUsuario AS nombreCeo
 
-                 FROM Promociones p
+                 FROM promociones p
 
-                 INNER JOIN Aerolineas a
+                 INNER JOIN aerolineas a
                     ON p.codAerolinea = a.codAerolinea
 
-                 LEFT JOIN Usuarios u
+                 LEFT JOIN usuarios u
                     ON a.codUsuario = u.codUsuario
 
                  WHERE p.activoPromocion = 1
@@ -47,7 +47,7 @@ function obtenerPromocionesPorAerolinea($conexion,$codAerolinea)
             descuentoPromocion,
             estadoPromocion
 
-        FROM Promociones
+        FROM promociones
 
         WHERE codAerolinea = ?
           AND activoPromocion = 1
@@ -77,7 +77,7 @@ function obtenerPromocion($conexion,$codPromocion,$codAerolinea)
             descuentoPromocion,
             estadoPromocion
 
-        FROM Promociones
+        FROM promociones
 
         WHERE codPromocion = ?
           AND codAerolinea = ?
@@ -106,7 +106,7 @@ function crearPromocion($conexion,$descripcion,$descuento,$codAerolinea)
     $activoPromocion = 1;
 
     $consulta = $conexion->prepare("
-        INSERT INTO Promociones
+        INSERT INTO promociones
         (
             descripcionPromocion,
             descuentoPromocion,
@@ -136,7 +136,7 @@ function crearPromocion($conexion,$descripcion,$descuento,$codAerolinea)
 function modificarPromocion($conexion,$codPromocion,$codAerolinea,$descripcion,$descuento)
 {
     $consulta = $conexion->prepare("
-        UPDATE Promociones
+        UPDATE promociones
 
         SET
             descripcionPromocion = ?,
@@ -165,7 +165,7 @@ function modificarPromocion($conexion,$codPromocion,$codAerolinea,$descripcion,$
 function eliminarPromocion($conexion, $codPromocion, $codAerolinea)
 {
     $consulta = $conexion->prepare("
-        UPDATE Promociones
+        UPDATE promociones
 
         SET
             activoPromocion = 0,
@@ -190,7 +190,7 @@ function eliminarPromocion($conexion, $codPromocion, $codAerolinea)
 
 function cambiarEstadoPromocion($conexion,$codPromocion,$nuevoEstado)
 {
-    $consulta = "UPDATE Promociones
+    $consulta = "UPDATE promociones
                  SET estadoPromocion = ?
                  WHERE codPromocion = ?
                  AND activoPromocion = 1";
@@ -212,7 +212,7 @@ function cambiarEstadoPromocion($conexion,$codPromocion,$nuevoEstado)
 function cantidadPromocionesPendientes($conexion)
 {
     $consulta = "SELECT COUNT(*) AS cantidad
-                 FROM Promociones
+                 FROM promociones
                  WHERE estadoPromocion = 'Pendiente'";
 
     $resultado = $conexion->query($consulta);
@@ -230,7 +230,7 @@ function cantidadPromocionesPorAerolinea(
     $consulta = $conexion->prepare("
         SELECT COUNT(*) AS cantidad
 
-        FROM Promociones
+        FROM promociones
 
         WHERE codAerolinea = ?
     ");
@@ -258,7 +258,7 @@ function cantidadPromocionesPendientesPorAerolinea(
     $consulta = $conexion->prepare("
         SELECT COUNT(*) AS cantidad
 
-        FROM Promociones
+        FROM promociones
 
         WHERE codAerolinea = ?
           AND estadoPromocion = 'Pendiente'

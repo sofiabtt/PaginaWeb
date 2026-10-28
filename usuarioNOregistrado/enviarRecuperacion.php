@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 codUsuario,
                 nombreUsuario,
                 emailUsuario
-            FROM Usuarios
+            
             WHERE emailUsuario = ?
         ");
 
@@ -64,7 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             // Guardar token en la base de datos
             $actualizar = $conexion->prepare("
-                UPDATE Usuarios
+                
                 SET
                     tokenRecuperacion = ?,
                     expiracionTokenRecuperacion = ?

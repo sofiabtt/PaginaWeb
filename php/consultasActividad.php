@@ -7,7 +7,7 @@ include "conexionBD.php";
 
 function registrarActividad($conexion, $usuarioActividad, $accionActividad)
 {
-    $consulta = "INSERT INTO Actividad
+    $consulta = "INSERT INTO actividad
                  (usuarioActividad, accionActividad)
                  VALUES (?, ?)";
 
@@ -28,7 +28,7 @@ function registrarActividad($conexion, $usuarioActividad, $accionActividad)
 function obtenerActividadesRecientes($conexion)
 {
     $consulta = "SELECT *
-                 FROM Actividad
+                 FROM actividad
                  ORDER BY fechaActividad DESC
                  LIMIT 10";
 
