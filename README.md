@@ -8,6 +8,13 @@ Nuvia es un sitio web desarrollado como proyecto académico para la materia Ento
 
 ## Funcionalidades
 
+### Usuarios no registrados
+
+- Acceso a las funcionalidades públicas del sitio.
+- Consulta y búsqueda de vuelos.
+- Visualización de información de los vuelos.
+- Registro de una cuenta.
+
 ### Usuarios
 
 - Registro e inicio de sesión.
@@ -47,6 +54,20 @@ Nuvia es un sitio web desarrollado como proyecto académico para la materia Ento
 - **Composer:** gestión de dependencias de PHP.
 
 ---
+
+## Integrantes
+
+Proyecto desarrollado en equipo por cuatro integrantes:
+
+- Azurmendi Felicitas
+
+- Benetti Sofia
+
+- Maciá Julieta
+
+- Magliaro Violeta
+
+--- 
 
 ## Estructura del proyecto
 
