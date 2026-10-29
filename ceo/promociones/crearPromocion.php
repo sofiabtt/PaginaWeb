@@ -256,7 +256,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
                     <a
-                        href="gestionPromociones.php"
+                        href="gestionPromocion.php"
                         class="btn btn-outline-secondary me-2"
                     >
 
