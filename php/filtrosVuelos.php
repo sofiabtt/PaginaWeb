@@ -1,465 +1,583 @@
 <?php
 
-include "conexionBD.php";
+
+// =====================================================
+// DATOS RECIBIDOS DEL BUSCADOR
+// =====================================================
+
+$tipoViaje = $_GET["tipoViaje"] ?? $_SESSION["tipoViajeReserva"] ?? "soloIda";
+
+$origen = $_GET["origen"] ?? "";
+
+$destino = $_GET["destino"] ?? "";
+
+$fechaIda = $_GET["fechaIda"] ?? "";
+
+$fechaVuelta = $_GET["fechaVuelta"] ?? "";
 
 
-// CREAR VUELO
+// =====================================================
+// FILTROS
+// =====================================================
 
-function crearVuelo($conexion,$codAerolinea,$origen,$destino,
-$fecha,$hora,$precio,$asientos)
-{
-    $consulta = "INSERT INTO vuelos
-                 (
-                     codAerolinea,
-                     origenVuelo,
-                     destinoVuelo,
-                     fechaSalidaVuelo,
-                     horaSalidaVuelo,
-                     precioVuelo,
-                     asientosDisponibles
-                 )
-                 VALUES (?, ?, ?, ?, ?, ?, ?)";
+$aerolinea = $_GET["aerolinea"] ?? "";
 
-    $stmt = $conexion->prepare($consulta);
+$precioMin = $_GET["precioMin"] ?? "";
 
-    $stmt->bind_param(
-        "issssdi",
-        $codAerolinea,
-        $origen,
-        $destino,
-        $fecha,
-        $hora,
-        $precio,
-        $asientos
-    );
+$precioMax = $_GET["precioMax"] ?? "";
 
-    return $stmt->execute();
+$horario = $_GET["horario"] ?? "";
+
+$orden = $_GET["orden"] ?? "hora";
+
+
+// =====================================================
+// VALIDAR PRECIOS
+// =====================================================
+
+if (
+    $precioMin !== "" &&
+    (!is_numeric($precioMin) || $precioMin < 0)
+) {
+
+    $precioMin = "";
+
 }
 
 
-// OBTENER VUELOS DE UNA AEROLÍNEA
+if (
+    $precioMax !== "" &&
+    (!is_numeric($precioMax) || $precioMax < 0)
+) {
 
-function obtenerVuelosPorAerolinea($conexion,$codAerolinea)
-{
-    $consulta = $conexion->prepare("
-        SELECT *
-        FROM vuelos
-        WHERE codAerolinea = ?
-          AND activoVuelo = 1
-        ORDER BY
-            fechaSalidaVuelo ASC,
-            horaSalidaVuelo ASC
-    ");
+    $precioMax = "";
 
-    $consulta->bind_param(
-        "i",
-        $codAerolinea
-    );
-
-    $consulta->execute();
-
-    return $consulta->get_result();
 }
 
 
-// OBTENER VUELOS DADOS DE BAJA
+// =====================================================
+// VUELOS POR PÁGINA
+// =====================================================
 
-function obtenerVuelosInactivos($conexion,$codAerolinea)
-{
-    $consulta = $conexion->prepare("
-        SELECT *
-        FROM vuelos
-        WHERE activoVuelo = 0
-          AND codAerolinea = ?
-        ORDER BY fechaEliminacion DESC
-    ");
+$vuelosPorPagina = 5;
 
-    $consulta->bind_param(
-        "i",
-        $codAerolinea
+
+// =====================================================
+// OBTENER AEROLÍNEAS
+// =====================================================
+
+$aerolineas = [];
+
+
+$consultaAerolineas = "
+
+    SELECT
+        codAerolinea,
+        nombreAerolinea
+
+    FROM aerolineas
+
+    WHERE activoAerolinea = 1
+
+    ORDER BY nombreAerolinea ASC
+
+";
+
+
+$resultadoAerolineas =
+    $conexion->query(
+        $consultaAerolineas
     );
 
-    $consulta->execute();
 
-    return $consulta->get_result();
+while (
+    $aerolineaBD =
+    $resultadoAerolineas->fetch_assoc()
+) {
+
+    $aerolineas[] = $aerolineaBD;
+
 }
 
 
-// OBTENER UN VUELO
+// =====================================================
+// FUNCIÓN PARA OBTENER VUELOS
+// =====================================================
 
-function obtenerVuelo($conexion,$codVuelo,$codAerolinea)
-{
-    $consulta = $conexion->prepare("
-        SELECT
-            codVuelo,
-            codAerolinea,
-            origenVuelo,
-            destinoVuelo,
-            fechaSalidaVuelo,
-            horaSalidaVuelo,
-            precioVuelo,
-            asientosDisponibles,
-            activoVuelo,
-            fechaEliminacion
-
-        FROM vuelos
-
-        WHERE codVuelo = ?
-          AND codAerolinea = ?
-    ");
-
-    $consulta->bind_param(
-        "ii",
-        $codVuelo,
-        $codAerolinea
-    );
-
-    $consulta->execute();
-
-    $resultado = $consulta->get_result();
-
-    return $resultado->fetch_assoc();
-}
+function obtenerVuelos(
+    $conexion,
+    $origenBusqueda,
+    $destinoBusqueda,
+    $fechaBusqueda,
+    $aerolinea,
+    $precioMin,
+    $precioMax,
+    $horario,
+    $orden,
+    $limite
+) {
 
 
-// MODIFICAR VUELO
+    $condiciones = "
 
-function modificarVuelo($conexion,$codVuelo,$codAerolinea,$origen,$destino,
-$fecha,$hora,$precio,$asientos)
-{
-    $consulta = $conexion->prepare("
-        UPDATE vuelos
+        V.origenVuelo = ?
 
-        SET
-            origenVuelo = ?,
-            destinoVuelo = ?,
-            fechaSalidaVuelo = ?,
-            horaSalidaVuelo = ?,
-            precioVuelo = ?,
-            asientosDisponibles = ?
+        AND V.destinoVuelo = ?
 
-        WHERE codVuelo = ?
-          AND codAerolinea = ?
-          AND activoVuelo = 1
-    ");
+        AND V.fechaSalidaVuelo = ?
 
-    $consulta->bind_param(
-        "ssssdiii",
-        $origen,
-        $destino,
-        $fecha,
-        $hora,
-        $precio,
-        $asientos,
-        $codVuelo,
-        $codAerolinea
-    );
+        AND V.activoVuelo = 1
 
-    return $consulta->execute();
-}
+        AND A.activoAerolinea = 1
 
-
-// BAJA LÓGICA
-
-function eliminarVuelo($conexion,$codVuelo,$codAerolinea)
-{
-    $consulta = $conexion->prepare("
-        UPDATE vuelos
-
-        SET
-            activoVuelo = 0,
-            fechaEliminacion = NOW()
-
-        WHERE codVuelo = ?
-          AND codAerolinea = ?
-          AND activoVuelo = 1
-    ");
-
-    $consulta->bind_param(
-        "ii",
-        $codVuelo,
-        $codAerolinea
-    );
-
-    return $consulta->execute();
-}
-
-
-// OBTENER AEROPUERTOS
-
-function obtenerAeropuertos($conexion)
-{
-    $consulta = "
-        SELECT
-            a.codigoIATA,
-            a.nombreAeropuerto,
-            c.nombreCiudad,
-            p.nombrePais
-
-        FROM aeropuertos a
-
-        INNER JOIN ciudades c
-            ON a.codCiudad = c.codCiudad
-
-        INNER JOIN paises p
-            ON c.codPais = p.codPais
-
-        ORDER BY
-            p.nombrePais,
-            c.nombreCiudad
     ";
 
-    return $conexion->query($consulta);
-}
 
-// OBTENER CÓDIGO DEL VUELO
+    $tipos = "sss";
 
-function obtenerCodVuelo()
-{
-    if (!isset($_GET["id"])) {
 
-        echo "Vuelo no especificado.";
-        exit();
+    $parametros = [
+
+        $origenBusqueda,
+
+        $destinoBusqueda,
+
+        $fechaBusqueda
+
+    ];
+
+
+    // =================================================
+    // FILTRO POR AEROLÍNEA
+    // =================================================
+
+    if (
+        $aerolinea !== "" &&
+        ctype_digit($aerolinea)
+    ) {
+
+        $condiciones .= "
+
+            AND V.codAerolinea = ?
+
+        ";
+
+
+        $tipos .= "i";
+
+
+        $parametros[] =
+            (int) $aerolinea;
 
     }
 
-    return intval($_GET["id"]);
-}
 
-// CANTIDAD DE VUELOS DE UNA AEROLÍNEA
+    // =================================================
+    // PRECIO MÍNIMO
+    // =================================================
 
-function cantidadVuelosPorAerolinea(
-    $conexion,
-    $codAerolinea
-)
-{
-    $consulta = $conexion->prepare("
-        SELECT COUNT(*) AS cantidad
+    if ($precioMin !== "") {
 
-        FROM vuelos
+        $condiciones .= "
 
-        WHERE codAerolinea = ?
-          AND activoVuelo = 1
-    ");
+            AND V.precioVuelo >= ?
 
-    $consulta->bind_param(
-        "i",
-        $codAerolinea
-    );
-
-    $consulta->execute();
-
-    $resultado = $consulta->get_result();
-
-    return $resultado->fetch_assoc()["cantidad"];
-}
+        ";
 
 
-// OBTENER PRÓXIMOS VUELOS
+        $tipos .= "d";
 
-function obtenerProximosVuelos(
-    $conexion,
-    $codAerolinea
-)
-{
-    $consulta = $conexion->prepare("
+
+        $parametros[] =
+            (float) $precioMin;
+
+    }
+
+
+    // =================================================
+    // PRECIO MÁXIMO
+    // =================================================
+
+    if ($precioMax !== "") {
+
+        $condiciones .= "
+
+            AND V.precioVuelo <= ?
+
+        ";
+
+
+        $tipos .= "d";
+
+
+        $parametros[] =
+            (float) $precioMax;
+
+    }
+
+
+    // =================================================
+    // FILTRO POR HORARIO
+    // =================================================
+
+    if ($horario === "manana") {
+
+        $condiciones .= "
+
+            AND V.horaSalidaVuelo >= '06:00'
+
+            AND V.horaSalidaVuelo < '12:00'
+
+        ";
+
+    }
+
+
+    if ($horario === "tarde") {
+
+        $condiciones .= "
+
+            AND V.horaSalidaVuelo >= '12:00'
+
+            AND V.horaSalidaVuelo < '18:00'
+
+        ";
+
+    }
+
+
+    if ($horario === "noche") {
+
+        $condiciones .= "
+
+            AND V.horaSalidaVuelo >= '18:00'
+
+            AND V.horaSalidaVuelo <= '23:59'
+
+        ";
+
+    }
+
+
+    // =================================================
+    // ORDEN
+    // =================================================
+
+    if ($orden === "precio_asc") {
+
+        $ordenSQL =
+            "V.precioVuelo ASC";
+
+    } elseif ($orden === "precio_desc") {
+
+        $ordenSQL =
+            "V.precioVuelo DESC";
+
+    } else {
+
+        $ordenSQL =
+            "V.horaSalidaVuelo ASC";
+
+    }
+
+
+    // =================================================
+    // CONTAR VUELOS
+    // =================================================
+
+    $consultaCantidad = "
+
         SELECT
-            codVuelo,
-            origenVuelo,
-            destinoVuelo,
-            fechaSalidaVuelo,
-            horaSalidaVuelo,
-            asientosDisponibles
+            COUNT(*) AS cantidad
 
-        FROM vuelos
+        FROM vuelos V
 
-        WHERE codAerolinea = ?
-          AND activoVuelo = 1
+        INNER JOIN aerolineas A
 
-        ORDER BY
-            fechaSalidaVuelo ASC,
-            horaSalidaVuelo ASC
+            ON V.codAerolinea =
+               A.codAerolinea
 
-        LIMIT 5
-    ");
+        WHERE $condiciones
 
-    $consulta->bind_param(
-        "i",
-        $codAerolinea
-    );
-
-    $consulta->execute();
-
-    return $consulta->get_result();
-}
-
-// BUSCAR VUELOS DISPONIBLES PARA USUARIO
-
-function buscarVuelosUsuario($conexion, $origen, $destino, $fecha)
-{
-    $sql = "SELECT v.codVuelo,
-                   v.origenVuelo,
-                   v.destinoVuelo,
-                   v.fechaSalidaVuelo,
-                   v.horaSalidaVuelo,
-                   v.precioVuelo,
-                   v.asientosDisponibles,
-                   a.nombreAerolinea
-            FROM vuelos v
-            INNER JOIN aerolineas a
-                ON a.codAerolinea = v.codAerolinea
-            WHERE v.activoVuelo = 1
-              AND v.asientosDisponibles > 0
-              AND v.fechaSalidaVuelo >= CURDATE()";
-
-    $tipos = "";
-    $valores = [];
+    ";
 
 
-    if ($origen !== "") {
-
-        $sql .= " AND v.origenVuelo LIKE ?";
-        $tipos .= "s";
-        $valores[] = "%" . $origen . "%";
-    }
-
-
-    if ($destino !== "") {
-
-        $sql .= " AND v.destinoVuelo LIKE ?";
-        $tipos .= "s";
-        $valores[] = "%" . $destino . "%";
-    }
-
-
-    if ($fecha !== "") {
-
-        $sql .= " AND v.fechaSalidaVuelo = ?";
-        $tipos .= "s";
-        $valores[] = $fecha;
-    }
-
-
-    $sql .= " ORDER BY v.fechaSalidaVuelo, v.horaSalidaVuelo";
-
-
-    $consulta = $conexion->prepare($sql);
-
-
-    if ($tipos !== "") {
-
-        $consulta->bind_param(
-            $tipos,
-            ...$valores
+    $consultaCantidadPreparada =
+        $conexion->prepare(
+            $consultaCantidad
         );
+
+
+    $parametrosCantidad = [];
+
+
+    $parametrosCantidad[] =
+        $tipos;
+
+
+    foreach (
+        $parametros as $indice => $valor
+    ) {
+
+        $parametrosCantidad[] =
+            &$parametros[$indice];
+
     }
 
 
-    $consulta->execute();
+    call_user_func_array(
 
-    return $consulta->get_result();
+        [
+            $consultaCantidadPreparada,
+            "bind_param"
+        ],
+
+        $parametrosCantidad
+
+    );
+
+
+    $consultaCantidadPreparada->execute();
+
+
+    $resultadoCantidad =
+        $consultaCantidadPreparada->get_result();
+
+
+    $datosCantidad =
+        $resultadoCantidad->fetch_assoc();
+
+
+    $cantidad =
+        (int) $datosCantidad["cantidad"];
+
+
+    $consultaCantidadPreparada->close();
+
+
+    // =================================================
+    // OBTENER VUELOS
+    // =================================================
+
+    $vuelos = [];
+
+
+    if ($cantidad > 0) {
+
+
+        $consulta = "
+
+            SELECT
+
+                V.codVuelo,
+
+                V.origenVuelo,
+
+                V.destinoVuelo,
+
+                V.fechaSalidaVuelo,
+
+                V.horaSalidaVuelo,
+
+                V.precioVuelo,
+
+                V.asientosDisponibles,
+
+                A.nombreAerolinea
+
+
+            FROM vuelos V
+
+
+            INNER JOIN aerolineas A
+
+                ON V.codAerolinea =
+                   A.codAerolinea
+
+
+            WHERE $condiciones
+
+
+            ORDER BY $ordenSQL
+
+
+            LIMIT ?
+
+        ";
+
+
+        $consultaPreparada =
+            $conexion->prepare(
+                $consulta
+            );
+
+
+        $tiposConsulta =
+            $tipos . "i";
+
+
+        $parametrosConsulta =
+            $parametros;
+
+
+        $parametrosConsulta[] =
+            $limite;
+
+
+        $parametrosBind = [];
+
+
+        $parametrosBind[] =
+            $tiposConsulta;
+
+
+        foreach (
+            $parametrosConsulta
+            as $indice => $valor
+        ) {
+
+            $parametrosBind[] =
+                &$parametrosConsulta[$indice];
+
+        }
+
+
+        call_user_func_array(
+
+            [
+                $consultaPreparada,
+                "bind_param"
+            ],
+
+            $parametrosBind
+
+        );
+
+
+        $consultaPreparada->execute();
+
+
+        $resultado =
+            $consultaPreparada->get_result();
+
+
+        while (
+            $vuelo =
+            $resultado->fetch_assoc()
+        ) {
+
+            $vuelos[] =
+                $vuelo;
+
+        }
+
+
+        $consultaPreparada->close();
+
+    }
+
+
+    return [
+
+        "cantidad" => $cantidad,
+
+        "vuelos" => $vuelos
+
+    ];
+
 }
 
-// OBTENER DETALLE DE VUELO PARA USUARIO
 
-function obtenerVueloUsuario($conexion, $codVuelo)
-{
-    $consulta = $conexion->prepare(
-        "SELECT
-            v.*,
-            a.nombreAerolinea,
-            p.descripcionPromocion,
-            p.descuentoPromocion
-         FROM vuelos v
-         INNER JOIN aerolineas a
-            ON a.codAerolinea = v.codAerolinea
-         LEFT JOIN promociones p
-            ON p.codAerolinea = v.codAerolinea
-            AND p.estadoPromocion = 'Aprobada'
-            AND p.activoPromocion = 1
-         WHERE v.codVuelo = ?
-           AND v.activoVuelo = 1
-           AND v.asientosDisponibles > 0
-           AND v.fechaSalidaVuelo >= CURDATE()
-         LIMIT 1"
-    );
+// =====================================================
+// BUSCAR VUELOS DE IDA
+// =====================================================
 
-    $consulta->bind_param(
-        "i",
-        $codVuelo
-    );
+$resultadoIda = obtenerVuelos(
 
-    $consulta->execute();
+    $conexion,
 
-    return $consulta
-        ->get_result()
-        ->fetch_assoc();
+    $origen,
+
+    $destino,
+
+    $fechaIda,
+
+    $aerolinea,
+
+    $precioMin,
+
+    $precioMax,
+
+    $horario,
+
+    $orden,
+
+    $vuelosPorPagina
+
+);
+
+
+$vuelosIda =
+    $resultadoIda["vuelos"];
+
+
+$cantidadIda =
+    $resultadoIda["cantidad"];
+
+
+// =====================================================
+// BUSCAR VUELOS DE VUELTA
+// =====================================================
+
+$vuelosVuelta = [];
+
+$cantidadVuelta = 0;
+
+
+if (
+
+    $tipoViaje === "idaVuelta"
+
+    &&
+
+    $fechaVuelta !== ""
+
+) {
+
+
+    $resultadoVuelta =
+        obtenerVuelos(
+
+            $conexion,
+
+            $destino,
+
+            $origen,
+
+            $fechaVuelta,
+
+            $aerolinea,
+
+            $precioMin,
+
+            $precioMax,
+
+            $horario,
+
+            $orden,
+
+            $vuelosPorPagina
+
+        );
+
+
+    $vuelosVuelta =
+        $resultadoVuelta["vuelos"];
+
+
+    $cantidadVuelta =
+        $resultadoVuelta["cantidad"];
+
 }
-// OBTENER VUELO ELEGIDO
 
-function obtenerVueloElegido($conexion, $codVuelo)
-{
-    $consulta = $conexion->prepare(
-        "SELECT
-            v.codVuelo,
-            v.origenVuelo,
-            v.destinoVuelo,
-            v.fechaSalidaVuelo,
-            v.horaSalidaVuelo,
-            v.precioVuelo,
-            v.asientosDisponibles,
-            a.nombreAerolinea
-         FROM vuelos v
-         INNER JOIN aerolineas a
-            ON v.codAerolinea = a.codAerolinea
-        WHERE v.codVuelo = ?
-            AND v.activoVuelo = 1
-            AND v.asientosDisponibles > 0
-            AND v.fechaSalidaVuelo >= CURDATE()"
-    );
-
-    $consulta->bind_param(
-        "i",
-        $codVuelo
-    );
-
-    $consulta->execute();
-
-    return $consulta
-        ->get_result()
-        ->fetch_assoc();
-}
-
-// OBTENER TODOS LOS VUELOS PARA ADMINISTRADOR
-
-function obtenerTodosLosVuelos($conexion)
-{
-    $consulta = $conexion->prepare(
-        "SELECT
-            v.codVuelo,
-            v.origenVuelo,
-            v.destinoVuelo,
-            v.fechaSalidaVuelo,
-            v.horaSalidaVuelo,
-            v.precioVuelo,
-            v.asientosDisponibles,
-            v.activoVuelo,
-            v.fechaEliminacion,
-            a.nombreAerolinea,
-            a.codigoIATA
-
-         FROM vuelos v
-
-         INNER JOIN aerolineas a
-            ON a.codAerolinea = v.codAerolinea
-
-         ORDER BY
-            v.activoVuelo DESC,
-            v.fechaSalidaVuelo ASC,
-            v.horaSalidaVuelo ASC"
-    );
-
-    $consulta->execute();
-
-    return $consulta->get_result();
-}
+?>
