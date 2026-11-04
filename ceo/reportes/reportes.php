@@ -395,8 +395,8 @@ function claseEstadoReserva($estado)
         </section>
     </main>
 
-    <?php include "../../includes/footer.php"; ?>
-    <script src="../../js/bootstrap.bundle.min.js"></script>
+    <?php include "/includes/footer.php"; ?>
+    <script src="/js/bootstrap.bundle.min.js"></script>
 
     <script>
         const desde = document.getElementById("desde");

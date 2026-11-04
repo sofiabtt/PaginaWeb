@@ -393,7 +393,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
     <script
-        src="../../js/bootstrap.bundle.min.js"
+        src="/js/bootstrap.bundle.min.js"
     ></script>
 
 

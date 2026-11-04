@@ -92,9 +92,9 @@ session_start();
 
     </main>
 
-    <?php include "../includes/footer.php"; ?>
+    <?php include "/includes/footer.php"; ?>
 
-    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="/js/bootstrap.bundle.min.js"></script>
 
     </body>
 

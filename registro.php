@@ -88,7 +88,7 @@
     <?php include "includes/footer.php"; ?>
 
     <!-- JavaScript de Bootstrap . permite que funcionen los componentes interactivos de Bootstrap,-->
-    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="/js/bootstrap.bundle.min.js"></script>
 
     <script>
     //toma los parámetros que haya en la URL.

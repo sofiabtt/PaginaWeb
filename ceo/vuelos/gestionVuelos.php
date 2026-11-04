@@ -395,7 +395,7 @@ $resultado = obtenerVuelosPorAerolinea($conexion,$codAerolinea);
     <?php include "/includes/footer.php"; ?>
 
     <script
-        src="../../js/bootstrap.bundle.min.js">
+        src="/js/bootstrap.bundle.min.js">
     </script>
 
 

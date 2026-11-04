@@ -979,7 +979,7 @@ if ($desdeReserva && $reservaDestacada > 0) {
     </div>
 
 
-    <script src="../../js/bootstrap.bundle.min.js"></script>
+    <script src="/js/bootstrap.bundle.min.js"></script>
 
 
     <script>
@@ -1008,7 +1008,7 @@ if ($desdeReserva && $reservaDestacada > 0) {
 
     </script>
 
-    <?php include ("../../includes/footer.php"); ?>
+    <?php include ("/includes/footer.php"); ?>
 
 </body>
 

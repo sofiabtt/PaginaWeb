@@ -367,7 +367,7 @@ $queryVolver = $contexto ? "?" . http_build_query($contexto) : "";
         </section>
     </main>
 
-    <?php include "../../includes/footer.php"; ?>
+    <?php include "/includes/footer.php"; ?>
 
     <script>
     const form = document.querySelector("main form");
@@ -387,7 +387,7 @@ $queryVolver = $contexto ? "?" . http_build_query($contexto) : "";
     }
     </script>
     
-    <script src="../../js/bootstrap.bundle.min.js"></script>
+    <script src="/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
 

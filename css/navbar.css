@@ -22,6 +22,7 @@ i {
     box-shadow: 0 3px 15px rgba(0, 0, 0, 0.12);
     flex: 0 0 auto;
     align-self: stretch;
+    z-index: 2;
 }
 
 .navbar > .container-fluid {

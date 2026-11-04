@@ -113,9 +113,9 @@ $resultado = obtenerHistorialCompras($conexion, $codUsuario);
 
     </main>
 
-    <script src="../js/bootstrap.bundle.min.js"></script>
+    <script src="/js/bootstrap.bundle.min.js"></script>
 
-    <?php include("../includes/footer.php"); ?>
+    <?php include("/includes/footer.php"); ?>
 
 </body>
 
