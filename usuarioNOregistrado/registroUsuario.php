@@ -5,7 +5,7 @@ session_start();
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-require '../vendor/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../..');
 $dotenv->load();
@@ -149,7 +149,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
        CONEXIÓN
     ========================= */
 
-    include "../php/conexionBD.php";
+    require_once __DIR__ . '/../php/conexionBD.php';
 
 
     /* =========================
@@ -173,9 +173,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         strtotime('+24 hours')
     );
 
-    $enlaceVerificacion =
-        "http://localhost/php/verificarCuenta.php?token="
-        . urlencode($tokenVerificacion);
+    $enlaceVerificacion = urlApp(
+        "php/verificarCuenta.php?token=" . urlencode($tokenVerificacion)
+    );
 
 
     /* =========================

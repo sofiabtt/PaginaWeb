@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $estadoContacto = 'Revisá los datos ingresados e intentá nuevamente.';
         $claseEstado = 'estado-error';
 
-    } elseif (empty($_ENV['SMTP_USER']) || empty($_ENV['SMTP_PASS']) || empty($_ENV['CONTACT_EMAIL'])) {
+    } elseif (empty($_ENV['GMAIL_USUARIO']) || empty($_ENV['GMAIL_PASSWORD'])) {
         $estadoContacto ='El servicio de contacto no está configurado todavía.';
         $claseEstado = 'estado-error';
 
@@ -40,23 +40,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         try {
             $mail->isSMTP();
-            $mail->Host = $_ENV['SMTP_HOST'] ?? 'smtp.gmail.com';
+            $mail->Host = 'smtp.gmail.com';
             $mail->SMTPAuth = true;
-            $mail->Username = $_ENV['SMTP_USER'];
-            $mail->Password = $_ENV['SMTP_PASS'];
+            $mail->Username = $_ENV['GMAIL_USUARIO'];
+            $mail->Password = $_ENV['GMAIL_PASSWORD'];
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-            $mail->Port = (int) ($_ENV['SMTP_PORT'] ?? 587);
+            $mail->Port = 587;
 
             $mail->CharSet = 'UTF-8';
 
             // El remitente debe ser la cuenta autenticada.
             $mail->setFrom(
-                $_ENV['SMTP_USER'],
+                $_ENV['GMAIL_USUARIO'],
                 'Nuvia - Contacto'
             );
 
-            // Destinatario: correo de atención de Nuvia.
-            $mail->addAddress($_ENV['CONTACT_EMAIL']);
+            // Destinatario: la casilla de Nuvia (la misma cuenta de Gmail que envía).
+            $mail->addAddress($_ENV['GMAIL_USUARIO']);
 
             // Permite responder directamente al usuario.
             $mail->addReplyTo($email, $nombre);

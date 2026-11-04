@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $gmail = $_SESSION["gmailRegistro"];
 
-    include "conexionBD.php";
+    require_once __DIR__ . '/../php/conexionBD.php';
 
     $consulta = $conexion->prepare(
         "SELECT tokenVerificacion, fechaVerificacion
@@ -65,7 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $consulta->close();
                 $conexion->close();
 
-                header("Location: ../registroCodVerif.php");
+                header("Location: /usuarioNOregistrado/registroCodVerif.php");
                 exit();
             }
 
@@ -76,7 +76,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $consulta->close();
             $conexion->close();
 
-            header("Location: ../registroCodVerif.php");
+            header("Location: /usuarioNOregistrado/registroCodVerif.php");
             exit();
         }
     }

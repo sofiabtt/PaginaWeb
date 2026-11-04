@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 codUsuario,
                 nombreUsuario,
                 emailUsuario
-            
+            FROM usuarios
             WHERE emailUsuario = ?
         ");
 
@@ -64,7 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             // Guardar token en la base de datos
             $actualizar = $conexion->prepare("
-                
+                UPDATE usuarios
                 SET
                     tokenRecuperacion = ?,
                     expiracionTokenRecuperacion = ?
@@ -82,9 +82,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 
             // Link que recibirá el usuario por correo
-            $linkRecuperacion =
-            "http://localhost/usuarioNOregistrado/nuevaContrasena.php?token="
-            . urlencode($token);
+            $linkRecuperacion = urlApp(
+                "usuarioNOregistrado/nuevaContrasena.php?token=" . urlencode($token)
+            );
 
 
             // ===========================

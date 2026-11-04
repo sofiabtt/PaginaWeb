@@ -158,9 +158,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 // Enlace para crear contraseña
 
-                $enlace =
-                    "http://localhost/admin/ceos/crearClave.php?token="
-                    . urlencode($token);
+                $enlace = urlApp(
+                    "admin/ceos/crearClave.php?token=" . urlencode($token)
+                );
 
 
                 // Asunto

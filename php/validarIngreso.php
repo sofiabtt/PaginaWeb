@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     } else {
 
-        include "conexionBD.php";
+        require_once __DIR__ . "/conexionBD.php";
 
         $consulta = $conexion->prepare(
             "SELECT * FROM usuarios WHERE emailUsuario = ?"
@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $consulta->close();
             $conexion->close();
 
-            header("Location: ../ingresoContra.php");
+            header("Location: /ingresoContra.php");
             exit();
 
         } else {
@@ -43,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $consulta->close();
             $conexion->close();
 
-            header("Location: ../inicioSesion.php?error=usuario");
+            header("Location: /inicioSesion.php?error=usuario");
             exit();
         }
     }
@@ -54,26 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 ?>
-```
 
-Ahora la sesión va a saber, por ejemplo:
-
-```text
-gmailIngreso   → viole@gmail.com
-codUsuario     → 5
-tipoUsuario    → ceo
-nombreUsuario  → Viole Magliaro
-```
-
----
-
-### 2. Pero hay algo más importante
-
-Como me dijiste que **`resultadosVuelos.php` es para los usuarios/pasajeros**, yo no haría que un CEO vea ahí "Mis reservas" y su nombre.
-
-En esa página podemos hacer:
-
-```php
 <?php if (!isset($_SESSION["gmailIngreso"])): ?>
 
     <!-- Navbar público -->

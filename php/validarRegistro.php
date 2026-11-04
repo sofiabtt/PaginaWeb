@@ -11,7 +11,7 @@ error_reporting(E_ALL);
 // CONEXIÓN
 // =========================
 
-include "conexionBD.php";
+require_once __DIR__ . '/../php/conexionBD.php';
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -25,9 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (empty($gmail)) {
 
-        header(
-            "Location: ../registro.php"
-        );
+        header("Location: /registro.php");
 
         exit();
 
@@ -65,7 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $conexion->close();
 
         header(
-            "Location: ../registro.php"
+            "Location: /registro.php"
             . "?error=usuario_existente"
             . "&gmail=" . urlencode($gmail)
         );
@@ -91,7 +89,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // =========================
 
     header(
-        "Location: ../registroDatosPersonales.php"
+        "Location: /registroDatosPersonales.php"
     );
 
     exit();

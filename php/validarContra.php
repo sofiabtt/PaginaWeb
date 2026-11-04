@@ -36,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     ) {
 
         $destino =
-            "../ingresoContra.php?error=no_verificado";
+            "/ingresoContra.php?error=no_verificado";
 
 
     } elseif (
@@ -78,7 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $_SESSION["reservaTemporal"]["codVuelo"];
 
                 $destino =
-                    "../vueloElegido.php?codVuelo="
+                    "/vueloElegido.php?codVuelo="
                     . $codVuelo;
 
             } 
@@ -87,7 +87,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
 
         $destino =
-            "../ingresoContra.php?error=contrasena";
+            "/ingresoContra.php?error=contrasena";
     }
 
 

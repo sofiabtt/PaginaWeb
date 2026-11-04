@@ -117,6 +117,10 @@ CREATE TABLE `usuarios` (
 
     `fechaEliminacion` DATETIME DEFAULT NULL,
 
+    `tokenRecuperacion` VARCHAR(100) DEFAULT NULL,
+
+    `expiracionTokenRecuperacion` DATETIME DEFAULT NULL,
+
     PRIMARY KEY (`codUsuario`),
 
     UNIQUE KEY `uk_usuarios_email` (`emailUsuario`)
