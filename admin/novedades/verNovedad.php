@@ -186,6 +186,7 @@ $novedad = obtenerNovedad($conexion, $id);
 
     <?php include "/includes/footer.php"; ?>
 
+    <script src="/js/bootstrap.bundle.min.js"></script>
 
 </body>
 

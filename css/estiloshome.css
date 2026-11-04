@@ -23,18 +23,22 @@ textarea:focus-visible {
 
 /* HERO */
 
-.hero{
+.hero {
+    min-height: 100vh;
+    height: auto;
 
-    height:100vh;
+    background-image: url("../imagenes/avion2.jpg");
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
 
-    background-image:url("../imagenes/avion2.jpg");
+    position: relative;
+    overflow: hidden;
+}
 
-    background-size:100%;
-
-    background-position:right 140%;
-
-    position:relative;
-
+.hero > * {
+    position: relative;
+    z-index: 1;
 }
 
 .text-marron{
@@ -44,16 +48,13 @@ textarea:focus-visible {
 
 /* CAPA BLANCA TRANSPARENTE */
 
-.hero::before{
-
-    content:"";
-
-    position:absolute;
-
-    inset:0;
-
-    background: rgba(255,255,255,0.4);
-
+.hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.25);
+    z-index: 0;
+    pointer-events: none;
 }
 
 /* TEXTO */
@@ -422,4 +423,275 @@ textarea:focus-visible {
     font-size: 25px;
 
     cursor: pointer;
+}
+
+
+/* DISEÑO RESPONSIVE */
+
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+/* tablets */
+@media (min-width: 768px) and (max-width: 991px) {
+    .hero {
+        height: auto;
+        min-height: 1050px;
+        background-position: center;
+    }
+
+    /* buscador */
+    .contenedor-buscador {
+        position: relative;
+        top: 105px;
+        left: auto;
+        transform: none;
+        width: 90%;
+        margin: 0 auto;   
+    }
+
+    .titulo-buscador {
+        position: static;
+        margin-bottom: 12px;
+        font-size: 18px;
+    }
+
+    .tipo-viaje {
+        margin-left: 0;
+        padding: 10px 0;
+    }
+
+    #buscador-ing-datos .row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    #buscador-ing-datos .row > div {
+        width: 100%;
+    }
+
+    .form-control {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .buscar {
+        height: 55px;
+    }
+
+    /* destinos */
+    .destinos-destacados {
+        position: relative;
+        top: auto;
+        margin-top: 150px;
+        padding: 0 30px 50px;
+    }
+
+    .contenedor-tarjetas {
+        display: grid;
+        grid-template-columns: repeat(2, 200px);
+        justify-content: center;
+        gap: 30px;
+    }
+
+    .tarjeta-destino {
+        width: 200px;
+        height: 210px;
+    }
+}
+
+
+/* Celulares */
+@media (max-width: 767px) {
+
+    .hero {
+        height: auto;
+        min-height: 1000px;
+        background-size: cover;
+        background-position: center top;
+        padding-bottom: 40px;
+    }
+
+    /* BUSCADOR */
+
+    .contenedor-buscador {
+        position: relative;
+        top: 100px;
+        left: auto;
+        transform: none;
+        width: 92%;
+        margin: 0 auto;
+    }
+
+    .titulo-buscador {
+        position: static;
+        font-size: 17px;
+        line-height: 1.5;
+        margin-bottom: 12px;
+    }
+
+    .tipo-viaje {
+        margin-left: 0;
+        padding: 10px 0;
+        font-size: 13px;
+    }
+
+    .tipo-viaje label {
+        margin-right: 15px;
+        font-size: 13px;
+    }
+
+    #buscador-ing-datos {
+        border-radius: 15px;
+    }
+
+    #buscador-ing-datos .row {
+        display: flex;
+        flex-direction: column;
+    }
+
+    #buscador-ing-datos .row > div {
+        width: 100%;
+    }
+
+    .form-control {
+        width: 100%;
+        height: 52px;
+        min-width: 0;
+        border-right: none;
+        border-bottom: 1px solid #eee;
+        font-size: 14px;
+    }
+
+    #fechaViaje {
+        font-size: 14px;
+    }
+
+    .buscar {
+        height: 50px;
+        font-size: 23px;
+        border-radius: 0 0 15px 15px;
+    }
+
+    /* destinos */
+
+    .destinos-destacados {
+        position: relative;
+        top: auto;
+        width: 100%;
+        margin-top: 145px;
+        padding: 0 0 35px;
+    }
+
+    .titulo-destino {
+        font-size: 22px;
+        margin-bottom: 22px;
+        padding: 0 15px;
+    }
+
+    /* carrusel horizontal */
+
+    .contenedor-tarjetas {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    gap: 18px;
+
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px 20px 25px;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+}
+
+    .contenedor-tarjetas::-webkit-scrollbar {
+        display: none;
+    }
+
+    .tarjeta-destino {
+        flex: 0 0 75%;
+        width: 75%;
+        min-width: 220px;
+        max-width: 260px;
+        height: 210px;
+        scroll-snap-align: center;
+    }
+
+    .tarjeta-destino h4 {
+        font-size: 22px;
+        width: 90%;
+    }
+
+    /* Evitar efectos hover permanentes en pantallas táctiles */
+
+    .tarjeta-destino img:hover {
+        filter: none;
+        transform: none;
+    }
+
+    /* modal de ofertas */
+
+    .modal-oferta {
+        padding: 15px;
+        overflow-y: auto;
+    }
+
+    .modal-oferta-contenido {
+        width: 100%;
+        max-width: 430px;
+        padding: 25px 20px;
+        margin: auto;
+    }
+
+    .modal-oferta-contenido h2 {
+        font-size: 22px;
+        padding-right: 20px;
+    }
+
+    .destino-oferta {
+        font-size: 14px;
+        overflow-wrap: anywhere;
+    }
+
+    .campo-oferta select,
+    .campo-oferta input {
+        font-size: 14px;
+    }
+}
+
+
+/* Celulares pequeños */
+@media (max-width: 380px) {
+
+    .contenedor-buscador {
+        width: 94%;
+    }
+
+    .titulo-buscador {
+        font-size: 15px;
+    }
+
+    .tipo-viaje label {
+        margin-right: 8px;
+        font-size: 12px;
+    }
+
+    .tarjeta-destino {
+        flex-basis: 82%;
+        min-width: 200px;
+        height: 190px;
+    }
+
+    .titulo-destino {
+        font-size: 20px;
+    }
+
 }

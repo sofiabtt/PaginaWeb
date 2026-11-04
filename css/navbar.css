@@ -20,6 +20,13 @@ i {
     padding: 5px 12px;
     background: #fff;
     box-shadow: 0 3px 15px rgba(0, 0, 0, 0.12);
+    flex: 0 0 auto;
+    align-self: stretch;
+}
+
+.navbar > .container-fluid {
+    width: 100%;
+    max-width: 100%;
 }
 
 .navbar-brand {

@@ -52,7 +52,7 @@
                 <!--aún no está conectado con PHP-->
 
                 <div class="mb-4">
-                    <label for="contraseña" class="form-label texto-negro">
+                    <label for="contrasena" class="form-label texto-negro">
                         Ingrese Contraseña:
                     </label>
                     

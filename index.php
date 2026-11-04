@@ -42,6 +42,7 @@ $consultaAeropuertos = $conexion->query("
     <link rel="stylesheet" href="css/bootstrap-icons.css">
 
     <link rel="stylesheet" href="css/estiloshome.css?v=2">
+
     <link rel="stylesheet" href="css/estilos-usuario.css?v=2">
 
     <link rel="stylesheet" href="css/footer.css">
@@ -695,6 +696,9 @@ primeraFecha = null;
         </div>
 
     </div>
+
+<script src="js/bootstrap.bundle.min.js"></script>
+
 </body>
 
 </html>

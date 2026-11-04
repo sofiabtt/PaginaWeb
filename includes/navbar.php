@@ -17,7 +17,7 @@ if ($estaLogueado) {
 
 <nav class="navbar navbar-expand-xl">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="/index.php">
             <img src="/imagenes/logo.png" alt="Logo Nuvia">
 
             <h1>Nuvia</h1>
@@ -56,7 +56,7 @@ if ($estaLogueado) {
                         Mis reservas
                     </a>
 
-                    <a class="nav-link" href="/index.php">
+                    <a class="nav-link" href="/index.php#buscador">
                         <i class="bi bi-search"></i>
                         Buscar vuelos
                     </a>

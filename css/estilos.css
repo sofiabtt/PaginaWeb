@@ -9,6 +9,7 @@
 }
 
 body {
+    align-items: stretch;
     background-image: url("../imagenes/fondoIngresoSesion.jpg");
     background-size: cover;
     background-position: center;
@@ -39,9 +40,14 @@ body::before {
 ========================= */
 
 main {
+    width: 100%;
+    align-self: stretch;
+    min-width: 0;
     flex: 1;
-    position: relative;
-    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 
@@ -199,25 +205,21 @@ main {
 ========================= */
 
 .boton-atras {
-    position: absolute;
-
-    bottom: 80px;
-    left: 20%;
+    position: static;
+    display: inline-block;
+    width: fit-content;
+    margin-top: 25px;
 
     background-color: #684028;
     color: white;
-
     text-decoration: none;
-
     border-radius: 25px;
-
     padding: 10px 28px;
-
     font-weight: bold;
 }
 
 .boton-atras:hover {
-    background-color: #72472c;
+    background-color: #86583c;
     color: white;
 }
 
@@ -299,4 +301,130 @@ main {
 
 .verificacion-contenido .btn-primary {
     min-width: 170px;
+}
+
+/* =========================================
+   DISEÑO RESPONSIVE - INICIO DE SESIÓN
+========================================= */
+
+/* TABLETS */
+
+@media (max-width: 991px) {
+
+    main {
+        padding: 40px 25px 110px;
+    }
+
+    .rectangulo-formulario {
+        max-width: 450px;
+        padding: 30px;
+    }
+
+}
+
+
+/* CELULARES */
+
+@media (max-width: 767px) {
+
+    body {
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+    }
+
+    main {
+        width: 100%;
+        min-height: 550px;
+        padding: 35px 18px 100px;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .rectangulo-formulario {
+        width: 100%;
+        max-width: 450px;
+        padding: 28px 22px;
+        border-radius: 15px;
+    }
+
+    .rectangulo-formulario h1 {
+        font-size: 24px;
+        margin-bottom: 25px !important;
+    }
+
+    .rectangulo-formulario .form-label {
+        font-size: 14px;
+    }
+
+    .rectangulo-formulario .form-control {
+        min-width: 0;
+        font-size: 14px;
+        padding: 11px 12px;
+    }
+
+    .rectangulo-formulario form .mb-4 {
+        margin-bottom: 25px !important;
+    }
+
+    /* BOTONES DEL FORMULARIO */
+
+    .rectangulo-formulario form .d-flex {
+        align-items: flex-end !important;
+        gap: 10px !important;
+    }
+
+    .rectangulo-formulario .btn-primary,
+    .rectangulo-formulario .btn-outline-primary {
+        padding: 10px 18px;
+        font-size: 14px;
+        white-space: nowrap;
+    }
+
+    .texto-registro {
+        font-size: 12px;
+    }
+
+    /* MENSAJES DE ALERTA */
+
+    .alert {
+        width: calc(100% - 30px);
+        max-width: 450px;
+        text-align: center;
+        font-size: 13px;
+    }
+
+}
+
+
+/* CELULARES PEQUEÑOS */
+
+@media (max-width: 380px) {
+
+    main {
+        padding: 30px 12px 40px;
+    }
+
+    .rectangulo-formulario {
+        width: 100%;
+        max-width: 450px;
+        padding: 24px 16px;
+    }
+
+    .rectangulo-formulario h1 {
+        font-size: 21px;
+    }
+
+    .rectangulo-formulario form .d-flex {
+        gap: 7px !important;
+    }
+
+    .rectangulo-formulario .btn-primary,
+    .rectangulo-formulario .btn-outline-primary {
+        padding: 9px 13px;
+        font-size: 13px;
+    }
 }

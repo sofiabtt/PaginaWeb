@@ -253,6 +253,8 @@ $aerolinea = obtenerAerolinea($conexion, $id);
 
     <?php include "/includes/footer.php"; ?>
 
+    <script src="/js/bootstrap.bundle.min.js"></script>
+
 </body>
 
 </html>

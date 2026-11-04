@@ -250,6 +250,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <?php include "/includes/footer.php"; ?>
 
+    <script src="../../js/bootstrap.bundle.min.js"></script>
+
 </body>
 
 </html>

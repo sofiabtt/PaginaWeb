@@ -368,6 +368,7 @@ $origen = $_GET["origen"] ?? "";
 
     <?php include "/includes/footer.php"; ?>
 
+        <script src="js/bootstrap.bundle.min.js"></script>
 
 </body>
 
