@@ -50,6 +50,7 @@ $resultado = obtenerAerolineasInactivas($conexion);
     >
 
     <link rel="stylesheet" href="../../css/navbar.css">
+    <link rel="stylesheet" href="../../css/footer.css">
 
     <!-- Favicon -->
 
@@ -192,6 +193,7 @@ $resultado = obtenerAerolineasInactivas($conexion);
 
     </main>
 
+    <?php include "/includes/footer.php"; ?>
 
 </body>
 

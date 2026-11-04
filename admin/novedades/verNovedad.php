@@ -49,6 +49,7 @@ $novedad = obtenerNovedad($conexion, $id);
     >
 
     <link rel="stylesheet" href="../../css/navbar.css">
+    <link rel="stylesheet" href="../../css/footer.css">
 
     <link
         rel="icon"
@@ -182,6 +183,8 @@ $novedad = obtenerNovedad($conexion, $id);
 
 
     </main>
+
+    <?php include "/includes/footer.php"; ?>
 
 
 </body>

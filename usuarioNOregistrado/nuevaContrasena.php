@@ -119,6 +119,8 @@ if (
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/estiloshome.css">
     <link rel="stylesheet" href="../css/estilosRecuperacion.css">
+    <link rel="stylesheet" href="../css/navbar.css">
+    <link rel="stylesheet" href="../css/footer.css">
 
     <link
         rel="stylesheet"
@@ -239,6 +241,7 @@ if (
 
 </main>
 
+<?php include "../includes/footer.php"; ?>
 
 <script>
 

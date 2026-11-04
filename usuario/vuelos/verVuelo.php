@@ -49,10 +49,14 @@ $precioFinal =
 <head>
     <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nuvia - Detalle del vuelo</title>
-    <link rel="stylesheet" href="../../css/bootstrap.min.css"><link rel="stylesheet" href="../../css/bootstrap-icons.css"><link rel="stylesheet" href="../../css/estilos-admin.css">
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../css/bootstrap-icons.css">
+    <link rel="stylesheet" href="../../css/estilos-admin.css">
+    <link rel="stylesheet" href="../../css/navbar.css">
+    <link rel="stylesheet" href="../../css/footer.css">
 </head>
 <body>
-    <?php include "../includes/navbarUsuario.php"; ?>
+    <?php include "../../includes/navbar.php"; ?>
     <main class="contenido-admin">
         <section class="encabezado-contenido" style="display: block;">
 
@@ -235,7 +239,10 @@ $precioFinal =
             </div>
         </section>
     </main>
+
+    <?php include "../../includes/footer.php"; ?>
+
     <script src="../../js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-<?php $consulta->close(); 
+

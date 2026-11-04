@@ -95,6 +95,8 @@ $resultadoPaises = obtenerPaises($conexion);
         href="../../css/navbar.css"
     >
 
+    <link rel="stylesheet" href="../../css/footer.css">
+
     <link
         rel="icon"
         type="image/png"
@@ -324,6 +326,7 @@ $resultadoPaises = obtenerPaises($conexion);
 
     </main>
 
+    <?php include "/includes/footer.php"; ?>
 
 </body>
 

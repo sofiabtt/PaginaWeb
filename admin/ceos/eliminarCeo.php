@@ -94,6 +94,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         href="../../css/estilos-admin.css"
     >
 
+    <link rel="stylesheet" href="../../css/footer.css">
+
 
     <link
         rel="icon"
@@ -282,6 +284,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
     </main>
+
+    <?php include "/includes/footer.php"; ?>
 
 
 </body>

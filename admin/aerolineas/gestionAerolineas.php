@@ -50,6 +50,7 @@ $resultado = obtenerAerolineasActivas($conexion);
     >
 
     <link rel="stylesheet" href="../../css/navbar.css">
+    <link rel="stylesheet" href="../../css/footer.css">
 
     <!-- Favicon -->
 
@@ -236,6 +237,8 @@ $resultado = obtenerAerolineasActivas($conexion);
 
 
     </main>
+
+    <?php include "/includes/footer.php"; ?>
 
     <script src="/js/bootstrap.bundle.min.js"></script>
 

@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="../css/bootstrap-icons.css">
     <link rel="stylesheet" href="../css/estilos.css">
     <link rel="stylesheet" href="../css/navbar.css">
+    <link rel="stylesheet" href="../css/footer.css">
 
     <link
         rel="icon"
@@ -65,6 +66,7 @@
 
     </main>
 
+    <?php include "../includes/footer.php"; ?>
 
     <script src="../js/bootstrap.bundle.min.js"></script>
 

@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../includes/verificarRol.php';
+require_once __DIR__ . '/../../includes/verificarRol.php';
 verificarRol('usuario');
 
 include "../../php/conexionBD.php";
@@ -90,13 +90,15 @@ $resultado = buscarVuelosUsuario(
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/bootstrap-icons.css">
     <link rel="stylesheet" href="../../css/estilos-admin.css">
+    <link rel="stylesheet" href="../../css/navbar.css">
+    <link rel="stylesheet" href="../../css/footer.css">
     <link rel="icon" href="../../imagenes/logo.png" type="image/png">
 
 </head>
 
 <body>
 
-    <?php include "../includes/navbarUsuario.php"; ?>
+    <?php include "../../includes/navbar.php"; ?>
 
     <main class="contenido-admin">
 
@@ -273,6 +275,8 @@ $resultado = buscarVuelosUsuario(
         </section>
 
     </main>
+
+    <?php include "../../includes/footer.php"; ?>
 
     <script src="../../js/bootstrap.bundle.min.js"></script>
 

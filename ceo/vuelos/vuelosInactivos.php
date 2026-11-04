@@ -70,6 +70,8 @@ $resultado = obtenerVuelosInactivos($conexion,$codAerolinea);
     <!-- CSS de la barra de navegación -->
     <link rel="stylesheet" href="../../css/navbar.css">
 
+    <link rel="stylesheet" href="../../css/footer.css">
+
     <!-- Favicon -->
 
     <link
@@ -295,6 +297,7 @@ $resultado = obtenerVuelosInactivos($conexion,$codAerolinea);
 
     </main>
 
+    <?php include "/includes/footer.php"; ?>
 
 </body>
 
@@ -303,7 +306,6 @@ $resultado = obtenerVuelosInactivos($conexion,$codAerolinea);
 
 <?php
 
-    $consulta->close();
 
     $conexion->close();
 

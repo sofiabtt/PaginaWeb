@@ -77,6 +77,7 @@ if (!$consulta) {
     <link rel="stylesheet" href="../../css/bootstrap-icons.css">
     <link rel="stylesheet" href="../../css/estilos-admin.css">
     <link rel="stylesheet" href="../../css/navbar.css">
+    <link rel="stylesheet" href="../../css/footer.css">
     <link rel="icon" type="image/png" href="../../imagenes/logo.png">
 </head>
 <body>
@@ -252,6 +253,8 @@ if (!$consulta) {
         </div>
     </section>
 </main>
+
+<?php include "/includes/footer.php"; ?>
 
 <script src="../../js/bootstrap.bundle.min.js"></script>
 </body>

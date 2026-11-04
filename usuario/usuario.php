@@ -81,6 +81,8 @@ if (
     href="../css/estilos-admin.css"
     >
 
+    <link rel="stylesheet" href="../css/navbar.css">
+
     <!-- FOOTER -->
 
     <link
@@ -107,7 +109,7 @@ if (
 
 <section class="hero">
 
-    <?php include "includes/navbarUsuario.php"; ?>
+    <?php include "includes/navbar.php"; ?>
 
 <div class="contenedor-buscador">
 

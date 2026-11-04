@@ -53,6 +53,8 @@ $cantidadVuelos = $resultado->num_rows;
         href="../../css/navbar.css"
     >
 
+    <link rel="stylesheet" href="../../css/footer.css">
+
 </head>
 
 
@@ -324,6 +326,7 @@ $cantidadVuelos = $resultado->num_rows;
 
     </main>
 
+    <?php include "/includes/footer.php"; ?>
 
     <script src="../../js/bootstrap.bundle.min.js"></script>
 

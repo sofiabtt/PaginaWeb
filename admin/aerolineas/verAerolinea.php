@@ -51,6 +51,7 @@ $aerolinea = obtenerAerolinea($conexion, $id);
     >
 
     <link rel="stylesheet" href="../../css/navbar.css">
+    <link rel="stylesheet" href="../../css/footer.css">
 
 
     <link
@@ -250,6 +251,7 @@ $aerolinea = obtenerAerolinea($conexion, $id);
 
     </main>
 
+    <?php include "/includes/footer.php"; ?>
 
 </body>
 

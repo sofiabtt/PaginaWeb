@@ -15,43 +15,17 @@ session_start();
         <link rel="stylesheet" href="../css/bootstrap.min.css">
 
         <link rel="stylesheet" href="../css/estilos.css">
-        
+
+        <link rel="stylesheet" href="../css/navbar.css">
+
+        <link rel="stylesheet" href="../css/footer.css">
+
         <link rel="icon" type="image/png" href="../imagenes/logo.png">
         
     </head>
     <body>
 
-        <header class="barra-superior navbar navbar-expand-lg">
-
-            <a class="navbar-brand">
-                <img
-                src="../imagenes/logo.png"
-                alt="logo"
-                width="60"
-                height="60">
-                <span class="fw-bold fs-4">
-                    Nuvia
-                </span>
-            </a>
-
-            <div class="ms-auto d-none d-lg-flex align-items-center">
-
-                <a class="nav-link">
-                    Novedades
-                </a>
-
-                <a class="nav-link">
-                    Destinos
-                </a>
-
-                <a class="nav-link">
-                    Ofertas
-                </a>
-
-
-            </div>
-
-        </header>
+        <?php include "../includes/navbar.php"; ?>
         
         <main class="d-flex justify-content-center align-items-center">
 
@@ -117,6 +91,8 @@ session_start();
         </a>
 
     </main>
+
+    <?php include "../includes/footer.php"; ?>
 
     </body>
 

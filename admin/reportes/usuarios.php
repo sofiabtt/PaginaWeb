@@ -32,6 +32,7 @@ $rutaBase = file_exists(__DIR__ . '/../../css/bootstrap.min.css') ? '../../' : '
     <link rel="stylesheet" href="<?php echo $rutaBase; ?>css/bootstrap.min.css">
     <link rel="stylesheet" href="<?php echo $rutaBase; ?>css/bootstrap-icons.css">
     <link rel="stylesheet" href="<?php echo $rutaBase; ?>css/navbar.css">
+    <link rel="stylesheet" href="<?php echo $rutaBase; ?>css/footer.css">
     <link rel="stylesheet" href="<?php echo $rutaBase; ?>css/estilos-admin.css">
 
     <!-- Respaldo CDN -->
@@ -265,12 +266,8 @@ $rutaBase = file_exists(__DIR__ . '/../../css/bootstrap.min.css') ? '../../' : '
         </div>
     </main>
 
-    <?php 
-        $pathFooter = file_exists(__DIR__ . '/../includes/footerAdmin.php') 
-            ? __DIR__ . '/../includes/footerAdmin.php' 
-            : __DIR__ . '/includes/footerAdmin.php';
-        include $pathFooter; 
-    ?>
+    <?php include "/includes/footer.php"; ?>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

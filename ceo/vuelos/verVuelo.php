@@ -69,6 +69,8 @@ $origen = $_GET["origen"] ?? "";
         href="../../css/estilos-admin.css"
     >
 
+    <link rel="stylesheet" href="../../css/footer.css">
+
 
     <link
         rel="icon"
@@ -363,6 +365,8 @@ $origen = $_GET["origen"] ?? "";
 
 
     </main>
+
+    <?php include "/includes/footer.php"; ?>
 
 
 </body>

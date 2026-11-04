@@ -30,11 +30,6 @@ $paginaActual = basename($_SERVER["PHP_SELF"]);
                     <li><a href="/usuarioNOregistrado/enviarRecuperacion.php">Recuperar contraseña</a></li> 
                 <?php } ?>
                 
-                <?php if($tipoUsuario === "usuario") { ?>
-                    <li><a href="/usuario/reservas/gestionReservas.php">Mis viajes</a></li>
-                <?php } elseif($tipoUsuario === "ceo"){ ?>
-                    <li><a href="#">Mis aerolíneas</a></li>
-                <?php } ?>
                 </ul>
             </div>
 
@@ -43,8 +38,7 @@ $paginaActual = basename($_SERVER["PHP_SELF"]);
                 <ul>
                     <li><a href="#">Preguntas frecuentes</a></li>
                     <li><a href="#">Acerca de nosotros</a></li>
-                    <li><a href="tel:341 9 6551718">341 9 6551718</a></li>
-                    <li><a href="mailto:contacto@nombreEmpresa.com">contacto@Nuvia.com</a></li>
+                    <li><a href="/contacto.php">Contacto</a></li>
                 </ul>
             </div>
 
@@ -57,8 +51,6 @@ $paginaActual = basename($_SERVER["PHP_SELF"]);
                             <ul>
                                 <li><a href="/index.php">Inicio</a></li>
                                 <li><a href="/usuarioNOregistrado/buscarVuelos.php">Buscar vuelos</a></li>
-                                <li><a href="#">Promociones vigentes</a></li>
-                                <li><a href="/usuarioNOregistrado/novedades.php">Novedades</a></li>
                             </ul>
                         
                     </div>
@@ -68,9 +60,8 @@ $paginaActual = basename($_SERVER["PHP_SELF"]);
                     <div class="row">
                         <div class="col-6">
                             <ul>
-                                <li><a href="/usuario/usuario.php">Inicio</a></li>
+                                <li><a href="/index.php">Inicio</a></li>
                                 <li><a href="/usuario/vuelos/buscarVuelos.php">Buscar Vuelos</a></li>
-                                <li><a href="#">Promociones vigentes</a></li>
                                 <li><a href="/usuario/novedades.php">Novedades</a></li>
                             </ul>
                         </div>
@@ -88,13 +79,17 @@ $paginaActual = basename($_SERVER["PHP_SELF"]);
                     <div class="row">
                         <div class="col-6">
                             <ul>
-                                <li><a href="/admin/admin.php">Inicio</a></li>
+                                <li><a href="/index.php">Inicio</a></li>
+                                <li><a href="/admin/admin.php">Panel de administración</a></li>
                                 <li><a href="/admin/aerolineas/gestionAerolineas.php">Gestión de aerolíneas</a></li>
                                 <li><a href="/admin/novedades/gestionNovedades.php">Gestión de novedades</a></li>
+                                <li><a href="/admin/vuelos/gestionVuelos.php">Reporte de vuelos</a></li>
                             </ul>
                         </div>
                         <div class="col-6">
                             <ul>
+                                <li><a href="/admin/usuarios/gestionUsuarios.php">Reporte de usuarios</a></li>
+                                <li><a href="/admin/ceos/gestionCeos.php">Gestión de CEOs</a></li>
                                 <li><a href="/admin/promociones/gestionPromocion.php">Aprobar promociones</a></li>
                                 <li><a href="/admin/reportes.php">Reportes</a></li>
                             </ul>
@@ -104,10 +99,11 @@ $paginaActual = basename($_SERVER["PHP_SELF"]);
 
                 <?php if($tipoUsuario === "ceo") { ?>
                     <ul>
-                        <li><a href="/ceo/ceo.php">Inicio</a></li>
+                        <li><a href="/index.php">Inicio</a></li>
+                        <li><a href="/ceo/ceo.php">Panel de gestión</a></li>
                         <li><a href="/ceo/vuelos/gestionVuelos.php">Gestión de vuelos</a></li>
                         <li><a href="/ceo/promociones/gestionPromocion.php">Gestión de promociones</a></li>
-                        <li><a href="#">Reportes</a></li>
+                        <li><a href="/ceo/reportes.php">Reportes</a></li>
                     </ul>
                 <?php } ?>
             </div>

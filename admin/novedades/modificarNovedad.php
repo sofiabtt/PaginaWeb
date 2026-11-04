@@ -75,6 +75,7 @@ if ($novedad && $_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="../../css/bootstrap-icons.css">
     <link rel="stylesheet" href="../../css/estilos-admin.css">
     <link rel="stylesheet" href="../../css/navbar.css">
+    <link rel="stylesheet" href="../../css/footer.css">
 </head>
 
 <body>
@@ -155,6 +156,8 @@ if ($novedad && $_SERVER["REQUEST_METHOD"] == "POST") {
             <?php } ?>
         </section>
     </main>
+
+    <?php include "/includes/footer.php"; ?>
 
     <script src="../../js/bootstrap.bundle.min.js"></script>
     

@@ -65,6 +65,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <link rel="stylesheet" href="../../css/navbar.css">
 
+    <link rel="stylesheet" href="../../css/footer.css">
+
     <link rel="icon" type="image/png" href="../../imagenes/logo.png">
 
 </head>
@@ -155,6 +157,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </section>
 
     </main>
+
+    <?php include "/includes/footer.php"; ?>
 
     <script src="../../js/bootstrap.bundle.min.js"></script>
 

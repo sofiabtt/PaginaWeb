@@ -103,6 +103,7 @@ if (!$aerolinea) {
     >
 
     <link rel="stylesheet" href="../../css/navbar.css">
+    <link rel="stylesheet" href="../../css/footer.css">
 
     <!-- Favicon -->
 
@@ -319,6 +320,7 @@ if (!$aerolinea) {
 
     </main>
 
+    <?php include "/includes/footer.php"; ?>
 
 </body>
 

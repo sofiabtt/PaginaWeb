@@ -58,6 +58,7 @@ $consulta = obtenerCeos($conexion);
     >
 
     <link rel="stylesheet" href="../../css/navbar.css">
+    <link rel="stylesheet" href="../../css/footer.css">
 
     <!-- Favicon -->
 
@@ -299,6 +300,7 @@ $consulta = obtenerCeos($conexion);
 
     </main>
 
+    <?php include "/includes/footer.php"; ?>
 
     <script src="../../js/bootstrap.bundle.min.js"></script>
 

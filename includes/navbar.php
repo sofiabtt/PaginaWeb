@@ -63,9 +63,7 @@ if ($estaLogueado) {
 
                 <?php } elseif ($estaLogueado && $tipoUsuario === "administrador") { ?>
 
-                    <a class="nav-link" href="/usuario/novedades.php">
-                        Novedades
-                    </a>
+
 
                     <a class="nav-link" href="/admin/admin.php">
                         <i class="bi bi-calendar3"></i>
@@ -74,9 +72,7 @@ if ($estaLogueado) {
 
                 <?php } elseif ($estaLogueado && $tipoUsuario === "ceo") { ?>
 
-                    <a class="nav-link" href="/usuario/novedades.php">
-                        Novedades
-                    </a>
+
 
                     <a class="nav-link" href="/ceo/ceo.php">
                         <i class="bi bi-calendar3"></i>

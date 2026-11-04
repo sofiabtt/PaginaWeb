@@ -18,6 +18,8 @@
 
     <link rel="stylesheet" href="css/navbar.css">
 
+    <link rel="stylesheet" href="css/footer.css">
+
     <link rel="icon" type="image/png" href="imagenes/logo.png">
 
 </head>
@@ -82,6 +84,9 @@
         </a>
 
     </main>
+
+    <?php include "includes/footer.php"; ?>
+
     <!-- JavaScript de Bootstrap . permite que funcionen los componentes interactivos de Bootstrap,-->
     <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js">
