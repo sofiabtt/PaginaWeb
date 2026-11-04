@@ -47,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if (crearPromocion($conexion,$descripcion,$descuento,$codAerolinea)) {
 
-            header("Location: /PaginaWeb/ceo/promociones/gestionPromocion.php?mensaje=creada");
+            header("Location: /ceo/promociones/gestionPromocion.php?mensaje=creada");
 
             exit();
 

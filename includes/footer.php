@@ -14,7 +14,7 @@ $paginaActual = basename($_SERVER["PHP_SELF"]);
     <div class="container">
         <div class="row">
             <div class="footer-logo col-12 col-lg-2">
-                <img src="/PaginaWeb/imagenes/logo.png" alt="logo" class="img-fluid">
+                <img src="/imagenes/logo.png" alt="logo" class="img-fluid">
             </div>
 
             <div class="footer-columna col-6 col-lg-3">
@@ -22,16 +22,16 @@ $paginaActual = basename($_SERVER["PHP_SELF"]);
 
                 <ul>
                 <?php if ($estaLogueado) { ?>
-                    <li><a href="/PaginaWeb/usuario/perfil.php">Mi perfil</a></li>
-                    <li><a href="/PaginaWeb/php/cerrarSesion.php">Cerrar sesión</a></li>
+                    <li><a href="/usuario/perfil.php">Mi perfil</a></li>
+                    <li><a href="/php/cerrarSesion.php">Cerrar sesión</a></li>
                 <?php } else { ?>
-                    <li><a href="/PaginaWeb/usuarioNOregistrado/inicioSesion.php">Iniciar sesión</a></li>
-                    <li><a href="/PaginaWeb/usuarioNOregistrado/registroDatosPersonales.php">Registrarse</a></li>
-                    <li><a href="/PaginaWeb/usuarioNOregistrado/enviarRecuperacion.php">Recuperar contraseña</a></li> 
+                    <li><a href="/usuarioNOregistrado/inicioSesion.php">Iniciar sesión</a></li>
+                    <li><a href="/usuarioNOregistrado/registroDatosPersonales.php">Registrarse</a></li>
+                    <li><a href="/usuarioNOregistrado/enviarRecuperacion.php">Recuperar contraseña</a></li> 
                 <?php } ?>
                 
                 <?php if($tipoUsuario === "usuario") { ?>
-                    <li><a href="/PaginaWeb/usuario/reservas/gestionReservas.php">Mis viajes</a></li>
+                    <li><a href="/usuario/reservas/gestionReservas.php">Mis viajes</a></li>
                 <?php } elseif($tipoUsuario === "ceo"){ ?>
                     <li><a href="#">Mis aerolíneas</a></li>
                 <?php } ?>
@@ -55,10 +55,10 @@ $paginaActual = basename($_SERVER["PHP_SELF"]);
                     <div class="row">
                         <div class="col-6">
                             <ul>
-                                <li><a href="/PaginaWeb/index.php">Inicio</a></li>
-                                <li><a href="/PaginaWeb/usuarioNOregistrado/buscarVuelos.php">Buscar vuelos</a></li>
+                                <li><a href="/index.php">Inicio</a></li>
+                                <li><a href="/usuarioNOregistrado/buscarVuelos.php">Buscar vuelos</a></li>
                                 <li><a href="#">Promociones vigentes</a></li>
-                                <li><a href="/PaginaWeb/usuarioNOregistrado/novedades.php">Novedades</a></li>
+                                <li><a href="/usuarioNOregistrado/novedades.php">Novedades</a></li>
                             </ul>
                         
                     </div>
@@ -68,17 +68,17 @@ $paginaActual = basename($_SERVER["PHP_SELF"]);
                     <div class="row">
                         <div class="col-6">
                             <ul>
-                                <li><a href="/PaginaWeb/usuario/usuario.php">Inicio</a></li>
-                                <li><a href="/PaginaWeb/usuario/vuelos/buscarVuelos.php">Buscar Vuelos</a></li>
+                                <li><a href="/usuario/usuario.php">Inicio</a></li>
+                                <li><a href="/usuario/vuelos/buscarVuelos.php">Buscar Vuelos</a></li>
                                 <li><a href="#">Promociones vigentes</a></li>
-                                <li><a href="/PaginaWeb/usuario/novedades.php">Novedades</a></li>
+                                <li><a href="/usuario/novedades.php">Novedades</a></li>
                             </ul>
                         </div>
                     
                         <div class="col-6">
                             <ul>
-                                <li><a href="/PaginaWeb/usuario/reservas/gestionReservas.php">Mis reservas</a></li>
-                                <li><a href="/PaginaWeb/usuario/historialCompras.php">Historial de compras</a></li>
+                                <li><a href="/usuario/reservas/gestionReservas.php">Mis reservas</a></li>
+                                <li><a href="/usuario/historialCompras.php">Historial de compras</a></li>
                             </ul>
                         </div>
                     </div>
@@ -88,15 +88,15 @@ $paginaActual = basename($_SERVER["PHP_SELF"]);
                     <div class="row">
                         <div class="col-6">
                             <ul>
-                                <li><a href="/PaginaWeb/admin/admin.php">Inicio</a></li>
-                                <li><a href="/PaginaWeb/admin/aerolineas/gestionAerolineas.php">Gestión de aerolíneas</a></li>
-                                <li><a href="/PaginaWeb/admin/novedades/gestionNovedades.php">Gestión de novedades</a></li>
+                                <li><a href="/admin/admin.php">Inicio</a></li>
+                                <li><a href="/admin/aerolineas/gestionAerolineas.php">Gestión de aerolíneas</a></li>
+                                <li><a href="/admin/novedades/gestionNovedades.php">Gestión de novedades</a></li>
                             </ul>
                         </div>
                         <div class="col-6">
                             <ul>
-                                <li><a href="/PaginaWeb/admin/promociones/gestionPromocion.php">Aprobar promociones</a></li>
-                                <li><a href="/PaginaWeb/admin/reportes.php">Reportes</a></li>
+                                <li><a href="/admin/promociones/gestionPromocion.php">Aprobar promociones</a></li>
+                                <li><a href="/admin/reportes.php">Reportes</a></li>
                             </ul>
                         </div>
                     </div>
@@ -104,9 +104,9 @@ $paginaActual = basename($_SERVER["PHP_SELF"]);
 
                 <?php if($tipoUsuario === "ceo") { ?>
                     <ul>
-                        <li><a href="/PaginaWeb/ceo/ceo.php">Inicio</a></li>
-                        <li><a href="/PaginaWeb/ceo/vuelos/gestionVuelos.php">Gestión de vuelos</a></li>
-                        <li><a href="/PaginaWeb/ceo/promociones/gestionPromocion.php">Gestión de promociones</a></li>
+                        <li><a href="/ceo/ceo.php">Inicio</a></li>
+                        <li><a href="/ceo/vuelos/gestionVuelos.php">Gestión de vuelos</a></li>
+                        <li><a href="/ceo/promociones/gestionPromocion.php">Gestión de promociones</a></li>
                         <li><a href="#">Reportes</a></li>
                     </ul>
                 <?php } ?>

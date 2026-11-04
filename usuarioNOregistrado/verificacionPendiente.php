@@ -53,7 +53,7 @@
                 </p>
 
                 <a
-                    href="../home.php"
+                    href="../index.php"
                     class="btn btn-primary"
                 >
                     Volver al inicio

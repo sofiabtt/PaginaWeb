@@ -206,7 +206,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
                         <a
-                            href="/PaginaWeb/admin/aerolineas/gestionAerolineas.php"
+                            href="/admin/aerolineas/gestionAerolineas.php"
                             class="btn btn-secondary"
                         >
 

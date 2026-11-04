@@ -83,7 +83,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             // Link que recibirá el usuario por correo
             $linkRecuperacion =
-            "http://localhost/PaginaWeb/usuarioNOregistrado/nuevaContrasena.php?token="
+            "http://localhost/usuarioNOregistrado/nuevaContrasena.php?token="
             . urlencode($token);
 
 

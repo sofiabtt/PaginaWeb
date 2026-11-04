@@ -2,7 +2,7 @@
 session_start();
 
 if (isset($_SESSION["codUsuario"])) {
-    header("Location: /PaginaWeb/home.php");
+    header("Location: /index.php");
     exit();
 }
 
@@ -59,7 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Todos los usuarios ingresan al home
 
-        $destino = "/PaginaWeb/home.php";
+        $destino = "/index.php";
 
 
         if ($usuario["tipoUsuario"] == "usuario") {

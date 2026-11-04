@@ -242,7 +242,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
                         <a
-                            href="/PaginaWeb/admin/ceos/gestionCeos.php"
+                            href="/admin/ceos/gestionCeos.php"
                             class="btn btn-secondary"
                         >
 

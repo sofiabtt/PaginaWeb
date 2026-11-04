@@ -58,7 +58,7 @@ if (!$reserva) {
     <link
         rel="icon"
         type="image/png"
-        href="/PaginaWeb/imagenes/logo.png"
+        href="/imagenes/logo.png"
     >
 
 

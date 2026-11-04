@@ -85,7 +85,7 @@ PaginaWeb/
 ├── usuario/               # Funcionalidades de usuarios registrados
 ├── usuarioNOregistrado/   # Funcionalidades de acceso público
 ├── vendor/                # Dependencias de Composer
-├── home.php               # Página principal
+├── index.php              # Página principal
 ├── inicioSesion.php       # Inicio de sesión
 ├── registro.php           # Registro de usuarios
 ├── resultadosVuelos.php   # Resultados de búsqueda
@@ -100,7 +100,7 @@ PaginaWeb/
 
 Nuvia se encuentra disponible en su versión web publicada.
 
-**Sitio web:** [Agregar acá el enlace al sitio]
+**Sitio web:** https://nuvia.alwaysdata.net
 
 ---
 

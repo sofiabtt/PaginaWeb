@@ -193,7 +193,7 @@
         <!-- BOTÓN INICIO -->
 
         <a
-            href="home.php"
+            href="index.php"
             class="boton-atras"
         >
             ← Inicio

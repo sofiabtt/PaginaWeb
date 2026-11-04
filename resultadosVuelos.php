@@ -32,7 +32,7 @@ $seleccionandoVuelta =
 
     <title>Nuvia - Vuelos</title>
 
-    <link rel="icon" type="image/png" href="/PaginaWeb/imagenes/logo.png">
+    <link rel="icon" type="image/png" href="/imagenes/logo.png">
 
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/bootstrap-icons.css">
@@ -52,7 +52,7 @@ $seleccionandoVuelta =
 <main class="contenido-resultados">
 
     <div class="volver-buscador">
-        <a href="home.php#buscador-vuelos">
+        <a href="index.php#buscador-vuelos">
             <i class="bi bi-arrow-left"></i>
             Volver al buscador
         </a>

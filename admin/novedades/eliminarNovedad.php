@@ -210,7 +210,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
                         <a
-                            href="/PaginaWeb/admin/novedades/gestionNovedades.php"
+                            href="/admin/novedades/gestionNovedades.php"
                             class="btn btn-secondary"
                         >
 

@@ -2,16 +2,16 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..');
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../..');
 $dotenv->load();
 
-$puerto = $_ENV['DB_PORT'] ?? 3306;
+$puerto = (int) ($_ENV['DB_PORT'] ?? 3306);
 
 $conexion = new mysqli(
-    "127.0.0.1",
-    "root",
-    "",
-    "nuvia",
+    $_ENV['DB_HOST'],
+    $_ENV['DB_USER'],
+    $_ENV['DB_PASS'],
+    $_ENV['DB_NAME'],
     $puerto
 );
 

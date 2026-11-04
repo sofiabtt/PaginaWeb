@@ -344,7 +344,7 @@ $precioTotal = $totalPasajeros * (float) $vuelo["precioVuelo"];
     <link
         rel="icon"
         type="image/png"
-        href="/PaginaWeb/imagenes/logo.png"
+        href="/imagenes/logo.png"
     >
 
 

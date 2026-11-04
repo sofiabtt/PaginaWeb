@@ -10,7 +10,7 @@
 body {
     min-height: 100vh;
     background: var(--pago-fondo);
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .pago-contenedor {

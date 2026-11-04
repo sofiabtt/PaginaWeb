@@ -278,7 +278,7 @@ $ceo = obtenerUsuario($conexion, $codCeo);
 
     <?php include"../includes/footer.php"; ?>
 
-    <script src="/PaginaWeb/js/bootstrap.bundle.min.js"></script> 
+    <script src="/js/bootstrap.bundle.min.js"></script> 
 
     <script>
 

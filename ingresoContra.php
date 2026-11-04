@@ -2,7 +2,7 @@
     session_start();
 
     if (isset($_SESSION["codUsuario"])) {
-        header("Location: home.php");
+        header("Location: index.php");
         exit();
     }
 
@@ -46,7 +46,7 @@
                 Inicio de sesión
             </h1>
 
-            <form action="/PaginaWeb/php/validarContra.php" method="POST">
+            <form action="php/validarContra.php" method="POST">
                 <!--aún no está conectado con PHP-->
 
                 <div class="mb-4">

@@ -174,7 +174,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     );
 
     $enlaceVerificacion =
-        "http://localhost/PaginaWeb/php/verificarCuenta.php?token="
+        "http://localhost/php/verificarCuenta.php?token="
         . urlencode($tokenVerificacion);
 
 

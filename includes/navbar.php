@@ -18,7 +18,7 @@ if ($estaLogueado) {
 <nav class="navbar navbar-expand-xl">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">
-            <img src="/PaginaWeb/imagenes/logo.png" alt="Logo Nuvia">
+            <img src="/imagenes/logo.png" alt="Logo Nuvia">
 
             <h1>Nuvia</h1>
         </a>
@@ -40,45 +40,45 @@ if ($estaLogueado) {
             <?php } ?>
 
             <div class="navbar-nav-general">
-                <a class="nav-link" href="/PaginaWeb/home.php">Inicio</a>
+                <a class="nav-link" href="/index.php">Inicio</a>
 
                 <?php if ($estaLogueado && $tipoUsuario === "usuario") { ?>
 
-                    <a class="nav-link" href="/PaginaWeb/usuario/novedades.php">
+                    <a class="nav-link" href="/usuario/novedades.php">
                         Novedades
                     </a>
 
-                    <a class="nav-link" href="/PaginaWeb/usuario/historialCompras.php">
+                    <a class="nav-link" href="/usuario/historialCompras.php">
                         Historial de compras
                     </a>
                     
-                    <a class="nav-link" href="/PaginaWeb/usuario/reservas/gestionReservas.php">
+                    <a class="nav-link" href="/usuario/reservas/gestionReservas.php">
                         Mis reservas
                     </a>
 
-                    <a class="nav-link" href="/PaginaWeb/home.php">
+                    <a class="nav-link" href="/index.php">
                         <i class="bi bi-search"></i>
                         Buscar vuelos
                     </a>
 
                 <?php } elseif ($estaLogueado && $tipoUsuario === "administrador") { ?>
 
-                    <a class="nav-link" href="/PaginaWeb/usuario/novedades.php">
+                    <a class="nav-link" href="/usuario/novedades.php">
                         Novedades
                     </a>
 
-                    <a class="nav-link" href="/PaginaWeb/admin/admin.php">
+                    <a class="nav-link" href="/admin/admin.php">
                         <i class="bi bi-calendar3"></i>
                         Ir al panel de gestión
                     </a>
 
                 <?php } elseif ($estaLogueado && $tipoUsuario === "ceo") { ?>
 
-                    <a class="nav-link" href="/PaginaWeb/usuario/novedades.php">
+                    <a class="nav-link" href="/usuario/novedades.php">
                         Novedades
                     </a>
 
-                    <a class="nav-link" href="/PaginaWeb/ceo/ceo.php">
+                    <a class="nav-link" href="/ceo/ceo.php">
                         <i class="bi bi-calendar3"></i>
                         Ir al panel de gestión
                     </a>
@@ -99,7 +99,7 @@ if ($estaLogueado) {
                         <?php if ($tipoUsuario === "administrador") { ?>
 
                             <li>
-                                <a class="dropdown-item" href="/PaginaWeb/admin/perfilAdmin.php">
+                                <a class="dropdown-item" href="/admin/perfilAdmin.php">
                                     <i class="bi bi-person"></i>
                                     Mi perfil
                                 </a>
@@ -108,7 +108,7 @@ if ($estaLogueado) {
                         <?php } elseif($tipoUsuario === "ceo") { ?>
 
                             <li>
-                                <a class="dropdown-item" href="/PaginaWeb/ceo/perfilCeo.php">
+                                <a class="dropdown-item" href="/ceo/perfilCeo.php">
                                     <i class="bi bi-person"></i>
                                     Mi perfil
                                 </a>
@@ -117,7 +117,7 @@ if ($estaLogueado) {
                         <?php } elseif($tipoUsuario === "usuario") { ?>
 
                             <li>
-                                <a class="dropdown-item" href="/PaginaWeb/usuario/perfil.php">
+                                <a class="dropdown-item" href="/usuario/perfil.php">
                                     <i class="bi bi-person"></i>
                                     Mi perfil
                                 </a>
@@ -128,7 +128,7 @@ if ($estaLogueado) {
                         <li><hr class="dropdown-divider"></li>
 
                         <li>
-                            <a class="dropdown-item" href="/PaginaWeb/php/cerrarSesion.php">
+                            <a class="dropdown-item" href="/php/cerrarSesion.php">
                                 <i class="bi bi-box-arrow-right"></i>
                                 Cerrar sesión
                             </a>
@@ -143,27 +143,27 @@ if ($estaLogueado) {
 
                     <?php if($tipoUsuario === "usuario") { ?>
 
-                        <a class="dropdown-item" href="/PaginaWeb/usuario/perfil.php">
+                        <a class="dropdown-item" href="/usuario/perfil.php">
                             <i class="bi bi-person"></i>
                             Mi perfil
                         </a>
 
                     <?php } elseif($tipoUsuario === "administrador") { ?>
 
-                        <a class="dropdown-item" href="/PaginaWeb/admin/perfilAdmin.php">
+                        <a class="dropdown-item" href="/admin/perfilAdmin.php">
                             <i class="bi bi-person"></i>
                             Mi perfil
                         </a>
 
                     <?php } elseif($tipoUsuario === "ceo") { ?>
 
-                        <a class="dropdown-item" href="/PaginaWeb/ceo/perfilCeo.php">
+                        <a class="dropdown-item" href="/ceo/perfilCeo.php">
                             <i class="bi bi-person"></i>
                             Mi perfil
                         </a>
                     <?php } ?>
 
-                    <a class="nav-link" href="/PaginaWeb/php/cerrarSesion.php">
+                    <a class="nav-link" href="/php/cerrarSesion.php">
                         <i class="bi bi-box-arrow-right"></i>
                         Cerrar sesión
                     </a>
@@ -174,12 +174,12 @@ if ($estaLogueado) {
 
                 <div class="opciones-acceso">
 
-                    <a class="nav-link btn-iniciosesion" href="/PaginaWeb/inicioSesion.php">
+                    <a class="nav-link btn-iniciosesion" href="/inicioSesion.php">
                         <i class="bi bi-person-check"></i>
                         Iniciar sesión
                     </a>
     
-                    <a class="nav-link btn-registro" href="/PaginaWeb/registro.php">
+                    <a class="nav-link btn-registro" href="/registro.php">
                         <i class="bi bi-person-plus"></i>
                         Registrate
                     </a>

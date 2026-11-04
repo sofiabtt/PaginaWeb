@@ -2,7 +2,7 @@
     session_start();
 
     if (isset($_SESSION["codUsuario"])) {
-    header("Location: home.php");
+    header("Location: index.php");
     exit();
     }
 ?>
@@ -116,7 +116,7 @@
 
         </section>
 
-        <a href="home.php" class="boton-atras">
+        <a href="index.php" class="boton-atras">
             ← Inicio
         </a>
 

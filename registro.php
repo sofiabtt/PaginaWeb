@@ -77,7 +77,7 @@
             
 
         </section>
-        <a href="home.php" class="boton-atras">
+        <a href="index.php" class="boton-atras">
             ← Atrás
         </a>
 

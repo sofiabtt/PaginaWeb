@@ -112,7 +112,7 @@ session_start();
             </form>
 
         </section>
-        <a href="../home.php" class="boton-atras">
+        <a href="../index.php" class="boton-atras">
             ← Inicio
         </a>
 

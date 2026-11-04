@@ -172,7 +172,7 @@ if ($desdeReserva && $reservaDestacada > 0) {
 
     <title>Nuvia - Mis reservas</title>
 
-    <link rel="icon" type="image/png" href="/PaginaWeb/imagenes/logo.png">
+    <link rel="icon" type="image/png" href="/imagenes/logo.png">
 
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/bootstrap-icons.css">

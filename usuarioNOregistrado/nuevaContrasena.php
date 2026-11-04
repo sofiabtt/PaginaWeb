@@ -113,7 +113,7 @@ if (
     <link
         rel="icon"
         type="image/png"
-        href="/PaginaWeb/imagenes/logo.png"
+        href="/imagenes/logo.png"
     >
 
     <link rel="stylesheet" href="../css/bootstrap.min.css">

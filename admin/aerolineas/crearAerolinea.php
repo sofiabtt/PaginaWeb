@@ -290,7 +290,7 @@ $resultadoPaises = obtenerPaises($conexion);
                         <div class="d-flex justify-content-end gap-2">
 
                             <a
-                                href="/PaginaWeb/admin/aerolineas/gestionAerolineas.php"
+                                href="/admin/aerolineas/gestionAerolineas.php"
                                 class="btn btn-secondary"
                             >
                                 Cancelar

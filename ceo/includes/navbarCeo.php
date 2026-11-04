@@ -14,8 +14,8 @@ if (isset($_SESSION["tipoUsuario"])) {
 <nav class="navbar navbar-expand-xl">
     <div class="container-fluid">
 
-        <a class="navbar-brand" href="/PaginaWeb/ceo/ceo.php">
-            <img src="/PaginaWeb/imagenes/logo.png" alt="Logo Nuvia">
+        <a class="navbar-brand" href="/ceo/ceo.php">
+            <img src="/imagenes/logo.png" alt="Logo Nuvia">
 
             <h1>Nuvia</h1>
         </a>
@@ -35,23 +35,23 @@ if (isset($_SESSION["tipoUsuario"])) {
                     </span>
                 </div>
 
-                <a class="nav-link" href="/PaginaWeb/home.php">
+                <a class="nav-link" href="/index.php">
                     Inicio
                 </a>
 
-                <a class="nav-link" href="/PaginaWeb/ceo/ceo.php">
+                <a class="nav-link" href="/ceo/ceo.php">
                     Panel
                 </a>
 
-                <a class="nav-link" href="/PaginaWeb/ceo/vuelos/gestionVuelos.php">
+                <a class="nav-link" href="/ceo/vuelos/gestionVuelos.php">
                     Vuelos
                 </a>
                 
-                <a class="nav-link" href="/PaginaWeb/ceo/promociones/gestionPromocion.php">
+                <a class="nav-link" href="/ceo/promociones/gestionPromocion.php">
                     Promociones
                 </a>
 
-                <a class="nav-link" href="/PaginaWeb/ceo/reportes/reportes.php">
+                <a class="nav-link" href="/ceo/reportes/reportes.php">
                     Reportes
                 </a>
 
@@ -69,7 +69,7 @@ if (isset($_SESSION["tipoUsuario"])) {
                         <ul class="menu-usuarios dropdown-menu dropdown-menu-end">
 
                             <li>
-                                <a class="dropdown-item" href="/PaginaWeb/ceo/perfilCeo.php">
+                                <a class="dropdown-item" href="/ceo/perfilCeo.php">
                                     <i class="bi bi-person"></i>
                                     Mi perfil
                                 </a>
@@ -78,7 +78,7 @@ if (isset($_SESSION["tipoUsuario"])) {
                             <li><hr class="dropdown-divider"></li>
 
                             <li>
-                                <a class="dropdown-item" href="/PaginaWeb/php/cerrarSesion.php">
+                                <a class="dropdown-item" href="/php/cerrarSesion.php">
                                     <i class="bi bi-box-arrow-right"></i>
                                     Cerrar sesión
                                 </a>
@@ -87,12 +87,12 @@ if (isset($_SESSION["tipoUsuario"])) {
                         </ul>
 
                         <div class="usuario-mobile">
-                            <a class="nav-link" href="/PaginaWeb/ceo/perfilCeo.php">
+                            <a class="nav-link" href="/ceo/perfilCeo.php">
                                 <i class="bi bi-person"></i>
                                 Mi perfil
                             </a>
 
-                            <a class="nav-link" href="/PaginaWeb/php/cerrarSesion.php">
+                            <a class="nav-link" href="/php/cerrarSesion.php">
                                 <i class="bi bi-box-arrow-right"></i>
                                 Cerrar sesión
                             </a>

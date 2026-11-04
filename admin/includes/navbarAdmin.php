@@ -14,8 +14,8 @@ if (isset($_SESSION["tipoUsuario"])) {
 <nav class="navbar navbar-expand-xl">
     <div class="container-fluid">
 
-        <a class="navbar-brand" href="/PaginaWeb/admin/admin.php">
-            <img src="/PaginaWeb/imagenes/logo.png" alt="Logo Nuvia">
+        <a class="navbar-brand" href="/admin/admin.php">
+            <img src="/imagenes/logo.png" alt="Logo Nuvia">
             <h1>Nuvia</h1>
         </a>
 
@@ -35,47 +35,47 @@ if (isset($_SESSION["tipoUsuario"])) {
                 </div>
 
                 <!-- INICIO -->
-                <a class="nav-link" href="/PaginaWeb/home.php">
+                <a class="nav-link" href="/index.php">
                     Inicio
                 </a>
 
                 <!-- PANEL ADMIN -->
-                <a class="nav-link" href="/PaginaWeb/admin/admin.php">
+                <a class="nav-link" href="/admin/admin.php">
                     Panel
                 </a>
 
                 <!-- AEROLÍNEAS -->
-                <a class="nav-link" href="/PaginaWeb/admin/aerolineas/gestionAerolineas.php">
+                <a class="nav-link" href="/admin/aerolineas/gestionAerolineas.php">
                     Aerolíneas
                 </a>
 
                 <!-- VUELOS -->
-                <a class="nav-link" href="/PaginaWeb/admin/vuelos/gestionVuelos.php">
+                <a class="nav-link" href="/admin/vuelos/gestionVuelos.php">
                     Vuelos
                 </a>
 
                 <!-- PROMOCIONES -->
-                <a class="nav-link" href="/PaginaWeb/admin/promociones/gestionPromociones.php">
+                <a class="nav-link" href="/admin/promociones/gestionPromociones.php">
                     Promociones
                 </a>
 
                 <!-- NOVEDADES -->
-                <a class="nav-link" href="/PaginaWeb/admin/novedades/gestionNovedades.php">
+                <a class="nav-link" href="/admin/novedades/gestionNovedades.php">
                     Novedades
                 </a>
 
                 <!-- REPORTES -->
-                <a class="nav-link" href="/PaginaWeb/admin/reportes.php">
+                <a class="nav-link" href="/admin/reportes.php">
                     Reportes
                 </a>
 
                 <!-- USUARIOS (Enlace único y correcto) -->
-                <a class="nav-link" href="/PaginaWeb/admin/reportes/usuarios.php">
+                <a class="nav-link" href="/admin/reportes/usuarios.php">
                     Usuarios
                 </a>
 
                 <!-- CEOs -->
-                <a class="nav-link" href="/PaginaWeb/admin/ceos/gestionCeos.php">
+                <a class="nav-link" href="/admin/ceos/gestionCeos.php">
                     CEOs
                 </a>
 
@@ -93,7 +93,7 @@ if (isset($_SESSION["tipoUsuario"])) {
                         <ul class="menu-usuarios dropdown-menu dropdown-menu-end">
 
                             <li>
-                                <a class="dropdown-item" href="/PaginaWeb/admin/perfilAdmin.php">
+                                <a class="dropdown-item" href="/admin/perfilAdmin.php">
                                     <i class="bi bi-person"></i>
                                     Mi perfil
                                 </a>
@@ -102,7 +102,7 @@ if (isset($_SESSION["tipoUsuario"])) {
                             <li><hr class="dropdown-divider"></li>
 
                             <li>
-                                <a class="dropdown-item" href="/PaginaWeb/php/cerrarSesion.php">
+                                <a class="dropdown-item" href="/php/cerrarSesion.php">
                                     <i class="bi bi-box-arrow-right"></i>
                                     Cerrar sesión
                                 </a>
@@ -111,12 +111,12 @@ if (isset($_SESSION["tipoUsuario"])) {
                         </ul>
 
                         <div class="usuario-mobile">
-                            <a class="nav-link" href="/PaginaWeb/admin/perfilAdmin.php">
+                            <a class="nav-link" href="/admin/perfilAdmin.php">
                                 <i class="bi bi-person"></i>
                                 Mi perfil
                             </a>
 
-                            <a class="nav-link" href="/PaginaWeb/php/cerrarSesion.php">
+                            <a class="nav-link" href="/php/cerrarSesion.php">
                                 <i class="bi bi-box-arrow-right"></i>
                                 Cerrar sesión
                             </a>
