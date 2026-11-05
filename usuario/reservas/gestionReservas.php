@@ -189,7 +189,7 @@ if ($desdeReserva && $reservaDestacada > 0) {
 
 <body>
 
-    <?php include ("../../includes/navbar.php"); ?>
+    <?php include ("/includes/navbar.php"); ?>
 
 
     <main class="contenido-admin gestion-reservas">

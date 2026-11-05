@@ -138,7 +138,7 @@ function claseEstadoReserva($estado)
 
 <body>
 
-    <?php include "../includes/navbarCeo.php"; ?>
+    <?php include "/ceo/includes/navbarCeo.php"; ?>
 
     <main class="contenido-admin">
         <section class="encabezado-contenido">

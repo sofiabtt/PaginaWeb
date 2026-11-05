@@ -80,7 +80,7 @@ if ($novedad && $_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body>
 
-    <?php include "../includes/navbarAdmin.php"; ?>
+    <?php include "/admin/includes/navbarAdmin.php"; ?>
 
     <main class="contenido-admin">
         <section class="encabezado-contenido">

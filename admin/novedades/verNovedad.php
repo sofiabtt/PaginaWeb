@@ -62,7 +62,7 @@ $novedad = obtenerNovedad($conexion, $id);
 
 <body>
 
-    <?php include "../includes/navbarAdmin.php"; ?>
+    <?php include "/admin/includes/navbarAdmin.php"; ?>
 
 
     <main class="contenido-admin">

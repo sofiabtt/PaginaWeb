@@ -80,7 +80,7 @@ $resultado = obtenerPromocionesPorAerolinea($conexion,$codAerolinea);
 <body>
 
 
-    <?php include "../includes/navbarCeo.php"; ?>
+    <?php include "/ceo/includes/navbarCeo.php"; ?>
 
 
     <main class="contenido-admin">

@@ -97,9 +97,7 @@ $ceo = obtenerUsuario($conexion, $codCeo);
 
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/bootstrap-icons.css">
-
     <link rel="icon" type="image/png" href="../imagenes/logo.png">
-
     <link rel="stylesheet" href="../css/estilos-admin.css">
     <link rel="stylesheet" href="../css/navbar.css">
     <link rel="stylesheet" href="../css/footer.css">
@@ -108,7 +106,7 @@ $ceo = obtenerUsuario($conexion, $codCeo);
 
 <body>
 
-    <?php include"includes/navbarCeo.php"; ?>
+    <?php include "includes/navbarCeo.php"; ?>
 
     <main class="contenido-admin">
 
@@ -276,7 +274,7 @@ $ceo = obtenerUsuario($conexion, $codCeo);
 
     </main>
 
-    <?php include"/includes/footer.php"; ?>
+    <?php include __DIR__ . "/../includes/footer.php"; ?>
 
     <script src="/js/bootstrap.bundle.min.js"></script> 
 

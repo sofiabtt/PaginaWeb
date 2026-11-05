@@ -62,7 +62,7 @@ $cantidadVuelos = $resultado->num_rows;
 
 
     <?php
-    include "../includes/navbarAdmin.php";
+    include "/admin/includes/navbarAdmin.php";
     ?>
 
 

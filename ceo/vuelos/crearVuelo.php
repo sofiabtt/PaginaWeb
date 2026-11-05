@@ -192,7 +192,7 @@ if (!$consultaAeropuertos) {
 
     <!-- NAVBAR -->
 
-    <?php include "../includes/navbarCeo.php"; ?>
+    <?php include "/ceo/includes/navbarCeo.php"; ?>
 
 
     <main class="contenido-admin">

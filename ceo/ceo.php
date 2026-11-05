@@ -395,7 +395,7 @@ $resultadoProximosVuelos = obtenerProximosVuelos($conexion,$codAerolinea);
 
     </main>
 
-    <?php include "/includes/footer.php"; ?>
+    <?php include __DIR__ . "/../includes/footer.php"; ?>
 
     <script
         src="/js/bootstrap.bundle.min.js">

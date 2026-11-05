@@ -85,19 +85,18 @@ if (isset($_SESSION["tipoUsuario"])) {
                             </li>
 
                         </ul>
+                    </div>
 
-                        <div class="usuario-mobile">
-                            <a class="nav-link" href="/ceo/perfilCeo.php">
-                                <i class="bi bi-person"></i>
-                                Mi perfil
-                            </a>
+                    <div class="usuario-mobile">
+                        <a class="nav-link" href="/ceo/perfilCeo.php">
+                            <i class="bi bi-person"></i>
+                            Mi perfil
+                        </a>
 
-                            <a class="nav-link" href="/php/cerrarSesion.php">
-                                <i class="bi bi-box-arrow-right"></i>
-                                Cerrar sesión
-                            </a>
-                        </div>
-
+                        <a class="nav-link" href="/php/cerrarSesion.php">
+                            <i class="bi bi-box-arrow-right"></i>
+                            Cerrar sesión
+                        </a>
                     </div>
 
                 </div>
@@ -105,7 +104,7 @@ if (isset($_SESSION["tipoUsuario"])) {
             </div>
 
         </div>
-        
+
     </div>
 
 </nav>

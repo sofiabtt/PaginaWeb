@@ -88,7 +88,7 @@ $resultado = obtenerVuelosInactivos($conexion,$codAerolinea);
 
     <!-- NAVBAR -->
 
-    <?php include "../includes/navbarCeo.php"; ?>
+    <?php include "/ceo/includes/navbarCeo.php"; ?>
 
 
     <main class="contenido-admin">

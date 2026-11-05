@@ -166,7 +166,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body>
 
-    <?php include"../../includes/navbar.php"; ?>
+    <?php include"/includes/navbar.php"; ?>
 
     <main class="d-flex justify-content-center align-items-center">
 

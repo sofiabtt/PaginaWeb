@@ -115,7 +115,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <!-- NAVBAR -->
 
-    <?php include "../includes/navbarAdmin.php"; ?>
+    <?php include "/admin/includes/navbarAdmin.php"; ?>
 
 
     <main class="contenido-admin">

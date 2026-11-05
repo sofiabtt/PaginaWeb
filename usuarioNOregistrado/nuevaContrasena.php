@@ -132,7 +132,7 @@ if (
 
 <body>
 
-<?php include "../includes/navbar.php"; ?>
+<?php include "/includes/navbar.php"; ?>
 
 
 <main class="contenedor-nueva-contrasena">

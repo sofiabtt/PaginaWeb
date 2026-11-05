@@ -190,7 +190,7 @@ $queryVolver = $contexto ? "?" . http_build_query($contexto) : "";
     <link rel="stylesheet" href="../../css/pago.css">
 </head>
 <body>
-    <?php include "../../includes/navbar.php"; ?>
+    <?php include "/includes/navbar.php"; ?>
 
     <main class="pago-contenedor" id="contenido">
         <section class="pago-card" aria-labelledby="tituloPago">

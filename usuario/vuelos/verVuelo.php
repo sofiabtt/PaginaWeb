@@ -56,7 +56,7 @@ $precioFinal =
     <link rel="stylesheet" href="../../css/footer.css">
 </head>
 <body>
-    <?php include "../../includes/navbar.php"; ?>
+    <?php include "/includes/navbar.php"; ?>
     <main class="contenido-admin">
         <section class="encabezado-contenido" style="display: block;">
 
