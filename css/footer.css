@@ -44,6 +44,14 @@
     text-decoration: underline;
 }
 
+.footer-columna h3 {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: #333;
+    letter-spacing: 0.5px;
+}
+
 .footer-columna h4 {
     font-size: 16px;
     font-weight: 500;

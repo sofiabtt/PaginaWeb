@@ -389,7 +389,7 @@ $admin = obtenerUsuario($conexion, $codAdmin);
 
     </main>
 
-    <?php include"/includes/footer.php"; ?>
+    <?php include __DIR__ . '/../includes/footer.php'; ?>
 
     <script src="<?= htmlspecialchars(urlApp('js/bootstrap.bundle.min.js'), ENT_QUOTES, 'UTF-8') ?>"></script>
 

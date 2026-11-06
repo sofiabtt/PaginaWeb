@@ -89,6 +89,8 @@ $resultadoProximosVuelos = obtenerProximosVuelos($conexion,$codAerolinea);
         href="../css/estilosAdmin.css"
     >
 
+    <link rel="stylesheet" href="../css/tablasResponsive.css">
+
     <link rel="stylesheet" href="../css/navbar.css">
 
     <link rel="stylesheet" href="../css/footer.css">
