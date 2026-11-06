@@ -98,7 +98,7 @@ $tipoUsuario = $_SESSION["tipoUsuario"] ?? null;
                     </li>
 
                     <li>
-                        <a href="#">
+                        <a href="<?= htmlspecialchars(urlApp('acercaDeNosotros.php'), ENT_QUOTES, 'UTF-8') ?>">
                             Acerca de nosotros
                         </a>
                     </li>
