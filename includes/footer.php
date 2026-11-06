@@ -36,7 +36,7 @@ $tipoUsuario = $_SESSION["tipoUsuario"] ?? null;
 
             <div class="footer-columna col-6 col-lg-3">
 
-                <h4>Mi cuenta</h4>
+                <h3>Mi cuenta</h3>
 
                 <ul>
 
