@@ -358,13 +358,12 @@ body > main {
     /* CONTENEDOR PRINCIPAL */
 
     body > main {
-        flex: 1;
+        flex: 1 0 auto;
 
         width: 100%;
         min-width: 0;
-        min-height: 0;
 
-        padding: 20px 18px 80px;
+        padding: 40px 18px 30px;
 
         justify-content: center;
         align-items: center;
