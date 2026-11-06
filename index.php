@@ -74,7 +74,7 @@ $consultaOrigenes = $conexion->query("
      HERO
 ========================================= -->
 
-<section class="hero">
+<div class="hero">
 
     <!-- =====================================
          BUSCADOR DE VUELOS
@@ -252,9 +252,9 @@ $consultaOrigenes = $conexion->query("
 
     <section id="destinos" class="destinos-destacados">
 
-        <h4 class="titulo-destino">
+        <h2 class="titulo-destino">
             Viajá por el mundo
-        </h4>
+        </h2>
 
 
         <div class="carrusel-destinos">
@@ -276,6 +276,7 @@ $consultaOrigenes = $conexion->query("
             <div
                 class="contenedor-tarjetas"
                 id="carruselTarjetas"
+                role="region"
                 aria-label="Destinos destacados"
             >
 
@@ -293,9 +294,9 @@ $consultaOrigenes = $conexion->query("
                         alt=""
                     >
 
-                    <h4>
+                    <span class="titulo-tarjeta">
                         Brasil, Río de Janeiro
-                    </h4>
+                    </span>
 
                 </button>
 
@@ -314,9 +315,9 @@ $consultaOrigenes = $conexion->query("
                         alt=""
                     >
 
-                    <h4>
+                    <span class="titulo-tarjeta">
                         Argentina, Buenos Aires
-                    </h4>
+                    </span>
 
                 </button>
 
@@ -335,9 +336,9 @@ $consultaOrigenes = $conexion->query("
                         alt=""
                     >
 
-                    <h4>
+                    <span class="titulo-tarjeta">
                         España, Madrid
-                    </h4>
+                    </span>
 
                 </button>
 
@@ -356,9 +357,9 @@ $consultaOrigenes = $conexion->query("
                         alt=""
                     >
 
-                    <h4>
+                    <span class="titulo-tarjeta">
                         Italia, Roma
-                    </h4>
+                    </span>
 
                 </button>
 
@@ -415,7 +416,7 @@ $consultaOrigenes = $conexion->query("
 
     </section>
 
-</section>
+</div>
 
 
 <!-- =========================================

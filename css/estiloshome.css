@@ -251,7 +251,7 @@ textarea:focus-visible {
     transform: scale(0.95);
 }
 
-.tarjeta-destino h4 {
+.tarjeta-destino .titulo-tarjeta {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -690,7 +690,7 @@ textarea:focus-visible {
         border-radius: 18px;
     }
 
-    .tarjeta-destino h4 {
+    .tarjeta-destino .titulo-tarjeta {
         position: absolute;
         top: 50%;
         left: 50%;
@@ -901,7 +901,7 @@ textarea:focus-visible {
         height: 200px;
     }
 
-    .tarjeta-destino h4 {
+    .tarjeta-destino .titulo-tarjeta {
         font-size: 20px;
     }
 
