@@ -1,101 +1,86 @@
 <?php
+
 session_start();
 
+require_once __DIR__ . "/conexionBD.php";
+require_once __DIR__ . "/consultasUsuarios.php";
+
+// Si el usuario ya inició sesión, enviarlo al home
 if (isset($_SESSION["codUsuario"])) {
-    header("Location: /index.php");
+    header("Location: " . urlApp("index.php"));
     exit();
 }
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+// Solo aceptar solicitudes POST
+if ($_SERVER["REQUEST_METHOD"] !== "POST") {
+    header("Location: " . urlApp("inicioSesion.php"));
+    exit();
+}
 
-include "consultasUsuarios.php";
+// Obtener los datos ingresados
+$contrasena = $_POST["contrasena"] ?? "";
+$gmail = $_SESSION["gmailIngreso"] ?? "";
 
+// Si no hay un correo guardado, volver al inicio de sesión
+if ($gmail === "") {
+    header("Location: " . urlApp("inicioSesion.php"));
+    exit();
+}
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+// Buscar el usuario en la base de datos
+$usuario = obtenerUsuarioPorEmail($conexion, $gmail);
 
-    $contrasena = $_POST["contrasena"];
+// Verificar la contraseña una sola vez
+$contrasenaCorrecta = $usuario &&
+    password_verify($contrasena, $usuario["claveUsuario"]);
 
-    $gmail = $_SESSION["gmailIngreso"];
+if (!$contrasenaCorrecta) {
 
+    // Contraseña incorrecta
+    $destino = urlApp("ingresoContra.php?error=contrasena");
 
-    $usuario = obtenerUsuarioPorEmail(
-        $conexion,
-        $gmail
-    );
+} elseif ((int) $usuario["verificado"] !== 1) {
 
+    // Cuenta sin verificar
+    $destino = urlApp("ingresoContra.php?error=no_verificado");
 
-    if (
-        $usuario &&
-        password_verify(
-            $contrasena,
-            $usuario["claveUsuario"]
-        ) &&
-        (int) $usuario["verificado"] !== 1
-    ) {
+} else {
 
-        $destino =
-            "/ingresoContra.php?error=no_verificado";
+    // Inicio de sesión exitoso
+    session_regenerate_id(true);
 
+    $_SESSION["codUsuario"] = $usuario["codUsuario"];
+    $_SESSION["nombreUsuario"] = $usuario["nombreUsuario"];
+    $_SESSION["emailUsuario"] = $usuario["emailUsuario"];
+    $_SESSION["tipoUsuario"] = $usuario["tipoUsuario"];
 
-    } elseif (
-        $usuario &&
-        password_verify(
-            $contrasena,
-            $usuario["claveUsuario"]
-        )
+    // Por defecto, todos ingresan al home
+    $destino = urlApp("index.php");
 
-    ) {
+    // Si había una reserva pendiente, retomarla
+    if ($usuario["tipoUsuario"] === "usuario") {
 
-        // Renovamos el identificador de sesión
-        session_regenerate_id(true);
-        // Guardamos los datos del usuario en la sesión
+        if (
+            isset($_SESSION["reservaTemporal"]) &&
+            isset($_SESSION["reservaTemporal"]["codVuelo"])
+        ) {
 
-        $_SESSION["codUsuario"] = $usuario["codUsuario"];
-        $_SESSION["nombreUsuario"] = $usuario["nombreUsuario"];
-        $_SESSION["emailUsuario"] = $usuario["emailUsuario"];
-        $_SESSION["tipoUsuario"] = $usuario["tipoUsuario"];
+            $_SESSION["restaurarReservaTemporal"] = true;
 
-        // Todos los usuarios ingresan al home
+            $codVuelo = $_SESSION["reservaTemporal"]["codVuelo"];
 
-        $destino = "/index.php";
-
-
-        if ($usuario["tipoUsuario"] == "usuario") {
-
-            if (
-                isset($_SESSION["reservaTemporal"]) &&
-                isset(
-                    $_SESSION["reservaTemporal"]["codVuelo"]
-                )
-            ) {
-
-                $_SESSION["restaurarReservaTemporal"] =
-                    true;
-
-                $codVuelo =
-                    $_SESSION["reservaTemporal"]["codVuelo"];
-
-                $destino =
-                    "/vueloElegido.php?codVuelo="
-                    . $codVuelo;
-
-            } 
+            $destino = urlApp(
+                "vueloElegido.php?codVuelo=" . urlencode((string) $codVuelo)
+            );
         }
-
-    } else {
-
-        $destino =
-            "/ingresoContra.php?error=contrasena";
     }
-
-
-    $conexion->close();
-
-
-    header("Location: $destino");
-    exit();
 }
+
+// Cerrar conexión
+$conexion->close();
+
+// Redirigir
+header("Location: " . $destino);
+exit();
 
 ?>

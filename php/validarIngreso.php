@@ -1,19 +1,18 @@
-
 <?php
 
 session_start();
 
+require_once __DIR__ . "/conexionBD.php";
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $gmail = $_POST["gmail"];
+    $gmail = trim($_POST["gmail"] ?? "");
 
     if (empty($gmail)) {
 
         echo "Debe ingresar un mail.";
 
     } else {
-
-        require_once __DIR__ . "/conexionBD.php";
 
         $consulta = $conexion->prepare(
             "SELECT * FROM usuarios WHERE emailUsuario = ?"
@@ -29,13 +28,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $usuario = $resultado->fetch_assoc();
 
-            //Todavía no se encuentra autenticado
+            // Todavía no se encuentra autenticado.
+            // Guardamos el correo para el siguiente paso.
+
             $_SESSION["gmailIngreso"] = $gmail;
 
             $consulta->close();
             $conexion->close();
 
-            header("Location: /ingresoContra.php");
+            header("Location: " . urlApp("ingresoContra.php"));
             exit();
 
         } else {
@@ -43,24 +44,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $consulta->close();
             $conexion->close();
 
-            header("Location: /inicioSesion.php?error=usuario");
+            header(
+                "Location: " .
+                urlApp("inicioSesion.php?error=usuario")
+            );
             exit();
+
         }
+
     }
 
 } else {
 
     echo "Acceso no válido.";
+
 }
 
 ?>
-
-<?php if (!isset($_SESSION["gmailIngreso"])): ?>
-
-    <!-- Navbar público -->
-
-<?php elseif ($_SESSION["tipoUsuario"] == "usuario"): ?>
-
-    <!-- Navbar del pasajero -->
-
-<?php endif; ?>

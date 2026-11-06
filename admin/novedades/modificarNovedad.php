@@ -73,14 +73,14 @@ if ($novedad && $_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="icon" type="image/png" href="../../imagenes/logo.png">
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/bootstrap-icons.css">
-    <link rel="stylesheet" href="../../css/estilos-admin.css">
+    <link rel="stylesheet" href="../../css/estilosAdmin.css">
     <link rel="stylesheet" href="../../css/navbar.css">
     <link rel="stylesheet" href="../../css/footer.css">
 </head>
 
 <body>
 
-    <?php include "/admin/includes/navbarAdmin.php"; ?>
+    <?php include __DIR__ . '/../includes/navbarAdmin.php'; ?>
 
     <main class="contenido-admin">
         <section class="encabezado-contenido">
@@ -131,13 +131,15 @@ if ($novedad && $_SERVER["REQUEST_METHOD"] == "POST") {
                         <input type="date" class="form-control" id="fechaExpiracionNovedad" name="fechaExpiracionNovedad" value="<?php echo htmlspecialchars($novedad["fechaExpiracionNovedad"]); ?>" required>
                     </div>
 
+                    <a href="gestionNovedades.php" class="btn btn-secondary">
+                        Cancelar
+                    </a>
+
                     <button type="submit" class="btn btn-primary">
                         Guardar cambios
                     </button>
 
-                    <a href="gestionNovedades.php" class="btn btn-secondary">
-                        Cancelar
-                    </a>
+                    
                 </form>
 
             <?php } else { ?>
@@ -157,9 +159,9 @@ if ($novedad && $_SERVER["REQUEST_METHOD"] == "POST") {
         </section>
     </main>
 
-    <?php include "/includes/footer.php"; ?>
+    <?php include __DIR__ . '/../../includes/footer.php'; ?>
 
-    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="<?= htmlspecialchars(urlApp('js/bootstrap.bundle.min.js'), ENT_QUOTES, 'UTF-8') ?>"></script>
     
 </body>
 </html>

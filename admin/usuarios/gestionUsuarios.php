@@ -5,36 +5,29 @@ verificarRol('administrador');
 
 include "../../php/consultasUsuarios.php";
 
+
 // PAGINACIÓN
 
 $porPagina = 10;
 
-$pagina = isset($_GET["pagina"])
-    ? (int) $_GET["pagina"]
-    : 1;
+$totalUsuarios = contarUsuariosRegistrados($conexion);
 
-if ($pagina < 1) {
+$totalPaginas = max(1, (int) ceil($totalUsuarios / $porPagina));
+
+$pagina = filter_input(INPUT_GET, "pagina", FILTER_VALIDATE_INT);
+
+if ($pagina === false || $pagina === null || $pagina < 1) {
     $pagina = 1;
 }
 
-
-$totalUsuarios = cantidadUsuarios($conexion);
-
-$totalPaginas = (int) ceil(
-    $totalUsuarios / $porPagina
-);
-
-
-if (
-    $totalPaginas > 0 &&
-    $pagina > $totalPaginas
-) {
+if ($pagina > $totalPaginas) {
     $pagina = $totalPaginas;
 }
 
-
 $inicio = ($pagina - 1) * $porPagina;
 
+
+// OBTENER USUARIOS
 
 $resultado = obtenerUsuariosPaginados(
     $conexion,
@@ -62,7 +55,7 @@ $resultado = obtenerUsuariosPaginados(
     <link
         rel="icon"
         type="image/png"
-        href="/imagenes/logo.png"
+        href="../../imagenes/logo.png"
     >
 
     <link
@@ -77,7 +70,7 @@ $resultado = obtenerUsuariosPaginados(
 
     <link
         rel="stylesheet"
-        href="../../css/estilos-admin.css"
+        href="../../css/estilosAdmin.css"
     >
 
     <link
@@ -85,7 +78,17 @@ $resultado = obtenerUsuariosPaginados(
         href="../../css/navbar.css"
     >
 
-    <link rel="stylesheet" href="../../css/footer.css">
+    <link
+        rel="stylesheet"
+        href="../../css/footer.css"
+    >
+
+    <!-- CSS TABLAS RESPONSIVE -->
+
+    <link
+        rel="stylesheet"
+        href="../../css/tablasResponsive.css"
+    >
 
 </head>
 
@@ -93,252 +96,269 @@ $resultado = obtenerUsuariosPaginados(
 <body>
 
 
-<?php
-include "/admin/includes/navbarAdmin.php";
-?>
+    <?php include __DIR__ . '/../includes/navbarAdmin.php'; ?>
 
 
-<main class="contenido-admin">
+    <main class="contenido-admin">
 
 
-    <section class="encabezado-contenido">
+        <section class="encabezado-contenido">
 
-        <div>
+            <div>
 
-            <h1>
-                Usuarios
-            </h1>
+                <h1>
+                    Usuarios
+                </h1>
 
-            <p>
-                Consultá los usuarios registrados
-                en Nuvia.
-            </p>
+                <p>
+                    Consultá los usuarios registrados
+                    en Nuvia.
+                </p>
 
-        </div>
+            </div>
 
-    </section>
+        </section>
 
 
-    <p>
+        <!-- CANTIDAD DE USUARIOS -->
 
-        Cantidad de usuarios registrados:
+        <p>
 
-        <strong>
-            <?php echo $totalUsuarios; ?>
-        </strong>
+            Cantidad de usuarios registrados:
 
-    </p>
+            <strong>
+                <?php echo $totalUsuarios; ?>
+            </strong>
 
+        </p>
 
-    <section class="tabla-contenedor">
 
+        <!-- TABLA RESPONSIVE -->
 
-        <table class="table align-middle">
+        <section class="tabla-contenedor tabla-tarjetas">
 
 
-            <thead>
+            <table class="table align-middle">
 
-                <tr>
 
-                    <th>Código</th>
+                <thead>
 
-                    <th>Nombre</th>
+                    <tr>
 
-                    <th>Email</th>
+                        <th>Código</th>
 
-                    <th>Teléfono</th>
+                        <th>Nombre</th>
 
-                    <th>Estado</th>
+                        <th>Email</th>
 
-                </tr>
+                        <th>Teléfono</th>
 
-            </thead>
+                        <th>Estado</th>
 
+                    </tr>
 
-            <tbody>
+                </thead>
 
 
-            <?php if ($resultado->num_rows === 0) { ?>
+                <tbody>
 
-                <tr>
 
-                    <td
-                        colspan="5"
-                        class="text-center text-muted py-4"
-                    >
-                        No hay usuarios registrados.
-                    </td>
+                    <!-- SIN USUARIOS -->
 
-                </tr>
+                    <?php if ($totalUsuarios === 0) { ?>
 
-            <?php } ?>
+                        <tr>
 
-
-            <?php while ($usuario = $resultado->fetch_assoc()) { ?>
-
-                <tr>
-
-                    <td>
-
-                        <?php
-                        echo (int) $usuario["codUsuario"];
-                        ?>
-
-                    </td>
-
-
-                    <td>
-
-                        <?php
-                        echo htmlspecialchars(
-                            $usuario["nombreUsuario"]
-                        );
-                        ?>
-
-                    </td>
-
-
-                    <td>
-
-                        <?php
-                        echo htmlspecialchars(
-                            $usuario["emailUsuario"]
-                        );
-                        ?>
-
-                    </td>
-
-
-                    <td>
-
-                        <?php
-                        echo htmlspecialchars(
-                            $usuario["telefonoUsuario"]
-                        );
-                        ?>
-
-                    </td>
-
-
-                    <td>
-
-                        <?php if ((int) $usuario["verificado"] === 1) { ?>
-
-                            <span class="badge bg-success">
-                                Verificado
-                            </span>
-
-                        <?php } else { ?>
-
-                            <span class="badge bg-warning text-dark">
-                                Pendiente
-                            </span>
-
-                        <?php } ?>
-
-                    </td>
-
-                </tr>
-
-            <?php } ?>
-
-
-            </tbody>
-
-
-        </table>
-
-
-        <?php if ($totalPaginas > 1) { ?>
-
-            <nav
-                class="mt-4"
-                aria-label="Paginación de usuarios"
-            >
-
-                <ul class="pagination justify-content-center">
-
-
-                    <li
-                        class="page-item
-                        <?php
-                        echo $pagina <= 1
-                            ? "disabled"
-                            : "";
-                        ?>"
-                    >
-
-                        <a
-                            class="page-link"
-                            href="?pagina=<?php echo $pagina - 1; ?>"
-                        >
-                            Anterior
-                        </a>
-
-                    </li>
-
-
-                    <?php for (
-                        $i = 1;
-                        $i <= $totalPaginas;
-                        $i++
-                    ) { ?>
-
-                        <li
-                            class="page-item
-                            <?php
-                            echo $i === $pagina
-                                ? "active"
-                                : "";
-                            ?>"
-                        >
-
-                            <a
-                                class="page-link"
-                                href="?pagina=<?php echo $i; ?>"
+                            <td
+                                colspan="5"
+                                class="text-center text-muted py-4"
                             >
-                                <?php echo $i; ?>
-                            </a>
 
-                        </li>
+                                No hay usuarios registrados.
+
+                            </td>
+
+                        </tr>
 
                     <?php } ?>
 
 
-                    <li
-                        class="page-item
-                        <?php
-                        echo $pagina >= $totalPaginas
-                            ? "disabled"
-                            : "";
-                        ?>"
-                    >
+                    <!-- LISTADO DE USUARIOS -->
+
+                    <?php while ($usuario = $resultado->fetch_assoc()) { ?>
+
+                        <tr>
+
+
+                            <!-- CÓDIGO -->
+
+                            <td data-label="Código">
+
+                                <?php
+                                echo (int) $usuario["codUsuario"];
+                                ?>
+
+                            </td>
+
+
+                            <!-- NOMBRE -->
+
+                            <td data-label="Nombre">
+
+                                <?php
+
+                                echo htmlspecialchars(
+                                    $usuario["nombreUsuario"]
+                                );
+
+                                ?>
+
+                            </td>
+
+
+                            <!-- EMAIL -->
+
+                            <td data-label="Email">
+
+                                <?php
+
+                                echo htmlspecialchars(
+                                    $usuario["emailUsuario"]
+                                );
+
+                                ?>
+
+                            </td>
+
+
+                            <!-- TELÉFONO -->
+
+                            <td data-label="Teléfono">
+
+                                <?php
+
+                                echo htmlspecialchars(
+                                    $usuario["telefonoUsuario"] ?? ""
+                                );
+
+                                ?>
+
+                            </td>
+
+
+                            <!-- ESTADO -->
+
+                            <td data-label="Estado">
+
+                                <?php if ((int) $usuario["verificado"] === 1) { ?>
+
+                                    <span class="badge bg-success">
+
+                                        Verificado
+
+                                    </span>
+
+                                <?php } else { ?>
+
+                                    <span class="badge bg-warning text-dark">
+
+                                        Pendiente
+
+                                    </span>
+
+                                <?php } ?>
+
+                            </td>
+
+
+                        </tr>
+
+                    <?php } ?>
+
+
+                </tbody>
+
+
+            </table>
+
+
+        </section>
+
+
+        <!-- PAGINACIÓN -->
+
+        <?php if ($totalPaginas > 1) { ?>
+
+            <nav
+                class="paginacion-tablas"
+                aria-label="Paginación de usuarios"
+            >
+
+                <p>
+
+                    Página <?php echo $pagina; ?>
+                    de <?php echo $totalPaginas; ?>
+
+                </p>
+
+
+                <div class="d-flex justify-content-center gap-2 flex-wrap">
+
+
+                    <!-- ANTERIOR -->
+
+                    <?php if ($pagina > 1) { ?>
 
                         <a
-                            class="page-link"
-                            href="?pagina=<?php echo $pagina + 1; ?>"
+                            href="?pagina=<?php echo $pagina - 1; ?>"
+                            class="btn btn-outline-secondary"
                         >
-                            Siguiente
+
+                            <i class="bi bi-chevron-left"></i>
+
+                            Anterior
+
                         </a>
 
-                    </li>
+                    <?php } ?>
 
 
-                </ul>
+                    <!-- SIGUIENTE -->
+
+                    <?php if ($pagina < $totalPaginas) { ?>
+
+                        <a
+                            href="?pagina=<?php echo $pagina + 1; ?>"
+                            class="btn btn-outline-secondary"
+                        >
+
+                            Siguiente
+
+                            <i class="bi bi-chevron-right"></i>
+
+                        </a>
+
+                    <?php } ?>
+
+
+                </div>
 
             </nav>
 
         <?php } ?>
 
 
-    </section>
+    </main>
 
 
-</main>
+    <!-- FOOTER -->
 
-<?php include "/includes/footer.php"; ?>
+    <?php include __DIR__ . '/../../includes/footer.php'; ?>
 
-<script src="/js/bootstrap.bundle.min.js"></script>
+
+    <!-- BOOTSTRAP JS -->
+
+    <script src="<?= htmlspecialchars(urlApp('js/bootstrap.bundle.min.js'), ENT_QUOTES, 'UTF-8') ?>"></script>
 
 
 </body>

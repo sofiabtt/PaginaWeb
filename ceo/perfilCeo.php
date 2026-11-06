@@ -98,7 +98,7 @@ $ceo = obtenerUsuario($conexion, $codCeo);
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/bootstrap-icons.css">
     <link rel="icon" type="image/png" href="../imagenes/logo.png">
-    <link rel="stylesheet" href="../css/estilos-admin.css">
+    <link rel="stylesheet" href="../css/estilosAdmin.css">
     <link rel="stylesheet" href="../css/navbar.css">
     <link rel="stylesheet" href="../css/footer.css">
 

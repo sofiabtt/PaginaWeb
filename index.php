@@ -15,22 +15,32 @@ $consultaAeropuertos = $conexion->query("
         c.nombreCiudad,
         p.nombrePais
     FROM aeropuertos a
-    INNER JOIN ciudades c
-        ON a.codCiudad = c.codCiudad
-    INNER JOIN paises p
-        ON c.codPais = p.codPais
+    INNER JOIN ciudades c ON a.codCiudad = c.codCiudad
+    INNER JOIN paises p ON c.codPais = p.codPais
     ORDER BY c.nombreCiudad ASC, a.codigoIATA ASC
 ");
 
+// OBTENER AEROPUERTOS PARA EL FORMULARIO DE DESTINOS
+
+$consultaOrigenes = $conexion->query("
+    SELECT
+        a.codigoIATA,
+        a.nombreAeropuerto,
+        c.nombreCiudad,
+        p.nombrePais
+    FROM aeropuertos a
+    INNER JOIN ciudades c ON a.codCiudad = c.codCiudad
+    INNER JOIN paises p ON c.codPais = p.codPais
+    ORDER BY c.nombreCiudad ASC, a.codigoIATA ASC
+");
 ?>
 
 <!DOCTYPE html>
-
 <html lang="es">
 
 <head>
-
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Nuvia</title>
@@ -41,41 +51,44 @@ $consultaAeropuertos = $conexion->query("
 
     <link rel="stylesheet" href="css/bootstrap-icons.css">
 
-    <link rel="stylesheet" href="css/estiloshome.css?v=2">
+    <link rel="stylesheet" href="css/estiloshome.css?v=3">
 
     <link rel="stylesheet" href="css/estilos-usuario.css?v=2">
 
     <link rel="stylesheet" href="css/footer.css">
 
     <link rel="stylesheet" href="css/navbar.css">
-    
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
+    >
 </head>
-
 
 <body>
 
 <?php include("includes/navbar.php"); ?>
 
-<section class="hero">
-    <!-- BUSCADOR -->
 
+<!-- =========================================
+     HERO
+========================================= -->
+
+<section class="hero">
+
+    <!-- =====================================
+         BUSCADOR DE VUELOS
+    ===================================== -->
 
     <div id="buscador" class="contenedor-buscador">
 
-
         <div class="tipo-viaje">
 
-
             <p class="titulo-buscador">
-
                 Encontrá el
                 <strong>vuelo ideal</strong>
                 para tu próximo viaje
-
             </p>
-
 
             <!-- IDA Y VUELTA -->
 
@@ -83,17 +96,13 @@ $consultaAeropuertos = $conexion->query("
                 type="radio"
                 name="tipoViaje"
                 id="ida-vuelta"
-                value= "idaVuelta"
+                value="idaVuelta"
                 checked
-                >
+            >
 
             <label for="ida-vuelta">
-
                 Ida y vuelta
-
             </label>
-
-
 
             <!-- SOLO IDA -->
 
@@ -101,24 +110,19 @@ $consultaAeropuertos = $conexion->query("
                 type="radio"
                 name="tipoViaje"
                 id="solo-ida"
-                value="soloIda">
+                value="soloIda"
+            >
 
             <label for="solo-ida">
-
                 Solo ida
-
             </label>
-
 
         </div>
 
 
-
         <!-- FORMULARIO DE BÚSQUEDA -->
 
-        <form
-            action="resultadosVuelos.php"
-            method="GET">
+        <form action="resultadosVuelos.php" method="GET">
 
             <input
                 type="hidden"
@@ -127,39 +131,45 @@ $consultaAeropuertos = $conexion->query("
                 value="idaVuelta"
             >
 
-
-            <!-- TIPO DE VIAJE -->
             <div id="buscador-ing-datos">
 
                 <div class="row g-0">
 
+                    <!-- ORIGEN -->
+
                     <div class="col-md-3">
 
-                        <input 
+                        <input
                             type="text"
                             class="form-control"
                             name="origen"
                             placeholder="Desde"
                             list="aeropuertos"
                             autocomplete="off"
-                            required>
+                            required
+                        >
 
                     </div>
 
 
+                    <!-- DESTINO -->
+
                     <div class="col-md-3">
 
-                        <input 
+                        <input
                             type="text"
                             class="form-control"
                             name="destino"
                             placeholder="Hacia"
                             list="aeropuertos"
                             autocomplete="off"
-                            required>
+                            required
+                        >
 
                     </div>
 
+
+                    <!-- FECHAS -->
 
                     <div class="col-md-4">
 
@@ -168,24 +178,33 @@ $consultaAeropuertos = $conexion->query("
                             id="fechaViaje"
                             class="form-control"
                             placeholder="Seleccioná fecha"
-                            readonly>
+                            readonly
+                        >
 
                         <input
                             type="hidden"
                             id="fechaIda"
-                            name="fechaIda">
+                            name="fechaIda"
+                        >
 
                         <input
                             type="hidden"
                             id="fechaVuelta"
-                            name="fechaVuelta">
+                            name="fechaVuelta"
+                        >
 
                     </div>
 
 
+                    <!-- BOTÓN BUSCAR -->
+
                     <div class="col-md-2">
 
-                        <button class="buscar">
+                        <button
+                            type="submit"
+                            class="buscar"
+                            aria-label="Buscar vuelos"
+                        >
                             →
                         </button>
 
@@ -193,186 +212,379 @@ $consultaAeropuertos = $conexion->query("
 
                 </div>
 
-
-                    <!-- LISTA DE AEROPUERTOS -->
-
-                    <datalist id="aeropuertos">
-
-                        <?php while (
-                            $aeropuerto =
-                            $consultaAeropuertos->fetch_assoc()
-                        ) { ?>
-
-                            <option value="<?php
-
-                                echo htmlspecialchars(
-                                    $aeropuerto["nombreCiudad"]
-                                );
-
-                                echo " - ";
-
-                                echo htmlspecialchars(
-                                    $aeropuerto["codigoIATA"]
-                                );
-
-                                echo " - ";
-
-                                echo htmlspecialchars(
-                                    $aeropuerto["nombreAeropuerto"]
-                                );
-
-                            ?>">
-
-                            </option>
-
-                        <?php } ?>
-
-                    </datalist>
+            </div>
 
 
+            <!-- LISTA DE AEROPUERTOS -->
 
-                    
+            <datalist id="aeropuertos">
+
+                <?php while ($aeropuerto = $consultaAeropuertos->fetch_assoc()) {
+
+                    $nombreCompleto =
+                        $aeropuerto["nombreCiudad"]
+                        . " - "
+                        . $aeropuerto["codigoIATA"]
+                        . " - "
+                        . $aeropuerto["nombreAeropuerto"];
+                ?>
+
+                    <option
+                        value="<?= htmlspecialchars(
+                            $nombreCompleto,
+                            ENT_QUOTES,
+                            'UTF-8'
+                        ) ?>"
+                    ></option>
+
+                <?php } ?>
+
+            </datalist>
+
+        </form>
+
+    </div>
 
 
-                </div>
+    <!-- =====================================
+         DESTINOS DESTACADOS
+    ===================================== -->
+
+    <section id="destinos" class="destinos-destacados">
+
+        <h4 class="titulo-destino">
+            Viajá por el mundo
+        </h4>
+
+
+        <div class="carrusel-destinos">
+
+            <!-- FLECHA ANTERIOR -->
+
+            <button
+                type="button"
+                class="flecha-destino flecha-anterior"
+                id="destinoAnterior"
+                aria-label="Ver destino anterior"
+            >
+                &#10094;
+            </button>
+
+
+            <!-- TARJETAS -->
+
+            <div
+                class="contenedor-tarjetas"
+                id="carruselTarjetas"
+                aria-label="Destinos destacados"
+            >
+
+                <!-- BRASIL -->
+
+                <button
+                    type="button"
+                    class="tarjeta-destino"
+                    onclick="abrirOferta('Río de Janeiro - GIG - Aeropuerto Internacional de Río de Janeiro-Galeão')"
+                    aria-label="Buscar vuelos a Río de Janeiro, Brasil"
+                >
+
+                    <img
+                        src="imagenes/brasil.jpg"
+                        alt=""
+                    >
+
+                    <h4>
+                        Brasil, Río de Janeiro
+                    </h4>
+
+                </button>
+
+
+                <!-- BUENOS AIRES -->
+
+                <button
+                    type="button"
+                    class="tarjeta-destino"
+                    onclick="abrirOferta('Buenos Aires - EZE - Aeropuerto Internacional Ministro Pistarini')"
+                    aria-label="Buscar vuelos a Buenos Aires, Argentina"
+                >
+
+                    <img
+                        src="imagenes/bsas.jpg"
+                        alt=""
+                    >
+
+                    <h4>
+                        Argentina, Buenos Aires
+                    </h4>
+
+                </button>
+
+
+                <!-- MADRID -->
+
+                <button
+                    type="button"
+                    class="tarjeta-destino"
+                    onclick="abrirOferta('Madrid - MAD - Aeropuerto Adolfo Suárez Madrid-Barajas')"
+                    aria-label="Buscar vuelos a Madrid, España"
+                >
+
+                    <img
+                        src="imagenes/madrid.jpg"
+                        alt=""
+                    >
+
+                    <h4>
+                        España, Madrid
+                    </h4>
+
+                </button>
+
+
+                <!-- ROMA -->
+
+                <button
+                    type="button"
+                    class="tarjeta-destino"
+                    onclick="abrirOferta('Roma - FCO - Aeropuerto Internacional Leonardo da Vinci')"
+                    aria-label="Buscar vuelos a Roma, Italia"
+                >
+
+                    <img
+                        src="imagenes/roma.jpg"
+                        alt=""
+                    >
+
+                    <h4>
+                        Italia, Roma
+                    </h4>
+
+                </button>
 
             </div>
 
 
-        </form>
+            <!-- FLECHA SIGUIENTE -->
 
-
-        <br>
-
-
-    </div>
-
-
-
-    <!-- DESTINOS DESTACADOS -->
-
-
-    <!-- DESTINOS DESTACADOS -->
-
-<section id="destinos" class="destinos-destacados">
-
-    <h4 class="titulo-destino">
-        Viaja por el mundo
-    </h4>
-
-
-    <div class="contenedor-tarjetas">
-
-        <!-- BRASIL -->
-
-        <button
-            type="button"
-            class="tarjeta-destino"
-            onclick="abrirOferta('Río de Janeiro - GIG - Aeropuerto Internacional de Río de Janeiro-Galeão')"
-            aria-label="Buscar vuelos a Río de Janeiro, Brasil"
-        >
-
-            <img
-                src="imagenes/brasil.jpg"
-                alt=""
+            <button
+                type="button"
+                class="flecha-destino flecha-siguiente"
+                id="destinoSiguiente"
+                aria-label="Ver siguiente destino"
             >
+                &#10095;
+            </button>
 
-            <h4>
-                Brasil, Rio De Janeiro
-            </h4>
-
-        </button>
+        </div>
 
 
-        <!-- BUENOS AIRES -->
+        <!-- INDICADORES -->
 
-        <button
-            type="button"
-            class="tarjeta-destino"
-            onclick="abrirOferta('Buenos Aires - EZE - Aeropuerto Internacional Ministro Pistarini')"
-            aria-label="Buscar vuelos a Buenos Aires, Argentina"
-        >
+        <div class="indicadores-destinos" id="indicadoresDestinos">
 
-            <img
-                src="imagenes/bsas.jpg"
-                alt=""
-            >
+            <button
+                type="button"
+                class="indicador-destino activo"
+                data-destino="0"
+                aria-label="Ver Brasil"
+            ></button>
 
-            <h4>
-                Argentina, Buenos Aires
-            </h4>
+            <button
+                type="button"
+                class="indicador-destino"
+                data-destino="1"
+                aria-label="Ver Buenos Aires"
+            ></button>
 
-        </button>
+            <button
+                type="button"
+                class="indicador-destino"
+                data-destino="2"
+                aria-label="Ver Madrid"
+            ></button>
 
+            <button
+                type="button"
+                class="indicador-destino"
+                data-destino="3"
+                aria-label="Ver Roma"
+            ></button>
 
-        <!-- MADRID -->
+        </div>
 
-        <button
-            type="button"
-            class="tarjeta-destino"
-            onclick="abrirOferta('Madrid - MAD - Aeropuerto Adolfo Suárez Madrid-Barajas')"
-            aria-label="Buscar vuelos a Madrid, España"
-        >
-
-            <img
-                src="imagenes/madrid.jpg"
-                alt=""
-            >
-
-            <h4>
-                España, Madrid
-            </h4>
-
-        </button>
-
-
-        <!-- ROMA -->
-
-        <button
-            type="button"
-            class="tarjeta-destino"
-            onclick="abrirOferta('Roma - FCO - Aeropuerto Internacional Leonardo da Vinci')"
-            aria-label="Buscar vuelos a Roma, Italia"
-        >
-
-            <img
-                src="imagenes/roma.jpg"
-                alt=""
-            >
-
-            <h4>
-                Italia, Roma
-            </h4>
-
-        </button>
-
-    </div>
+    </section>
 
 </section>
 
-</section>
 
+<!-- =========================================
+     FOOTER
+========================================= -->
 
 <?php include("includes/footer.php"); ?>
 
+
+<!-- =========================================
+     MODAL DE DESTINOS
+========================================= -->
+
+<div id="modalOferta" class="modal-oferta">
+
+    <div class="modal-oferta-contenido">
+
+        <!-- CERRAR MODAL -->
+
+        <button
+            type="button"
+            class="cerrar-oferta"
+            onclick="cerrarOferta()"
+            aria-label="Cerrar formulario"
+        >
+            ×
+        </button>
+
+
+        <h2>
+            Encontrá tu vuelo
+        </h2>
+
+        <p class="destino-oferta">
+            Destino:
+            <strong id="nombreDestinoOferta"></strong>
+        </p>
+
+
+        <form action="resultadosVuelos.php" method="GET">
+
+            <!-- SOLO IDA -->
+
+            <input
+                type="hidden"
+                name="tipoViaje"
+                value="soloIda"
+            >
+
+
+            <!-- DESTINO ELEGIDO -->
+
+            <input
+                type="hidden"
+                name="destino"
+                id="destinoOferta"
+            >
+
+
+            <!-- ORIGEN -->
+
+            <div class="campo-oferta">
+
+                <label for="origenOferta">
+                    ¿Desde dónde viajás?
+                </label>
+
+                <select
+                    name="origen"
+                    id="origenOferta"
+                    required
+                >
+
+                    <option value="">
+                        Seleccioná un aeropuerto
+                    </option>
+
+                    <?php while ($origenBD = $consultaOrigenes->fetch_assoc()) {
+
+                        $origenCompleto =
+                            $origenBD["nombreCiudad"]
+                            . " - "
+                            . $origenBD["codigoIATA"]
+                            . " - "
+                            . $origenBD["nombreAeropuerto"];
+
+                    ?>
+
+                        <option
+                            value="<?= htmlspecialchars(
+                                $origenCompleto,
+                                ENT_QUOTES,
+                                'UTF-8'
+                            ) ?>"
+                        >
+                            <?= htmlspecialchars(
+                                $origenCompleto,
+                                ENT_QUOTES,
+                                'UTF-8'
+                            ) ?>
+                        </option>
+
+                    <?php } ?>
+
+                </select>
+
+            </div>
+
+
+            <!-- FECHA -->
+
+            <div class="campo-oferta">
+
+                <label for="fechaOferta">
+                    Fecha de ida
+                </label>
+
+                <input
+                    type="date"
+                    name="fechaIda"
+                    id="fechaOferta"
+                    required
+                >
+
+            </div>
+
+
+            <!-- BUSCAR -->
+
+            <button
+                type="submit"
+                class="boton-buscar-oferta"
+            >
+                Buscar vuelos
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================
+     JAVASCRIPT
+========================================= -->
+
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
-<!-- JAVASCRIPT -->
-
 <script>
+
+// =========================================
+// VARIABLES DEL BUSCADOR
+// =========================================
 
 const radioIdaVuelta = document.getElementById("ida-vuelta");
 const radioSoloIda = document.getElementById("solo-ida");
 
 const fechaIda = document.getElementById("fechaIda");
 const fechaVuelta = document.getElementById("fechaVuelta");
-const tipoViajeForm = document.getElementById("tipoViajeForm");
 
+const tipoViajeForm = document.getElementById("tipoViajeForm");
 
 let primeraFecha = null;
 
 
-/* CALENDARIO */
+// =========================================
+// CALENDARIO
+// =========================================
 
 const calendario = flatpickr("#fechaViaje", {
 
@@ -380,14 +592,21 @@ const calendario = flatpickr("#fechaViaje", {
 
     dateFormat: "d/m/Y",
 
-    rangeSeparator:" - ",
+    rangeSeparator: " - ",
 
     minDate: "today",
 
     locale: {
+
         firstDayOfWeek: 1,
+
         weekdays: {
-            shorthand: ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"],
+
+            shorthand: [
+                "Dom", "Lun", "Mar", "Mié",
+                "Jue", "Vie", "Sáb"
+            ],
+
             longhand: [
                 "Domingo",
                 "Lunes",
@@ -397,22 +616,15 @@ const calendario = flatpickr("#fechaViaje", {
                 "Viernes",
                 "Sábado"
             ]
+
         },
 
         months: {
+
             shorthand: [
-                "Ene",
-                "Feb",
-                "Mar",
-                "Abr",
-                "May",
-                "Jun",
-                "Jul",
-                "Ago",
-                "Sep",
-                "Oct",
-                "Nov",
-                "Dic"
+                "Ene", "Feb", "Mar", "Abr",
+                "May", "Jun", "Jul", "Ago",
+                "Sep", "Oct", "Nov", "Dic"
             ],
 
             longhand: [
@@ -429,23 +641,24 @@ const calendario = flatpickr("#fechaViaje", {
                 "Noviembre",
                 "Diciembre"
             ]
+
         }
+
     },
 
 
     onChange: function(selectedDates, dateStr, instance) {
 
-        /* SOLO IDA */
+        // SOLO IDA
 
         if (radioSoloIda.checked) {
 
             if (selectedDates.length >= 1) {
 
-                fechaIda.value =
-                    instance.formatDate(
-                        selectedDates[0],
-                        "Y-m-d"
-                    );
+                fechaIda.value = instance.formatDate(
+                    selectedDates[0],
+                    "Y-m-d"
+                );
 
                 fechaVuelta.value = "";
 
@@ -457,17 +670,16 @@ const calendario = flatpickr("#fechaViaje", {
         }
 
 
-        /* IDA Y VUELTA */
+        // IDA Y VUELTA
 
         if (selectedDates.length === 1) {
 
             primeraFecha = selectedDates[0];
 
-            fechaIda.value =
-                instance.formatDate(
-                    primeraFecha,
-                    "Y-m-d"
-                );
+            fechaIda.value = instance.formatDate(
+                primeraFecha,
+                "Y-m-d"
+            );
 
             fechaVuelta.value = "";
 
@@ -479,19 +691,15 @@ const calendario = flatpickr("#fechaViaje", {
             const ida = selectedDates[0];
             const vuelta = selectedDates[1];
 
+            fechaIda.value = instance.formatDate(
+                ida,
+                "Y-m-d"
+            );
 
-            fechaIda.value =
-                instance.formatDate(
-                    ida,
-                    "Y-m-d"
-                );
-
-            fechaVuelta.value =
-                instance.formatDate(
-                    vuelta,
-                    "Y-m-d"
-                );
-
+            fechaVuelta.value = instance.formatDate(
+                vuelta,
+                "Y-m-d"
+            );
 
             instance.close();
 
@@ -502,13 +710,15 @@ const calendario = flatpickr("#fechaViaje", {
 });
 
 
-/* CAMBIAR A SOLO IDA */
+// =========================================
+// CAMBIAR A SOLO IDA
+// =========================================
 
-radioSoloIda.addEventListener("change", function(){
- 
-    
+radioSoloIda.addEventListener("change", function() {
+
     tipoViajeForm.value = "soloIda";
-primeraFecha = null;
+
+    primeraFecha = null;
 
     calendario.clear();
 
@@ -523,14 +733,15 @@ primeraFecha = null;
 });
 
 
-/* CAMBIAR A IDA Y VUELTA */
+// =========================================
+// CAMBIAR A IDA Y VUELTA
+// =========================================
 
-radioIdaVuelta.addEventListener("change", function(){
+radioIdaVuelta.addEventListener("change", function() {
 
-
-    
     tipoViajeForm.value = "idaVuelta";
-primeraFecha = null;
+
+    primeraFecha = null;
 
     calendario.clear();
 
@@ -545,160 +756,291 @@ primeraFecha = null;
 });
 
 
-    function abrirOferta(destino) {
+// =========================================
+// ABRIR MODAL DE DESTINO
+// =========================================
 
-            document.getElementById("destinoOferta").value =
-                destino;
+function abrirOferta(destino) {
 
-            document.getElementById("nombreDestinoOferta").textContent =
-                destino;
+    document.getElementById("destinoOferta").value =
+        destino;
 
-            document.getElementById("modalOferta").style.display =
-                "flex";
-        }
+    document.getElementById("nombreDestinoOferta").textContent =
+        destino;
+
+    document.getElementById("modalOferta").style.display =
+        "flex";
+
+}
 
 
-        function cerrarOferta() {
+// =========================================
+// CERRAR MODAL DE DESTINO
+// =========================================
 
-            document.getElementById("modalOferta").style.display =
-                "none";
-        }
+function cerrarOferta() {
 
+    document.getElementById("modalOferta").style.display =
+        "none";
+
+}
+
+
+// =========================================
+// CARRUSEL DE DESTINOS
+// =========================================
+
+const carrusel = document.getElementById("carruselTarjetas");
+
+const tarjetas = Array.from(
+    carrusel.querySelectorAll(".tarjeta-destino")
+);
+
+const indicadores = Array.from(
+    document.querySelectorAll(".indicador-destino")
+);
+
+const botonAnterior = document.getElementById("destinoAnterior");
+
+const botonSiguiente = document.getElementById("destinoSiguiente");
+
+const pantallaCelular = window.matchMedia("(max-width: 767px)");
+
+const movimientoReducido = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+);
+
+let destinoActual = 0;
+
+let intervaloCarrusel = null;
+
+
+// ACTUALIZAR INDICADORES
+
+function actualizarIndicadores() {
+
+    indicadores.forEach(function(indicador, indice) {
+
+        indicador.classList.toggle(
+            "activo",
+            indice === destinoActual
+        );
+
+    });
+
+}
+
+
+// MOSTRAR UN DESTINO
+
+function mostrarDestino(indice) {
+
+    if (!pantallaCelular.matches) {
+        return;
+    }
+
+    destinoActual = (
+        indice + tarjetas.length
+    ) % tarjetas.length;
+
+    carrusel.scrollTo({
+
+        left: tarjetas[destinoActual].offsetLeft -
+              tarjetas[0].offsetLeft,
+
+        behavior: movimientoReducido.matches
+            ? "instant"
+            : "smooth"
+
+    });
+
+    actualizarIndicadores();
+
+}
+
+
+// SIGUIENTE DESTINO
+
+botonSiguiente.addEventListener("click", function() {
+
+    mostrarDestino(destinoActual + 1);
+
+    reiniciarCarrusel();
+
+});
+
+
+// DESTINO ANTERIOR
+
+botonAnterior.addEventListener("click", function() {
+
+    mostrarDestino(destinoActual - 1);
+
+    reiniciarCarrusel();
+
+});
+
+
+// INDICADORES
+
+indicadores.forEach(function(indicador, indice) {
+
+    indicador.addEventListener("click", function() {
+
+        mostrarDestino(indice);
+
+        reiniciarCarrusel();
+
+    });
+
+});
+
+
+// DETECTAR DESLIZAMIENTO CON EL DEDO
+
+let temporizadorScroll;
+
+carrusel.addEventListener("scroll", function() {
+
+    if (!pantallaCelular.matches) {
+        return;
+    }
+
+    clearTimeout(temporizadorScroll);
+
+    temporizadorScroll = setTimeout(function() {
+
+        let distanciaMinima = Infinity;
+        let indiceMasCercano = 0;
+
+        tarjetas.forEach(function(tarjeta, indice) {
+
+            const posicion =
+                tarjeta.offsetLeft - tarjetas[0].offsetLeft;
+
+            const distancia = Math.abs(
+                carrusel.scrollLeft - posicion
+            );
+
+            if (distancia < distanciaMinima) {
+
+                distanciaMinima = distancia;
+                indiceMasCercano = indice;
+
+            }
+
+        });
+
+        destinoActual = indiceMasCercano;
+
+        actualizarIndicadores();
+
+    }, 100);
+
+}, { passive: true });
+
+
+// CAMBIO AUTOMÁTICO
+
+function iniciarCarrusel() {
+
+    detenerCarrusel();
+
+    if (
+        !pantallaCelular.matches ||
+        movimientoReducido.matches ||
+        document.hidden
+    ) {
+        return;
+    }
+
+    intervaloCarrusel = setInterval(function() {
+
+        mostrarDestino(destinoActual + 1);
+
+    }, 4000);
+
+}
+
+
+// DETENER CAMBIO AUTOMÁTICO
+
+function detenerCarrusel() {
+
+    if (intervaloCarrusel !== null) {
+
+        clearInterval(intervaloCarrusel);
+
+        intervaloCarrusel = null;
+
+    }
+
+}
+
+
+// REINICIAR TEMPORIZADOR
+
+function reiniciarCarrusel() {
+
+    iniciarCarrusel();
+
+}
+
+
+// PAUSAR MIENTRAS EL USUARIO INTERACTÚA
+
+carrusel.addEventListener("touchstart", detenerCarrusel, {
+    passive: true
+});
+
+carrusel.addEventListener("touchend", reiniciarCarrusel, {
+    passive: true
+});
+
+carrusel.addEventListener("focusin", detenerCarrusel);
+
+carrusel.addEventListener("focusout", reiniciarCarrusel);
+
+carrusel.addEventListener("mouseenter", detenerCarrusel);
+
+carrusel.addEventListener("mouseleave", reiniciarCarrusel);
+
+
+// CAMBIOS DE TAMAÑO DE PANTALLA
+
+pantallaCelular.addEventListener("change", function() {
+
+    destinoActual = 0;
+
+    carrusel.scrollLeft = 0;
+
+    actualizarIndicadores();
+
+    iniciarCarrusel();
+
+});
+
+movimientoReducido.addEventListener("change", iniciarCarrusel);
+
+document.addEventListener("visibilitychange", iniciarCarrusel);
+
+
+// INICIAR
+
+actualizarIndicadores();
+
+iniciarCarrusel();
 
 </script>
 
-<script src="/js/bootstrap.bundle.min.js"></script>
 
+<!-- BOOTSTRAP: SE CARGA UNA SOLA VEZ -->
 
-
-
-<!-- FORMULARIO DE LOS DESTINOS OFRECIDOS -->
-    <div id="modalOferta" class="modal-oferta">
-
-        <div class="modal-oferta-contenido">
-
-            <button
-                type="button"
-                class="cerrar-oferta"
-                onclick="cerrarOferta()"
-            >
-                ×
-            </button>
-
-            <h2>Encontrá tu vuelo</h2>
-
-            <p class="destino-oferta">
-                Destino:
-                <strong id="nombreDestinoOferta"></strong>
-            </p>
-
-            <form action="resultadosVuelos.php" method="GET">
-
-                <!-- Siempre va a ser solo ida -->
-                <input
-                    type="hidden"
-                    name="tipoViaje"
-                    value="soloIda"
-                >
-
-                <!-- Destino elegido desde la burbuja -->
-                <input
-                    type="hidden"
-                    name="destino"
-                    id="destinoOferta"
-                >
-
-                <div class="campo-oferta">
-
-                    <label for="origenOferta">
-                        ¿Desde dónde viajás?
-                    </label>
-
-                    <select
-                        name="origen"
-                        id="origenOferta"
-                        required
-                    >
-                        <option value="">
-                            Seleccioná un aeropuerto
-                        </option>
-
-                        <?php
-
-                        $consultaOrigenes = $conexion->query("
-                            SELECT
-                                a.codigoIATA,
-                                a.nombreAeropuerto,
-                                c.nombreCiudad,
-                                p.nombrePais
-                            FROM aeropuertos a
-                            INNER JOIN ciudades c
-                                ON a.codCiudad = c.codCiudad
-                            INNER JOIN paises p
-                                ON c.codPais = p.codPais
-                            ORDER BY c.nombreCiudad ASC, a.codigoIATA ASC
-                        ");
-
-                        while ($origenBD = $consultaOrigenes->fetch_assoc()) {
-
-                            $origenCompleto =
-                                $origenBD["nombreCiudad"]
-                                . " - "
-                                . $origenBD["codigoIATA"]
-                                . " - "
-                                . $origenBD["nombreAeropuerto"];
-
-                            $origenSeguro = htmlspecialchars(
-                                $origenCompleto,
-                                ENT_QUOTES,
-                                "UTF-8"
-                            );
-
-                            echo "
-                                <option value=\"$origenSeguro\">
-                                    $origenSeguro
-                                </option>
-                            ";
-                        }
-
-                        ?>
-
-                    </select>
-
-                </div>
-
-
-                <div class="campo-oferta">
-
-                    <label for="fechaOferta">
-                        Fecha de ida
-                    </label>
-
-                    <input
-                        type="date"
-                        name="fechaIda"
-                        id="fechaOferta"
-                        required
-                    >
-
-                </div>
-
-
-                <button
-                    type="submit"
-                    class="boton-buscar-oferta"
-                >
-                    Buscar vuelos
-                </button>
-
-            </form>
-
-        </div>
-
-    </div>
-
-<script src="/js/bootstrap.bundle.min.js"></script>
+<script src="<?= htmlspecialchars(
+    urlApp('js/bootstrap.bundle.min.js'),
+    ENT_QUOTES,
+    'UTF-8'
+) ?>"></script>
 
 </body>
-
 </html>

@@ -1,6 +1,6 @@
-/* =========================
+/* =========================================
    CONFIGURACIÓN GENERAL
-========================= */
+========================================= */
 
 * {
     margin: 0;
@@ -9,40 +9,51 @@
 }
 
 body {
+    display: flex;
+    flex-direction: column;
     align-items: stretch;
+
+    min-height: 100vh;
+    min-height: 100dvh;
+    margin: 0;
+
     background-image:
-    linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)),
-    url("../imagenes/fondoIngresoSesion.jpg");
+        linear-gradient(
+            rgba(255, 255, 255, 0.4),
+            rgba(255, 255, 255, 0.4)
+        ),
+        url("../imagenes/fondoIngresoSesion.jpg");
+
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    min-height: 100vh;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
+
     font-family: 'Montserrat', sans-serif;
 }
 
 
-/* =========================
+/* =========================================
    MAIN
-========================= */
+========================================= */
 
-main {
-    width: 100%;
-    align-self: stretch;
-    min-width: 0;
-    flex: 1;
+body > main {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    flex: 1 0 auto;
+
+    width: 100%;
+    min-width: 0;
+
+    padding: 40px 20px;
 }
 
 
-/* =========================
+/* =========================================
    BOTÓN INGRESAR
-========================= */
+========================================= */
 
 .btn-menu {
     background: #684028;
@@ -63,9 +74,9 @@ main {
 }
 
 
-/* =========================
+/* =========================================
    BOTÓN PRINCIPAL
-========================= */
+========================================= */
 
 .btn-primary {
     background: #684028;
@@ -86,9 +97,9 @@ main {
 }
 
 
-/* =========================
+/* =========================================
    BOTÓN OUTLINE
-========================= */
+========================================= */
 
 .btn-outline-primary {
     --bs-btn-color: #684028;
@@ -103,14 +114,13 @@ main {
     --bs-btn-active-border-color: #4f2f1d;
 
     border-radius: 25px;
-
     padding: 12px 30px;
 }
 
 
-/* =========================
+/* =========================================
    FORMULARIO
-========================= */
+========================================= */
 
 .rectangulo-formulario {
     width: 100%;
@@ -139,18 +149,18 @@ main {
 }
 
 
-/* =========================
+/* =========================================
    INPUTS
-========================= */
+========================================= */
 
 .form-control {
     border-radius: 12px;
 }
 
 
-/* =========================
+/* =========================================
    CONTRASEÑA
-========================= */
+========================================= */
 
 .grupo-contrasena {
     display: flex;
@@ -166,6 +176,10 @@ main {
 }
 
 .boton-ojo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     width: 70px;
     min-width: 70px;
 
@@ -178,32 +192,32 @@ main {
 
     border-top-right-radius: 12px;
     border-bottom-right-radius: 12px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .boton-ojo:hover {
-    background-color: rgb(204, 200, 200);
+    background-color: #e5e2e2;
 }
 
 
-/* =========================
+/* =========================================
    BOTÓN ATRÁS / INICIO
-========================= */
+========================================= */
 
 .boton-atras {
     position: static;
     display: inline-block;
+
     width: fit-content;
     margin-top: 25px;
 
     background-color: #684028;
     color: white;
+
     text-decoration: none;
     border-radius: 25px;
+
     padding: 10px 28px;
+
     font-weight: bold;
 }
 
@@ -213,9 +227,9 @@ main {
 }
 
 
-/* =========================
+/* =========================================
    ADVERTENCIAS
-========================= */
+========================================= */
 
 .alerta-en-rojo {
     color: red;
@@ -223,39 +237,38 @@ main {
 }
 
 
-/* =========================
+/* =========================================
    MENSAJE CONTRASEÑA CREADA
-========================= */
+========================================= */
 
 .formulario-exito {
     min-height: 360px;
 
     display: flex;
     flex-direction: column;
-
     justify-content: center;
 }
 
-/* =========================
+
+/* =========================================
    VERIFICACIÓN DE CUENTA
-========================= */
+========================================= */
 
 .verificacion-contenido {
     text-align: center;
 }
 
 .icono-verificacion {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     width: 85px;
     height: 85px;
 
     margin: 0 auto 22px;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
     background-color: #f3ebe6;
-
     border-radius: 50%;
 
     color: #684028;
@@ -281,10 +294,8 @@ main {
 }
 
 .verificacion-aclaracion {
-    color: #777;
-
+    color: #555;
     font-size: 14px;
-
     margin-bottom: 25px;
 }
 
@@ -292,16 +303,16 @@ main {
     min-width: 170px;
 }
 
+
 /* =========================================
-   DISEÑO RESPONSIVE - INICIO DE SESIÓN
+   RESPONSIVE - TABLETS
+   768px a 991px
 ========================================= */
 
-/* TABLETS */
+@media (min-width: 768px) and (max-width: 991px) {
 
-@media (max-width: 991px) {
-
-    main {
-        padding: 40px 25px 110px;
+    body > main {
+        padding: 35px 25px;
     }
 
     .rectangulo-formulario {
@@ -312,37 +323,69 @@ main {
 }
 
 
-/* CELULARES */
+/* =========================================
+   RESPONSIVE - CELULARES
+   Hasta 767px
+========================================= */
+
 
 @media (max-width: 767px) {
 
+    /* FONDO Y ESTRUCTURA */
+
     body {
+        height: 100dvh;
+        min-height: 0;
+
+        background-image:
+            linear-gradient(
+                rgba(255, 255, 255, 0.4),
+                rgba(255, 255, 255, 0.4)
+            ),
+            url("../imagenes/avion2.jpg");
+
         background-size: cover;
-        background-position: center center;
+        background-position: center;
         background-repeat: no-repeat;
     }
 
-    main {
-        width: 100%;
-        min-height: 550px;
-        padding: 35px 18px 100px;
+    /* OCULTAR FOOTER EN CELULARES */
 
-        display: flex;
-        flex-direction: column;
+    body > footer {
+        display: none;
+    }
+
+    /* CONTENEDOR PRINCIPAL */
+
+    body > main {
+        flex: 1;
+
+        width: 100%;
+        min-width: 0;
+        min-height: 0;
+
+        padding: 20px 18px 80px;
+
         justify-content: center;
         align-items: center;
     }
 
+    /* FORMULARIO */
+
     .rectangulo-formulario {
         width: 100%;
         max-width: 450px;
+
         padding: 28px 22px;
+
         border-radius: 15px;
+
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
     }
 
     .rectangulo-formulario h1 {
         font-size: 24px;
-        margin-bottom: 25px !important;
+        margin-bottom: 20px;
     }
 
     .rectangulo-formulario .form-label {
@@ -356,14 +399,14 @@ main {
     }
 
     .rectangulo-formulario form .mb-4 {
-        margin-bottom: 25px !important;
+        margin-bottom: 20px;
     }
 
     /* BOTONES DEL FORMULARIO */
 
     .rectangulo-formulario form .d-flex {
-        align-items: flex-end !important;
-        gap: 10px !important;
+        align-items: flex-end;
+        gap: 10px;
     }
 
     .rectangulo-formulario .btn-primary,
@@ -377,29 +420,43 @@ main {
         font-size: 12px;
     }
 
-    /* MENSAJES DE ALERTA */
+    /* CONTRASEÑA */
+
+    .boton-ojo {
+        width: 60px;
+        min-width: 60px;
+    }
+
+    /* BOTÓN ATRÁS */
+
+    .boton-atras {
+        margin-top: 20px;
+    }
+
+    /* ALERTAS */
 
     .alert {
-        width: calc(100% - 30px);
+        width: 100%;
         max-width: 450px;
+
         text-align: center;
         font-size: 13px;
     }
-
 }
 
 
-/* CELULARES PEQUEÑOS */
+/* =========================================
+   RESPONSIVE - CELULARES PEQUEÑOS
+   Hasta 380px
+========================================= */
 
 @media (max-width: 380px) {
 
-    main {
-        padding: 30px 12px 40px;
+    body > main {
+        padding: 15px 12px;
     }
 
     .rectangulo-formulario {
-        width: 100%;
-        max-width: 450px;
         padding: 24px 16px;
     }
 
@@ -408,12 +465,16 @@ main {
     }
 
     .rectangulo-formulario form .d-flex {
-        gap: 7px !important;
+        gap: 7px;
     }
 
     .rectangulo-formulario .btn-primary,
     .rectangulo-formulario .btn-outline-primary {
         padding: 9px 13px;
         font-size: 13px;
+    }
+
+    .boton-atras {
+        margin-top: 15px;
     }
 }

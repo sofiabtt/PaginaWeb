@@ -51,7 +51,7 @@ $precioFinal =
     <title>Nuvia - Detalle del vuelo</title>
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/bootstrap-icons.css">
-    <link rel="stylesheet" href="../../css/estilos-admin.css">
+    <link rel="stylesheet" href="../../css/estilosAdmin.css">
     <link rel="stylesheet" href="../../css/navbar.css">
     <link rel="stylesheet" href="../../css/footer.css">
 </head>

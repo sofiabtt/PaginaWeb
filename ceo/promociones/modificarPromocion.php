@@ -124,7 +124,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <link
         rel="stylesheet"
-        href="../../css/estilos-admin.css"
+        href="../../css/estilosAdmin.css"
     >
 
     <link rel="stylesheet" href="../../css/footer.css">

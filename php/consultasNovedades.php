@@ -160,3 +160,34 @@ function obtenerNovedadesVigentes($conexion)
 
     return $conexion->query($consulta);
 }
+
+// CONTAR NOVEDADES ACTIVAS
+
+function contarNovedadesActivas($conexion)
+{
+    $consulta = "SELECT COUNT(*) AS total
+                 FROM novedades
+                 WHERE activoNovedad = 1";
+
+    $resultado = $conexion->query($consulta);
+
+    return (int) $resultado->fetch_assoc()["total"];
+}
+
+
+// OBTENER NOVEDADES ACTIVAS PAGINADAS
+
+function obtenerNovedadesActivasPaginadas($conexion, $limite, $offset)
+{
+    $consulta = "SELECT *
+                 FROM novedades
+                 WHERE activoNovedad = 1
+                 ORDER BY codNovedad
+                 LIMIT ? OFFSET ?";
+
+    $stmt = $conexion->prepare($consulta);
+    $stmt->bind_param("ii", $limite, $offset);
+    $stmt->execute();
+
+    return $stmt->get_result();
+}

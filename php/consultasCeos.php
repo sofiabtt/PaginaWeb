@@ -256,3 +256,57 @@ function obtenerCodCeo()
 
     return $_SESSION["codUsuario"];
 }
+
+// CONTAR CEOs ACTIVOS EN EL SISTEMA
+
+function contarCeosActivos($conexion)
+{
+    $consulta = $conexion->prepare("
+        SELECT COUNT(*) AS total
+        FROM usuarios
+        WHERE tipoUsuario = 'ceo'
+          AND activoUsuario = 1
+    ");
+
+    $consulta->execute();
+
+    $resultado = $consulta->get_result();
+
+    return (int) $resultado->fetch_assoc()["total"];
+}
+
+
+// OBTENER CEOs PAGINADOS
+
+function obtenerCeosPaginados($conexion, $limite, $offset)
+{
+    $consulta = $conexion->prepare("
+        SELECT
+            usuarios.*,
+            aerolineas.nombreAerolinea
+
+        FROM usuarios
+
+        LEFT JOIN aerolineas
+            ON usuarios.codUsuario = aerolineas.codUsuario
+
+        WHERE usuarios.tipoUsuario = 'ceo'
+          AND usuarios.activoUsuario = 1
+
+        ORDER BY
+            usuarios.nombreUsuario ASC,
+            usuarios.codUsuario ASC
+
+        LIMIT ? OFFSET ?
+    ");
+
+    $consulta->bind_param(
+        "ii",
+        $limite,
+        $offset
+    );
+
+    $consulta->execute();
+
+    return $consulta->get_result();
+}

@@ -99,7 +99,7 @@ if (!$aerolinea) {
 
     <link
         rel="stylesheet"
-        href="../../css/estilos-admin.css"
+        href="../../css/estilosAdmin.css"
     >
 
     <link rel="stylesheet" href="../../css/navbar.css">
@@ -121,7 +121,7 @@ if (!$aerolinea) {
 
     <!-- NAVBAR -->
 
-    <?php include "/admin/includes/navbarAdmin.php"; ?>
+    <?php include __DIR__ . '/../includes/navbarAdmin.php'; ?>
 
 
     <main class="contenido-admin">
@@ -286,7 +286,7 @@ if (!$aerolinea) {
 
 
                             <a
-                                href="/admin/aerolineas/gestionAerolineas.php"
+                                href="<?= htmlspecialchars(urlApp('admin/aerolineas/gestionAerolineas.php'), ENT_QUOTES, 'UTF-8') ?>"
                                 class="btn btn-secondary"
                             >
                                 Cancelar
@@ -320,9 +320,9 @@ if (!$aerolinea) {
 
     </main>
 
-    <?php include "/includes/footer.php"; ?>
+    <?php include __DIR__ . '/../../includes/footer.php'; ?>
 
-    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="<?= htmlspecialchars(urlApp('js/bootstrap.bundle.min.js'), ENT_QUOTES, 'UTF-8') ?>"></script>
 
 </body>
 

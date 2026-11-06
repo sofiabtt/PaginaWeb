@@ -90,7 +90,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <link
         rel="stylesheet"
-        href="../../css/estilos-admin.css"
+        href="../../css/estilosAdmin.css"
     >
 
     <link rel="stylesheet" href="../../css/navbar.css">
@@ -111,7 +111,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <!-- NAVBAR -->
 
-    <?php include "/admin/includes/navbarAdmin.php"; ?>
+    <?php include __DIR__ . '/../includes/navbarAdmin.php'; ?>
 
 
     <main class="contenido-admin">
@@ -248,9 +248,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     </main>
 
-    <?php include "/includes/footer.php"; ?>
+    <?php include __DIR__ . '/../../includes/footer.php'; ?>
 
-    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="<?= htmlspecialchars(urlApp('js/bootstrap.bundle.min.js'), ENT_QUOTES, 'UTF-8') ?>"></script>
 
 </body>
 

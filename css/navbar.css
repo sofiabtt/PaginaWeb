@@ -1,8 +1,19 @@
+/* =========================================
+   FUENTE
+========================================= */
+
 @font-face {
     font-family: 'Montserrat';
-    src: url('/css/fonts/Montserrat/Montserrat-Medium.ttf') format('truetype');
+    src: url('fonts/Montserrat/Montserrat-Medium.ttf') format('truetype');
     font-weight: 400;
+    font-style: normal;
+    font-display: swap;
 }
+
+
+/* =========================================
+   GENERAL
+========================================= */
 
 html {
     scroll-behavior: smooth;
@@ -10,19 +21,30 @@ html {
 }
 
 i {
-    font-size: 15px!important;
+    font-size: 15px !important;
 }
+
+
+/* =========================================
+   NAVBAR - ESCRITORIO
+========================================= */
 
 .navbar {
     position: relative;
     width: 100%;
+    max-width: 100%;
+
     min-height: 80px;
     padding: 5px 12px;
+
     background: #fff;
+
     box-shadow: 0 3px 15px rgba(0, 0, 0, 0.12);
+
     flex: 0 0 auto;
     align-self: stretch;
-    z-index: 2;
+
+    z-index: 1000;
 }
 
 .navbar > .container-fluid {
@@ -30,9 +52,13 @@ i {
     max-width: 100%;
 }
 
+
+/* LOGO */
+
 .navbar-brand {
     display: flex;
     align-items: center;
+
     margin: 0;
     padding-right: 56px;
 }
@@ -46,17 +72,26 @@ i {
 .navbar-brand h1 {
     line-height: 1;
     margin: 0 0 0 12px;
+
     font-family: 'Montserrat', sans-serif;
     font-weight: 400;
     font-size: 26px;
+
     letter-spacing: 0.1px;
 }
+
+
+/* =========================================
+   ENLACES DE NAVEGACIÓN
+========================================= */
 
 .navbar-nav-general {
     margin-left: auto;
     padding-right: 14px;
+
     display: flex;
     align-items: center;
+
     gap: 26px;
 }
 
@@ -64,6 +99,7 @@ i {
     color: #222;
     font-weight: 600;
     text-decoration: none;
+
     margin: 0;
     letter-spacing: 0.7px;
 }
@@ -72,33 +108,46 @@ i {
     color: #684028;
 }
 
+
+/* =========================================
+   BOTONES DE ACCESO
+========================================= */
+
 .btn-iniciosesion {
-    background-color: transparent ;
-    color: #835a40 ;
-    border: 2px solid #835a40 ;
-    border-radius: 20px ;
+    background-color: transparent;
+    color: #835a40;
+
+    border: 2px solid #835a40;
+    border-radius: 20px;
+
     font-weight: bold;
+
     padding: 7px 15px;
+
     text-decoration: none;
 }
 
 .btn-iniciosesion:hover {
-    background-color: #835a40 ;
-    color: white ;
+    background-color: #835a40;
+    color: white;
 }
 
-.btn-registro{
-    background:#835a40;
-    color:white;
-    border:none;
-    border-radius:20px;
-    padding:10px 20px;
-    font-weight:bold;
+.btn-registro {
+    background: #835a40;
+    color: white;
+
+    border: none;
+    border-radius: 20px;
+
+    padding: 10px 20px;
+
+    font-weight: bold;
     text-decoration: none;
 }
 
-.btn-registro:hover{
+.btn-registro:hover {
     background-color: #b1917d;
+    color: white;
 }
 
 .opciones-acceso {
@@ -106,6 +155,11 @@ i {
     align-items: center;
     gap: 28px;
 }
+
+
+/* =========================================
+   USUARIO
+========================================= */
 
 .usuario-mobile {
     display: none;
@@ -115,6 +169,7 @@ i {
     color: #684028;
     font-size: 16px;
     font-weight: bold;
+
     display: flex;
     align-items: center;
     gap: 8px;
@@ -127,13 +182,18 @@ i {
 .info-usuario {
     background: transparent;
     border: none;
+
     display: flex;
     align-items: center;
     gap: 8px;
+
     color: #684028;
+
     font-size: 16px;
     font-weight: bold;
+
     padding: 10px;
+
     cursor: pointer;
     white-space: nowrap;
 }
@@ -146,22 +206,34 @@ i {
     font-size: 22px;
 }
 
+
+/* =========================================
+   MENÚ DESPLEGABLE DEL USUARIO
+========================================= */
+
 .menu-usuarios {
     min-width: 190px;
+
     border: none;
     border-radius: 15px;
+
     padding: 8px;
+
     background: white;
+
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
 .menu-usuarios .dropdown-item {
     color: #684028;
+
     padding: 12px 15px;
     border-radius: 10px;
+
     display: flex;
     align-items: center;
     gap: 10px;
+
     font-size: 14px;
     font-weight: 600;
 }
@@ -177,28 +249,109 @@ i {
 }
 
 
+/* =========================================
+   TABLETS Y CELULARES
+   Menos de 1200px
+========================================= */
 
 @media (max-width: 1199.98px) {
+
+    /* NAVBAR */
+
     .navbar {
         height: auto;
-        min-height: 60px;
-        padding: 5px 25px;
+        min-height: 65px;
+
+        padding: 8px 15px;
     }
-    
-    .navbar-collapse {
+
+    .navbar > .container-fluid {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+
         width: 100%;
-        padding: 20px 0 15px;
+        max-width: 100%;
+
+        padding: 0;
     }
+
+    /* LOGO */
+
+    .navbar-brand {
+        display: flex;
+        align-items: center;
+
+        margin: 0;
+        padding: 0;
+
+        max-width: calc(100% - 65px);
+    }
+
+    .navbar-brand img {
+        width: 45px;
+        height: 45px;
+    }
+
+    .navbar-brand h1 {
+        font-size: 22px;
+        margin-left: 8px;
+    }
+
+    /* BOTÓN HAMBURGUESA */
+
+    .navbar-toggler {
+        margin-left: auto;
+
+        padding: 6px 9px;
+
+        border: 1px solid #ddd;
+        border-radius: 8px;
+
+        box-shadow: none;
+    }
+
+    .navbar-toggler:focus {
+        box-shadow: 0 0 0 2px rgba(131, 90, 64, 0.2);
+    }
+
+    .navbar-toggler-icon {
+        width: 22px;
+        height: 22px;
+    }
+
+    /* CONTENIDO DESPLEGABLE */
+
+    .navbar-collapse {
+        flex-basis: 100%;
+        width: 100%;
+
+        padding: 15px 0 10px;
+
+        border-top: 1px solid #eee;
+        margin-top: 10px;
+    }
+
+    /* USUARIO MOBILE */
 
     .usuario-mobile {
         display: block;
-        padding: 0 0 15px;
+
+        width: 100%;
+
+        padding: 0 0 12px;
         margin-bottom: 5px;
+
         border-bottom: 1px solid #eee;
     }
 
     .usuario-mobile a {
-        padding: 10px 0 0;
+        display: block;
+        padding: 8px 5px;
+        font-size: 14px;
+        font-weight: 600;
+        letter-spacing: 0.3px;
     }
 
     .usuario-mobile hr {
@@ -206,57 +359,314 @@ i {
         border-color: #ddd;
     }
 
-    .navbar-nav-general { 
-        flex-direction: column; 
-        align-items: flex-start; 
-        margin: 0; 
-        padding: 10px 0; 
-        gap: 0; 
+    /* ENLACES */
+
+    .navbar-nav-general {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+
+        margin: 0;
+        padding: 8px 0;
+
+        gap: 0;
+
         width: 100%;
     }
 
-    .navbar-nav-general .nav-link { 
-        width: 100%; 
-        padding: 5px 0; 
-    } 
+    .navbar-nav-general .nav-link {
+        display: block;
+
+        width: 100%;
+        padding: 10px 5px;
+
+        font-size: 14px;
+        letter-spacing: 0.3px;
+
+        border-radius: 6px;
+    }
+
+    .navbar-nav-general .nav-link:hover,
+    .usuario-mobile .nav-link:hover {
+        background: #f7f2ee;
+        color: #684028;
+    }
+
+    /* OPCIONES DE CUENTA */
 
     .opciones-cuenta {
         display: none;
     }
 
+    /* ACCESO */
+
     .opciones-acceso {
+        display: flex;
         flex-direction: column;
         align-items: flex-start;
+
         width: 100%;
+
         gap: 0;
         margin: 0;
-        padding: 10px 0;
+
+        padding: 8px 0;
     }
 
     .opciones-acceso .nav-link {
+        display: block;
         width: 100%;
-        padding: 5px 0;
+
+        padding: 10px 5px;
+
+        font-size: 14px;
     }
 
     .opciones-acceso .btn-iniciosesion,
     .opciones-acceso .btn-registro {
+        display: block;
+
+        width: 100%;
+
         background: transparent;
+
         border: none;
-        border-radius: 0;
-        padding: 5px 0;
+        border-radius: 6px;
+
+        padding: 10px 5px;
+
         color: #222;
+
+        font-size: 14px;
         font-weight: 600;
+
+        text-align: left;
     }
 
     .opciones-acceso .btn-iniciosesion:hover,
     .opciones-acceso .btn-registro:hover {
-        background: transparent;
+        background: #f7f2ee;
         color: #684028;
     }
+
 }
 
-@media (min-width: 1200px) { 
-    .usuario-mobile { 
-        display: none; 
+
+/* =========================================
+   CELULARES
+========================================= */
+
+@media (max-width: 767px) {
+
+    .navbar {
+        min-height: 60px;
+        padding: 8px 12px;
     }
-} 
+
+    .navbar-brand img {
+        width: 42px;
+        height: 42px;
+    }
+
+    .navbar-brand h1 {
+        font-size: 20px;
+    }
+
+    .navbar-collapse {
+        padding: 12px 0 8px;
+    }
+
+    .navbar-nav-general {
+        padding: 5px 0;
+    }
+
+    .navbar-nav-general .nav-link {
+        padding: 9px 5px;
+        font-size: 14px;
+    }
+
+    .opciones-acceso {
+        padding: 5px 0;
+    }
+
+    .opciones-acceso .nav-link,
+    .opciones-acceso .btn-iniciosesion,
+    .opciones-acceso .btn-registro {
+        padding: 9px 5px;
+        font-size: 14px;
+    }
+
+    .menu-usuarios {
+        max-width: 100%;
+    }
+
+}
+
+
+/* =========================================
+   CELULARES PEQUEÑOS
+========================================= */
+
+@media (max-width: 380px) {
+
+    .navbar {
+        padding: 7px 10px;
+    }
+
+    .navbar-brand img {
+        width: 38px;
+        height: 38px;
+    }
+
+    .navbar-brand h1 {
+        font-size: 18px;
+    }
+
+    .navbar-toggler {
+        padding: 5px 7px;
+    }
+
+}
+
+
+/* =========================================
+   NAVBAR RESPONSIVE - CORRECCIONES
+========================================= */
+
+@media (max-width: 1199.98px) {
+
+    .navbar {
+        min-height: 60px;
+        padding: 8px 12px;
+    }
+
+    .navbar-collapse {
+        width: 100%;
+        padding: 8px 0;
+        margin-top: 8px;
+    }
+
+    /* Evitar que el menú cerrado ocupe espacio */
+
+    .navbar-collapse:not(.show):not(.collapsing) {
+        display: none;
+    }
+
+    /* Enlaces del menú */
+
+    .navbar-nav-general {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+
+        width: 100%;
+        gap: 0;
+
+        margin: 0;
+        padding: 0;
+    }
+
+    .navbar-nav-general .nav-link {
+        display: block;
+        width: 100%;
+
+        padding: 8px 5px;
+        margin: 0;
+
+        font-size: 14px;
+        line-height: 1.4;
+    }
+
+    /* Inicio de sesión y registro */
+
+    .opciones-acceso {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+
+        width: 100%;
+        gap: 0;
+
+        padding: 0;
+        margin: 0;
+    }
+
+    .opciones-acceso .nav-link,
+    .opciones-acceso .btn-iniciosesion,
+    .opciones-acceso .btn-registro {
+        display: block;
+
+        width: 100%;
+
+        padding: 8px 5px;
+        margin: 0;
+
+        font-size: 14px;
+        line-height: 1.4;
+    }
+
+    /* Si los enlaces están dentro de elementos li */
+
+    .navbar-nav-general li,
+    .opciones-acceso li {
+        margin: 0;
+        padding: 0;
+    }
+
+    /* Botón hamburguesa */
+
+    .navbar-toggler {
+        cursor: pointer;
+        margin-left: auto;
+    }
+
+}
+
+
+/* =========================================
+   PERFIL VISIBLE EN NAVBAR RESPONSIVE
+========================================= */
+
+.acciones-navbar-mobile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    margin-left: auto;
+}
+
+.perfil-navbar-mobile {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    max-width: 130px;
+
+    color: #684028;
+    font-size: 14px;
+    font-weight: 600;
+
+    text-decoration: none;
+}
+
+.perfil-navbar-mobile:hover {
+    color: #72472c;
+}
+
+.perfil-navbar-mobile i {
+    font-size: 22px;
+}
+
+.perfil-navbar-mobile span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+@media (max-width: 1199.98px) {
+
+    .navbar-toggler {
+        margin-left: 0;
+    }
+
+}

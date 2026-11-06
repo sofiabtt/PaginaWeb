@@ -1,20 +1,45 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+
 require_once __DIR__ . '/../../includes/verificarRol.php';
 verificarRol('administrador');
 
 include "../../php/consultasAerolineas.php";
 include "../../php/consultasCeos.php";
 
+
 // CANTIDAD DE AEROLÍNEAS ACTIVAS
 
 $cantidadAerolineas = cantidadAerolineasActivas($conexion);
 
-// OBTENER CEOs
 
-$consulta = obtenerCeos($conexion);
+// PAGINACIÓN DE CEOs
+
+$porPagina = 10;
+
+$cantidadCeos = contarCeosActivos($conexion);
+
+$totalPaginas = max(1, (int) ceil($cantidadCeos / $porPagina));
+
+$pagina = filter_input(INPUT_GET, "pagina", FILTER_VALIDATE_INT);
+
+if ($pagina === false || $pagina === null || $pagina < 1) {
+    $pagina = 1;
+}
+
+if ($pagina > $totalPaginas) {
+    $pagina = $totalPaginas;
+}
+
+$offset = ($pagina - 1) * $porPagina;
+
+
+// OBTENER CEOs DE LA PÁGINA ACTUAL
+
+$consulta = obtenerCeosPaginados(
+    $conexion,
+    $porPagina,
+    $offset
+);
 
 ?>
 
@@ -54,11 +79,27 @@ $consulta = obtenerCeos($conexion);
 
     <link
         rel="stylesheet"
-        href="../../css/estilos-admin.css"
+        href="../../css/estilosAdmin.css"
     >
 
-    <link rel="stylesheet" href="../../css/navbar.css">
-    <link rel="stylesheet" href="../../css/footer.css">
+    <link
+        rel="stylesheet"
+        href="../../css/navbar.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../../css/footer.css"
+    >
+
+
+    <!-- CSS TABLAS RESPONSIVE -->
+
+    <link
+        rel="stylesheet"
+        href="../../css/tablasResponsive.css"
+    >
+
 
     <!-- Favicon -->
 
@@ -73,7 +114,7 @@ $consulta = obtenerCeos($conexion);
 
 <body>
 
-    <?php include "/admin/includes/navbarAdmin.php"; ?>
+    <?php include __DIR__ . '/../includes/navbarAdmin.php'; ?>
 
 
     <main class="contenido-admin">
@@ -125,7 +166,9 @@ $consulta = obtenerCeos($conexion);
         </section>
 
 
-        <section class="tabla-contenedor">
+        <!-- TABLA DE CEOs -->
+
+        <section class="tabla-contenedor tabla-tarjetas">
 
             <table class="table align-middle">
 
@@ -161,134 +204,131 @@ $consulta = obtenerCeos($conexion);
                 <tbody>
 
 
-                <?php
+                    <!-- SIN CEOs -->
 
-                if (!$consulta) {
+                    <?php if ($cantidadCeos === 0) { ?>
 
-                    die(
-                        "Error en la consulta: "
-                        . $conexion->error
-                    );
+                        <tr>
 
-                }
-
-
-                while ($ceo = $consulta->fetch_assoc()) {
-
-                ?>
-
-                    <tr>
-
-
-                        <!-- NOMBRE -->
-
-                        <td>
-
-                            <?php
-
-                            echo htmlspecialchars(
-                                $ceo["nombreUsuario"]
-                            );
-
-                            ?>
-
-                        </td>
-
-
-                        <!-- EMAIL -->
-
-                        <td>
-
-                            <?php
-
-                            echo htmlspecialchars(
-                                $ceo["emailUsuario"]
-                            );
-
-                            ?>
-
-                        </td>
-
-
-                        <!-- AEROLÍNEA -->
-
-                        <td>
-
-                            <?php
-
-                            echo $ceo["nombreAerolinea"]
-
-                                ? htmlspecialchars(
-                                    $ceo["nombreAerolinea"]
-                                )
-
-                                : "Sin aerolínea";
-
-                            ?>
-
-                        </td>
-
-
-                        <!-- ESTADO -->
-
-                        <td>
-
-                            <?php
-
-                            if ($ceo["verificado"] == 0) {
-
-                            ?>
-
-                                <span class="badge bg-warning text-dark">
-
-                                    Pendiente
-
-                                </span>
-
-                            <?php
-
-                            } else {
-
-                            ?>
-
-                                <span class="badge bg-success">
-
-                                    Activo
-
-                                </span>
-
-                            <?php
-
-                            }
-
-                            ?>
-
-                        </td>
-
-
-                        <!-- ACCIONES -->
-
-                        <td>
-
-                            <a
-                                href="eliminarCeo.php?id=<?php echo $ceo["codUsuario"]; ?>"
-                                class="btn btn-sm btn-danger"
+                            <td
+                                colspan="5"
+                                class="text-center text-muted py-4"
                             >
 
-                                <i class="bi bi-trash"></i>
+                                No hay CEOs registrados.
 
-                            </a>
+                            </td>
 
-                        </td>
+                        </tr>
+
+                    <?php } ?>
 
 
-                    </tr>
+                    <!-- CEOs -->
 
-                <?php
+                    <?php while ($ceo = $consulta->fetch_assoc()) { ?>
 
-                }
+                        <tr>
 
-                ?>
+
+                            <!-- NOMBRE -->
+
+                            <td data-label="Nombre">
+
+                                <?php
+
+                                echo htmlspecialchars(
+                                    $ceo["nombreUsuario"]
+                                );
+
+                                ?>
+
+                            </td>
+
+
+                            <!-- EMAIL -->
+
+                            <td data-label="Email">
+
+                                <?php
+
+                                echo htmlspecialchars(
+                                    $ceo["emailUsuario"]
+                                );
+
+                                ?>
+
+                            </td>
+
+
+                            <!-- AEROLÍNEA -->
+
+                            <td data-label="Aerolínea">
+
+                                <?php
+
+                                echo $ceo["nombreAerolinea"]
+
+                                    ? htmlspecialchars(
+                                        $ceo["nombreAerolinea"]
+                                    )
+
+                                    : "Sin aerolínea";
+
+                                ?>
+
+                            </td>
+
+
+                            <!-- ESTADO -->
+
+                            <td data-label="Estado">
+
+                                <?php if ($ceo["verificado"] == 0) { ?>
+
+                                    <span class="badge bg-warning text-dark">
+
+                                        Pendiente
+
+                                    </span>
+
+                                <?php } else { ?>
+
+                                    <span class="badge bg-success">
+
+                                        Activo
+
+                                    </span>
+
+                                <?php } ?>
+
+                            </td>
+
+
+                            <!-- ACCIONES -->
+
+                            <td data-label="Acciones">
+
+                                <div class="acciones-tabla">
+
+                                    <a
+                                        href="eliminarCeo.php?id=<?php echo (int) $ceo["codUsuario"]; ?>"
+                                        class="btn btn-sm btn-danger"
+                                        aria-label="Eliminar CEO <?php echo htmlspecialchars($ceo["nombreUsuario"], ENT_QUOTES, 'UTF-8'); ?>"
+                                    >
+
+                                        <i class="bi bi-trash"></i>
+
+                                    </a>
+
+                                </div>
+
+                            </td>
+
+
+                        </tr>
+
+                    <?php } ?>
 
 
                 </tbody>
@@ -298,11 +338,80 @@ $consulta = obtenerCeos($conexion);
         </section>
 
 
+        <!-- PAGINACIÓN -->
+
+        <?php if ($totalPaginas > 1) { ?>
+
+            <nav
+                class="paginacion-tablas"
+                aria-label="Paginación de CEOs"
+            >
+
+                <p>
+
+                    Página <?php echo $pagina; ?>
+                    de <?php echo $totalPaginas; ?>
+
+                </p>
+
+
+                <div class="d-flex justify-content-center gap-2 flex-wrap">
+
+
+                    <!-- ANTERIOR -->
+
+                    <?php if ($pagina > 1) { ?>
+
+                        <a
+                            href="?pagina=<?php echo $pagina - 1; ?>"
+                            class="btn btn-outline-secondary"
+                        >
+
+                            <i class="bi bi-chevron-left"></i>
+
+                            Anterior
+
+                        </a>
+
+                    <?php } ?>
+
+
+                    <!-- SIGUIENTE -->
+
+                    <?php if ($pagina < $totalPaginas) { ?>
+
+                        <a
+                            href="?pagina=<?php echo $pagina + 1; ?>"
+                            class="btn btn-outline-secondary"
+                        >
+
+                            Siguiente
+
+                            <i class="bi bi-chevron-right"></i>
+
+                        </a>
+
+                    <?php } ?>
+
+
+                </div>
+
+            </nav>
+
+        <?php } ?>
+
+
     </main>
 
-    <?php include "/includes/footer.php"; ?>
 
-    <script src="/js/bootstrap.bundle.min.js"></script>
+    <!-- FOOTER -->
+
+    <?php include __DIR__ . '/../../includes/footer.php'; ?>
+
+
+    <!-- BOOTSTRAP JS -->
+
+    <script src="<?= htmlspecialchars(urlApp('js/bootstrap.bundle.min.js'), ENT_QUOTES, 'UTF-8') ?>"></script>
 
 </body>
 

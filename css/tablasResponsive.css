@@ -1,0 +1,183 @@
+/* =====================================
+   PAGINACIÓN DE TABLAS
+===================================== */
+
+.paginacion-tablas {
+    margin-top: 25px;
+    text-align: center;
+}
+
+.paginacion-tablas p {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 12px;
+}
+
+.paginacion-tablas .btn {
+    border-radius: 8px;
+    padding: 8px 15px;
+}
+
+
+/* =====================================
+   TABLAS RESPONSIVE - CELULARES
+===================================== */
+
+@media (max-width: 767px) {
+
+    /* Contenedor */
+
+    .tabla-contenedor.tabla-tarjetas {
+        background: transparent;
+        box-shadow: none;
+        padding: 0;
+        overflow-x: visible;
+    }
+
+
+    /* Tabla */
+
+    .tabla-tarjetas table {
+        display: block;
+        width: 100%;
+        min-width: 0;
+        border: none;
+    }
+
+    .tabla-tarjetas tbody {
+        display: block;
+        width: 100%;
+    }
+
+
+    /* Ocultar encabezados visualmente,
+       manteniéndolos para lectores de pantalla */
+
+    .tabla-tarjetas thead {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+    }
+
+
+    /* Cada fila se convierte en tarjeta */
+
+    .tabla-tarjetas tbody tr {
+        display: block;
+        width: 100%;
+
+        background: white;
+
+        border: 1px solid #e5e5e5;
+        border-radius: 14px;
+
+        padding: 16px;
+
+        margin-bottom: 15px;
+
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    }
+
+
+    /* Cada celda */
+
+    .tabla-tarjetas tbody td {
+        display: block;
+        width: 100%;
+
+        padding: 9px 0;
+
+        border: none;
+
+        font-size: 14px;
+
+        overflow-wrap: anywhere;
+    }
+
+
+    /* Nombre del campo */
+
+    .tabla-tarjetas tbody td::before {
+        content: attr(data-label);
+
+        display: block;
+
+        font-weight: 600;
+        font-size: 12px;
+
+        color: #684028;
+
+        margin-bottom: 4px;
+    }
+
+
+    /* Separación entre datos */
+
+    .tabla-tarjetas tbody td:not(:last-child) {
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+
+    /* Botones */
+
+    .tabla-tarjetas .acciones-tabla {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        align-items: center;
+    }
+
+    .tabla-tarjetas .acciones-tabla::before {
+        flex-basis: 100%;
+    }
+
+    .tabla-tarjetas .acciones-tabla .btn {
+        flex: 1 1 auto;
+        text-align: center;
+        white-space: normal;
+    }
+
+
+    /* Paginación */
+
+    .paginacion-tablas {
+        margin-top: 20px;
+    }
+
+    .paginacion-tablas .btn {
+        font-size: 13px;
+        padding: 8px 12px;
+    }
+
+}
+
+@media (max-width: 767px) {
+
+    .encabezado-contenido {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 20px;
+    }
+
+    .encabezado-contenido > div {
+        width: 100%;
+    }
+
+    .encabezado-contenido > div:last-child {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .encabezado-contenido > div:last-child a {
+        width: 100%;
+        text-align: center;
+    }
+}

@@ -2,11 +2,15 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 
-if (strpos(__DIR__, 'xampp') !== false) {
-    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..');
+$rutaLocal = __DIR__ . '/..';
+$rutaServidor = __DIR__ . '/../..';
+
+if (is_file($rutaLocal . '/.env')) {
+    $dotenv = Dotenv\Dotenv::createImmutable($rutaLocal);
 } else {
-    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../..');
+    $dotenv = Dotenv\Dotenv::createImmutable($rutaServidor);
 }
+
 $dotenv->load();
 
 if (!function_exists('urlApp')) {

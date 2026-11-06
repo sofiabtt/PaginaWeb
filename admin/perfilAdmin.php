@@ -97,7 +97,7 @@ $admin = obtenerUsuario($conexion, $codAdmin);
 
     <link
         rel="stylesheet"
-        href="../css/estilos-admin.css"
+        href="../css/estilosAdmin.css"
     >
 
     <link rel="stylesheet" href="../css/navbar.css">
@@ -391,7 +391,7 @@ $admin = obtenerUsuario($conexion, $codAdmin);
 
     <?php include"/includes/footer.php"; ?>
 
-    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="<?= htmlspecialchars(urlApp('js/bootstrap.bundle.min.js'), ENT_QUOTES, 'UTF-8') ?>"></script>
 
 </body>
 

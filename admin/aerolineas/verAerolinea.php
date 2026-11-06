@@ -47,7 +47,7 @@ $aerolinea = obtenerAerolinea($conexion, $id);
 
     <link
         rel="stylesheet"
-        href="../../css/estilos-admin.css"
+        href="../../css/estilosAdmin.css"
     >
 
     <link rel="stylesheet" href="../../css/navbar.css">
@@ -65,7 +65,7 @@ $aerolinea = obtenerAerolinea($conexion, $id);
 
 <body>
 
-    <?php include "/admin/includes/navbarAdmin.php"; ?>
+    <?php include __DIR__ . '/../includes/navbarAdmin.php'; ?>
 
 
     <main class="contenido-admin">
@@ -251,9 +251,9 @@ $aerolinea = obtenerAerolinea($conexion, $id);
 
     </main>
 
-    <?php include "/includes/footer.php"; ?>
+    <?php include __DIR__ . '/../../includes/footer.php'; ?>
 
-    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="<?= htmlspecialchars(urlApp('js/bootstrap.bundle.min.js'), ENT_QUOTES, 'UTF-8') ?>"></script>
 
 </body>
 

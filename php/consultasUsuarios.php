@@ -24,6 +24,23 @@ function cantidadUsuarios($conexion)
     return 0;
 }
 
+// CONTAR USUARIOS REGISTRADOS
+
+function contarUsuariosRegistrados($conexion)
+{
+    $consulta = $conexion->prepare("
+        SELECT COUNT(*) AS total
+        FROM usuarios
+        WHERE tipoUsuario = 'usuario'
+    ");
+
+    $consulta->execute();
+
+    $resultado = $consulta->get_result();
+
+    return (int) $resultado->fetch_assoc()["total"];
+}
+
 /**
  * Cantidad de usuarios filtrados para la paginación de reportes
  */

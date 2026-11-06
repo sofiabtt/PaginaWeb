@@ -209,3 +209,39 @@ function obtenerAerolineaPorCeo($conexion, $codUsuario)
 
     return $resultado->fetch_assoc();
 }
+
+// OBTENER AEROLÍNEAS ACTIVAS PAGINADAS
+
+function obtenerAerolineasActivasPaginadas($conexion, $limite, $offset)
+{
+    $consulta = "SELECT aerolineas.*,
+                        paises.nombrePais
+                 FROM aerolineas
+                 INNER JOIN paises
+                    ON aerolineas.codPais = paises.codPais
+                 WHERE aerolineas.activoAerolinea = 1
+                 ORDER BY aerolineas.codAerolinea
+                 LIMIT ? OFFSET ?";
+
+    $stmt = $conexion->prepare($consulta);
+
+    $stmt->bind_param("ii", $limite, $offset);
+
+    $stmt->execute();
+
+    return $stmt->get_result();
+}
+
+
+// CONTAR AEROLÍNEAS ACTIVAS
+
+function contarAerolineasActivas($conexion)
+{
+    $consulta = "SELECT COUNT(*) AS total
+                 FROM aerolineas
+                 WHERE activoAerolinea = 1";
+
+    $resultado = $conexion->query($consulta);
+
+    return (int) $resultado->fetch_assoc()["total"];
+}

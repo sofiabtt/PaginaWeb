@@ -1,6 +1,6 @@
-/* =========================
-   CONFIGURACIÓN GENERAL
-========================= */
+/* ==========================================
+   1. CONFIGURACIÓN GENERAL
+========================================== */
 
 * {
     margin: 0;
@@ -14,9 +14,10 @@ body {
     min-height: 100vh;
 }
 
-/* =========================
-   CONTENIDO PRINCIPAL
-========================= */
+
+/* ==========================================
+   2. CONTENIDO PRINCIPAL
+========================================== */
 
 .contenido-admin {
     padding: 60px 60px 120px;
@@ -25,9 +26,17 @@ body {
     margin: auto;
 }
 
-/* =========================
-   TABLA
-========================= */
+.encabezado-contenido {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+
+/* ==========================================
+   3. TABLAS GENERALES
+========================================== */
 
 .tabla-contenedor {
     background: white;
@@ -45,9 +54,10 @@ body {
     color: #684028;
 }
 
-/* =========================
-   BOTONES
-========================= */
+
+/* ==========================================
+   4. BOTONES
+========================================== */
 
 .btn-primary {
     background-color: #684028;
@@ -61,7 +71,8 @@ body {
     color: white;
 }
 
-/* CUANDO SE PRESIONA EL BOTÓN */
+/* Botón presionado */
+
 .btn-primary:active,
 .btn-primary.active,
 .btn-primary:first-child:active {
@@ -70,7 +81,8 @@ body {
     color: white;
 }
 
-/* CUANDO EL BOTÓN TIENE EL FOCO */
+/* Botón con foco */
+
 .btn-primary:focus,
 .btn-primary:focus-visible {
     background-color: #684028;
@@ -79,7 +91,8 @@ body {
     box-shadow: 0 0 0 0.25rem rgba(104, 64, 40, 0.25);
 }
 
-/* VARIABLES DE BOOTSTRAP PARA BTN-PRIMARY */
+/* Variables de Bootstrap */
+
 .btn-primary {
     --bs-btn-bg: #684028;
     --bs-btn-border-color: #684028;
@@ -95,20 +108,12 @@ body {
     --bs-btn-active-color: #ffffff;
 }
 
-/* =========================
-   ENCABEZADO DEL CONTENIDO
-========================= */
 
-.encabezado-contenido {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 40px;
-}
+/* ==========================================
+   5. PERFIL
+========================================== */
 
-/* =========================
-   PERFIL
-========================= */
+/* Contenedor */
 
 .perfil-card {
     max-width: 850px;
@@ -118,6 +123,8 @@ body {
     padding: 40px 50px;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
 }
+
+/* Encabezado */
 
 .perfil-header {
     text-align: center;
@@ -160,8 +167,10 @@ body {
 
 .perfil-header p {
     margin: 0;
-    color: #777;
+    color: #555;
 }
+
+/* Formulario */
 
 .perfil-campos {
     display: grid;
@@ -200,6 +209,8 @@ body {
     box-shadow: 0 0 0 0.2rem rgba(104, 64, 40, 0.15);
 }
 
+/* Información de contraseña */
+
 .password-info {
     display: flex;
     align-items: center;
@@ -229,9 +240,11 @@ body {
 
 .password-info p {
     margin: 4px 0 0;
-    color: #777;
+    color: #555;
     font-size: 14px;
 }
+
+/* Acciones */
 
 .perfil-acciones {
     display: flex;
@@ -244,9 +257,12 @@ body {
     border-radius: 9px;
 }
 
-/* =========================
-   CLASES COMPARTIDAS EN LISTADOS
-========================= */
+
+/* ==========================================
+   6. LISTADOS
+========================================== */
+
+/* Novedades */
 
 .texto-novedad {
     max-width: 300px;
@@ -255,6 +271,8 @@ body {
     text-overflow: ellipsis;
 }
 
+/* Aeropuertos */
+
 .columna-aeropuerto {
     width: 22%;
     max-width: 250px;
@@ -262,12 +280,18 @@ body {
     word-wrap: break-word;
 }
 
+/* Vuelos */
 
-/* =========================
-   SOLO ADMINISTRADOR
-========================= */
+.precio-vuelo {
+    white-space: nowrap;
+}
 
-/* BIENVENIDA */
+
+/* ==========================================
+   7. PANEL PRINCIPAL DEL ADMINISTRADOR
+========================================== */
+
+/* Bienvenida */
 
 .bienvenida-admin {
     margin-bottom: 45px;
@@ -286,7 +310,7 @@ body {
     margin: 0;
 }
 
-/* RESUMEN */
+/* Resumen */
 
 .resumen-admin {
     margin-bottom: 45px;
@@ -334,7 +358,7 @@ body {
     margin: 0;
 }
 
-/* ACTIVIDAD */
+/* Actividad reciente */
 
 .actividad-admin {
     margin-bottom: 40px;
@@ -345,8 +369,7 @@ body {
     margin-bottom: 20px;
 }
 
-
-/* ICONO */
+/* Iconos */
 
 .icono {
     width: 75px;
@@ -356,21 +379,130 @@ body {
     font-size: 34px;
 }
 
-.precio-vuelo {
-    white-space: nowrap;
+
+/* ==========================================
+   8. GESTIÓN DE REPORTES
+========================================== */
+
+/* Contenedor */
+
+.reportes-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 25px;
+    margin-top: 35px;
+}
+
+/* Tarjetas */
+
+.reporte-card {
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 35px 30px;
+
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    min-width: 0;
+
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.reporte-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+}
+
+/* Iconos */
+
+.reporte-card-icono {
+    width: 65px;
+    height: 65px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #f3e9df;
+    color: #684028;
+
+    border-radius: 15px;
+    margin-bottom: 25px;
+}
+
+.reporte-card-icono i {
+    font-size: 30px;
+}
+
+/* Títulos */
+
+.reporte-card h2 {
+    color: #684028;
+    font-size: 21px;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+/* Descripciones */
+
+.reporte-card p {
+    color: #555555;
+    font-size: 14px;
+    line-height: 1.7;
+
+    margin-bottom: 30px;
+    flex-grow: 1;
+}
+
+/* Botones */
+
+.reporte-card .btn {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    padding: 12px 20px;
+    border-radius: 10px;
+
+    font-weight: 600;
+
+    background: #684028;
+    border-color: #684028;
+    color: #ffffff;
+
+    text-decoration: none;
+}
+
+.reporte-card .btn:hover {
+    background: #72472c;
+    border-color: #72472c;
+    color: #ffffff;
+}
+
+.reporte-card .btn:focus-visible {
+    outline: 3px solid #684028;
+    outline-offset: 3px;
 }
 
 
-/* =========================
-   DISEÑO RESPONSIVE - PANEL ADMINISTRADOR/CEO
-========================= */
+/* ==========================================
+   9. AJUSTES GENERALES DE RESPONSIVIDAD
+========================================== */
 
 /* Evita que los elementos excedan el ancho disponible */
+
 .contenido-admin {
     min-width: 0;
 }
 
-/* TARJETAS DEL RESUMEN */
+/* Tarjetas del resumen */
+
 .resumen-grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
 }
@@ -391,7 +523,8 @@ body {
     overflow-wrap: anywhere;
 }
 
-/* TABLA */
+/* Tablas */
+
 .tabla-contenedor {
     width: 100%;
     min-width: 0;
@@ -404,7 +537,17 @@ body {
     width: 100%;
 }
 
-/* NOTEBOOKS Y TABLETS GRANDES */
+
+/* ==========================================
+   10. DISEÑO RESPONSIVE
+========================================== */
+
+
+/* ------------------------------------------
+   10.1 NOTEBOOKS Y TABLETS GRANDES
+   Máximo: 1100px
+------------------------------------------ */
+
 @media (max-width: 1100px) {
 
     .contenido-admin {
@@ -427,7 +570,27 @@ body {
 
 }
 
-/* TABLETS */
+
+/* ------------------------------------------
+   10.2 TABLETS - REPORTES
+   Máximo: 991px
+------------------------------------------ */
+
+@media (max-width: 991px) {
+
+    .reportes-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 20px;
+    }
+
+}
+
+
+/* ------------------------------------------
+   10.3 TABLETS
+   Máximo: 768px
+------------------------------------------ */
+
 @media (max-width: 768px) {
 
     .contenido-admin {
@@ -476,7 +639,140 @@ body {
 
 }
 
-/* CELULARES */
+
+/* ------------------------------------------
+   10.4 CELULARES Y TABLETS PEQUEÑAS
+   Máximo: 767px
+------------------------------------------ */
+
+@media (max-width: 767px) {
+
+    /* REPORTES */
+
+    .reportes-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        margin-top: 25px;
+    }
+
+    .reporte-card {
+        padding: 28px 25px;
+    }
+
+    .reporte-card h2 {
+        font-size: 20px;
+    }
+
+    .reporte-card-icono {
+        width: 55px;
+        height: 55px;
+        margin-bottom: 20px;
+    }
+
+    .reporte-card-icono i {
+        font-size: 26px;
+    }
+
+
+    /* TABLAS DE ACTIVIDAD Y PROMOCIONES */
+
+    .actividad-admin,
+    .actividad-admin .tabla-contenedor,
+    .tabla-contenedor:has(.tabla-promociones) {
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    .actividad-admin .tabla-contenedor,
+    .tabla-contenedor:has(.tabla-promociones),
+    .tabla-contenedor:has(.tabla-promociones) .table-responsive {
+        overflow-x: hidden;
+    }
+
+    .tabla-actividad,
+    .tabla-promociones {
+        width: 100% !important;
+        min-width: 0 !important;
+        table-layout: auto;
+    }
+
+    .tabla-actividad thead,
+    .tabla-promociones thead {
+        display: none;
+    }
+
+    .tabla-actividad,
+    .tabla-actividad tbody,
+    .tabla-actividad tr,
+    .tabla-actividad td,
+    .tabla-promociones,
+    .tabla-promociones tbody,
+    .tabla-promociones tr,
+    .tabla-promociones td {
+        display: block;
+        width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+    }
+
+    .tabla-actividad tr,
+    .tabla-promociones tr {
+        background: #ffffff;
+        border: 1px solid #dddddd;
+        border-radius: 12px;
+        padding: 12px;
+        margin-bottom: 15px;
+    }
+
+    .tabla-actividad td,
+    .tabla-promociones td {
+        display: block;
+        padding: 10px 5px;
+        text-align: left;
+        overflow-wrap: anywhere;
+        white-space: normal;
+    }
+
+    .tabla-actividad td::before,
+    .tabla-promociones td::before {
+        content: attr(data-label);
+        display: block;
+        font-weight: 600;
+        color: #333333;
+        margin-bottom: 5px;
+    }
+
+    .tabla-actividad td:last-child,
+    .tabla-promociones td:last-child {
+        border-bottom: none;
+    }
+
+    .tabla-promociones td[data-label="Acciones"] .btn {
+        margin: 3px;
+    }
+
+    /* Filas sin datos */
+
+    .tabla-actividad td[colspan],
+    .tabla-promociones td[colspan] {
+        text-align: center;
+    }
+
+    .tabla-actividad td[colspan]::before,
+    .tabla-promociones td[colspan]::before {
+        display: none;
+    }
+
+}
+
+
+/* ------------------------------------------
+   10.5 CELULARES
+   Máximo: 576px
+------------------------------------------ */
+
 @media (max-width: 576px) {
 
     .contenido-admin {
@@ -541,7 +837,12 @@ body {
 
 }
 
-/* CELULARES PEQUEÑOS */
+
+/* ------------------------------------------
+   10.6 CELULARES PEQUEÑOS
+   Máximo: 380px
+------------------------------------------ */
+
 @media (max-width: 380px) {
 
     .contenido-admin {

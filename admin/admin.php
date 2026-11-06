@@ -1,4 +1,5 @@
 <?php
+
 require_once __DIR__ . '/../includes/verificarRol.php';
 verificarRol('administrador');
 
@@ -7,15 +8,21 @@ include "../php/consultasAerolineas.php";
 include "../php/consultasPromociones.php";
 include "../php/consultasNovedades.php";
 include "../php/consultasCeos.php";
-include "../php/consultasUsuarios.php"; // <-- 1. Agregamos el include
+include "../php/consultasUsuarios.php";
 include "../php/consultasActividad.php";
+
+// DATOS DEL RESUMEN
 
 $aerolineas = cantidadAerolineasActivas($conexion);
 $promocionesPendientes = cantidadPromocionesPendientes($conexion);
 $novedades = cantidadNovedades($conexion);
 $ceos = cantidadCeos($conexion);
-$usuarios = cantidadUsuarios($conexion); // <-- 2. Usamos la función existente
+$usuarios = cantidadUsuarios($conexion);
+
+// ACTIVIDADES DE LOS ÚLTIMOS 5 DÍAS
+
 $resultadoActividad = obtenerActividadesRecientes($conexion);
+
 ?>
 
 <!DOCTYPE html>
@@ -37,8 +44,8 @@ $resultadoActividad = obtenerActividadesRecientes($conexion);
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="../css/bootstrap-icons.css">
 
-    <!-- CSS del administrador -->
-    <link rel="stylesheet" href="../css/estilos-admin.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/estilosAdmin.css">
     <link rel="stylesheet" href="../css/navbar.css">
     <link rel="stylesheet" href="../css/footer.css">
 
@@ -48,9 +55,7 @@ $resultadoActividad = obtenerActividadesRecientes($conexion);
 
     <?php include "includes/navbarAdmin.php"; ?>
 
-
     <main class="contenido-admin">
-
 
         <!-- BIENVENIDA -->
 
@@ -68,44 +73,178 @@ $resultadoActividad = obtenerActividadesRecientes($conexion);
         </section>
 
 
-
-        <!-- RESUMEN -->
+        <!-- RESUMEN DEL SISTEMA -->
 
         <section class="resumen-admin">
 
-            <h2 class="h4 mb-3 text-dark">Resumen del sistema</h2>
+            <h2 class="h4 mb-3 text-dark">
+                Resumen del sistema
+            </h2>
 
             <div class="row g-3 mb-4">
-                <!-- Tarjeta Aerolíneas -->
-                <div class="col-md-6 col-lg-3">
-                    <a href="aerolineas/gestionAerolineas.php" class="text-decoration-none text-reset">
+
+                <!-- TARJETA AEROLÍNEAS -->
+
+                <div class="col-12 col-md-6 col-lg">
+
+                    <a href="aerolineas/gestionAerolineas.php"
+                       class="text-decoration-none text-reset">
+
                         <div class="card border-0 shadow-sm rounded-4 p-3 h-100 d-flex flex-row align-items-center">
-                            <div class="me-3 text-primary fs-2">
+
+                            <div class="me-3 text-dark fs-2">
                                 <i class="bi bi-airplane"></i>
                             </div>
+
                             <div>
-                                <div class="text-muted small">Aerolíneas activas</div>
-                                <div class="fs-3 fw-bold text-dark"><?php echo $aerolineas; ?></div>
+
+                                <div class="text-muted small">
+                                    Aerolíneas activas
+                                </div>
+
+                                <div class="fs-3 fw-bold text-dark">
+                                    <?= $aerolineas ?>
+                                </div>
+
                             </div>
+
                         </div>
+
                     </a>
+
                 </div>
 
-                <!-- Tarjeta Usuarios Registrados -->
-                <div class="col-md-6 col-lg-3">
-                    <a href="reportes/usuarios.php" class="text-decoration-none text-reset">
+
+                <!-- TARJETA USUARIOS -->
+
+                <div class="col-12 col-md-6 col-lg">
+
+                    <a href="reportes/usuarios.php"
+                       class="text-decoration-none text-reset">
+
                         <div class="card border-0 shadow-sm rounded-4 p-3 h-100 d-flex flex-row align-items-center">
-                            <div class="me-3 text-primary fs-2">
+
+                            <div class="me-3 text-dark fs-2">
                                 <i class="bi bi-people"></i>
                             </div>
+
                             <div>
-                                <div class="text-muted small">Usuarios registrados</div>
-                                <div class="fs-3 fw-bold text-dark"><?php echo $usuarios; ?></div>
+
+                                <div class="text-muted small">
+                                    Usuarios registrados
+                                </div>
+
+                                <div class="fs-3 fw-bold text-dark">
+                                    <?= $usuarios ?>
+                                </div>
+
                             </div>
+
                         </div>
+
                     </a>
+
                 </div>
+
+
+                <!-- TARJETA PROMOCIONES PENDIENTES -->
+
+                <div class="col-12 col-md-6 col-lg">
+
+                    <a href="promociones/gestionPromociones.php"
+                       class="text-decoration-none text-reset">
+
+                        <div class="card border-0 shadow-sm rounded-4 p-3 h-100 d-flex flex-row align-items-center">
+
+                            <div class="me-3 text-dark fs-2">
+                                <i class="bi bi-tag"></i>
+                            </div>
+
+                            <div>
+
+                                <div class="text-muted small">
+                                    Promociones pendientes
+                                </div>
+
+                                <div class="fs-3 fw-bold text-dark">
+                                    <?= $promocionesPendientes ?>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </a>
+
+                </div>
+
+
+                <!-- TARJETA NOVEDADES -->
+
+                <div class="col-12 col-md-6 col-lg">
+
+                    <a href="novedades/gestionNovedades.php"
+                       class="text-decoration-none text-reset">
+
+                        <div class="card border-0 shadow-sm rounded-4 p-3 h-100 d-flex flex-row align-items-center">
+
+                            <div class="me-3 text-dark fs-2">
+                                <i class="bi bi-newspaper"></i>
+                            </div>
+
+                            <div>
+
+                                <div class="text-muted small">
+                                    Novedades
+                                </div>
+
+                                <div class="fs-3 fw-bold text-dark">
+                                    <?= $novedades ?>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </a>
+
+                </div>
+
+
+                <!-- TARJETA CEOS -->
+
+                <div class="col-12 col-md-6 col-lg">
+
+                    <a href="ceos/gestionCeos.php"
+                       class="text-decoration-none text-reset">
+
+                        <div class="card border-0 shadow-sm rounded-4 p-3 h-100 d-flex flex-row align-items-center">
+
+                            <div class="me-3 text-dark fs-2">
+                                <i class="bi bi-person-badge"></i>
+                            </div>
+
+                            <div>
+
+                                <div class="text-muted small">
+                                    CEOs registrados
+                                </div>
+
+                                <div class="fs-3 fw-bold text-dark">
+                                    <?= $ceos ?>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </a>
+
+                </div>
+
             </div>
+
+        </section>
 
 
         <!-- ACTIVIDAD RECIENTE -->
@@ -121,8 +260,8 @@ $resultadoActividad = obtenerActividadesRecientes($conexion);
                     </h2>
 
                     <p>
-                        Aquí se mostrarán las últimas acciones realizadas
-                        en el sistema.
+                        Aquí se muestran las actividades realizadas
+                        durante los últimos 5 días.
                     </p>
 
                 </div>
@@ -130,60 +269,75 @@ $resultadoActividad = obtenerActividadesRecientes($conexion);
             </div>
 
 
+            <!-- TABLA DE ACTIVIDADES -->
+
             <div class="tabla-contenedor">
 
-                <table class="table align-middle">
+                <table class="table align-middle tabla-actividad">
 
                     <thead>
 
                         <tr>
-
-                            <th>
-                                Fecha
-                            </th>
-
-                            <th>
-                                Usuario
-                            </th>
-
-                            <th>
-                                Acción
-                            </th>
-
+                            <th>Fecha</th>
+                            <th>Usuario</th>
+                            <th>Acción</th>
                         </tr>
 
                     </thead>
 
-
                     <tbody>
 
-                        <?php while ($actividad = $resultadoActividad->fetch_assoc()) { ?>
+                        <?php if ($resultadoActividad->num_rows > 0) { ?>
+
+                            <?php while ($actividad = $resultadoActividad->fetch_assoc()) { ?>
+
+                                <tr>
+
+                                    <td data-label="Fecha">
+
+                                        <?php
+                                        echo date(
+                                            "d/m/Y H:i",
+                                            strtotime($actividad["fechaActividad"])
+                                        );
+                                        ?>
+
+                                    </td>
+
+                                    <td data-label="Usuario">
+
+                                        <?php
+                                        echo htmlspecialchars(
+                                            $actividad["usuarioActividad"],
+                                            ENT_QUOTES,
+                                            "UTF-8"
+                                        );
+                                        ?>
+
+                                    </td>
+
+                                    <td data-label="Acción">
+
+                                        <?php
+                                        echo htmlspecialchars(
+                                            $actividad["accionActividad"],
+                                            ENT_QUOTES,
+                                            "UTF-8"
+                                        );
+                                        ?>
+
+                                    </td>
+
+                                </tr>
+
+                            <?php } ?>
+
+                        <?php } else { ?>
 
                             <tr>
 
-                                <td>
-                                    <?php
-                                    echo date(
-                                        "d/m/Y H:i",
-                                        strtotime($actividad["fechaActividad"])
-                                    );
-                                    ?>
-                                </td>
-
-                                <td>
-                                    <?php
-                                    echo htmlspecialchars(
-                                        $actividad["usuarioActividad"]
-                                    );
-                                    ?>
-                                </td>
-
-                                <td>
-                                    <?php
-                                    echo htmlspecialchars(
-                                        $actividad["accionActividad"]
-                                    );
-                                    ?>
+                                <td colspan="3" class="text-center py-4">
+                                    No se registraron actividades durante los últimos 5 días.
                                 </td>
 
                             </tr>
@@ -196,14 +350,32 @@ $resultadoActividad = obtenerActividadesRecientes($conexion);
 
             </div>
 
-        </section>
 
+            <!-- BOTÓN HISTORIAL COMPLETO -->
+
+            <div class="mt-3 text-end">
+
+                <a href="actividad/historialActividad.php"
+                   class="btn btn-outline-dark rounded-3">
+
+                    Ver historial completo
+
+                    <i class="bi bi-arrow-right ms-2"></i>
+
+                </a>
+
+            </div>
+
+        </section>
 
     </main>
 
 
-    <?php include "/includes/footer.php"; ?>
-    <script src="/js/bootstrap.bundle.min.js"></script>
+    <!-- FOOTER -->
+
+    <?php include __DIR__ . '/../includes/footer.php'; ?>
+
+    <script src="<?= htmlspecialchars(urlApp('js/bootstrap.bundle.min.js'), ENT_QUOTES, 'UTF-8') ?>"></script>
 
 </body>
 

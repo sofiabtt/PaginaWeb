@@ -65,7 +65,7 @@ $resultado = obtenerVuelosInactivos($conexion,$codAerolinea);
 
     <link
         rel="stylesheet"
-        href="../../css/estilos-admin.css"
+        href="../../css/estilosAdmin.css"
     >
     <!-- CSS de la barra de navegación -->
     <link rel="stylesheet" href="../../css/navbar.css">

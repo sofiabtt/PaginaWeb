@@ -389,7 +389,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     </main>
 
-    <?php include "/includes/footer.php"; ?>
+    <?php include __DIR__ . '/../../includes/footer.php'; ?>
 
 
     <script

@@ -94,7 +94,7 @@ body {
 
 
 .fecha-aeropuerto {
-    color: #888;
+    color: #555;
     font-size: 14px;
     margin-top: 10px;
 }
@@ -140,7 +140,7 @@ body {
 
 
 .precio-label {
-    color: #888;
+    color: #555;
     font-size: 12px;
     margin-bottom: 5px;
 }
@@ -201,7 +201,7 @@ body {
 
 
 .opcion-horario small {
-    color: #999;
+    color: #555;
     font-size: 11px;
 }
 
@@ -277,7 +277,7 @@ body {
 /* CANTIDAD DE RESULTADOS*/
 
 .cantidad-resultados {
-    color: #777;
+    color: #555;
     font-size: 14px;
 }
 
@@ -325,7 +325,7 @@ body {
 
 .ruta-label {
     display: block;
-    color: #888;
+    color: #555;
     font-size: 13px;
     margin-top: 5px;
 }
@@ -384,7 +384,7 @@ body {
 
 
 .precio-label {
-    color: #888;
+    color: #555;
     font-size: 14px;
 }
 

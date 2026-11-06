@@ -66,7 +66,7 @@ $origen = $_GET["origen"] ?? "";
 
     <link
         rel="stylesheet"
-        href="../../css/estilos-admin.css"
+        href="../../css/estilosAdmin.css"
     >
 
     <link rel="stylesheet" href="../../css/footer.css">

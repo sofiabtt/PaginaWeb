@@ -6,9 +6,32 @@ verificarRol('administrador');
 include "../../php/conexionBD.php";
 include "../../php/consultasVuelos.php";
 
-$resultado = obtenerTodosLosVuelos($conexion);
 
-$cantidadVuelos = $resultado->num_rows;
+// PAGINACIÓN
+
+$porPagina = 10;
+
+$cantidadVuelos = contarTodosLosVuelos($conexion);
+
+$totalPaginas = max(1, (int) ceil($cantidadVuelos / $porPagina));
+
+$pagina = filter_input(INPUT_GET, "pagina", FILTER_VALIDATE_INT);
+
+if ($pagina === false || $pagina === null || $pagina < 1) {
+    $pagina = 1;
+}
+
+if ($pagina > $totalPaginas) {
+    $pagina = $totalPaginas;
+}
+
+$offset = ($pagina - 1) * $porPagina;
+
+$resultado = obtenerTodosLosVuelosPaginados(
+    $conexion,
+    $porPagina,
+    $offset
+);
 
 ?>
 
@@ -30,7 +53,7 @@ $cantidadVuelos = $resultado->num_rows;
     <link
         rel="icon"
         type="image/png"
-        href="/imagenes/logo.png"
+        href="<?= htmlspecialchars(urlApp('imagenes/logo.png'), ENT_QUOTES, 'UTF-8') ?>"
     >
 
     <link
@@ -45,7 +68,7 @@ $cantidadVuelos = $resultado->num_rows;
 
     <link
         rel="stylesheet"
-        href="../../css/estilos-admin.css"
+        href="../../css/estilosAdmin.css"
     >
 
     <link
@@ -53,7 +76,15 @@ $cantidadVuelos = $resultado->num_rows;
         href="../../css/navbar.css"
     >
 
-    <link rel="stylesheet" href="../../css/footer.css">
+    <link
+        rel="stylesheet"
+        href="../../css/footer.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../../css/tablasResponsive.css"
+    >
 
 </head>
 
@@ -62,7 +93,7 @@ $cantidadVuelos = $resultado->num_rows;
 
 
     <?php
-    include "/admin/includes/navbarAdmin.php";
+    include __DIR__ . '/../includes/navbarAdmin.php';
     ?>
 
 
@@ -98,7 +129,7 @@ $cantidadVuelos = $resultado->num_rows;
         </p>
 
 
-        <section class="tabla-contenedor">
+        <section class="tabla-contenedor tabla-tarjetas">
 
 
             <table class="table align-middle">
@@ -160,7 +191,7 @@ $cantidadVuelos = $resultado->num_rows;
                         <tr>
 
 
-                            <td>
+                            <td data-label="Código">
 
                                 <?php
                                 echo (int) $vuelo["codVuelo"];
@@ -169,7 +200,7 @@ $cantidadVuelos = $resultado->num_rows;
                             </td>
 
 
-                            <td>
+                            <td data-label="Aerolínea">
 
                                 <?php
 
@@ -196,7 +227,7 @@ $cantidadVuelos = $resultado->num_rows;
                             </td>
 
 
-                            <td>
+                            <td data-label="Origen">
 
                                 <?php
 
@@ -209,7 +240,7 @@ $cantidadVuelos = $resultado->num_rows;
                             </td>
 
 
-                            <td>
+                            <td data-label="Destino">
 
                                 <?php
 
@@ -222,7 +253,7 @@ $cantidadVuelos = $resultado->num_rows;
                             </td>
 
 
-                            <td>
+                            <td data-label="Fecha">
 
                                 <?php
 
@@ -238,7 +269,7 @@ $cantidadVuelos = $resultado->num_rows;
                             </td>
 
 
-                            <td>
+                            <td data-label="Hora">
 
                                 <?php
 
@@ -251,7 +282,10 @@ $cantidadVuelos = $resultado->num_rows;
                             </td>
 
 
-                            <td class="precio-vuelo">
+                            <td
+                                data-label="Precio"
+                                class="precio-vuelo"
+                            >
 
                                 <?php
 
@@ -268,7 +302,7 @@ $cantidadVuelos = $resultado->num_rows;
                             </td>
 
 
-                            <td>
+                            <td data-label="Asientos">
 
                                 <?php
 
@@ -280,7 +314,7 @@ $cantidadVuelos = $resultado->num_rows;
                             </td>
 
 
-                            <td>
+                            <td data-label="Estado">
 
 
                                 <?php if ((int) $vuelo["activoVuelo"] === 1) { ?>
@@ -324,11 +358,60 @@ $cantidadVuelos = $resultado->num_rows;
         </section>
 
 
+        <!-- PAGINACIÓN -->
+
+        <?php if ($totalPaginas > 1) { ?>
+
+            <nav
+                class="paginacion-tablas"
+                aria-label="Paginación de vuelos"
+            >
+
+                <p>
+                    Página <?php echo $pagina; ?>
+                    de <?php echo $totalPaginas; ?>
+                </p>
+
+                <div class="d-flex justify-content-center gap-2 flex-wrap">
+
+                    <?php if ($pagina > 1) { ?>
+
+                        <a
+                            href="?pagina=<?php echo $pagina - 1; ?>"
+                            class="btn btn-outline-secondary"
+                        >
+                            <i class="bi bi-chevron-left"></i>
+                            Anterior
+                        </a>
+
+                    <?php } ?>
+
+
+                    <?php if ($pagina < $totalPaginas) { ?>
+
+                        <a
+                            href="?pagina=<?php echo $pagina + 1; ?>"
+                            class="btn btn-outline-secondary"
+                        >
+                            Siguiente
+                            <i class="bi bi-chevron-right"></i>
+                        </a>
+
+                    <?php } ?>
+
+                </div>
+
+            </nav>
+
+        <?php } ?>
+
+
     </main>
 
-    <?php include "/includes/footer.php"; ?>
 
-    <script src="/js/bootstrap.bundle.min.js"></script>
+    <?php include __DIR__ . '/../../includes/footer.php'; ?>
+
+    <script src="<?= htmlspecialchars(urlApp('js/bootstrap.bundle.min.js'), ENT_QUOTES, 'UTF-8') ?>"></script>
 
 
 </body>

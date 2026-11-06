@@ -463,3 +463,67 @@ function obtenerTodosLosVuelos($conexion)
 
     return $consulta->get_result();
 }
+
+// CONTAR TODOS LOS VUELOS PARA ADMINISTRADOR
+
+function contarTodosLosVuelos($conexion)
+{
+    $consulta = $conexion->prepare("
+        SELECT COUNT(*) AS total
+
+        FROM vuelos v
+
+        INNER JOIN aerolineas a
+            ON a.codAerolinea = v.codAerolinea
+    ");
+
+    $consulta->execute();
+
+    $resultado = $consulta->get_result();
+
+    return (int) $resultado->fetch_assoc()["total"];
+}
+
+
+// OBTENER TODOS LOS VUELOS PAGINADOS PARA ADMINISTRADOR
+
+function obtenerTodosLosVuelosPaginados($conexion, $limite, $offset)
+{
+    $consulta = $conexion->prepare("
+        SELECT
+            v.codVuelo,
+            v.origenVuelo,
+            v.destinoVuelo,
+            v.fechaSalidaVuelo,
+            v.horaSalidaVuelo,
+            v.precioVuelo,
+            v.asientosDisponibles,
+            v.activoVuelo,
+            v.fechaEliminacion,
+            a.nombreAerolinea,
+            a.codigoIATA
+
+        FROM vuelos v
+
+        INNER JOIN aerolineas a
+            ON a.codAerolinea = v.codAerolinea
+
+        ORDER BY
+            v.activoVuelo DESC,
+            v.fechaSalidaVuelo ASC,
+            v.horaSalidaVuelo ASC,
+            v.codVuelo ASC
+
+        LIMIT ? OFFSET ?
+    ");
+
+    $consulta->bind_param(
+        "ii",
+        $limite,
+        $offset
+    );
+
+    $consulta->execute();
+
+    return $consulta->get_result();
+}

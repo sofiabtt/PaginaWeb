@@ -250,7 +250,7 @@ body {
 
 .perfil-header p {
     margin: 0;
-    color: #777;
+    color: #555;
 }
 
 .perfil-campos {
@@ -319,7 +319,7 @@ body {
 
 .password-info p {
     margin: 4px 0 0;
-    color: #777;
+    color: #555;
     font-size: 14px;
 }
 
@@ -411,7 +411,7 @@ body {
 }
 
 .texto-modal-secundario {
-    color: #777;
+    color: #555;
     font-size: 14px;
 }
 
@@ -482,7 +482,7 @@ body {
 }
 
 .detalle-reserva-label {
-    color: #7a7272;
+    color: #555;
     font-size: 14px;
 }
 
@@ -505,7 +505,7 @@ body {
 }
 
 .detalle-item span {
-    color: #777;
+    color: #555;
     font-size: 14px;
 }
 
