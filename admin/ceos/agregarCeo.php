@@ -373,63 +373,26 @@ $consultaAerolineas =
 <head>
 
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <title> Nuvia - Administrador </title>
 
-    <title>Nuvia - Administrador</title>
+    <link rel="icon" href="../../imagenes/logo.png" type="image/png">
 
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../css/bootstrap-icons.css">
 
-    <!-- Bootstrap -->
-
-    <link
-        rel="stylesheet"
-        href="../../css/bootstrap.min.css"
-    >
-
-
-    <!-- Bootstrap Icons -->
-
-    <link
-        rel="stylesheet"
-        href="../../css/bootstrap-icons.css"
-    >
-
-
-    <!-- CSS del administrador -->
-
-    <link
-        rel="stylesheet"
-        href="../../css/estilosAdmin.css"
-    >
-
-    <link
-        rel="stylesheet"
-        href="../../css/navbar.css"
-    >
+    <link rel="stylesheet" href="../../css/estilosAdmin.css">
+    <link rel="stylesheet" href="../../css/navbar.css">
     <link rel="stylesheet" href="../../css/footer.css">
 
-
-    <!-- Favicon -->
-
-    <link
-        rel="icon"
-        type="image/png"
-        href="../../imagenes/logo.png"
-    >
-
 </head>
-
 
 <body>
 
     <?php include __DIR__ . '/../includes/navbarAdmin.php'; ?>
 
-
     <main class="contenido-admin">
-
 
         <section class="encabezado-contenido">
 
@@ -447,9 +410,7 @@ $consultaAerolineas =
 
         </section>
 
-
         <section class="tabla-contenedor formulario-ceo">
-
 
             <?php if ($error != "") { ?>
 
@@ -461,11 +422,7 @@ $consultaAerolineas =
 
             <?php } ?>
 
-
             <form method="POST">
-
-
-                <!-- NOMBRE Y APELLIDO -->
 
                 <div class="mb-3">
 
@@ -487,9 +444,6 @@ $consultaAerolineas =
 
                 </div>
 
-
-                <!-- EMAIL -->
-
                 <div class="mb-3">
 
                     <label
@@ -510,9 +464,6 @@ $consultaAerolineas =
 
                 </div>
 
-
-                <!-- TELÉFONO -->
-
                 <div class="mb-3">
 
                     <label
@@ -532,9 +483,6 @@ $consultaAerolineas =
                     >
 
                 </div>
-
-
-                <!-- AEROLÍNEA -->
 
                 <div class="mb-3">
 
@@ -596,18 +544,12 @@ $consultaAerolineas =
 
                 </div>
 
-
-                <!-- INFORMACIÓN -->
-
                 <div class="alert alert-info">
 
                     Al crear la cuenta, el CEO recibirá un correo electrónico
                     con un enlace para establecer su contraseña.
 
                 </div>
-
-
-                <!-- BOTONES -->
 
                 <div class="d-flex gap-2">
 
@@ -622,7 +564,6 @@ $consultaAerolineas =
 
                     </button>
 
-
                     <a
                         href="gestionCeos.php"
                         class="btn btn-secondary"
@@ -632,12 +573,9 @@ $consultaAerolineas =
 
                 </div>
 
-
             </form>
 
-
         </section>
-
 
     </main>
 

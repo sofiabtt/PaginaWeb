@@ -12,6 +12,7 @@
 
                 <?php
                 $parametros = $_GET;
+                unset($parametros["pag"]);
                 $parametros["pagina"] = $pagina - 1;
                 ?>
 
@@ -29,6 +30,7 @@
 
                 <?php
                 $parametros = $_GET;
+                unset($parametros["pag"]);
                 $parametros["pagina"] = $pagina + 1;
                 ?>
 

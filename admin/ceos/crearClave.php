@@ -118,58 +118,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
 
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Nuvia - CEO</title>
+    <link rel="icon" type="image/png" href="../../imagenes/logo.png">
 
+    <link rel="stylesheet" href="../../css/bootstrap.min.css" >
 
-    <!-- Bootstrap -->
-
-    <link
-        rel="stylesheet"
-        href="../../css/bootstrap.min.css"
-    >
-
-
-    <!-- CSS principal -->
-
-    <link
-        rel="stylesheet"
-        href="../../css/estilos.css"
-    >
-
+    <link rel="stylesheet" href="../../css/estilos.css">
     <link rel="stylesheet" href="../../css/navbar.css">
     <link rel="stylesheet" href="../../css/footer.css">
 
-    <!-- Bootstrap Icons -->
-
-    <link
-        rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
-    >
-
-
-    <!-- Favicon -->
-
-    <link
-        rel="icon"
-        type="image/png"
-        href="../../imagenes/logo.png"
-    >
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
 </head>
-
 
 <body>
 
     <?php include __DIR__ . '/../../includes/navbar.php'; ?>
 
     <main class="d-flex justify-content-center align-items-center">
-
 
         <?php if (isset($exito)) { ?>
 
@@ -184,7 +152,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                     </h1>
 
-
                     <p class="texto-negro mb-4">
 
                         Tu contraseña fue creada
@@ -192,14 +159,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                     </p>
 
-
                     <p class="texto-negro">
 
                         Ya podés utilizar tu cuenta
                         de CEO.
 
                     </p>
-
 
                     <div class="text-center mt-4">
 
@@ -218,18 +183,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             </section>
 
-
         <?php } else { ?>
 
             <section class="rectangulo-formulario">
-
 
                 <h1 class="text-center mb-4 texto-negro">
 
                     Crear contraseña
 
                 </h1>
-
 
                 <p class="text-center texto-negro mb-4">
 
@@ -269,7 +231,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 <form method="POST">
 
-
                     <!-- TOKEN -->
 
                     <input
@@ -277,7 +238,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         name="token"
                         value="<?php echo htmlspecialchars($token); ?>"
                     >
-
 
                     <!-- NUEVA CONTRASEÑA -->
 
@@ -292,7 +252,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                         </label>
 
-
                         <div class="barra-contra">
 
                             <input
@@ -304,7 +263,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 minlength="6"
                                 required
                             >
-
 
                             <button
                                 type="button"
@@ -320,7 +278,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         </div>
 
                     </div>
-
 
                     <!-- REPETIR CONTRASEÑA -->
 
@@ -358,7 +315,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                     </div>
 
-
                     <!-- REQUISITOS DE CONTRASEÑA -->
 
                     <p class="text-muted text-center mb-3" style="font-size: 12px;">
@@ -391,11 +347,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <?php include __DIR__ . '/../../includes/footer.php'; ?>
 
-
-    <script
-        src="/js/bootstrap.bundle.min.js"
-    ></script>
-
+    <script src="<?= htmlspecialchars(urlApp('js/bootstrap.bundle.min.js'), ENT_QUOTES, 'UTF-8') ?>"></script>
 
     <!-- MOSTRAR / OCULTAR CONTRASEÑA -->
 
@@ -429,7 +381,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
     </script>
-
 
 </body>
 

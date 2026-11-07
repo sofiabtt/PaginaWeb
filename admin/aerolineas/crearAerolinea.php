@@ -52,7 +52,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 }
 
-
 $resultadoPaises = obtenerPaises($conexion);
 
 ?>
@@ -64,56 +63,26 @@ $resultadoPaises = obtenerPaises($conexion);
 <head>
 
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <title> Nuvia - Administrador </title>
 
-    <title>
-        Nuvia - Administrador
-    </title>
+    <link rel="icon" href="../../imagenes/logo.png" type="image/png">
 
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../css/bootstrap-icons.css">
 
-    <link
-        rel="stylesheet"
-        href="../../css/bootstrap.min.css"
-    >
-
-    <link
-        rel="stylesheet"
-        href="../../css/bootstrap-icons.css"
-    >
-
-    <link
-        rel="stylesheet"
-        href="../../css/estilosAdmin.css"
-    >
-
-    <link
-        rel="stylesheet"
-        href="../../css/navbar.css"
-    >
-
+    <link rel="stylesheet" href="../../css/estilosAdmin.css">
+    <link rel="stylesheet" href="../../css/navbar.css">
     <link rel="stylesheet" href="../../css/footer.css">
-
-    <link
-        rel="icon"
-        type="image/png"
-        href="../../imagenes/logo.png"
-    >
 
 </head>
 
-
 <body>
-
 
     <?php include __DIR__ . '/../includes/navbarAdmin.php'; ?>
 
-
     <main class="contenido-admin">
-
 
         <section class="encabezado-contenido">
 
@@ -131,8 +100,6 @@ $resultadoPaises = obtenerPaises($conexion);
 
         </section>
 
-
-
         <?php if ($mensaje != "") { ?>
 
             <div class="alert alert-danger">
@@ -143,10 +110,7 @@ $resultadoPaises = obtenerPaises($conexion);
 
         <?php } ?>
 
-
-
         <section class="container-fluid px-0">
-
 
             <div
                 class="card shadow-sm border-0 mx-auto"
@@ -155,12 +119,10 @@ $resultadoPaises = obtenerPaises($conexion);
 
                 <div class="card-body p-4 p-md-5">
 
-
                     <form
                         method="POST"
                         action="crearAerolinea.php"
                     >
-
 
                         <!-- NOMBRE -->
 
@@ -183,8 +145,6 @@ $resultadoPaises = obtenerPaises($conexion);
                             >
 
                         </div>
-
-
 
                         <!-- CÓDIGO IATA -->
 
@@ -216,8 +176,6 @@ $resultadoPaises = obtenerPaises($conexion);
                             >
 
                         </div>
-
-
 
                         <!-- PAÍS -->
 
@@ -262,8 +220,6 @@ $resultadoPaises = obtenerPaises($conexion);
 
                         </div>
 
-
-
                         <!-- DESCRIPCIÓN -->
 
                         <div class="mb-4">
@@ -285,8 +241,6 @@ $resultadoPaises = obtenerPaises($conexion);
 
                         </div>
 
-
-
                         <!-- BOTONES -->
 
                         <div class="d-flex justify-content-end gap-2">
@@ -297,7 +251,6 @@ $resultadoPaises = obtenerPaises($conexion);
                             >
                                 Cancelar
                             </a>
-
 
                             <button
                                 type="submit"
@@ -312,17 +265,13 @@ $resultadoPaises = obtenerPaises($conexion);
 
                         </div>
 
-
                     </form>
-
 
                 </div>
 
             </div>
 
-
         </section>
-
 
     </main>
 

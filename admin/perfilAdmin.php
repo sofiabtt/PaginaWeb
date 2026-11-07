@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $existente = obtenerUsuarioPorEmail($conexion, $email);
 
     if ($existente && (int) $existente["codUsuario"] !== $codAdmin) {
-
+        
         $mensaje = "Ese email ya está en uso por otra cuenta.";
         $error = true;
 
@@ -28,30 +28,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // ACTUALIZAR DATOS DEL ADMIN
 
         if (modificarUsuario($conexion, $codAdmin, $nombre, $email, $telefono)) {
-
             // REDIRIGIR DESPUES DE GUARDAR
-
             header("Location: perfilAdmin.php?actualizado=1");
-
             exit;
-
         } else {
-
             $mensaje = "Ocurrió un error al actualizar los datos.";
             $error = true;
-
         }
-
     }
-
 }
 
 // MOSTRAR MENSAJE SOLO SI SE ACABA DE ACTUALIZAR
-
 if (isset($_GET["actualizado"])) {
-
     $mensaje = "Los datos se actualizaron correctamente.";
-
 }
 
 // BUSCAR LOS DATOS DEL ADMIN
@@ -64,48 +53,26 @@ $admin = obtenerUsuario($conexion, $codAdmin);
 <html lang="es">
 
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>
-        Nuvia - Administrador
-    </title>
+    <title> Nuvia - Administrador </title>
+    <link rel="icon" type="image/png" href="<?= htmlspecialchars(urlApp('imagenes/logo.png'), ENT_QUOTES, 'UTF-8') ?>">
 
-
-    <!-- Bootstrap -->
     <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/bootstrap.min.css'), ENT_QUOTES, 'UTF-8') ?>">
-
-    <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/bootstrap-icons.css'), ENT_QUOTES, 'UTF-8') ?>">
 
-    <!-- CSS del administrador -->
     <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/estilosAdmin.css'), ENT_QUOTES, 'UTF-8') ?>">
     <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/navbar.css'), ENT_QUOTES, 'UTF-8') ?>">
     <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/footer.css'), ENT_QUOTES, 'UTF-8') ?>">
-
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="<?= htmlspecialchars(urlApp('imagenes/logo.png'), ENT_QUOTES, 'UTF-8') ?>">
-
 </head>
 
-
 <body>
-
-
-    <!-- NAVBAR -->
-
     <?php include __DIR__ . "/includes/navbarAdmin.php"; ?> 
 
     <main class="contenido-admin">
-
-        <!-- ENCABEZADO -->
-
         <section class="encabezado-contenido">
-
             <div>
-
                 <h1>
                     Mi perfil
                 </h1>
@@ -113,94 +80,57 @@ $admin = obtenerUsuario($conexion, $codAdmin);
                 <p>
                     Gestioná tus datos personales.
                 </p>
-
             </div>
-
         </section>
-
-
-        <!-- MENSAJE -->
 
         <?php if (isset($mensaje)) { ?>
 
             <div class="alert <?php echo isset($error) ? 'alert-danger' : 'alert-success'; ?>" role="alert">
-
                 <?php echo $mensaje; ?>
-
             </div>
 
         <?php } ?>
 
 
         <!-- PERFIL -->
-
         <section class="container-fluid px-0">
-
             <div class="card border-0 shadow-sm mx-auto tarjeta-perfil">
-
                 <div class="card-body text-center p-4 p-md-5">
-
-                    <!-- ICONO ADMIN -->
-
                     <div
                         class="icono rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3"
                         
                     >
-
                         <i class="bi bi-person-fill"></i>
-
                     </div>
 
-
                     <h2 class="h4 mb-2">
-
                         Perfil de administrador
-
                     </h2>
 
-
                     <p class="text-muted mb-4">
-
                         Gestioná la información de tu cuenta.
-
                     </p>
 
-
-
                     <!-- FORMULARIO -->
-
                     <form
                         method="POST"
                         action="perfilAdmin.php"
                         class="text-start"
                     >
-
-
                         <div class="row g-4">
-
-
                             <!-- NOMBRE -->
-
                             <div class="col-md-6">
-
                                 <label
                                     for="nombreUsuario"
                                     class="form-label fw-semibold"
                                 >
-
                                     Nombre
-
                                 </label>
 
-
                                 <div class="input-group">
-
                                     <span class="input-group-text">
-
                                         <i class="bi bi-person"></i>
-
                                     </span>
-
 
                                     <input
                                         type="text"
@@ -210,35 +140,22 @@ $admin = obtenerUsuario($conexion, $codAdmin);
                                         value="<?php echo htmlspecialchars($admin["nombreUsuario"]); ?>"
                                         required
                                     >
-
                                 </div>
-
                             </div>
 
-
-
                             <!-- EMAIL -->
-
                             <div class="col-md-6">
-
                                 <label
                                     for="emailUsuario"
                                     class="form-label fw-semibold"
                                 >
-
                                     Email
-
                                 </label>
 
-
                                 <div class="input-group">
-
                                     <span class="input-group-text">
-
                                         <i class="bi bi-envelope"></i>
-
                                     </span>
-
 
                                     <input
                                         type="email"
@@ -248,35 +165,22 @@ $admin = obtenerUsuario($conexion, $codAdmin);
                                         value="<?php echo htmlspecialchars($admin["emailUsuario"]); ?>"
                                         required
                                     >
-
                                 </div>
-
                             </div>
 
-
-
                             <!-- TELEFONO -->
-
                             <div class="col-md-6">
-
                                 <label
                                     for="telefonoUsuario"
                                     class="form-label fw-semibold"
                                 >
-
                                     Teléfono
-
                                 </label>
 
-
                                 <div class="input-group">
-
                                     <span class="input-group-text">
-
                                         <i class="bi bi-telephone"></i>
-
                                     </span>
-
 
                                     <input
                                         type="tel"
@@ -286,74 +190,40 @@ $admin = obtenerUsuario($conexion, $codAdmin);
                                         value="<?php echo htmlspecialchars($admin["telefonoUsuario"]); ?>"
                                         required
                                     >
-
                                 </div>
-
                             </div>
-
-
                         </div>
 
-
-
                         <!-- CONTRASEÑA -->
-
                         <div
                             class="alert mt-4 mb-4 d-flex align-items-center gap-3"
                         >
-
                             <i class="bi bi-lock-fill fs-4"></i>
-
-
                             <div>
-
                                 <strong>
                                     Contraseña
                                 </strong>
-
-
                                 <div class="small text-muted">
-
                                     Por seguridad, la contraseña no puede
                                     modificarse en este perfil.
-
                                 </div>
-
                             </div>
-
                         </div>
 
-
-
                         <!-- BOTON -->
-
                         <div class="text-end">
-
                             <button
                                 type="submit"
                                 class="btn btn-primary"
                             >
-
                                 <i class="bi bi-check-lg"></i>
-
                                 Guardar cambios
-
                             </button>
-
                         </div>
-
-
                     </form>
-
-
                 </div>
-
             </div>
-
-
         </section>
-
-
     </main>
 
     <?php include __DIR__ . '/../includes/footer.php'; ?>

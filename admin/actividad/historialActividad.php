@@ -22,7 +22,7 @@ if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $fechaHasta)) {
 
 // PAGINACIÓN
 
-$porPagina = 10;
+require_once __DIR__ . '/../../php/paginacion.php';
 
 $totalActividades = cantidadActividadesHistorial(
     $conexion,
@@ -31,12 +31,15 @@ $totalActividades = cantidadActividadesHistorial(
     $fechaHasta
 );
 
-$totalPaginas = max(1, (int) ceil($totalActividades / $porPagina));
+$paginacion = configurarPaginacion($totalActividades);
 
-$pagina = max(1, (int) ($_GET['pag'] ?? 1));
-$pagina = min($pagina, $totalPaginas);
+$pagina = $paginacion["pagina"];
+$totalPaginas = $paginacion["totalPaginas"];
 
-$inicio = ($pagina - 1) * $porPagina;
+$porPagina = $paginacion["porPagina"];
+$inicio = $paginacion["offset"];
+
+// OBTENER ACTIVIDADES
 
 $resultadoActividad = obtenerHistorialActividades(
     $conexion,
@@ -46,18 +49,6 @@ $resultadoActividad = obtenerHistorialActividades(
     $fechaDesde,
     $fechaHasta
 );
-
-// CONSERVAR FILTROS AL CAMBIAR DE PÁGINA
-
-function urlPaginaActividad($pagina, $busqueda, $fechaDesde, $fechaHasta)
-{
-    return '?' . http_build_query([
-        'pag' => $pagina,
-        'buscar' => $busqueda,
-        'desde' => $fechaDesde,
-        'hasta' => $fechaHasta
-    ]);
-}
 
 ?>
 
@@ -80,6 +71,8 @@ function urlPaginaActividad($pagina, $busqueda, $fechaDesde, $fechaHasta)
     <link rel="stylesheet" href="../../css/navbar.css">
     <link rel="stylesheet" href="../../css/footer.css">
     <link rel="stylesheet" href="../../css/reportesResponsive.css">
+    <link rel="stylesheet" href="../../css/paginacion.css">
+    
 </head>
 
 <body>
@@ -246,78 +239,7 @@ function urlPaginaActividad($pagina, $busqueda, $fechaDesde, $fechaHasta)
 
             </div>
 
-            <!-- PAGINACIÓN -->
-
-            <?php if ($totalPaginas > 1): ?>
-
-                <nav aria-label="Paginación del historial"
-                     class="mt-4">
-
-                    <ul class="pagination justify-content-center flex-wrap">
-
-                        <li class="page-item <?= $pagina <= 1 ? 'disabled' : '' ?>">
-
-                            <a class="page-link"
-                               href="<?= htmlspecialchars(
-                                   urlPaginaActividad(
-                                       max(1, $pagina - 1),
-                                       $busqueda,
-                                       $fechaDesde,
-                                       $fechaHasta
-                                   ),
-                                   ENT_QUOTES,
-                                   'UTF-8'
-                               ) ?>">
-                                Anterior
-                            </a>
-
-                        </li>
-
-                        <?php for ($i = 1; $i <= $totalPaginas; $i++): ?>
-
-                            <li class="page-item <?= $pagina === $i ? 'active' : '' ?>">
-
-                                <a class="page-link"
-                                   href="<?= htmlspecialchars(
-                                       urlPaginaActividad(
-                                           $i,
-                                           $busqueda,
-                                           $fechaDesde,
-                                           $fechaHasta
-                                       ),
-                                       ENT_QUOTES,
-                                       'UTF-8'
-                                   ) ?>">
-                                    <?= $i ?>
-                                </a>
-
-                            </li>
-
-                        <?php endfor; ?>
-
-                        <li class="page-item <?= $pagina >= $totalPaginas ? 'disabled' : '' ?>">
-
-                            <a class="page-link"
-                               href="<?= htmlspecialchars(
-                                   urlPaginaActividad(
-                                       min($totalPaginas, $pagina + 1),
-                                       $busqueda,
-                                       $fechaDesde,
-                                       $fechaHasta
-                                   ),
-                                   ENT_QUOTES,
-                                   'UTF-8'
-                               ) ?>">
-                                Siguiente
-                            </a>
-
-                        </li>
-
-                    </ul>
-
-                </nav>
-
-            <?php endif; ?>
+            <?php include __DIR__ . '/../../php/paginacionVista.php'; ?>
 
         </section>
 

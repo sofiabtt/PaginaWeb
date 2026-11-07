@@ -14,110 +14,46 @@ $resultado = obtenerNovedadesInactivas($conexion);
 <html lang="es">
 
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <title>Nuvia - Administrador</title>
+    <link rel="icon" type="image/png" href="../../imagenes/logo.png">
 
-    <title>
-        Nuvia - Administrador
-    </title>
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../css/bootstrap-icons.css">
 
-
-    <!-- Bootstrap -->
-
-    <link
-        rel="stylesheet"
-        href="../../css/bootstrap.min.css"
-    >
-
-
-    <!-- Bootstrap Icons -->
-
-    <link
-        rel="stylesheet"
-        href="../../css/bootstrap-icons.css"
-    >
-
-
-    <!-- CSS administrador -->
-
-    <link
-        rel="stylesheet"
-        href="../../css/estilosAdmin.css"
-    >
-
+    <link rel="stylesheet" href="../../css/estilosAdmin.css">
     <link rel="stylesheet" href="../../css/navbar.css">
-
     <link rel="stylesheet" href="../../css/footer.css">
-    <!-- Favicon -->
-
-    <link
-        rel="icon"
-        type="image/png"
-        href="../../imagenes/logo.png"
-    >
-
 </head>
 
-
 <body>
-
-
-    <!-- NAVBAR -->
-
     <?php include __DIR__ . '/../includes/navbarAdmin.php'; ?>
-
 
     <main class="contenido-admin">
 
-
-        <!-- ENCABEZADO -->
-
         <section class="encabezado-contenido">
-
             <div>
-
                 <h1>
                     Novedades dadas de baja
                 </h1>
-
                 <p>
                     Consulta las novedades que fueron dadas de baja del sistema.
                 </p>
-
             </div>
 
-
-            <a
-                href="gestionNovedades.php"
-                class="btn btn-secondary"
-            >
-
+            <a href="gestionNovedades.php" class="btn btn-secondary">
                 <i class="bi bi-arrow-left"></i>
-
                 Volver a novedades
-
             </a>
-
         </section>
 
-
-
         <!-- TABLA -->
-
         <section class="tabla-contenedor">
-
             <table class="table align-middle">
-
-
                 <thead>
-
                     <tr>
-
                         <th>
                             Código
                         </th>
@@ -141,59 +77,42 @@ $resultado = obtenerNovedadesInactivas($conexion);
                         <th>
                             Acciones
                         </th>
-
                     </tr>
-
                 </thead>
 
-
-
                 <tbody>
-
                     <?php while ($novedad = $resultado->fetch_assoc()) { ?>
-
                         <tr>
-
                             <td>
                                 <?php echo $novedad["codNovedad"]; ?>
                             </td>
 
-
                             <td class="texto-novedad">
-
                                 <?php
                                 echo htmlspecialchars(
                                     $novedad["textoNovedad"]
                                 );
                                 ?>
-
                             </td>
-
 
                             <td>
                                 <?php echo $novedad["fechaPublicacionNovedad"]; ?>
                             </td>
 
-
                             <td>
                                 <?php echo $novedad["fechaExpiracionNovedad"]; ?>
                             </td>
 
-
                             <td>
-
                                 <?php
                                 echo date(
                                     "d/m/Y H:i",
                                     strtotime($novedad["fechaEliminacion"])
                                 );
                                 ?>
-
                             </td>
 
-
                             <td>
-
                                 <a
                                     href="verNovedad.php?id=<?php echo $novedad["codNovedad"]; ?>&origen=inactivas"
                                     class="btn btn-sm btn-outline-secondary"
@@ -201,21 +120,13 @@ $resultado = obtenerNovedadesInactivas($conexion);
                                     <i class="bi bi-eye"></i>
                                     Ver
                                 </a>
-
                             </td>
-
                         </tr>
-
                     <?php } ?>
-
                 </tbody>
-
-
             </table>
-
         </section>
-
-
+        
     </main>
     
     <?php include __DIR__ . '/../../includes/footer.php'; ?>

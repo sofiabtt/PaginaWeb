@@ -11,28 +11,22 @@ verificarRol('administrador');
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Nuvia - Gestión de Reportes</title>
+    <link rel="icon" type="image/png" href="../../imagenes/logo.png">
 
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/bootstrap-icons.css">
+
     <link rel="stylesheet" href="../../css/navbar.css">
     <link rel="stylesheet" href="../../css/footer.css">
     <link rel="stylesheet" href="../../css/estilosAdmin.css">
     <link rel="stylesheet" href="../../css/reportesResponsive.css">
-
-    <link rel="icon" type="image/png" href="../../imagenes/logo.png">
 </head>
 
 <body>
-
-    <!-- NAVBAR -->
     <?php include __DIR__ . '/../includes/navbarAdmin.php'; ?>
 
-    <!-- CONTENIDO PRINCIPAL -->
     <main class="container reporte-contenido">
-
-        <!-- ENCABEZADO -->
         <section class="reporte-encabezado">
-
             <div>
                 <h1>Gestión de Reportes</h1>
 
@@ -40,7 +34,6 @@ verificarRol('administrador');
                     Consultá los reportes y estadísticas del sistema.
                 </p>
             </div>
-
         </section>
 
         <!-- REPORTES DISPONIBLES -->
@@ -48,7 +41,6 @@ verificarRol('administrador');
 
             <!-- VENTAS -->
             <article class="reporte-card">
-
                 <div class="reporte-card-icono">
                     <i class="bi bi-graph-up-arrow" aria-hidden="true"></i>
                 </div>
@@ -64,12 +56,10 @@ verificarRol('administrador');
                     <i class="bi bi-file-earmark-bar-graph" aria-hidden="true"></i>
                     Ver reporte
                 </a>
-
             </article>
 
             <!-- VUELOS -->
             <article class="reporte-card">
-
                 <div class="reporte-card-icono">
                     <i class="bi bi-airplane" aria-hidden="true"></i>
                 </div>
@@ -85,12 +75,10 @@ verificarRol('administrador');
                     <i class="bi bi-file-earmark-bar-graph" aria-hidden="true"></i>
                     Ver reporte
                 </a>
-
             </article>
 
             <!-- USUARIOS -->
             <article class="reporte-card">
-
                 <div class="reporte-card-icono">
                     <i class="bi bi-people" aria-hidden="true"></i>
                 </div>
@@ -106,17 +94,12 @@ verificarRol('administrador');
                     <i class="bi bi-file-earmark-bar-graph" aria-hidden="true"></i>
                     Ver reporte
                 </a>
-
             </article>
-
         </section>
-
     </main>
 
-    <!-- FOOTER -->
     <?php include __DIR__ . '/../../includes/footer.php'; ?>
 
-    <!-- BOOTSTRAP -->
     <script src="<?= htmlspecialchars(urlApp('js/bootstrap.bundle.min.js'), ENT_QUOTES, 'UTF-8') ?>"></script>
 
 </body>

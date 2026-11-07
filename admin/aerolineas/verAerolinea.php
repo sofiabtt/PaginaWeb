@@ -22,51 +22,24 @@ $aerolinea = obtenerAerolinea($conexion, $id);
 <head>
 
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <title> Nuvia - Administrador </title>
 
-    <title>
-        Nuvia - Administrador
-    </title>
+    <link rel="icon" href="../../imagenes/logo.png" type="image/png">
 
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../css/bootstrap-icons.css">
 
-    <link
-        rel="stylesheet"
-        href="../../css/bootstrap.min.css"
-    >
-
-
-    <link
-        rel="stylesheet"
-        href="../../css/bootstrap-icons.css"
-    >
-
-
-    <link
-        rel="stylesheet"
-        href="../../css/estilosAdmin.css"
-    >
-
+    <link rel="stylesheet" href="../../css/estilosAdmin.css">
     <link rel="stylesheet" href="../../css/navbar.css">
     <link rel="stylesheet" href="../../css/footer.css">
 
-
-    <link
-        rel="icon"
-        type="image/png"
-        href="../../imagenes/logo.png"
-    >
-
 </head>
-
 
 <body>
 
     <?php include __DIR__ . '/../includes/navbarAdmin.php'; ?>
-
 
     <main class="contenido-admin">
 
@@ -98,7 +71,6 @@ $aerolinea = obtenerAerolinea($conexion, $id);
                     </h2>
 
                     <p>
-
                         <strong>
                             Estado:
                         </strong>
@@ -116,7 +88,7 @@ $aerolinea = obtenerAerolinea($conexion, $id);
                             </span>
 
                         <?php } ?>
-
+                        
                     </p>
 
                     <?php if ($aerolinea["activoAerolinea"] == 0) { ?>
@@ -138,7 +110,6 @@ $aerolinea = obtenerAerolinea($conexion, $id);
 
                     <?php } ?>
 
-
                     <p>
 
                         <strong>
@@ -151,9 +122,7 @@ $aerolinea = obtenerAerolinea($conexion, $id);
 
                     </p>
 
-
                     <p>
-
                         <strong>
                             Código IATA:
                         </strong>
@@ -163,12 +132,9 @@ $aerolinea = obtenerAerolinea($conexion, $id);
                             $aerolinea["codigoIATA"]
                         );
                         ?>
-
                     </p>
 
-
                     <p>
-
                         <strong>
                             País:
                         </strong>
@@ -178,20 +144,15 @@ $aerolinea = obtenerAerolinea($conexion, $id);
                             $aerolinea["nombrePais"]
                         );
                         ?>
-
                     </p>
 
-
                     <hr>
-
 
                     <h5>
                         Descripción
                     </h5>
 
-
                     <p>
-
                         <?php
                         echo nl2br(
                             htmlspecialchars(
@@ -199,9 +160,7 @@ $aerolinea = obtenerAerolinea($conexion, $id);
                             )
                         );
                         ?>
-
                     </p>
-
 
                     <div class="mt-4">
 
@@ -247,7 +206,6 @@ $aerolinea = obtenerAerolinea($conexion, $id);
             <?php } ?>
 
         </section>
-
 
     </main>
 

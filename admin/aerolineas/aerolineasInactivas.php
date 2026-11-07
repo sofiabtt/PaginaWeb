@@ -15,66 +15,26 @@ $resultado = obtenerAerolineasInactivas($conexion);
 <head>
 
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <title> Nuvia - Administrador </title>
 
-    <title>
-        Nuvia - Administrador
-    </title>
+    <link rel="icon" href="../../imagenes/logo.png" type="image/png">
 
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../css/bootstrap-icons.css">
 
-    <!-- Bootstrap -->
-
-    <link
-        rel="stylesheet"
-        href="../../css/bootstrap.min.css"
-    >
-
-
-    <!-- Bootstrap Icons -->
-
-    <link
-        rel="stylesheet"
-        href="../../css/bootstrap-icons.css"
-    >
-
-
-    <!-- CSS administrador -->
-
-    <link
-        rel="stylesheet"
-        href="../../css/estilosAdmin.css"
-    >
-
+    <link rel="stylesheet" href="../../css/estilosAdmin.css">
     <link rel="stylesheet" href="../../css/navbar.css">
     <link rel="stylesheet" href="../../css/footer.css">
 
-    <!-- Favicon -->
-
-    <link
-        rel="icon"
-        type="image/png"
-        href="../../imagenes/logo.png"
-    >
-
 </head>
-
 
 <body>
 
-
-    <!-- NAVBAR -->
-
     <?php include __DIR__ . '/../includes/navbarAdmin.php'; ?>
 
-
     <main class="contenido-admin">
-
-
-        <!-- ENCABEZADO -->
 
         <section class="encabezado-contenido">
 
@@ -90,11 +50,7 @@ $resultado = obtenerAerolineasInactivas($conexion);
 
             </div>
 
-
-            <a
-                href="gestionAerolineas.php"
-                class="btn btn-secondary"
-            >
+            <a href="gestionAerolineas.php" class="btn btn-secondary">
 
                 <i class="bi bi-arrow-left"></i>
 
@@ -104,14 +60,11 @@ $resultado = obtenerAerolineasInactivas($conexion);
 
         </section>
 
-
-
         <!-- TABLA -->
 
         <section class="tabla-contenedor">
 
             <table class="table align-middle">
-
 
                 <thead>
 
@@ -132,8 +85,6 @@ $resultado = obtenerAerolineasInactivas($conexion);
                     </tr>
 
                 </thead>
-
-
 
                 <tbody>
 
@@ -185,11 +136,9 @@ $resultado = obtenerAerolineasInactivas($conexion);
 
                 </tbody>
 
-
             </table>
 
         </section>
-
 
     </main>
 

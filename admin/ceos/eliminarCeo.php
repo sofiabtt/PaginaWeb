@@ -70,56 +70,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
 
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <title> Nuvia - Administrador </title>
 
-    <title>
-        Nuvia - Administrador
-    </title>
+    <link rel="icon" href="../../imagenes/logo.png" type="image/png">
 
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../css/bootstrap-icons.css">
 
-    <link
-        rel="stylesheet"
-        href="../../css/bootstrap.min.css"
-    >
-
-
-    <link
-        rel="stylesheet"
-        href="../../css/bootstrap-icons.css"
-    >
-
-
-    <link
-        rel="stylesheet"
-        href="../../css/estilosAdmin.css"
-    >
-
+    <link rel="stylesheet" href="../../css/estilosAdmin.css">
+    <link rel="stylesheet" href="../../css/navbar.css">
     <link rel="stylesheet" href="../../css/footer.css">
-
-
-    <link
-        rel="icon"
-        type="image/png"
-        href="../../imagenes/logo.png"
-    >
 
 </head>
 
-
 <body>
-
-
-    <!-- NAVBAR -->
 
     <?php include __DIR__ . '/../includes/navbarAdmin.php'; ?>
 
-
     <main class="contenido-admin">
-
 
         <section class="encabezado-contenido">
 
@@ -137,8 +107,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         </section>
 
-
-
         <?php if (isset($mensaje)) { ?>
 
             <div class="alert alert-danger">
@@ -148,8 +116,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
 
         <?php } ?>
-
-
 
         <!-- CONFIRMACIÓN -->
 
@@ -238,8 +204,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                     </p>
 
-
-
                     <!-- BOTONES -->
 
                     <div
@@ -273,17 +237,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                         </form>
 
-
                     </div>
-
 
                 </div>
 
             </div>
 
-
         </section>
-
 
     </main>
 

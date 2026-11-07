@@ -187,432 +187,374 @@ $stmtImpresion->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Nuvia - Reporte de Vuelos</title>
+    <link rel="icon" type="image/png" href="../../imagenes/logo.png">
 
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/bootstrap-icons.css">
+
     <link rel="stylesheet" href="../../css/navbar.css">
     <link rel="stylesheet" href="../../css/footer.css">
     <link rel="stylesheet" href="../../css/estilosAdmin.css">
     <link rel="stylesheet" href="../../css/reportesResponsive.css">
-
-    <link rel="icon" type="image/png" href="../../imagenes/logo.png">
 </head>
 
 <body>
 
-<?php include __DIR__ . '/../includes/navbarAdmin.php'; ?>
+    <?php include __DIR__ . '/../includes/navbarAdmin.php'; ?>
 
-<main class="container reporte-contenido">
-
-    <!-- ENCABEZADO -->
-    <section class="reporte-encabezado">
-
-        <div>
-
-            <a href="gestionReportes.php"
-               class="reporte-volver">
-
-                <i class="bi bi-arrow-left"></i>
-                Volver a reportes
-
-            </a>
-
-            <h1>Reporte de Vuelos</h1>
-
-            <p class="reporte-descripcion">
-                Consultá los vuelos registrados en Nuvia.
-            </p>
-
-        </div>
-
-        <button type="button"
-                class="btn btn-primary reporte-btn-imprimir"
-                onclick="window.print()">
-
-            <i class="bi bi-printer"></i>
-            Imprimir
-
-        </button>
-
-    </section>
-
-    <!-- FILTROS -->
-    <section class="reporte-filtros">
-
-        <form method="GET" class="row g-3 align-items-end">
-
-            <div class="col-12 col-md-6 col-lg-4">
-
-                <label for="busqueda" class="form-label">
-                    Buscar vuelo
-                </label>
-
-                <input type="search"
-                       id="busqueda"
-                       name="busqueda"
-                       class="form-control"
-                       placeholder="Origen, destino o código"
-                       value="<?= escapar($busqueda) ?>">
-
-            </div>
-
-            <div class="col-12 col-md-6 col-lg-3">
-
-                <label for="aerolinea" class="form-label">
-                    Aerolínea
-                </label>
-
-                <select id="aerolinea"
-                        name="aerolinea"
-                        class="form-select">
-
-                    <option value="0">Todas</option>
-
-                    <?php while ($a = $listaAerolineas->fetch_assoc()): ?>
-
-                        <option value="<?= (int) $a['codAerolinea'] ?>"
-                            <?= $aerolinea === (int) $a['codAerolinea'] ? 'selected' : '' ?>>
-
-                            <?= escapar($a['nombreAerolinea']) ?>
-
-                        </option>
-
-                    <?php endwhile; ?>
-
-                </select>
-
-            </div>
-
-            <div class="col-12 col-md-6 col-lg-3">
-
-                <label for="estado" class="form-label">
-                    Estado
-                </label>
-
-                <select id="estado"
-                        name="estado"
-                        class="form-select">
-
-                    <option value="todos"
-                        <?= $estado === 'todos' ? 'selected' : '' ?>>
-                        Todos
-                    </option>
-
-                    <option value="activos"
-                        <?= $estado === 'activos' ? 'selected' : '' ?>>
-                        Activos
-                    </option>
-
-                    <option value="inactivos"
-                        <?= $estado === 'inactivos' ? 'selected' : '' ?>>
-                        Inactivos
-                    </option>
-
-                </select>
-
-            </div>
-
-            <div class="col-12 col-lg-2 d-flex gap-2">
-
-                <button type="submit" class="btn btn-primary">
-                    Filtrar
-                </button>
-
-                <a href="vuelos.php" class="btn btn-outline-secondary">
-                    Limpiar
+    <main class="container reporte-contenido">
+        <!-- ENCABEZADO -->
+        <section class="reporte-encabezado">
+            <div>
+                <a href="gestionReportes.php"
+                class="reporte-volver">
+                    <i class="bi bi-arrow-left"></i>
+                    Volver a reportes
                 </a>
 
+                <h1>Reporte de Vuelos</h1>
+
+                <p class="reporte-descripcion">
+                    Consultá los vuelos registrados en Nuvia.
+                </p>
             </div>
 
-        </form>
+            <button type="button"
+                    class="btn btn-primary reporte-btn-imprimir"
+                    onclick="window.print()">
 
-    </section>
+                <i class="bi bi-printer"></i>
+                Imprimir
+            </button>
+        </section>
 
-    <!-- TOTAL -->
-    <section class="my-4">
+        <!-- FILTROS -->
+        <section class="reporte-filtros">
+            <form method="GET" class="row g-3 align-items-end">
+                <div class="col-12 col-md-6 col-lg-4">
+                    <label for="busqueda" class="form-label">
+                        Buscar vuelo
+                    </label>
 
-        <div class="card">
+                    <input type="search"
+                        id="busqueda"
+                        name="busqueda"
+                        class="form-control"
+                        placeholder="Origen, destino o código"
+                        value="<?= escapar($busqueda) ?>">
+                </div>
 
-            <div class="card-body">
+                <div class="col-12 col-md-6 col-lg-3">
+                    <label for="aerolinea" class="form-label">
+                        Aerolínea
+                    </label>
 
-                <h2 class="h6">Vuelos encontrados</h2>
+                    <select id="aerolinea"
+                            name="aerolinea"
+                            class="form-select">
 
-                <p class="fs-3 fw-bold mb-0">
-                    <?= $cantidad ?>
+                        <option value="0">Todas</option>
+
+                        <?php while ($a = $listaAerolineas->fetch_assoc()): ?>
+
+                            <option value="<?= (int) $a['codAerolinea'] ?>"
+                                <?= $aerolinea === (int) $a['codAerolinea'] ? 'selected' : '' ?>>
+
+                                <?= escapar($a['nombreAerolinea']) ?>
+                            </option>
+
+                        <?php endwhile; ?>
+
+                    </select>
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-3">
+                    <label for="estado" class="form-label">
+                        Estado
+                    </label>
+
+                    <select id="estado"
+                            name="estado"
+                            class="form-select">
+
+                        <option value="todos"
+                            <?= $estado === 'todos' ? 'selected' : '' ?>>
+                            Todos
+                        </option>
+
+                        <option value="activos"
+                            <?= $estado === 'activos' ? 'selected' : '' ?>>
+                            Activos
+                        </option>
+
+                        <option value="inactivos"
+                            <?= $estado === 'inactivos' ? 'selected' : '' ?>>
+                            Inactivos
+                        </option>
+                    </select>
+                </div>
+
+                <div class="col-12 col-lg-2 d-flex gap-2">
+                    <button type="submit" class="btn btn-primary">
+                        Filtrar
+                    </button>
+
+                    <a href="vuelos.php" class="btn btn-outline-secondary">
+                        Limpiar
+                    </a>
+                </div>
+
+            </form>
+
+        </section>
+
+        <!-- TOTAL -->
+        <section class="my-4">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="h6">Vuelos encontrados</h2>
+
+                    <p class="fs-3 fw-bold mb-0">
+                        <?= $cantidad ?>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- TABLA -->
+        <section class="tabla-contenedor reporte-tabla reporte-tabla-pantalla">
+            <div class="table-responsive">
+                <table class="table table-striped align-middle">
+                    <thead>
+                        <tr>
+                            <th scope="col">Código</th>
+                            <th scope="col">Aerolínea</th>
+                            <th scope="col">Origen</th>
+                            <th scope="col">Destino</th>
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Hora</th>
+                            <th scope="col">Precio</th>
+                            <th scope="col">Asientos</th>
+                            <th scope="col">Estado</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                    <?php if (empty($vuelos)): ?>
+
+                        <tr>
+                            <td colspan="9" class="text-center py-4">
+                                No se encontraron vuelos.
+                            </td>
+                        </tr>
+
+                    <?php else: ?>
+
+                        <?php foreach ($vuelos as $vuelo): ?>
+
+                            <tr>
+                                <td data-label="Código">
+                                    #<?= (int) $vuelo['codVuelo'] ?>
+                                </td>
+
+                                <td data-label="Aerolínea">
+                                    <?= escapar($vuelo['nombreAerolinea']) ?>
+                                </td>
+
+                                <td data-label="Origen">
+                                    <?= escapar($vuelo['origenVuelo']) ?>
+                                </td>
+
+                                <td data-label="Destino">
+                                    <?= escapar($vuelo['destinoVuelo']) ?>
+                                </td>
+
+                                <td data-label="Fecha">
+                                    <?php
+                                        $fecha = DateTime::createFromFormat(
+                                            '!Y-m-d',
+                                            $vuelo['fechaSalidaVuelo']
+                                        );
+                                    ?>
+
+                                    <?= $fecha
+                                        ? escapar($fecha->format('d/m/Y'))
+                                        : escapar($vuelo['fechaSalidaVuelo']) ?>
+                                </td>
+
+                                <td data-label="Hora">
+                                    <?= escapar($vuelo['horaSalidaVuelo']) ?>
+                                </td>
+
+                                <td data-label="Precio">
+                                    $<?= number_format(
+                                        (float) $vuelo['precioVuelo'],
+                                        2,
+                                        ',',
+                                        '.'
+                                    ) ?>
+                                </td>
+
+                                <td data-label="Asientos">
+                                    <?= (int) $vuelo['asientosDisponibles'] ?>
+                                </td>
+
+                                <td data-label="Estado">
+
+                                    <?php if ((int) $vuelo['activoVuelo'] === 1): ?>
+
+                                        <span class="badge bg-success">
+                                            Activo
+                                        </span>
+
+                                    <?php else: ?>
+
+                                        <span class="badge bg-secondary">
+                                            Inactivo
+                                        </span>
+
+                                    <?php endif; ?>
+
+                                </td>
+                            </tr>
+
+                        <?php endforeach; ?>
+
+                    <?php endif; ?>
+
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- PAGINACIÓN -->
+        <?php if ($totalPaginas > 1): ?>
+            <nav aria-label="Paginación de vuelos" class="mt-4">
+                <ul class="pagination justify-content-center flex-wrap">
+
+                    <?php for ($i = 1; $i <= $totalPaginas; $i++): ?>
+
+                        <li class="page-item <?= $i === $pagina ? 'active' : '' ?>">
+                            <a class="page-link"
+                            href="<?= escapar(enlacePaginaVuelos($i)) ?>"
+                            <?= $i === $pagina ? 'aria-current="page"' : '' ?>>
+                                <?= $i ?>
+                            </a>
+                        </li>
+
+                    <?php endfor; ?>
+
+                </ul>
+            </nav>
+
+        <?php endif; ?>
+
+        <!-- REPORTE COMPLETO PARA IMPRESIÓN -->
+        <section class="reporte-tabla reporte-tabla-impresion">
+            <div class="reporte-membrete">
+                <h2>Nuvia - Sistema de Reservas de Vuelos</h2>
+
+                <p> <strong>Reporte:</strong> Vuelos Registrados</p>
+
+                <p>
+                    <strong>Fecha de emisión:</strong>
+                    <?= date('d/m/Y H:i') ?> hs
                 </p>
 
+                <p>
+                    <strong>Emitido por:</strong> Administrador
+                </p>
+
+                <p>
+                    <strong>Total de vuelos:</strong>
+                    <?= $cantidad ?>
+                </p>
             </div>
 
-        </div>
-
-    </section>
-
-    <!-- TABLA -->
-    <section class="tabla-contenedor reporte-tabla reporte-tabla-pantalla">
-
-        <div class="table-responsive">
-
-            <table class="table table-striped align-middle">
-
+            <table class="table table-bordered align-middle">
                 <thead>
-
                     <tr>
-                        <th scope="col">Código</th>
-                        <th scope="col">Aerolínea</th>
-                        <th scope="col">Origen</th>
-                        <th scope="col">Destino</th>
-                        <th scope="col">Fecha</th>
-                        <th scope="col">Hora</th>
-                        <th scope="col">Precio</th>
-                        <th scope="col">Asientos</th>
-                        <th scope="col">Estado</th>
+                        <th>Código</th>
+                        <th>Aerolínea</th>
+                        <th>Origen</th>
+                        <th>Destino</th>
+                        <th>Fecha</th>
+                        <th>Hora</th>
+                        <th>Precio</th>
+                        <th>Asientos</th>
+                        <th>Estado</th>
                     </tr>
-
                 </thead>
 
                 <tbody>
-
-                <?php if (empty($vuelos)): ?>
-
-                    <tr>
-                        <td colspan="9" class="text-center py-4">
-                            No se encontraron vuelos.
-                        </td>
-                    </tr>
-
-                <?php else: ?>
-
-                    <?php foreach ($vuelos as $vuelo): ?>
-
+                    <?php if (empty($vuelosImpresion)): ?>
                         <tr>
-
-                            <td data-label="Código">
-                                #<?= (int) $vuelo['codVuelo'] ?>
+                            <td colspan="9">
+                                No se encontraron vuelos.
                             </td>
-
-                            <td data-label="Aerolínea">
-                                <?= escapar($vuelo['nombreAerolinea']) ?>
-                            </td>
-
-                            <td data-label="Origen">
-                                <?= escapar($vuelo['origenVuelo']) ?>
-                            </td>
-
-                            <td data-label="Destino">
-                                <?= escapar($vuelo['destinoVuelo']) ?>
-                            </td>
-
-                            <td data-label="Fecha">
-                                <?php
-                                    $fecha = DateTime::createFromFormat(
-                                        '!Y-m-d',
-                                        $vuelo['fechaSalidaVuelo']
-                                    );
-                                ?>
-
-                                <?= $fecha
-                                    ? escapar($fecha->format('d/m/Y'))
-                                    : escapar($vuelo['fechaSalidaVuelo']) ?>
-                            </td>
-
-                            <td data-label="Hora">
-                                <?= escapar($vuelo['horaSalidaVuelo']) ?>
-                            </td>
-
-                            <td data-label="Precio">
-                                $<?= number_format(
-                                    (float) $vuelo['precioVuelo'],
-                                    2,
-                                    ',',
-                                    '.'
-                                ) ?>
-                            </td>
-
-                            <td data-label="Asientos">
-                                <?= (int) $vuelo['asientosDisponibles'] ?>
-                            </td>
-
-                            <td data-label="Estado">
-
-                                <?php if ((int) $vuelo['activoVuelo'] === 1): ?>
-
-                                    <span class="badge bg-success">
-                                        Activo
-                                    </span>
-
-                                <?php else: ?>
-
-                                    <span class="badge bg-secondary">
-                                        Inactivo
-                                    </span>
-
-                                <?php endif; ?>
-
-                            </td>
-
                         </tr>
 
-                    <?php endforeach; ?>
+                    <?php else: ?>
 
-                <?php endif; ?>
+                        <?php foreach ($vuelosImpresion as $vuelo): ?>
+
+                            <tr>
+                                <td>
+                                    #<?= (int) $vuelo['codVuelo'] ?>
+                                </td>
+
+                                <td>
+                                    <?= escapar($vuelo['nombreAerolinea']) ?>
+                                </td>
+
+                                <td>
+                                    <?= escapar($vuelo['origenVuelo']) ?>
+                                </td>
+
+                                <td>
+                                    <?= escapar($vuelo['destinoVuelo']) ?>
+                                </td>
+
+                                <td>
+                                    <?= escapar($vuelo['fechaSalidaVuelo']) ?>
+                                </td>
+
+                                <td>
+                                    <?= escapar($vuelo['horaSalidaVuelo']) ?>
+                                </td>
+
+                                <td>
+                                    $<?= number_format(
+                                        (float) $vuelo['precioVuelo'],
+                                        2,
+                                        ',',
+                                        '.'
+                                    ) ?>
+                                </td>
+
+                                <td>
+                                    <?= (int) $vuelo['asientosDisponibles'] ?>
+                                </td>
+
+                                <td>
+                                    <?= (int) $vuelo['activoVuelo'] === 1
+                                        ? 'Activo'
+                                        : 'Inactivo' ?>
+                                </td>
+                            </tr>
+
+                        <?php endforeach; ?>
+                    <?php endif; ?>
 
                 </tbody>
-
             </table>
+        </section>
+    </main>
 
-        </div>
+    <?php include __DIR__ . '/../../includes/footer.php'; ?>
 
-    </section>
-
-    <!-- PAGINACIÓN -->
-    <?php if ($totalPaginas > 1): ?>
-
-        <nav aria-label="Paginación de vuelos" class="mt-4">
-
-            <ul class="pagination justify-content-center flex-wrap">
-
-                <?php for ($i = 1; $i <= $totalPaginas; $i++): ?>
-
-                    <li class="page-item <?= $i === $pagina ? 'active' : '' ?>">
-
-                        <a class="page-link"
-                           href="<?= escapar(enlacePaginaVuelos($i)) ?>"
-                           <?= $i === $pagina ? 'aria-current="page"' : '' ?>>
-
-                            <?= $i ?>
-
-                        </a>
-
-                    </li>
-
-                <?php endfor; ?>
-
-            </ul>
-
-        </nav>
-
-    <?php endif; ?>
-
-    <!-- REPORTE COMPLETO PARA IMPRESIÓN -->
-
-    <section class="reporte-tabla reporte-tabla-impresion">
-
-        <div class="reporte-membrete">
-
-            <h2>Nuvia - Sistema de Reservas de Vuelos</h2>
-
-            <p>
-                <strong>Reporte:</strong> Vuelos Registrados
-            </p>
-
-            <p>
-                <strong>Fecha de emisión:</strong>
-                <?= date('d/m/Y H:i') ?> hs
-            </p>
-
-            <p>
-                <strong>Emitido por:</strong> Administrador
-            </p>
-
-            <p>
-                <strong>Total de vuelos:</strong>
-                <?= $cantidad ?>
-            </p>
-
-        </div>
-
-        <table class="table table-bordered align-middle">
-
-            <thead>
-                <tr>
-                    <th>Código</th>
-                    <th>Aerolínea</th>
-                    <th>Origen</th>
-                    <th>Destino</th>
-                    <th>Fecha</th>
-                    <th>Hora</th>
-                    <th>Precio</th>
-                    <th>Asientos</th>
-                    <th>Estado</th>
-                </tr>
-            </thead>
-
-            <tbody>
-
-                <?php if (empty($vuelosImpresion)): ?>
-
-                    <tr>
-                        <td colspan="9">
-                            No se encontraron vuelos.
-                        </td>
-                    </tr>
-
-                <?php else: ?>
-
-                    <?php foreach ($vuelosImpresion as $vuelo): ?>
-
-                        <tr>
-
-                            <td>
-                                #<?= (int) $vuelo['codVuelo'] ?>
-                            </td>
-
-                            <td>
-                                <?= escapar($vuelo['nombreAerolinea']) ?>
-                            </td>
-
-                            <td>
-                                <?= escapar($vuelo['origenVuelo']) ?>
-                            </td>
-
-                            <td>
-                                <?= escapar($vuelo['destinoVuelo']) ?>
-                            </td>
-
-                            <td>
-                                <?= escapar($vuelo['fechaSalidaVuelo']) ?>
-                            </td>
-
-                            <td>
-                                <?= escapar($vuelo['horaSalidaVuelo']) ?>
-                            </td>
-
-                            <td>
-                                $<?= number_format(
-                                    (float) $vuelo['precioVuelo'],
-                                    2,
-                                    ',',
-                                    '.'
-                                ) ?>
-                            </td>
-
-                            <td>
-                                <?= (int) $vuelo['asientosDisponibles'] ?>
-                            </td>
-
-                            <td>
-                                <?= (int) $vuelo['activoVuelo'] === 1
-                                    ? 'Activo'
-                                    : 'Inactivo' ?>
-                            </td>
-
-                        </tr>
-
-                    <?php endforeach; ?>
-
-                <?php endif; ?>
-
-            </tbody>
-
-        </table>
-
-    </section>
-
-</main>
-
-<?php include __DIR__ . '/../../includes/footer.php'; ?>
-
-<script src="<?= escapar(urlApp('js/bootstrap.bundle.min.js')) ?>"></script>
+    <script src="<?= escapar(urlApp('js/bootstrap.bundle.min.js')) ?>"></script>
 
 </body>
 </html>

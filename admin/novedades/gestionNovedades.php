@@ -7,20 +7,17 @@ include "../../php/consultasNovedades.php";
 
 // PAGINACIÓN
 
-$porPagina = 10;
+require_once __DIR__ . '/../../php/paginacion.php';
 
 $totalRegistros = contarNovedadesActivas($conexion);
-$totalPaginas = max(1, (int) ceil($totalRegistros / $porPagina));
 
-$pagina = filter_input(INPUT_GET, 'pagina', FILTER_VALIDATE_INT);
+$paginacion = configurarPaginacion($totalRegistros);
 
-$pagina = ($pagina !== false && $pagina !== null && $pagina > 0)
-    ? $pagina
-    : 1;
+$pagina = $paginacion["pagina"];
+$totalPaginas = $paginacion["totalPaginas"];
 
-$pagina = min($pagina, $totalPaginas);
-
-$offset = ($pagina - 1) * $porPagina;
+$porPagina = $paginacion["porPagina"];
+$offset = $paginacion["offset"];
 
 $resultado = obtenerNovedadesActivasPaginadas(
     $conexion,
@@ -34,58 +31,37 @@ $resultado = obtenerNovedadesActivasPaginadas(
 <html lang="es">
 
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Nuvia - Administrador</title>
+    <link rel="icon" type="image/png" href="../../imagenes/logo.png">
 
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
-
     <link rel="stylesheet" href="../../css/bootstrap-icons.css">
 
     <link rel="stylesheet" href="../../css/estilosAdmin.css">
-
     <link rel="stylesheet" href="../../css/navbar.css">
-
     <link rel="stylesheet" href="../../css/footer.css">
-
     <link rel="stylesheet" href="../../css/tablasResponsive.css">
-
-    <link rel="icon" type="image/png" href="../../imagenes/logo.png">
-
+    <link rel="stylesheet" href="../../css/paginacion.css">
 </head>
 
 <body>
-
-    <!-- NAVBAR -->
-
     <?php include __DIR__ . '/../includes/navbarAdmin.php'; ?>
 
-
-    <!-- CONTENIDO -->
-
     <main class="contenido-admin">
-
-        <!-- ENCABEZADO -->
-
         <section class="encabezado-contenido">
-
             <div>
-
                 <h1>
                     Gestión de Novedades
                 </h1>
-
                 <p>
                     Administra las novedades publicadas.
                 </p>
-
             </div>
 
             <div>
-
                 <a
                     href="novedadesInactivas.php"
                     class="btn btn-outline-secondary"
@@ -101,22 +77,14 @@ $resultado = obtenerNovedadesActivasPaginadas(
                     <i class="bi bi-plus-lg"></i>
                     Crear novedad
                 </a>
-
             </div>
-
         </section>
 
-
         <!-- TABLA -->
-
         <section class="tabla-contenedor tabla-tarjetas">
-
             <table class="table align-middle">
-
                 <thead>
-
                     <tr>
-
                         <th scope="col">
                             Código
                         </th>
@@ -136,78 +104,51 @@ $resultado = obtenerNovedadesActivasPaginadas(
                         <th scope="col">
                             Acciones
                         </th>
-
                     </tr>
-
                 </thead>
 
-
                 <tbody>
-
                     <?php while ($novedad = $resultado->fetch_assoc()) { ?>
-
                         <tr>
-
                             <!-- CÓDIGO -->
-
                             <td data-label="Código">
-
                                 <?php
                                 echo (int) $novedad["codNovedad"];
                                 ?>
-
                             </td>
 
-
                             <!-- NOVEDAD -->
-
                             <td
                                 class="texto-novedad"
                                 data-label="Novedad"
                             >
-
                                 <?php
                                 echo htmlspecialchars(
                                     $novedad["textoNovedad"]
                                 );
                                 ?>
-
                             </td>
 
-
                             <!-- PUBLICACIÓN -->
-
                             <td data-label="Publicación">
-
                                 <?php
                                 echo htmlspecialchars(
                                     $novedad["fechaPublicacionNovedad"]
                                 );
                                 ?>
-
                             </td>
 
-
                             <!-- EXPIRACIÓN -->
-
                             <td data-label="Expiración">
-
                                 <?php
                                 echo htmlspecialchars(
                                     $novedad["fechaExpiracionNovedad"]
                                 );
                                 ?>
-
                             </td>
 
-
                             <!-- ACCIONES -->
-
-                            <td
-                                data-label="Acciones"
-                                class="acciones-tabla"
-                            >
-
+                            <td data-label="Acciones" class="acciones-tabla">
                                 <a
                                     href="verNovedad.php?id=<?php echo (int) $novedad["codNovedad"]; ?>"
                                     class="btn btn-sm btn-outline-secondary"
@@ -215,7 +156,6 @@ $resultado = obtenerNovedadesActivasPaginadas(
                                     <i class="bi bi-eye"></i>
                                     Ver
                                 </a>
-
 
                                 <a
                                     href="modificarNovedad.php?id=<?php echo (int) $novedad["codNovedad"]; ?>"
@@ -225,7 +165,6 @@ $resultado = obtenerNovedadesActivasPaginadas(
                                     Modificar
                                 </a>
 
-
                                 <a
                                     href="eliminarNovedad.php?id=<?php echo (int) $novedad["codNovedad"]; ?>"
                                     class="btn btn-sm btn-outline-danger"
@@ -233,99 +172,29 @@ $resultado = obtenerNovedadesActivasPaginadas(
                                     <i class="bi bi-trash"></i>
                                     Eliminar
                                 </a>
-
                             </td>
-
                         </tr>
 
                     <?php } ?>
 
-
                     <!-- SIN REGISTROS -->
-
                     <?php if ($totalRegistros === 0) { ?>
-
                         <tr>
-
-                            <td
-                                colspan="5"
-                                class="text-center py-4"
-                            >
+                            <td colspan="5" class="text-center py-4">
                                 No hay novedades activas registradas.
                             </td>
-
                         </tr>
-
                     <?php } ?>
 
                 </tbody>
-
             </table>
-
         </section>
 
-
-        <!-- PAGINACIÓN -->
-
-        <?php if ($totalPaginas > 1) { ?>
-
-            <nav
-                class="paginacion-tablas"
-                aria-label="Paginación de novedades"
-            >
-
-                <p>
-                    Página <?php echo $pagina; ?>
-                    de <?php echo $totalPaginas; ?>
-                </p>
-
-
-                <div class="d-flex justify-content-center gap-2 flex-wrap">
-
-                    <!-- ANTERIOR -->
-
-                    <?php if ($pagina > 1) { ?>
-
-                        <a
-                            href="?pagina=<?php echo $pagina - 1; ?>"
-                            class="btn btn-outline-secondary"
-                        >
-                            <i class="bi bi-chevron-left"></i>
-                            Anterior
-                        </a>
-
-                    <?php } ?>
-
-
-                    <!-- SIGUIENTE -->
-
-                    <?php if ($pagina < $totalPaginas) { ?>
-
-                        <a
-                            href="?pagina=<?php echo $pagina + 1; ?>"
-                            class="btn btn-outline-secondary"
-                        >
-                            Siguiente
-                            <i class="bi bi-chevron-right"></i>
-                        </a>
-
-                    <?php } ?>
-
-                </div>
-
-            </nav>
-
-        <?php } ?>
+        <?php include __DIR__ . '/../../php/paginacionVista.php'; ?>
 
     </main>
 
-
-    <!-- FOOTER -->
-
     <?php include __DIR__ . '/../../includes/footer.php'; ?>
-
-
-    <!-- BOOTSTRAP JS -->
 
     <script src="<?= htmlspecialchars(urlApp('js/bootstrap.bundle.min.js'), ENT_QUOTES, 'UTF-8') ?>"></script>
 

@@ -35,41 +35,27 @@ $resultado = obtenerAerolineasActivasPaginadas(
 <head>
 
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Nuvia - Gestión de Aerolíneas</title>
+    <link rel="icon" type="image/png" href="../../imagenes/logo.png">
 
-    <!-- Bootstrap -->
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
-
-    <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="../../css/bootstrap-icons.css">
 
-    <!-- CSS -->
     <link rel="stylesheet" href="../../css/estilosAdmin.css">
     <link rel="stylesheet" href="../../css/navbar.css">
     <link rel="stylesheet" href="../../css/footer.css">
     <link rel="stylesheet" href="../../css/paginacion.css">
-
-    <!-- CSS responsive de tablas -->
     <link rel="stylesheet" href="../../css/tablasResponsive.css">
-
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="../../imagenes/logo.png">
 
 </head>
 
 <body>
 
-    <!-- NAVBAR -->
-
     <?php include __DIR__ . '/../includes/navbarAdmin.php'; ?>
 
-
     <main class="contenido-admin">
-
-        <!-- ENCABEZADO -->
 
         <section class="encabezado-contenido">
 
@@ -105,7 +91,6 @@ $resultado = obtenerAerolineasActivasPaginadas(
 
         </section>
 
-
         <!-- MENSAJES -->
 
         <?php if (isset($_GET["creada"])) { ?>
@@ -133,7 +118,6 @@ $resultado = obtenerAerolineasActivasPaginadas(
             </div>
 
         <?php } ?>
-
 
         <!-- TABLA -->
 
@@ -227,13 +211,7 @@ $resultado = obtenerAerolineasActivasPaginadas(
 
     </main>
 
-
-    <!-- FOOTER -->
-
     <?php include __DIR__ . '/../../includes/footer.php'; ?>
-
-
-    <!-- BOOTSTRAP JS -->
 
     <script src="<?= htmlspecialchars(urlApp('js/bootstrap.bundle.min.js'), ENT_QUOTES, 'UTF-8') ?>"></script>
 

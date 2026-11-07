@@ -187,385 +187,354 @@ $stmtImpresion->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Nuvia - Reporte de Ventas</title>
+    <link rel="icon" type="image/png" href="../../imagenes/logo.png">
 
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/bootstrap-icons.css">
+
     <link rel="stylesheet" href="../../css/navbar.css">
     <link rel="stylesheet" href="../../css/footer.css">
     <link rel="stylesheet" href="../../css/estilosAdmin.css">
     <link rel="stylesheet" href="../../css/reportesResponsive.css">
-
-    <link rel="icon" type="image/png" href="../../imagenes/logo.png">
 </head>
 
 <body>
 
-<?php include __DIR__ . '/../includes/navbarAdmin.php'; ?>
+    <?php include __DIR__ . '/../includes/navbarAdmin.php'; ?>
 
-<main class="container reporte-contenido">
-
-    <section class="reporte-encabezado">
-
-        <div>
-            <a href="gestionReportes.php"
-               class="reporte-volver">
-                <i class="bi bi-arrow-left"></i>
-                Volver a reportes
-            </a>
-
-            <h1>Reporte de Ventas</h1>
-
-            <p class="reporte-descripcion">
-                Consultá las reservas confirmadas y los ingresos generados.
-            </p>
-        </div>
-
-        <button type="button"
-                class="btn btn-primary reporte-btn-imprimir"
-                onclick="window.print()">
-            <i class="bi bi-printer"></i>
-            Imprimir
-        </button>
-
-    </section>
-
-    <!-- FILTROS -->
-    <section class="reporte-filtros">
-
-        <form method="GET" class="row g-3 align-items-end">
-
-            <div class="col-12 col-md-6 col-lg-3">
-                <label for="busqueda" class="form-label">
-                    Buscar
-                </label>
-
-                <input type="search"
-                       id="busqueda"
-                       name="busqueda"
-                       class="form-control"
-                       placeholder="Usuario o reserva"
-                       value="<?= escapar($busqueda) ?>">
-            </div>
-
-            <div class="col-12 col-md-6 col-lg-3">
-                <label for="aerolinea" class="form-label">
-                    Aerolínea
-                </label>
-
-                <select id="aerolinea"
-                        name="aerolinea"
-                        class="form-select">
-
-                    <option value="0">Todas</option>
-
-                    <?php while ($a = $listaAerolineas->fetch_assoc()): ?>
-
-                        <option value="<?= (int) $a['codAerolinea'] ?>"
-                            <?= $aerolinea === (int) $a['codAerolinea'] ? 'selected' : '' ?>>
-
-                            <?= escapar($a['nombreAerolinea']) ?>
-
-                        </option>
-
-                    <?php endwhile; ?>
-
-                </select>
-            </div>
-
-            <div class="col-12 col-md-6 col-lg-2">
-                <label for="desde" class="form-label">
-                    Desde
-                </label>
-
-                <input type="date"
-                       id="desde"
-                       name="desde"
-                       class="form-control"
-                       value="<?= escapar($desde) ?>">
-            </div>
-
-            <div class="col-12 col-md-6 col-lg-2">
-                <label for="hasta" class="form-label">
-                    Hasta
-                </label>
-
-                <input type="date"
-                       id="hasta"
-                       name="hasta"
-                       class="form-control"
-                       value="<?= escapar($hasta) ?>">
-            </div>
-
-            <div class="col-12 col-lg-2 d-flex gap-2">
-                <button type="submit" class="btn btn-primary">
-                    Filtrar
-                </button>
-
-                <a href="ventas.php" class="btn btn-outline-secondary">
-                    Limpiar
+    <main class="container reporte-contenido">
+        <section class="reporte-encabezado">
+            <div>
+                <a href="gestionReportes.php"
+                class="reporte-volver">
+                    <i class="bi bi-arrow-left"></i>
+                    Volver a reportes
                 </a>
+
+                <h1>Reporte de Ventas</h1>
+
+                <p class="reporte-descripcion">
+                    Consultá las reservas confirmadas y los ingresos generados.
+                </p>
             </div>
 
-        </form>
+            <button type="button"
+                    class="btn btn-primary reporte-btn-imprimir"
+                    onclick="window.print()">
+                <i class="bi bi-printer"></i>
+                Imprimir
+            </button>
+        </section>
 
-    </section>
+        <!-- FILTROS -->
+        <section class="reporte-filtros">
+            <form method="GET" class="row g-3 align-items-end">
+                <div class="col-12 col-md-6 col-lg-3">
+                    <label for="busqueda" class="form-label">
+                        Buscar
+                    </label>
 
-    <!-- RESUMEN -->
-    <section class="row g-3 my-3" aria-label="Resumen de ventas">
+                    <input type="search"
+                        id="busqueda"
+                        name="busqueda"
+                        class="form-control"
+                        placeholder="Usuario o reserva"
+                        value="<?= escapar($busqueda) ?>">
+                </div>
 
-        <div class="col-12 col-md-6">
-            <div class="card h-100">
-                <div class="card-body">
-                    <h2 class="h6">Reservas confirmadas</h2>
-                    <p class="fs-3 fw-bold mb-0">
-                        <?= $cantidad ?>
-                    </p>
+                <div class="col-12 col-md-6 col-lg-3">
+                    <label for="aerolinea" class="form-label">
+                        Aerolínea
+                    </label>
+
+                    <select id="aerolinea"
+                            name="aerolinea"
+                            class="form-select">
+
+                        <option value="0">Todas</option>
+
+                        <?php while ($a = $listaAerolineas->fetch_assoc()): ?>
+
+                            <option value="<?= (int) $a['codAerolinea'] ?>"
+                                <?= $aerolinea === (int) $a['codAerolinea'] ? 'selected' : '' ?>>
+
+                                <?= escapar($a['nombreAerolinea']) ?>
+
+                            </option>
+
+                        <?php endwhile; ?>
+                    </select>
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-2">
+                    <label for="desde" class="form-label">
+                        Desde
+                    </label>
+
+                    <input type="date"
+                        id="desde"
+                        name="desde"
+                        class="form-control"
+                        value="<?= escapar($desde) ?>">
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-2">
+                    <label for="hasta" class="form-label">
+                        Hasta
+                    </label>
+
+                    <input type="date"
+                        id="hasta"
+                        name="hasta"
+                        class="form-control"
+                        value="<?= escapar($hasta) ?>">
+                </div>
+
+                <div class="col-12 col-lg-2 d-flex gap-2">
+                    <button type="submit" class="btn btn-primary">
+                        Filtrar
+                    </button>
+
+                    <a href="ventas.php" class="btn btn-outline-secondary">
+                        Limpiar
+                    </a>
+                </div>
+            </form>
+        </section>
+
+        <!-- RESUMEN -->
+        <section class="row g-3 my-3" aria-label="Resumen de ventas">
+
+            <div class="col-12 col-md-6">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h2 class="h6">Reservas confirmadas</h2>
+                        <p class="fs-3 fw-bold mb-0">
+                            <?= $cantidad ?>
+                        </p>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="col-12 col-md-6">
-            <div class="card h-100">
-                <div class="card-body">
-                    <h2 class="h6">Importe total vendido</h2>
-                    <p class="fs-3 fw-bold mb-0">
-                        $<?= number_format($totalVentas, 2, ',', '.') ?>
-                    </p>
+            <div class="col-12 col-md-6">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h2 class="h6">Importe total vendido</h2>
+                        <p class="fs-3 fw-bold mb-0">
+                            $<?= number_format($totalVentas, 2, ',', '.') ?>
+                        </p>
+                    </div>
                 </div>
             </div>
-        </div>
 
-    </section>
+        </section>
 
-    <!-- TABLA -->
-    <section class="tabla-contenedor reporte-tabla reporte-tabla-pantalla">
-        <div class="table-responsive">
+        <!-- TABLA -->
+        <section class="tabla-contenedor reporte-tabla reporte-tabla-pantalla">
+            <div class="table-responsive">
+                <table class="table table-striped align-middle">
+                    <thead>
+                        <tr>
+                            <th scope="col">Reserva</th>
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Usuario</th>
+                            <th scope="col">Aerolínea</th>
+                            <th scope="col">Vuelo</th>
+                            <th scope="col">Pasajeros</th>
+                            <th scope="col">Importe</th>
+                        </tr>
+                    </thead>
 
-            <table class="table table-striped align-middle">
+                    <tbody>
+
+                    <?php if (empty($ventas)): ?>
+
+                        <tr>
+                            <td colspan="7" class="text-center py-4">
+                                No se encontraron ventas confirmadas.
+                            </td>
+                        </tr>
+
+                    <?php else: ?>
+
+                        <?php foreach ($ventas as $venta): ?>
+
+                            <tr>
+                                <td data-label="Reserva">
+                                    #<?= (int) $venta['codReserva'] ?>
+                                </td>
+
+                                <td data-label="Fecha">
+                                    <?= date('d/m/Y H:i', strtotime($venta['fechaReserva'])) ?>
+                                </td>
+
+                                <td data-label="Usuario">
+                                    <?= escapar($venta['nombreUsuario']) ?>
+                                </td>
+
+                                <td data-label="Aerolínea">
+                                    <?= escapar($venta['nombreAerolinea']) ?>
+                                </td>
+
+                                <td data-label="Vuelo">
+                                    #<?= (int) $venta['codVuelo'] ?>
+                                    <br>
+                                    <?= escapar($venta['origenVuelo']) ?>
+                                    →
+                                    <?= escapar($venta['destinoVuelo']) ?>
+                                </td>
+
+                                <td data-label="Pasajeros">
+                                    <?= (int) $venta['cantidadPasajerosReserva'] ?>
+                                </td>
+
+                                <td data-label="Importe">
+                                    $<?= number_format(
+                                        (float) $venta['precioFinalReserva'],
+                                        2,
+                                        ',',
+                                        '.'
+                                    ) ?>
+                                </td>
+                            </tr>
+
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- PAGINACIÓN -->
+        <?php if ($totalPaginas > 1): ?>
+            <nav aria-label="Paginación de ventas" class="mt-4">
+                <ul class="pagination justify-content-center flex-wrap">
+                    <?php for ($i = 1; $i <= $totalPaginas; $i++): ?>
+                        <li class="page-item <?= $i === $pagina ? 'active' : '' ?>">
+                            <a class="page-link"
+                            href="<?= escapar(enlacePaginaVentas($i)) ?>"
+                            <?= $i === $pagina ? 'aria-current="page"' : '' ?>>
+
+                                <?= $i ?>
+
+                            </a>
+                        </li>
+                    <?php endfor; ?>
+                </ul>
+            </nav>
+
+        <?php endif; ?>
+
+        <!-- REPORTE COMPLETO PARA IMPRESIÓN -->
+        <section class="reporte-tabla reporte-tabla-impresion">
+            <div class="reporte-membrete">
+                <h2>Nuvia - Sistema de Reservas de Vuelos</h2>
+
+                <p>
+                    <strong>Reporte:</strong> Ventas Confirmadas
+                </p>
+
+                <p>
+                    <strong>Fecha de emisión:</strong>
+                    <?= date('d/m/Y H:i') ?> hs
+                </p>
+
+                <p>
+                    <strong>Emitido por:</strong> Administrador
+                </p>
+
+                <p>
+                    <strong>Reservas confirmadas:</strong>
+                    <?= $cantidad ?>
+                </p>
+
+                <p>
+                    <strong>Importe total vendido:</strong>
+                    $<?= number_format($totalVentas, 2, ',', '.') ?>
+                </p>
+
+            </div>
+
+            <table class="table table-bordered align-middle">
 
                 <thead>
                     <tr>
-                        <th scope="col">Reserva</th>
-                        <th scope="col">Fecha</th>
-                        <th scope="col">Usuario</th>
-                        <th scope="col">Aerolínea</th>
-                        <th scope="col">Vuelo</th>
-                        <th scope="col">Pasajeros</th>
-                        <th scope="col">Importe</th>
+                        <th>Reserva</th>
+                        <th>Fecha</th>
+                        <th>Usuario</th>
+                        <th>Aerolínea</th>
+                        <th>Vuelo</th>
+                        <th>Pasajeros</th>
+                        <th>Importe</th>
                     </tr>
                 </thead>
 
                 <tbody>
-
-                <?php if (empty($ventas)): ?>
-
-                    <tr>
-                        <td colspan="7" class="text-center py-4">
-                            No se encontraron ventas confirmadas.
-                        </td>
-                    </tr>
-
-                <?php else: ?>
-
-                    <?php foreach ($ventas as $venta): ?>
+                    <?php if (empty($ventasImpresion)): ?>
 
                         <tr>
-                            <td data-label="Reserva">
-                                #<?= (int) $venta['codReserva'] ?>
-                            </td>
-
-                            <td data-label="Fecha">
-                                <?= date('d/m/Y H:i', strtotime($venta['fechaReserva'])) ?>
-                            </td>
-
-                            <td data-label="Usuario">
-                                <?= escapar($venta['nombreUsuario']) ?>
-                            </td>
-
-                            <td data-label="Aerolínea">
-                                <?= escapar($venta['nombreAerolinea']) ?>
-                            </td>
-
-                            <td data-label="Vuelo">
-                                #<?= (int) $venta['codVuelo'] ?>
-                                <br>
-                                <?= escapar($venta['origenVuelo']) ?>
-                                →
-                                <?= escapar($venta['destinoVuelo']) ?>
-                            </td>
-
-                            <td data-label="Pasajeros">
-                                <?= (int) $venta['cantidadPasajerosReserva'] ?>
-                            </td>
-
-                            <td data-label="Importe">
-                                $<?= number_format(
-                                    (float) $venta['precioFinalReserva'],
-                                    2,
-                                    ',',
-                                    '.'
-                                ) ?>
+                            <td colspan="7">
+                                No se encontraron ventas confirmadas.
                             </td>
                         </tr>
 
-                    <?php endforeach; ?>
+                    <?php else: ?>
 
-                <?php endif; ?>
+                        <?php foreach ($ventasImpresion as $venta): ?>
 
+                            <tr>
+
+                                <td>
+                                    #<?= (int) $venta['codReserva'] ?>
+                                </td>
+
+                                <td>
+                                    <?= date('d/m/Y H:i', strtotime($venta['fechaReserva'])) ?>
+                                </td>
+
+                                <td>
+                                    <?= escapar($venta['nombreUsuario']) ?>
+                                </td>
+
+                                <td>
+                                    <?= escapar($venta['nombreAerolinea']) ?>
+                                </td>
+
+                                <td>
+                                    #<?= (int) $venta['codVuelo'] ?>
+                                    <br>
+                                    <?= escapar($venta['origenVuelo']) ?>
+                                    →
+                                    <?= escapar($venta['destinoVuelo']) ?>
+                                </td>
+
+                                <td>
+                                    <?= (int) $venta['cantidadPasajerosReserva'] ?>
+                                </td>
+
+                                <td>
+                                    $<?= number_format(
+                                        (float) $venta['precioFinalReserva'],
+                                        2,
+                                        ',',
+                                        '.'
+                                    ) ?>
+                                </td>
+                            </tr>
+
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                    
                 </tbody>
-
             </table>
+        </section>
 
-        </div>
+    </main>
 
-    </section>
+    <?php include __DIR__ . '/../../includes/footer.php'; ?>
 
-    <!-- PAGINACIÓN -->
-    <?php if ($totalPaginas > 1): ?>
-
-        <nav aria-label="Paginación de ventas" class="mt-4">
-
-            <ul class="pagination justify-content-center flex-wrap">
-
-                <?php for ($i = 1; $i <= $totalPaginas; $i++): ?>
-
-                    <li class="page-item <?= $i === $pagina ? 'active' : '' ?>">
-
-                        <a class="page-link"
-                           href="<?= escapar(enlacePaginaVentas($i)) ?>"
-                           <?= $i === $pagina ? 'aria-current="page"' : '' ?>>
-
-                            <?= $i ?>
-
-                        </a>
-
-                    </li>
-
-                <?php endfor; ?>
-
-            </ul>
-
-        </nav>
-
-    <?php endif; ?>
-
-    <!-- REPORTE COMPLETO PARA IMPRESIÓN -->
-
-    <section class="reporte-tabla reporte-tabla-impresion">
-
-        <div class="reporte-membrete">
-
-            <h2>Nuvia - Sistema de Reservas de Vuelos</h2>
-
-            <p>
-                <strong>Reporte:</strong> Ventas Confirmadas
-            </p>
-
-            <p>
-                <strong>Fecha de emisión:</strong>
-                <?= date('d/m/Y H:i') ?> hs
-            </p>
-
-            <p>
-                <strong>Emitido por:</strong> Administrador
-            </p>
-
-            <p>
-                <strong>Reservas confirmadas:</strong>
-                <?= $cantidad ?>
-            </p>
-
-            <p>
-                <strong>Importe total vendido:</strong>
-                $<?= number_format($totalVentas, 2, ',', '.') ?>
-            </p>
-
-        </div>
-
-        <table class="table table-bordered align-middle">
-
-            <thead>
-                <tr>
-                    <th>Reserva</th>
-                    <th>Fecha</th>
-                    <th>Usuario</th>
-                    <th>Aerolínea</th>
-                    <th>Vuelo</th>
-                    <th>Pasajeros</th>
-                    <th>Importe</th>
-                </tr>
-            </thead>
-
-            <tbody>
-
-                <?php if (empty($ventasImpresion)): ?>
-
-                    <tr>
-                        <td colspan="7">
-                            No se encontraron ventas confirmadas.
-                        </td>
-                    </tr>
-
-                <?php else: ?>
-
-                    <?php foreach ($ventasImpresion as $venta): ?>
-
-                        <tr>
-
-                            <td>
-                                #<?= (int) $venta['codReserva'] ?>
-                            </td>
-
-                            <td>
-                                <?= date('d/m/Y H:i', strtotime($venta['fechaReserva'])) ?>
-                            </td>
-
-                            <td>
-                                <?= escapar($venta['nombreUsuario']) ?>
-                            </td>
-
-                            <td>
-                                <?= escapar($venta['nombreAerolinea']) ?>
-                            </td>
-
-                            <td>
-                                #<?= (int) $venta['codVuelo'] ?>
-                                <br>
-                                <?= escapar($venta['origenVuelo']) ?>
-                                →
-                                <?= escapar($venta['destinoVuelo']) ?>
-                            </td>
-
-                            <td>
-                                <?= (int) $venta['cantidadPasajerosReserva'] ?>
-                            </td>
-
-                            <td>
-                                $<?= number_format(
-                                    (float) $venta['precioFinalReserva'],
-                                    2,
-                                    ',',
-                                    '.'
-                                ) ?>
-                            </td>
-
-                        </tr>
-
-                    <?php endforeach; ?>
-
-                <?php endif; ?>
-
-            </tbody>
-
-        </table>
-
-    </section>
-
-</main>
-
-<?php include __DIR__ . '/../../includes/footer.php'; ?>
-
-<script src="<?= escapar(urlApp('js/bootstrap.bundle.min.js')) ?>"></script>
+    <script src="<?= escapar(urlApp('js/bootstrap.bundle.min.js')) ?>"></script>
 
 </body>
 </html>

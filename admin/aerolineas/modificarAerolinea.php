@@ -68,66 +68,26 @@ if (!$aerolinea) {
 <head>
 
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <title> Nuvia - Administrador </title>
 
-    <title>
-        Nuvia - Administrador
-    </title>
+    <link rel="icon" href="../../imagenes/logo.png" type="image/png">
 
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../css/bootstrap-icons.css">
 
-    <!-- Bootstrap -->
-
-    <link
-        rel="stylesheet"
-        href="../../css/bootstrap.min.css"
-    >
-
-
-    <!-- Bootstrap Icons -->
-
-    <link
-        rel="stylesheet"
-        href="../../css/bootstrap-icons.css"
-    >
-
-
-    <!-- CSS administrador -->
-
-    <link
-        rel="stylesheet"
-        href="../../css/estilosAdmin.css"
-    >
-
+    <link rel="stylesheet" href="../../css/estilosAdmin.css">
     <link rel="stylesheet" href="../../css/navbar.css">
     <link rel="stylesheet" href="../../css/footer.css">
 
-    <!-- Favicon -->
-
-    <link
-        rel="icon"
-        type="image/png"
-        href="../../imagenes/logo.png"
-    >
-
 </head>
-
 
 <body>
 
-
-    <!-- NAVBAR -->
-
     <?php include __DIR__ . '/../includes/navbarAdmin.php'; ?>
 
-
     <main class="contenido-admin">
-
-
-        <!-- ENCABEZADO -->
 
         <section class="encabezado-contenido">
 
@@ -145,8 +105,6 @@ if (!$aerolinea) {
 
         </section>
 
-
-
         <!-- MENSAJE DE ERROR -->
 
         <?php if (isset($mensaje)) { ?>
@@ -159,8 +117,6 @@ if (!$aerolinea) {
 
         <?php } ?>
 
-
-
         <!-- FORMULARIO -->
 
         <section class="container-fluid px-0">
@@ -172,12 +128,10 @@ if (!$aerolinea) {
 
                 <div class="card-body p-4 p-md-5">
 
-
                     <form
                         method="POST"
                         action="modificarAerolinea.php?id=<?php echo $codAerolinea; ?>"
                     >
-
 
                         <!-- NOMBRE -->
 
@@ -190,7 +144,6 @@ if (!$aerolinea) {
                                 Nombre de la aerolínea
                             </label>
 
-
                             <input
                                 type="text"
                                 class="form-control"
@@ -201,8 +154,6 @@ if (!$aerolinea) {
                             >
 
                         </div>
-
-
 
                         <!-- IATA -->
 
@@ -215,7 +166,6 @@ if (!$aerolinea) {
                                 Código IATA
                             </label>
 
-
                             <input
                                 type="text"
                                 class="form-control"
@@ -227,8 +177,6 @@ if (!$aerolinea) {
                             >
 
                         </div>
-
-
 
                         <!-- PAÍS -->
 
@@ -254,8 +202,6 @@ if (!$aerolinea) {
 
                         </div>
 
-
-
                         <!-- DESCRIPCIÓN -->
 
                         <div class="mb-4">
@@ -278,12 +224,9 @@ if (!$aerolinea) {
 
                         </div>
 
-
-
                         <!-- BOTONES -->
 
                         <div class="d-flex justify-content-end gap-2">
-
 
                             <a
                                 href="<?= htmlspecialchars(urlApp('admin/aerolineas/gestionAerolineas.php'), ENT_QUOTES, 'UTF-8') ?>"
@@ -304,19 +247,15 @@ if (!$aerolinea) {
 
                             </button>
 
-
                         </div>
 
-
                     </form>
-
 
                 </div>
 
             </div>
 
         </section>
-
 
     </main>
 
