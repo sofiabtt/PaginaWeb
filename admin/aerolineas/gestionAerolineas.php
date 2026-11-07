@@ -1,33 +1,30 @@
 <?php
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 require_once __DIR__ . '/../../includes/verificarRol.php';
 verificarRol('administrador');
 
 include "../../php/consultasAerolineas.php";
 
+require_once __DIR__ . '/../../php/paginacion.php';
+
 
 // PAGINACIÓN
 
-$porPagina = 10;
-
 $totalRegistros = contarAerolineasActivas($conexion);
 
-$totalPaginas = max(1, (int) ceil($totalRegistros / $porPagina));
+$paginacion = configurarPaginacion($totalRegistros);
 
-$pagina = filter_input(INPUT_GET, 'pagina', FILTER_VALIDATE_INT);
-
-$pagina = ($pagina !== false && $pagina !== null && $pagina > 0)
-    ? $pagina
-    : 1;
-
-$pagina = min($pagina, $totalPaginas);
-
-$offset = ($pagina - 1) * $porPagina;
+$pagina = $paginacion["pagina"];
+$totalPaginas = $paginacion["totalPaginas"];
 
 $resultado = obtenerAerolineasActivasPaginadas(
     $conexion,
-    $porPagina,
-    $offset
+    $paginacion["porPagina"],
+    $paginacion["offset"]
 );
 
 ?>
@@ -53,6 +50,7 @@ $resultado = obtenerAerolineasActivasPaginadas(
     <link rel="stylesheet" href="../../css/estilosAdmin.css">
     <link rel="stylesheet" href="../../css/navbar.css">
     <link rel="stylesheet" href="../../css/footer.css">
+    <link rel="stylesheet" href="../../css/paginacion.css">
 
     <!-- CSS responsive de tablas -->
     <link rel="stylesheet" href="../../css/tablasResponsive.css">
@@ -225,57 +223,7 @@ $resultado = obtenerAerolineasActivasPaginadas(
 
         </section>
 
-
-        <!-- PAGINACIÓN -->
-
-        <?php if ($totalPaginas > 1) { ?>
-
-            <nav
-                class="paginacion-tablas"
-                aria-label="Paginación de aerolíneas"
-            >
-
-                <p>
-                    Página <?php echo $pagina; ?>
-                    de <?php echo $totalPaginas; ?>
-                </p>
-
-                <div class="d-flex justify-content-center gap-2 flex-wrap">
-
-                    <!-- ANTERIOR -->
-
-                    <?php if ($pagina > 1) { ?>
-
-                        <a
-                            href="?pagina=<?php echo $pagina - 1; ?>"
-                            class="btn btn-outline-secondary"
-                        >
-                            <i class="bi bi-chevron-left"></i>
-                            Anterior
-                        </a>
-
-                    <?php } ?>
-
-
-                    <!-- SIGUIENTE -->
-
-                    <?php if ($pagina < $totalPaginas) { ?>
-
-                        <a
-                            href="?pagina=<?php echo $pagina + 1; ?>"
-                            class="btn btn-outline-secondary"
-                        >
-                            Siguiente
-                            <i class="bi bi-chevron-right"></i>
-                        </a>
-
-                    <?php } ?>
-
-                </div>
-
-            </nav>
-
-        <?php } ?>
+        <?php include __DIR__ . '/../../php/paginacionVista.php'; ?>
 
     </main>
 

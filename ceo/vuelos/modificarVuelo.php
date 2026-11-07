@@ -115,7 +115,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 }
 
-require_once __DIR__ . '/../../php/conexionBD.php';
+// OBTENER AEROPUERTOS PARA LOS DESPLEGABLES
+
+$consultaAeropuertos = obtenerAeropuertos($conexion);
+$consultaAeropuertosDestino = obtenerAeropuertos($conexion);
+
+if (!$consultaAeropuertos || !$consultaAeropuertosDestino) {
+    die("Error al obtener los aeropuertos.");
+}
+
+
 ?>
 
 
@@ -180,211 +189,256 @@ require_once __DIR__ . '/../../php/conexionBD.php';
 
             <form method="POST">
 
+                <!-- ORIGEN Y DESTINO -->
 
-                <!-- ORIGEN -->
+                <div class="perfil-campos">
 
-                <div class="mb-4">
+                    <!-- ORIGEN -->
 
-                    <label
-                        for="origen"
-                        class="form-label"
-                    >
-                        Origen
-                    </label>
+                    <div>
+                        <label for="origen" class="form-label">
+                            Origen
+                        </label>
 
+                        <div class="campo-icono">
 
-                    <input
-                        type="text"
-                        class="form-control"
-                        id="origen"
-                        name="origen"
-                        value="<?php
+                            <i class="bi bi-geo-alt"></i>
 
-                            echo isset($_POST["origen"])
-                                ? htmlspecialchars(
-                                    $_POST["origen"]
-                                )
-                                : htmlspecialchars(
-                                    $vuelo["origenVuelo"]
-                                );
+                            <select
+                                class="form-select"
+                                id="origen"
+                                name="origen"
+                                style="padding-left: 50px;"
+                                required
+                            >
 
-                        ?>"
-                        required
-                    >
+                                <option value="">
+                                    Seleccione el aeropuerto de origen
+                                </option>
 
-                </div>
+                                <?php
 
+                                $origenSeleccionado =
+                                    $_POST["origen"] ?? $vuelo["origenVuelo"];
 
-                <!-- DESTINO -->
+                                while (
+                                    $aeropuerto = $consultaAeropuertos->fetch_assoc()
+                                ) {
 
-                <div class="mb-4">
+                                    $valorAeropuerto =
+                                        $aeropuerto["nombreCiudad"]
+                                        . " - "
+                                        . $aeropuerto["codigoIATA"]
+                                        . " - "
+                                        . $aeropuerto["nombreAeropuerto"];
 
-                    <label
-                        for="destino"
-                        class="form-label"
-                    >
-                        Destino
-                    </label>
+                                ?>
 
+                                    <option
+                                        value="<?= htmlspecialchars($valorAeropuerto, ENT_QUOTES, 'UTF-8') ?>"
+                                        <?= $origenSeleccionado == $valorAeropuerto ? "selected" : "" ?>
+                                    >
 
-                    <input
-                        type="text"
-                        class="form-control"
-                        id="destino"
-                        name="destino"
-                        value="<?php
+                                        <?= htmlspecialchars(
+                                            $aeropuerto["nombreCiudad"]
+                                            . " ("
+                                            . $aeropuerto["codigoIATA"]
+                                            . ") - "
+                                            . $aeropuerto["nombrePais"]
+                                        ) ?>
 
-                            echo isset($_POST["destino"])
-                                ? htmlspecialchars(
-                                    $_POST["destino"]
-                                )
-                                : htmlspecialchars(
-                                    $vuelo["destinoVuelo"]
-                                );
+                                    </option>
 
-                        ?>"
-                        required
-                    >
+                                <?php } ?>
 
-                </div>
+                            </select>
 
-
-                <!-- FECHA -->
-
-                <div class="mb-4">
-
-                    <label
-                        for="fecha"
-                        class="form-label"
-                    >
-                        Fecha de salida
-                    </label>
+                        </div>
+                    </div>
 
 
-                    <input
-                        type="date"
-                        class="form-control"
-                        id="fecha"
-                        name="fecha"
-                        value="<?php
+                    <!-- DESTINO -->
 
-                            echo isset($_POST["fecha"])
-                                ? htmlspecialchars(
-                                    $_POST["fecha"]
-                                )
-                                : htmlspecialchars(
-                                    $vuelo["fechaSalidaVuelo"]
-                                );
+                    <div>
+                        <label for="destino" class="form-label">
+                            Destino
+                        </label>
 
-                        ?>"
-                        required
-                    >
+                        <div class="campo-icono">
 
-                </div>
+                            <i class="bi bi-geo-alt-fill"></i>
 
+                            <select
+                                class="form-select"
+                                id="destino"
+                                name="destino"
+                                style="padding-left: 50px;"
+                                required
+                            >
 
-                <!-- HORA -->
+                                <option value="">
+                                    Seleccione el aeropuerto de destino
+                                </option>
 
-                <div class="mb-4">
+                                <?php
 
-                    <label
-                        for="hora"
-                        class="form-label"
-                    >
-                        Hora de salida
-                    </label>
+                                $destinoSeleccionado =
+                                    $_POST["destino"] ?? $vuelo["destinoVuelo"];
 
+                                while (
+                                    $aeropuerto = $consultaAeropuertosDestino->fetch_assoc()
+                                ) {
 
-                    <input
-                        type="time"
-                        class="form-control"
-                        id="hora"
-                        name="hora"
-                        value="<?php
+                                    $valorAeropuerto =
+                                        $aeropuerto["nombreCiudad"]
+                                        . " - "
+                                        . $aeropuerto["codigoIATA"]
+                                        . " - "
+                                        . $aeropuerto["nombreAeropuerto"];
 
-                            echo isset($_POST["hora"])
-                                ? htmlspecialchars(
-                                    $_POST["hora"]
-                                )
-                                : htmlspecialchars(
-                                    $vuelo["horaSalidaVuelo"]
-                                );
+                                ?>
 
-                        ?>"
-                        required
-                    >
+                                    <option
+                                        value="<?= htmlspecialchars($valorAeropuerto, ENT_QUOTES, 'UTF-8') ?>"
+                                        <?= $destinoSeleccionado == $valorAeropuerto ? "selected" : "" ?>
+                                    >
+
+                                        <?= htmlspecialchars(
+                                            $aeropuerto["nombreCiudad"]
+                                            . " ("
+                                            . $aeropuerto["codigoIATA"]
+                                            . ") - "
+                                            . $aeropuerto["nombrePais"]
+                                        ) ?>
+
+                                    </option>
+
+                                <?php } ?>
+
+                            </select>
+
+                        </div>
+                    </div>
 
                 </div>
 
 
-                <!-- PRECIO -->
+                <!-- FECHA Y HORA -->
 
-                <div class="mb-4">
+                <div class="perfil-campos" style="margin-top: 25px;">
 
-                    <label
-                        for="precio"
-                        class="form-label"
-                    >
-                        Precio
-                    </label>
+                    <!-- FECHA -->
+
+                    <div>
+                        <label for="fecha" class="form-label">
+                            Fecha de salida
+                        </label>
+
+                        <div class="campo-icono">
+
+                            <i class="bi bi-calendar"></i>
+
+                            <input
+                                type="date"
+                                class="form-control"
+                                id="fecha"
+                                name="fecha"
+                                value="<?= htmlspecialchars(
+                                    $_POST["fecha"] ?? $vuelo["fechaSalidaVuelo"]
+                                ) ?>"
+                                required
+                            >
+
+                        </div>
+                    </div>
 
 
-                    <input
-                        type="number"
-                        class="form-control"
-                        id="precio"
-                        name="precio"
-                        min="1"
-                        step="1"
-                        value="<?php
+                    <!-- HORA -->
 
-                            echo isset($_POST["precio"])
-                                ? htmlspecialchars(
-                                    $_POST["precio"]
-                                )
-                                : htmlspecialchars(
-                                    $vuelo["precioVuelo"]
-                                );
+                    <div>
+                        <label for="hora" class="form-label">
+                            Hora de salida
+                        </label>
 
-                        ?>"
-                        required
-                    >
+                        <div class="campo-icono">
+
+                            <i class="bi bi-clock"></i>
+
+                            <input
+                                type="time"
+                                class="form-control"
+                                id="hora"
+                                name="hora"
+                                value="<?= htmlspecialchars(
+                                    $_POST["hora"] ?? $vuelo["horaSalidaVuelo"]
+                                ) ?>"
+                                required
+                            >
+
+                        </div>
+                    </div>
 
                 </div>
 
 
-                <!-- ASIENTOS -->
+                <!-- PRECIO Y ASIENTOS -->
 
-                <div class="mb-4">
+                <div class="perfil-campos" style="margin-top: 25px;">
 
-                    <label
-                        for="asientos"
-                        class="form-label"
-                    >
-                        Asientos disponibles
-                    </label>
+                    <!-- PRECIO -->
+
+                    <div>
+                        <label for="precio" class="form-label">
+                            Precio
+                        </label>
+
+                        <div class="campo-icono">
+
+                            <i class="bi bi-currency-dollar"></i>
+
+                            <input
+                                type="number"
+                                class="form-control"
+                                id="precio"
+                                name="precio"
+                                min="1"
+                                step="1"
+                                value="<?= htmlspecialchars(
+                                    $_POST["precio"] ?? $vuelo["precioVuelo"]
+                                ) ?>"
+                                required
+                            >
+
+                        </div>
+                    </div>
 
 
-                    <input
-                        type="number"
-                        class="form-control"
-                        id="asientos"
-                        name="asientos"
-                        min="1"
-                        step="1"
-                        value="<?php
+                    <!-- ASIENTOS -->
 
-                            echo isset($_POST["asientos"])
-                                ? htmlspecialchars(
-                                    $_POST["asientos"]
-                                )
-                                : htmlspecialchars(
-                                    $vuelo["asientosDisponibles"]
-                                );
+                    <div>
+                        <label for="asientos" class="form-label">
+                            Asientos disponibles
+                        </label>
 
-                        ?>"
-                        required
-                    >
+                        <div class="campo-icono">
+
+                            <i class="bi bi-person"></i>
+
+                            <input
+                                type="number"
+                                class="form-control"
+                                id="asientos"
+                                name="asientos"
+                                min="1"
+                                step="1"
+                                value="<?= htmlspecialchars(
+                                    $_POST["asientos"] ?? $vuelo["asientosDisponibles"]
+                                ) ?>"
+                                required
+                            >
+
+                        </div>
+                    </div>
 
                 </div>
 
@@ -393,14 +447,12 @@ require_once __DIR__ . '/../../php/conexionBD.php';
 
                 <div class="perfil-acciones">
 
-
                     <a
                         href="gestionVuelos.php"
                         class="btn btn-outline-secondary me-2"
                     >
                         Cancelar
                     </a>
-
 
                     <button
                         type="submit"
@@ -413,9 +465,7 @@ require_once __DIR__ . '/../../php/conexionBD.php';
 
                     </button>
 
-
                 </div>
-
 
             </form>
 

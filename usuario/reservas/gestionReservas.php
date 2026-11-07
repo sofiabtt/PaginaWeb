@@ -45,11 +45,33 @@ $cantidadReservas = $resultado->num_rows;
 
 
 $reservas = [];
+$hayReservasCanceladas = false;
 
 
 while ($filaReserva = $resultado->fetch_assoc()) {
+
     $reservas[] = $filaReserva;
+
+    if ($filaReserva["estadoReserva"] === "cancelada") {
+        $hayReservasCanceladas = true;
+    }
 }
+
+// PAGINACIÓN
+
+$porPagina = 10;
+
+$totalRegistros = count($reservas);
+
+$totalPaginas = max(1, (int) ceil($totalRegistros / $porPagina));
+
+$pagina = filter_input(INPUT_GET, 'pagina', FILTER_VALIDATE_INT);
+
+$pagina = ($pagina !== false && $pagina !== null && $pagina > 0)
+    ? $pagina
+    : 1;
+
+$pagina = min($pagina, $totalPaginas);
 
 
 $idaConfirmada = false;
@@ -158,6 +180,16 @@ if ($desdeReserva && $reservaDestacada > 0) {
         }
     );
 }
+
+// OBTENER LAS RESERVAS DE LA PÁGINA ACTUAL
+
+$offset = ($pagina - 1) * $porPagina;
+
+$reservasPaginadas = array_slice(
+    $reservas,
+    $offset,
+    $porPagina
+);
 
 ?>
 
@@ -505,6 +537,18 @@ if ($desdeReserva && $reservaDestacada > 0) {
 
         <?php } ?>
 
+        <?php if ($hayReservasCanceladas) { ?>
+
+            <div class="alert alert-warning" role="alert" style="font-size: 12px;">
+                <i class="bi bi-exclamation-triangle-fill"></i>
+                Una o más reservas fueron canceladas porque venció
+                el plazo de 30 minutos para realizar el pago.
+                Si todavía hay asientos disponibles, podés realizar
+                una nueva reserva.
+            </div>
+
+        <?php } ?>
+
 
         <section class="tabla-contenedor">
 
@@ -554,7 +598,7 @@ if ($desdeReserva && $reservaDestacada > 0) {
                     <?php } ?>
 
 
-                    <?php foreach ($reservas as $reserva) { ?>
+                    <?php foreach ($reservasPaginadas as $reserva) { ?>
 
 
                         <?php
@@ -747,9 +791,11 @@ if ($desdeReserva && $reservaDestacada > 0) {
                                 <span
                                     class="badge <?php
 
-                                    echo $reserva["estadoReserva"] === "confirmada"
-                                        ? "bg-success"
-                                        : "bg-warning text-dark";
+                                    echo match ($reserva["estadoReserva"]) {
+                                        "confirmada" => "bg-success",
+                                        "cancelada" => "bg-danger",
+                                        default => "bg-warning text-dark"
+                                    };
 
                                     ?>"
                                 >
@@ -812,32 +858,10 @@ if ($desdeReserva && $reservaDestacada > 0) {
 
                                         <?php
 
+
                                         $paramsPago = [
                                             "id" => $codReservaActual
                                         ];
-
-
-                                        if (
-                                            $esReservaDestacada
-                                            && $tipoViajeProceso === "idaVuelta"
-                                            && $reservaIda > 0
-                                            && $reservaDestacada > 0
-                                        ) {
-
-                                            $paramsPago += [
-
-                                                "desdeReserva" => "1",
-
-                                                "tipoViaje" => "idaVuelta",
-
-                                                "tramo" => "vuelta",
-
-                                                "reservaIda" => $reservaIda,
-
-                                                "reserva" => $reservaDestacada
-
-                                            ];
-                                        }
 
                                         ?>
 
@@ -894,6 +918,66 @@ if ($desdeReserva && $reservaDestacada > 0) {
             </table>
 
         </section>
+
+        <!-- PAGINACIÓN -->
+
+        <?php if ($totalPaginas > 1) { ?>
+
+            <nav
+                class="paginacion-tablas"
+                aria-label="Paginación de reservas"
+            >
+
+                <p>
+                    Página <?php echo $pagina; ?>
+                    de <?php echo $totalPaginas; ?>
+                </p>
+
+                <div class="d-flex justify-content-center gap-2 flex-wrap">
+
+                    <!-- ANTERIOR -->
+
+                    <?php if ($pagina > 1) { ?>
+
+                        <?php
+                        $paramsAnterior = $_GET;
+                        $paramsAnterior["pagina"] = $pagina - 1;
+                        ?>
+
+                        <a
+                            href="?<?php echo htmlspecialchars(http_build_query($paramsAnterior)); ?>"
+                            class="btn btn-outline-secondary"
+                        >
+                            <i class="bi bi-chevron-left"></i>
+                            Anterior
+                        </a>
+
+                    <?php } ?>
+
+                    <!-- SIGUIENTE -->
+
+                    <?php if ($pagina < $totalPaginas) { ?>
+
+                        <?php
+                        $paramsSiguiente = $_GET;
+                        $paramsSiguiente["pagina"] = $pagina + 1;
+                        ?>
+
+                        <a
+                            href="?<?php echo htmlspecialchars(http_build_query($paramsSiguiente)); ?>"
+                            class="btn btn-outline-secondary"
+                        >
+                            Siguiente
+                            <i class="bi bi-chevron-right"></i>
+                        </a>
+
+                    <?php } ?>
+
+                </div>
+
+            </nav>
+
+        <?php } ?>
 
     </main>
 

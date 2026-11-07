@@ -6,102 +6,148 @@ include "php/conexionBD.php";
 include "php/consultasVuelos.php";
 include "php/procesarVueloElegido.php";
 
-// GUARDAR DATOS DE LA BÚSQUEDA
 
-if (isset($_GET["tipoViaje"])) {
-    $_SESSION["tipoViajeReserva"] = $_GET["tipoViaje"];
+// =========================
+// DATOS DE LA BÚSQUEDA
+// =========================
+
+foreach (
+    [
+        "tipoViaje" => "tipoViajeReserva",
+        "origen" => "origenReserva",
+        "destino" => "destinoReserva",
+        "fechaIda" => "fechaIdaReserva",
+        "fechaVuelta" => "fechaVueltaReserva",
+        "tramo" => "tramoReserva"
+    ] as $parametro => $claveSesion
+) {
+    if (isset($_GET[$parametro])) {
+        $_SESSION[$claveSesion] = $_GET[$parametro];
+    }
 }
 
-if (isset($_GET["origen"])) {
-    $_SESSION["origenReserva"] = $_GET["origen"];
-}
-
-if (isset($_GET["destino"])) {
-    $_SESSION["destinoReserva"] = $_GET["destino"];
-}
-
-if (isset($_GET["fechaIda"])) {
-    $_SESSION["fechaIdaReserva"] = $_GET["fechaIda"];
-}
-
-if (isset($_GET["fechaVuelta"])) {
-    $_SESSION["fechaVueltaReserva"] = $_GET["fechaVuelta"];
-}
-
-if (isset($_GET["tramo"])) {
-    $_SESSION["tramoReserva"] = $_GET["tramo"];
-}
-
-
-// RECUPERAR DATOS DEL VIAJE
-
-$tipoViaje =
-    $_GET["tipoViaje"]
+$tipoViaje = $_GET["tipoViaje"]
     ?? $_POST["tipoViaje"]
     ?? $_SESSION["tipoViajeReserva"]
     ?? "soloIda";
 
-
-$origen =
-    $_GET["origen"]
+$origen = $_GET["origen"]
     ?? $_POST["origen"]
     ?? $_SESSION["origenReserva"]
     ?? "";
 
-
-$destino =
-    $_GET["destino"]
+$destino = $_GET["destino"]
     ?? $_POST["destino"]
     ?? $_SESSION["destinoReserva"]
     ?? "";
 
-
-$fechaIda =
-    $_GET["fechaIda"]
+$fechaIda = $_GET["fechaIda"]
     ?? $_POST["fechaIda"]
     ?? $_SESSION["fechaIdaReserva"]
     ?? "";
 
-
-$fechaVuelta =
-    $_GET["fechaVuelta"]
+$fechaVuelta = $_GET["fechaVuelta"]
     ?? $_POST["fechaVuelta"]
     ?? $_SESSION["fechaVueltaReserva"]
     ?? "";
 
-
-$tramo =
-    $_GET["tramo"]
+$tramo = $_GET["tramo"]
     ?? $_POST["tramo"]
     ?? $_SESSION["tramoReserva"]
     ?? "ida";
 
+$reservaIda = (int) (
+    $_GET["reservaIda"]
+    ?? $_POST["reservaIda"]
+    ?? 0
+);
 
-$reservaIda =
-    isset($_GET["reservaIda"])
-    ? (int) $_GET["reservaIda"]
-    : (int) ($_POST["reservaIda"] ?? 0);
-
-
-// OBTENER VUELO
-
-$codVuelo =
-    isset($_GET["codVuelo"])
-    ? (int) $_GET["codVuelo"]
-    : (int) ($_POST["codVuelo"] ?? 0);
-
+$codVuelo = (int) (
+    $_GET["codVuelo"]
+    ?? $_POST["codVuelo"]
+    ?? 0
+);
 
 if ($codVuelo <= 0) {
     die("No se seleccionó ningún vuelo.");
 }
 
-$vuelo = obtenerVueloElegido($conexion,$codVuelo);
+$vuelo = obtenerVueloElegido($conexion, $codVuelo);
 
 if (!$vuelo) {
     die("No se encontró el vuelo seleccionado.");
 }
 
+
+// =========================
+// FUNCIONES AUXILIARES
+// =========================
+
+function escaparVuelo($valor)
+{
+    return htmlspecialchars(
+        (string) $valor,
+        ENT_QUOTES,
+        "UTF-8"
+    );
+}
+
+function camposContextoVuelo(
+    $codVuelo,
+    $tipoViaje,
+    $origen,
+    $destino,
+    $fechaIda,
+    $fechaVuelta,
+    $tramo,
+    $reservaIda
+) {
+    $campos = [
+        "codVuelo" => $codVuelo,
+        "tipoViaje" => $tipoViaje,
+        "origen" => $origen,
+        "destino" => $destino,
+        "fechaIda" => $fechaIda,
+        "fechaVuelta" => $fechaVuelta,
+        "tramo" => $tramo,
+        "reservaIda" => $reservaIda
+    ];
+
+    foreach ($campos as $nombre => $valor) {
+        echo '<input type="hidden" name="'
+            . escaparVuelo($nombre)
+            . '" value="'
+            . escaparVuelo($valor)
+            . '">';
+    }
+}
+
+function campoPasajeroVuelo($nombre, $indice, $tipo = "text")
+{
+    $valores = $_POST[$nombre] ?? [];
+    $valor = $valores[$indice] ?? "";
+
+    $atributos = "";
+
+    if ($tipo === "date") {
+        $atributos = ' class="form-control"';
+    }
+
+    echo '<input type="'
+        . escaparVuelo($tipo)
+        . '" name="'
+        . escaparVuelo($nombre)
+        . '[]" value="'
+        . escaparVuelo($valor)
+        . '"'
+        . $atributos
+        . ' required>';
+}
+
+
+// =========================
 // VARIABLES DEL FORMULARIO
+// =========================
 
 $pasoFormulario = 1;
 
@@ -114,64 +160,117 @@ $reservaCreada = false;
 $codReservaCreada = 0;
 
 
-// RESTAURAR RESERVA TEMPORAL
+// =========================
+// GUARDAR DATOS POR VUELO
+// =========================
 
-if (
-    isset($_SESSION["restaurarReservaTemporal"])
-    && $_SESSION["restaurarReservaTemporal"] === true
-    && isset($_SESSION["reservaTemporal"])
-) {
+// Se usa una clave distinta por vuelo y tramo.
+// Así no se mezclan pasajeros de vuelos diferentes.
 
-    $reservaTemporal = $_SESSION["reservaTemporal"];
+$claveDatosVuelo = $codVuelo . "_" . $tramo . "_" . $reservaIda;
 
-
-    $adultos = (int) ($reservaTemporal["adultos"] ?? 1);
-
-    $menores = (int) ($reservaTemporal["menores"] ?? 0);
-
-    $_POST["nombreAdulto"] =
-        $reservaTemporal["nombreAdulto"] ?? [];
-
-    $_POST["apellidoAdulto"] =
-        $reservaTemporal["apellidoAdulto"] ?? [];
-
-    $_POST["emailAdulto"] =
-        $reservaTemporal["emailAdulto"] ?? [];
-
-    $_POST["fechaAdulto"] =
-        $reservaTemporal["fechaAdulto"] ?? [];
-
-
-    $_POST["nombreMenor"] =
-        $reservaTemporal["nombreMenor"] ?? [];
-
-    $_POST["apellidoMenor"] =
-        $reservaTemporal["apellidoMenor"] ?? [];
-
-    $_POST["emailMenor"] =
-        $reservaTemporal["emailMenor"] ?? [];
-
-    $_POST["fechaMenor"] =
-        $reservaTemporal["fechaMenor"] ?? [];
-
-
-    $pasoFormulario = 3;
-
-    unset($_SESSION["restaurarReservaTemporal"]);
+if (!isset($_SESSION["datosPasajerosVuelo"])) {
+    $_SESSION["datosPasajerosVuelo"] = [];
 }
 
+$datosGuardados =
+    $_SESSION["datosPasajerosVuelo"][$claveDatosVuelo] ?? [];
+
+
+// =========================
+// RESTAURAR RESERVA TEMPORAL
+// =========================
+
+if (
+    !empty($_SESSION["restaurarReservaTemporal"])
+    && isset($_SESSION["reservaTemporal"])
+) {
+    $reservaTemporal = $_SESSION["reservaTemporal"];
+
+    if ((int) ($reservaTemporal["codVuelo"] ?? 0) === $codVuelo) {
+
+        $adultos = (int) ($reservaTemporal["adultos"] ?? 1);
+        $menores = (int) ($reservaTemporal["menores"] ?? 0);
+
+        $datosGuardados = [
+            "nombreAdulto" => $reservaTemporal["nombreAdulto"] ?? [],
+            "apellidoAdulto" => $reservaTemporal["apellidoAdulto"] ?? [],
+            "emailAdulto" => $reservaTemporal["emailAdulto"] ?? [],
+            "fechaAdulto" => $reservaTemporal["fechaAdulto"] ?? [],
+            "nombreMenor" => $reservaTemporal["nombreMenor"] ?? [],
+            "apellidoMenor" => $reservaTemporal["apellidoMenor"] ?? [],
+            "emailMenor" => $reservaTemporal["emailMenor"] ?? [],
+            "fechaMenor" => $reservaTemporal["fechaMenor"] ?? []
+        ];
+
+        $_SESSION["datosPasajerosVuelo"][$claveDatosVuelo] =
+            $datosGuardados;
+
+        $pasoFormulario = 3;
+
+        unset($_SESSION["restaurarReservaTemporal"]);
+    }
+}
+
+foreach ($datosGuardados as $campo => $valores) {
+    $_POST[$campo] = $valores;
+}
+
+
+// =========================
 // PROCESAR FORMULARIOS
+// =========================
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     $accion = $_POST["accion"] ?? "";
+
+
+    // VOLVER A CANTIDAD DE PASAJEROS
+
+    if ($accion === "volverCantidad") {
+
+        $adultos = (int) ($_POST["adultos"] ?? 1);
+        $menores = (int) ($_POST["menores"] ?? 0);
+
+        $pasoFormulario = 1;
+    }
+
+
+    // VOLVER A DATOS DE PASAJEROS
+
+    if (
+        $accion === "volverDatos"
+        || $accion === "volverResumen"
+    ) {
+
+        $adultos = (int) ($_POST["adultos"] ?? 1);
+        $menores = (int) ($_POST["menores"] ?? 0);
+
+        if (isset($_SESSION["reservaTemporal"])) {
+
+            $temporal = $_SESSION["reservaTemporal"];
+
+            if ((int) ($temporal["codVuelo"] ?? 0) === $codVuelo) {
+
+                $adultos = (int) ($temporal["adultos"] ?? $adultos);
+                $menores = (int) ($temporal["menores"] ?? $menores);
+            }
+        }
+
+        foreach ($datosGuardados as $campo => $valores) {
+            $_POST[$campo] = $valores;
+        }
+
+        $pasoFormulario = 2;
+    }
+
 
     // PASO 1 - CANTIDAD
 
     if ($accion === "cantidad") {
 
         $adultos = (int) ($_POST["adultos"] ?? 0);
-
         $menores = (int) ($_POST["menores"] ?? 0);
 
         $totalPasajeros = $adultos + $menores;
@@ -179,19 +278,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         if ($adultos < 1) {
 
             $error = "Debe viajar al menos un adulto.";
-
             $pasoFormulario = 1;
 
         } elseif ($menores < 0) {
 
             $error = "La cantidad de menores no es válida.";
-
             $pasoFormulario = 1;
 
         } elseif ($totalPasajeros > 10) {
 
             $error = "La reserva puede tener como máximo 10 pasajeros.";
-
             $pasoFormulario = 1;
 
         } else {
@@ -200,38 +296,40 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         }
     }
 
-    // PASO 2 - DATOS PASAJEROS
+
+    // PASO 2 - DATOS DE PASAJEROS
 
     if ($accion === "datos") {
 
         $adultos = (int) ($_POST["adultos"] ?? 0);
-
         $menores = (int) ($_POST["menores"] ?? 0);
 
-        $nombresAdultos =
-            $_POST["nombreAdulto"] ?? [];
+        $nombresAdultos = $_POST["nombreAdulto"] ?? [];
+        $apellidosAdultos = $_POST["apellidoAdulto"] ?? [];
+        $emailsAdultos = $_POST["emailAdulto"] ?? [];
+        $fechasAdultos = $_POST["fechaAdulto"] ?? [];
 
-        $apellidosAdultos =
-            $_POST["apellidoAdulto"] ?? [];
-
-        $emailsAdultos =
-            $_POST["emailAdulto"] ?? [];
-
-        $fechasAdultos =
-            $_POST["fechaAdulto"] ?? [];
+        $nombresMenores = $_POST["nombreMenor"] ?? [];
+        $apellidosMenores = $_POST["apellidoMenor"] ?? [];
+        $emailsMenores = $_POST["emailMenor"] ?? [];
+        $fechasMenores = $_POST["fechaMenor"] ?? [];
 
 
-        $nombresMenores =
-            $_POST["nombreMenor"] ?? [];
+        // CONSERVAR LOS DATOS INGRESADOS
 
-        $apellidosMenores =
-            $_POST["apellidoMenor"] ?? [];
+        $datosGuardados = [
+            "nombreAdulto" => $nombresAdultos,
+            "apellidoAdulto" => $apellidosAdultos,
+            "emailAdulto" => $emailsAdultos,
+            "fechaAdulto" => $fechasAdultos,
+            "nombreMenor" => $nombresMenores,
+            "apellidoMenor" => $apellidosMenores,
+            "emailMenor" => $emailsMenores,
+            "fechaMenor" => $fechasMenores
+        ];
 
-        $emailsMenores =
-            $_POST["emailMenor"] ?? [];
-
-        $fechasMenores =
-            $_POST["fechaMenor"] ?? [];
+        $_SESSION["datosPasajerosVuelo"][$claveDatosVuelo] =
+            $datosGuardados;
 
 
         // VALIDAR ADULTOS
@@ -260,11 +358,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 
         if ($error === "") {
-
             $pasoFormulario = 3;
-
         } else {
-
             $pasoFormulario = 2;
         }
     }
@@ -275,10 +370,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if ($accion === "reservar") {
 
         $adultos = (int) ($_POST["adultos"] ?? 0);
-
         $menores = (int) ($_POST["menores"] ?? 0);
 
-        // GUARDAR DATOS TEMPORALES
+        foreach ($datosGuardados as $campo => $valores) {
+            $_POST[$campo] = $valores;
+        }
 
         guardarReservaTemporal(
             $codVuelo,
@@ -294,7 +390,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         );
 
 
-        // SI NO ESTÁ LOGUEADO
+        // SI NECESITA INICIAR SESIÓN
 
         if (
             !isset($_SESSION["codUsuario"])
@@ -317,16 +413,19 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 }
 
+
+// =========================
 // PRECIO
+// =========================
 
 $totalPasajeros = $adultos + $menores;
 
-$precioTotal = $totalPasajeros * (float) $vuelo["precioVuelo"];
+$precioTotal =
+    $totalPasajeros * (float) $vuelo["precioVuelo"];
 
 ?>
 
 <!DOCTYPE html>
-
 <html lang="es">
 
 <head>
@@ -340,88 +439,231 @@ $precioTotal = $totalPasajeros * (float) $vuelo["precioVuelo"];
 
     <title>Nuvia - Vuelo elegido</title>
 
-
     <link
         rel="icon"
         type="image/png"
-        href="/imagenes/logo.png"
+        href="imagenes/logo.png"
     >
 
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/estiloshome.css">
+    <link rel="stylesheet" href="css/estilos-usuario.css">
+    <link rel="stylesheet" href="css/estilosVueloElegido.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/progresoReserva.css?v=4">
+    <link rel="stylesheet" href="css/footer.css">
 
-    <link
-        rel="stylesheet"
-        href="css/bootstrap.min.css"
-    >
+    <!-- AJUSTES DE LOS BOTONES VOLVER Y REGISTRO -->
 
-    <link
-        rel="stylesheet"
-        href="css/bootstrap-icons.css"
-    >
+    <style>
 
-    <link
-        rel="stylesheet"
-        href="css/estiloshome.css"
-    >
+        .reporte-volver {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
 
-    <link
-        rel="stylesheet"
-        href="css/estilos-usuario.css"
-    >
+            padding: 0;
+            margin-bottom: 0;
 
-    <link
-        rel="stylesheet"
-        href="css/estilosVueloElegido.css"
-    >
+            background: transparent;
+            border: none;
 
-    <link
-        rel="stylesheet"
-        href="css/navbar.css"
-    >
+            color: #555;
+            text-decoration: none;
 
-    <link
-        rel="stylesheet"
-        href="css/progresoReserva.css?v=4"
-    >
+            font-family: inherit;
+            font-size: 14px;
 
-    <link
-        rel="stylesheet"
-        href="css/footer.css"
-    >
+            cursor: pointer;
+
+            transition:
+                color 0.2s ease,
+                transform 0.2s ease;
+        }
+
+        .reporte-volver:hover {
+            color: #684028;
+            transform: translateX(-4px);
+        }
+
+        .reporte-volver:focus-visible {
+            outline: 2px solid #835a40;
+            outline-offset: 4px;
+            border-radius: 3px;
+        }
+
+        #cantidad-pasajeros,
+        #datos-pasajeros,
+        #resumen-reserva,
+        #necesitas-registrarte {
+            scroll-margin-top: 90px;
+        }
+
+        .form-volver-registro {
+            margin-bottom: 18px;
+        }
+
+        .icono-registro {
+            color: #835a40;
+            font-size: 32px;
+            line-height: 1;
+            margin-bottom: 12px;
+        }
+
+        .tarjeta-registro h2 {
+            margin-bottom: 20px;
+        }
+
+        .tarjeta-registro p {
+            margin-bottom: 18px;
+        }
+
+        .tarjeta-registro .modal-botones a {
+            text-align: center;
+            text-decoration: none;
+        }
+
+        @media (max-width: 768px) {
+
+            .tarjeta-registro {
+                padding: 22px;
+            }
+
+            .icono-registro {
+                font-size: 28px;
+                margin-bottom: 10px;
+            }
+
+            .tarjeta-registro h2 {
+                font-size: 23px;
+                margin-bottom: 18px;
+            }
+
+            .tarjeta-registro p {
+                font-size: 14px;
+                line-height: 1.6;
+                margin-bottom: 15px;
+            }
+
+            .tarjeta-registro .modal-botones {
+                display: flex;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 12px;
+            }
+
+            .tarjeta-registro .modal-botones a {
+                display: block;
+                width: 100%;
+            }
+
+        }
+
+    </style>
 
 </head>
 
-
 <body>
 
-
 <?php include "includes/navbar.php"; ?>
-
 
 <main class="contenedor-vuelo-elegido">
 
     <div class="container">
 
 
-        <!--PROGRESO SOLO IDA-->
+        <!-- =========================
+             BOTÓN VOLVER SUPERIOR
+        ========================= -->
+
+        <div class="mb-4">
+
+            <?php if ($pasoFormulario === 1) { ?>
+
+                <a href="./" class="reporte-volver">
+                    <i class="bi bi-arrow-left"></i>
+                    Volver al inicio
+                </a>
+
+            <?php } else { ?>
+
+                <form
+                    method="POST"
+                    action="<?php
+                        echo $pasoFormulario === 2
+                            ? '#cantidad-pasajeros'
+                            : '#datos-pasajeros';
+                    ?>"
+                >
+
+                    <input
+                        type="hidden"
+                        name="accion"
+                        value="<?php
+                            echo $pasoFormulario === 2
+                                ? 'volverCantidad'
+                                : 'volverDatos';
+                        ?>"
+                    >
+
+                    <?php
+                    camposContextoVuelo(
+                        $codVuelo,
+                        $tipoViaje,
+                        $origen,
+                        $destino,
+                        $fechaIda,
+                        $fechaVuelta,
+                        $tramo,
+                        $reservaIda
+                    );
+                    ?>
+
+                    <input
+                        type="hidden"
+                        name="adultos"
+                        value="<?php echo $adultos; ?>"
+                    >
+
+                    <input
+                        type="hidden"
+                        name="menores"
+                        value="<?php echo $menores; ?>"
+                    >
+
+                    <button
+                        type="submit"
+                        class="reporte-volver"
+                    >
+                        <i class="bi bi-arrow-left"></i>
+                        Volver
+                    </button>
+
+                </form>
+
+            <?php } ?>
+
+        </div>
+
+
+        <!-- =========================
+             PROGRESO SOLO IDA
+        ========================= -->
 
         <?php if ($tipoViaje === "soloIda") { ?>
 
             <div class="progreso-reserva mb-5">
 
                 <div class="progreso-titulo">
-
                     <h2 class="meta-valor">
                         Obtener vuelo
                     </h2>
-
                 </div>
-
 
                 <div class="timeline-pasos">
 
-                    <div
-                        class="timeline-paso completado"
-                    >
+                    <div class="timeline-paso completado">
 
                         <span class="timeline-punto"></span>
 
@@ -444,14 +686,11 @@ $precioTotal = $totalPasajeros * (float) $vuelo["precioVuelo"];
                     </div>
 
 
-                    <div
-                        class="timeline-paso
-                        <?php
+                    <div class="timeline-paso <?php
                         echo $reservaCreada
-                            ? "completado"
-                            : "activo";
-                        ?>"
-                    >
+                            ? 'completado'
+                            : 'activo';
+                    ?>">
 
                         <span class="timeline-punto"></span>
 
@@ -475,14 +714,9 @@ $precioTotal = $totalPasajeros * (float) $vuelo["precioVuelo"];
                     </div>
 
 
-                    <div
-                        class="timeline-paso
-                        <?php
-                        echo $reservaCreada
-                            ? "activo"
-                            : "";
-                        ?>"
-                    >
+                    <div class="timeline-paso <?php
+                        echo $reservaCreada ? 'activo' : '';
+                    ?>">
 
                         <span class="timeline-punto"></span>
 
@@ -510,27 +744,21 @@ $precioTotal = $totalPasajeros * (float) $vuelo["precioVuelo"];
             </div>
 
 
-        <!-- PROGRESO IDA Y VUELTA-->
+        <!-- =========================
+             PROGRESO IDA Y VUELTA
+        ========================= -->
 
         <?php } elseif ($tipoViaje === "idaVuelta") { ?>
 
-            <div
-                class="progreso-reserva
-                       progreso-ida-vuelta
-                       mb-5"
-            >
+            <div class="progreso-reserva progreso-ida-vuelta mb-5">
 
                 <div class="progreso-titulo">
-
                     <h2 class="meta-valor">
                         Obtener vuelo
                     </h2>
-
                 </div>
 
-
                 <div class="timeline-pasos cinco-pasos">
-
 
                     <!-- PASO 1 -->
 
@@ -559,14 +787,11 @@ $precioTotal = $totalPasajeros * (float) $vuelo["precioVuelo"];
 
                     <!-- PASO 2 -->
 
-                    <div
-                        class="timeline-paso
-                        <?php
-                        echo $tramo === "ida"
-                            ? "activo"
-                            : "completado";
-                        ?>"
-                    >
+                    <div class="timeline-paso <?php
+                        echo $tramo === 'ida'
+                            ? 'activo'
+                            : 'completado';
+                    ?>">
 
                         <span class="timeline-punto"></span>
 
@@ -591,14 +816,11 @@ $precioTotal = $totalPasajeros * (float) $vuelo["precioVuelo"];
 
                     <!-- PASO 3 -->
 
-                    <div
-                        class="timeline-paso
-                        <?php
-                        echo $tramo === "vuelta"
-                            ? "completado"
-                            : "";
-                        ?>"
-                    >
+                    <div class="timeline-paso <?php
+                        echo $tramo === 'vuelta'
+                            ? 'completado'
+                            : '';
+                    ?>">
 
                         <span class="timeline-punto"></span>
 
@@ -623,14 +845,11 @@ $precioTotal = $totalPasajeros * (float) $vuelo["precioVuelo"];
 
                     <!-- PASO 4 -->
 
-                    <div
-                        class="timeline-paso
-                        <?php
-                        echo $tramo === "vuelta"
-                            ? "activo"
-                            : "";
-                        ?>"
-                    >
+                    <div class="timeline-paso <?php
+                        echo $tramo === 'vuelta'
+                            ? 'activo'
+                            : '';
+                    ?>">
 
                         <span class="timeline-punto"></span>
 
@@ -685,12 +904,13 @@ $precioTotal = $totalPasajeros * (float) $vuelo["precioVuelo"];
         <?php } ?>
 
 
-        <!-- VUELO ELEGIDO-->
+        <!-- =========================
+             VUELO ELEGIDO
+        ========================= -->
 
         <h1 class="titulo-vuelo-elegido">
             Confirmá tu vuelo
         </h1>
-
 
         <div class="card tarjeta-vuelo-elegido">
 
@@ -698,16 +918,14 @@ $precioTotal = $totalPasajeros * (float) $vuelo["precioVuelo"];
 
                 <div class="row align-items-center">
 
-
                     <div class="col-md-8">
-
 
                         <div class="aerolinea-vuelo mb-3">
 
                             <i class="bi bi-airplane"></i>
 
                             <?php
-                            echo htmlspecialchars(
+                            echo escaparVuelo(
                                 $vuelo["nombreAerolinea"]
                             );
                             ?>
@@ -717,7 +935,6 @@ $precioTotal = $totalPasajeros * (float) $vuelo["precioVuelo"];
 
                         <div class="row align-items-center">
 
-
                             <div class="col-md-5">
 
                                 <span class="texto-secundario">
@@ -726,7 +943,7 @@ $precioTotal = $totalPasajeros * (float) $vuelo["precioVuelo"];
 
                                 <h4>
                                     <?php
-                                    echo htmlspecialchars(
+                                    echo escaparVuelo(
                                         $vuelo["origenVuelo"]
                                     );
                                     ?>
@@ -737,10 +954,7 @@ $precioTotal = $totalPasajeros * (float) $vuelo["precioVuelo"];
 
                             <div class="col-md-2 text-center">
 
-                                <i
-                                    class="bi bi-arrow-right
-                                           flecha-vuelo"
-                                ></i>
+                                <i class="bi bi-arrow-right flecha-vuelo"></i>
 
                             </div>
 
@@ -753,7 +967,7 @@ $precioTotal = $totalPasajeros * (float) $vuelo["precioVuelo"];
 
                                 <h4>
                                     <?php
-                                    echo htmlspecialchars(
+                                    echo escaparVuelo(
                                         $vuelo["destinoVuelo"]
                                     );
                                     ?>
@@ -767,43 +981,35 @@ $precioTotal = $totalPasajeros * (float) $vuelo["precioVuelo"];
                         <div class="datos-secundarios mt-4">
 
                             <span>
-
                                 <i class="bi bi-calendar3"></i>
 
                                 <?php
-                                echo htmlspecialchars(
+                                echo escaparVuelo(
                                     $vuelo["fechaSalidaVuelo"]
                                 );
                                 ?>
-
                             </span>
 
-
                             <span>
-
                                 <i class="bi bi-clock"></i>
 
                                 <?php
-                                echo htmlspecialchars(
+                                echo escaparVuelo(
                                     $vuelo["horaSalidaVuelo"]
                                 );
                                 ?>
-
                             </span>
 
-
                             <span>
-
                                 <i class="bi bi-person"></i>
 
                                 <?php
-                                echo htmlspecialchars(
+                                echo escaparVuelo(
                                     $vuelo["asientosDisponibles"]
                                 );
                                 ?>
 
                                 asientos disponibles
-
                             </span>
 
                         </div>
@@ -841,33 +1047,39 @@ $precioTotal = $totalPasajeros * (float) $vuelo["precioVuelo"];
         </div>
 
 
-        <!-- FORMULARIO-->
+        <!-- =========================
+             FORMULARIO DE RESERVA
+        ========================= -->
 
         <div class="contenedor-reserva">
 
 
-            <!-- PASO 1-->
+            <!-- =========================
+                 PASO 1 - CANTIDAD
+            ========================= -->
 
             <?php if ($pasoFormulario === 1) { ?>
 
-                <div class="tarjeta-reserva">
+                <div
+                    class="tarjeta-reserva"
+                    id="cantidad-pasajeros"
+                >
 
-                    <h2>
-                        Pasajeros
-                    </h2>
-
+                    <h2>Pasajeros</h2>
 
                     <?php if ($error !== "") { ?>
 
                         <p class="mensaje-error">
-                            <?php echo htmlspecialchars($error); ?>
+                            <?php echo escaparVuelo($error); ?>
                         </p>
 
                     <?php } ?>
 
 
-                    <form method="POST" action="#datos-pasajeros">
-
+                    <form
+                        method="POST"
+                        action="#datos-pasajeros"
+                    >
 
                         <input
                             type="hidden"
@@ -875,57 +1087,21 @@ $precioTotal = $totalPasajeros * (float) $vuelo["precioVuelo"];
                             value="cantidad"
                         >
 
-                        <input
-                            type="hidden"
-                            name="codVuelo"
-                            value="<?php echo $codVuelo; ?>"
-                        >
-
-                        <input
-                            type="hidden"
-                            name="tipoViaje"
-                            value="<?php echo htmlspecialchars($tipoViaje); ?>"
-                        >
-
-                        <input
-                            type="hidden"
-                            name="origen"
-                            value="<?php echo htmlspecialchars($origen); ?>"
-                        >
-
-                        <input
-                            type="hidden"
-                            name="destino"
-                            value="<?php echo htmlspecialchars($destino); ?>"
-                        >
-
-                        <input
-                            type="hidden"
-                            name="fechaIda"
-                            value="<?php echo htmlspecialchars($fechaIda); ?>"
-                        >
-
-                        <input
-                            type="hidden"
-                            name="fechaVuelta"
-                            value="<?php echo htmlspecialchars($fechaVuelta); ?>"
-                        >
-
-                        <input
-                            type="hidden"
-                            name="tramo"
-                            value="<?php echo htmlspecialchars($tramo); ?>"
-                        >
-
-                        <input
-                            type="hidden"
-                            name="reservaIda"
-                            value="<?php echo $reservaIda; ?>"
-                        >
+                        <?php
+                        camposContextoVuelo(
+                            $codVuelo,
+                            $tipoViaje,
+                            $origen,
+                            $destino,
+                            $fechaIda,
+                            $fechaVuelta,
+                            $tramo,
+                            $reservaIda
+                        );
+                        ?>
 
 
                         <div class="fila-pasajeros">
-
 
                             <div class="campo-pasajero">
 
@@ -989,28 +1165,32 @@ $precioTotal = $totalPasajeros * (float) $vuelo["precioVuelo"];
             <?php } ?>
 
 
-            <!-- PASO 2-->
+            <!-- =========================
+                 PASO 2 - PASAJEROS
+            ========================= -->
 
             <?php if ($pasoFormulario === 2) { ?>
 
-                <div class="tarjeta-reserva" id="datos-pasajeros">
+                <div
+                    class="tarjeta-reserva"
+                    id="datos-pasajeros"
+                >
 
-                    <h2>
-                        Datos de los pasajeros
-                    </h2>
-
+                    <h2>Datos de los pasajeros</h2>
 
                     <?php if ($error !== "") { ?>
 
                         <p class="mensaje-error">
-                            <?php echo htmlspecialchars($error); ?>
+                            <?php echo escaparVuelo($error); ?>
                         </p>
 
                     <?php } ?>
 
 
-                    <form method="POST" action="#resumen-reserva">
-
+                    <form
+                        method="POST"
+                        action="#resumen-reserva"
+                    >
 
                         <input
                             type="hidden"
@@ -1018,11 +1198,18 @@ $precioTotal = $totalPasajeros * (float) $vuelo["precioVuelo"];
                             value="datos"
                         >
 
-                        <input
-                            type="hidden"
-                            name="codVuelo"
-                            value="<?php echo $codVuelo; ?>"
-                        >
+                        <?php
+                        camposContextoVuelo(
+                            $codVuelo,
+                            $tipoViaje,
+                            $origen,
+                            $destino,
+                            $fechaIda,
+                            $fechaVuelta,
+                            $tramo,
+                            $reservaIda
+                        );
+                        ?>
 
                         <input
                             type="hidden"
@@ -1036,54 +1223,10 @@ $precioTotal = $totalPasajeros * (float) $vuelo["precioVuelo"];
                             value="<?php echo $menores; ?>"
                         >
 
-                        <input
-                            type="hidden"
-                            name="tipoViaje"
-                            value="<?php echo htmlspecialchars($tipoViaje); ?>"
-                        >
-
-                        <input
-                            type="hidden"
-                            name="origen"
-                            value="<?php echo htmlspecialchars($origen); ?>"
-                        >
-
-                        <input
-                            type="hidden"
-                            name="destino"
-                            value="<?php echo htmlspecialchars($destino); ?>"
-                        >
-
-                        <input
-                            type="hidden"
-                            name="fechaIda"
-                            value="<?php echo htmlspecialchars($fechaIda); ?>"
-                        >
-
-                        <input
-                            type="hidden"
-                            name="fechaVuelta"
-                            value="<?php echo htmlspecialchars($fechaVuelta); ?>"
-                        >
-
-                        <input
-                            type="hidden"
-                            name="tramo"
-                            value="<?php echo htmlspecialchars($tramo); ?>"
-                        >
-
-                        <input
-                            type="hidden"
-                            name="reservaIda"
-                            value="<?php echo $reservaIda; ?>"
-                        >
-
 
                         <!-- ADULTOS -->
 
-                        <?php
-                        for ($i = 0; $i < $adultos; $i++) {
-                        ?>
+                        <?php for ($i = 0; $i < $adultos; $i++) { ?>
 
                             <div class="pasajero-card">
 
@@ -1091,9 +1234,7 @@ $precioTotal = $totalPasajeros * (float) $vuelo["precioVuelo"];
                                     Adulto <?php echo $i + 1; ?>
                                 </h3>
 
-
                                 <div class="grid-datos">
-
 
                                     <div>
 
@@ -1101,17 +1242,12 @@ $precioTotal = $totalPasajeros * (float) $vuelo["precioVuelo"];
                                             Nombre
                                         </label>
 
-                                        <input
-                                            type="text"
-                                            name="nombreAdulto[]"
-                                            value="<?php
-                                                echo valorArray(
-                                                    $_POST["nombreAdulto"] ?? [],
-                                                    $i
-                                                );
-                                            ?>"
-                                            required
-                                        >
+                                        <?php
+                                        campoPasajeroVuelo(
+                                            "nombreAdulto",
+                                            $i
+                                        );
+                                        ?>
 
                                     </div>
 
@@ -1122,17 +1258,12 @@ $precioTotal = $totalPasajeros * (float) $vuelo["precioVuelo"];
                                             Apellido
                                         </label>
 
-                                        <input
-                                            type="text"
-                                            name="apellidoAdulto[]"
-                                            value="<?php
-                                                echo valorArray(
-                                                    $_POST["apellidoAdulto"] ?? [],
-                                                    $i
-                                                );
-                                            ?>"
-                                            required
-                                        >
+                                        <?php
+                                        campoPasajeroVuelo(
+                                            "apellidoAdulto",
+                                            $i
+                                        );
+                                        ?>
 
                                     </div>
 
@@ -1143,17 +1274,13 @@ $precioTotal = $totalPasajeros * (float) $vuelo["precioVuelo"];
                                             Email
                                         </label>
 
-                                        <input
-                                            type="email"
-                                            name="emailAdulto[]"
-                                            value="<?php
-                                                echo valorArray(
-                                                    $_POST["emailAdulto"] ?? [],
-                                                    $i
-                                                );
-                                            ?>"
-                                            required
-                                        >
+                                        <?php
+                                        campoPasajeroVuelo(
+                                            "emailAdulto",
+                                            $i,
+                                            "email"
+                                        );
+                                        ?>
 
                                     </div>
 
@@ -1164,15 +1291,30 @@ $precioTotal = $totalPasajeros * (float) $vuelo["precioVuelo"];
                                             Fecha de nacimiento
                                         </label>
 
-                                        <input type="date" 
-                                                name="fechaAdulto[]" 
-                                                class="form-control" 
-                                                max="<?php echo date('Y-m-d'); ?>" 
-                                                min="<?php echo date('Y-m-d', strtotime('-115 years')); ?>" 
-                                                required>
+                                        <input
+                                            type="date"
+                                            name="fechaAdulto[]"
+                                            class="form-control"
+
+                                            value="<?php
+                                                echo escaparVuelo(
+                                                    $_POST["fechaAdulto"][$i] ?? ""
+                                                );
+                                            ?>"
+
+                                            max="<?php echo date('Y-m-d'); ?>"
+
+                                            min="<?php
+                                                echo date(
+                                                    'Y-m-d',
+                                                    strtotime('-115 years')
+                                                );
+                                            ?>"
+
+                                            required
+                                        >
 
                                     </div>
-
 
                                 </div>
 
@@ -1183,9 +1325,7 @@ $precioTotal = $totalPasajeros * (float) $vuelo["precioVuelo"];
 
                         <!-- MENORES -->
 
-                        <?php
-                        for ($i = 0; $i < $menores; $i++) {
-                        ?>
+                        <?php for ($i = 0; $i < $menores; $i++) { ?>
 
                             <div class="pasajero-card">
 
@@ -1193,9 +1333,7 @@ $precioTotal = $totalPasajeros * (float) $vuelo["precioVuelo"];
                                     Menor <?php echo $i + 1; ?>
                                 </h3>
 
-
                                 <div class="grid-datos">
-
 
                                     <div>
 
@@ -1203,17 +1341,12 @@ $precioTotal = $totalPasajeros * (float) $vuelo["precioVuelo"];
                                             Nombre
                                         </label>
 
-                                        <input
-                                            type="text"
-                                            name="nombreMenor[]"
-                                            value="<?php
-                                                echo valorArray(
-                                                    $_POST["nombreMenor"] ?? [],
-                                                    $i
-                                                );
-                                            ?>"
-                                            required
-                                        >
+                                        <?php
+                                        campoPasajeroVuelo(
+                                            "nombreMenor",
+                                            $i
+                                        );
+                                        ?>
 
                                     </div>
 
@@ -1224,17 +1357,12 @@ $precioTotal = $totalPasajeros * (float) $vuelo["precioVuelo"];
                                             Apellido
                                         </label>
 
-                                        <input
-                                            type="text"
-                                            name="apellidoMenor[]"
-                                            value="<?php
-                                                echo valorArray(
-                                                    $_POST["apellidoMenor"] ?? [],
-                                                    $i
-                                                );
-                                            ?>"
-                                            required
-                                        >
+                                        <?php
+                                        campoPasajeroVuelo(
+                                            "apellidoMenor",
+                                            $i
+                                        );
+                                        ?>
 
                                     </div>
 
@@ -1245,17 +1373,13 @@ $precioTotal = $totalPasajeros * (float) $vuelo["precioVuelo"];
                                             Email
                                         </label>
 
-                                        <input
-                                            type="email"
-                                            name="emailMenor[]"
-                                            value="<?php
-                                                echo valorArray(
-                                                    $_POST["emailMenor"] ?? [],
-                                                    $i
-                                                );
-                                            ?>"
-                                            required
-                                        >
+                                        <?php
+                                        campoPasajeroVuelo(
+                                            "emailMenor",
+                                            $i,
+                                            "email"
+                                        );
+                                        ?>
 
                                     </div>
 
@@ -1266,15 +1390,30 @@ $precioTotal = $totalPasajeros * (float) $vuelo["precioVuelo"];
                                             Fecha de nacimiento
                                         </label>
 
-                                        <input type="date" 
-                                                name="fechaMenor[]" 
-                                                class="form-control" 
-                                                max="<?php echo date('Y-m-d'); ?>" 
-                                                min="<?php echo date('Y-m-d', strtotime('-12 years')); ?>" 
-                                                required>
+                                        <input
+                                            type="date"
+                                            name="fechaMenor[]"
+                                            class="form-control"
+
+                                            value="<?php
+                                                echo escaparVuelo(
+                                                    $_POST["fechaMenor"][$i] ?? ""
+                                                );
+                                            ?>"
+
+                                            max="<?php echo date('Y-m-d'); ?>"
+
+                                            min="<?php
+                                                echo date(
+                                                    'Y-m-d',
+                                                    strtotime('-12 years')
+                                                );
+                                            ?>"
+
+                                            required
+                                        >
 
                                     </div>
-
 
                                 </div>
 
@@ -1297,15 +1436,68 @@ $precioTotal = $totalPasajeros * (float) $vuelo["precioVuelo"];
             <?php } ?>
 
 
-            <!-- PASO 3 - RESUMEN-->
+            <!-- =========================
+                 PASO 3 - RESUMEN
+            ========================= -->
 
             <?php if ($pasoFormulario === 3) { ?>
 
-                <div class="tarjeta-reserva" id="resumen-reserva">
+                <div
+                    class="tarjeta-reserva"
+                    id="resumen-reserva"
+                >
 
-                    <h2>
-                        Datos de la reserva
-                    </h2>
+                    <!-- VOLVER A PASAJEROS -->
+
+                    <form
+                        method="POST"
+                        action="#datos-pasajeros"
+                        class="mb-3"
+                    >
+
+                        <input
+                            type="hidden"
+                            name="accion"
+                            value="volverDatos"
+                        >
+
+                        <?php
+                        camposContextoVuelo(
+                            $codVuelo,
+                            $tipoViaje,
+                            $origen,
+                            $destino,
+                            $fechaIda,
+                            $fechaVuelta,
+                            $tramo,
+                            $reservaIda
+                        );
+                        ?>
+
+                        <input
+                            type="hidden"
+                            name="adultos"
+                            value="<?php echo $adultos; ?>"
+                        >
+
+                        <input
+                            type="hidden"
+                            name="menores"
+                            value="<?php echo $menores; ?>"
+                        >
+
+                        <button
+                            type="submit"
+                            class="reporte-volver"
+                        >
+                            <i class="bi bi-arrow-left"></i>
+                            Volver a los pasajeros
+                        </button>
+
+                    </form>
+
+
+                    <h2>Datos de la reserva</h2>
 
 
                     <div class="detalle-precio">
@@ -1331,9 +1523,7 @@ $precioTotal = $totalPasajeros * (float) $vuelo["precioVuelo"];
 
                     <div class="detalle-precio">
 
-                        <span>
-                            Adultos
-                        </span>
+                        <span>Adultos</span>
 
                         <strong>
                             <?php echo $adultos; ?>
@@ -1344,9 +1534,7 @@ $precioTotal = $totalPasajeros * (float) $vuelo["precioVuelo"];
 
                     <div class="detalle-precio">
 
-                        <span>
-                            Menores
-                        </span>
+                        <span>Menores</span>
 
                         <strong>
                             <?php echo $menores; ?>
@@ -1357,9 +1545,7 @@ $precioTotal = $totalPasajeros * (float) $vuelo["precioVuelo"];
 
                     <div class="detalle-precio">
 
-                        <span>
-                            Total de pasajeros
-                        </span>
+                        <span>Total de pasajeros</span>
 
                         <strong>
                             <?php echo $totalPasajeros; ?>
@@ -1368,14 +1554,9 @@ $precioTotal = $totalPasajeros * (float) $vuelo["precioVuelo"];
                     </div>
 
 
-                    <hr>
-
-
                     <div class="detalle-precio total">
 
-                        <span>
-                            Precio total
-                        </span>
+                        <span>Precio total</span>
 
                         <strong>
                             $
@@ -1392,8 +1573,20 @@ $precioTotal = $totalPasajeros * (float) $vuelo["precioVuelo"];
                     </div>
 
 
-                    <form method="POST">
+                    <!-- RESERVAR -->
 
+                    <form
+                        method="POST"
+                        action="<?php
+                            echo (
+                                !isset($_SESSION["codUsuario"])
+                                || !isset($_SESSION["tipoUsuario"])
+                                || $_SESSION["tipoUsuario"] !== "usuario"
+                            )
+                                ? '#necesitas-registrarte'
+                                : '';
+                        ?>"
+                    >
 
                         <input
                             type="hidden"
@@ -1401,11 +1594,18 @@ $precioTotal = $totalPasajeros * (float) $vuelo["precioVuelo"];
                             value="reservar"
                         >
 
-                        <input
-                            type="hidden"
-                            name="codVuelo"
-                            value="<?php echo $codVuelo; ?>"
-                        >
+                        <?php
+                        camposContextoVuelo(
+                            $codVuelo,
+                            $tipoViaje,
+                            $origen,
+                            $destino,
+                            $fechaIda,
+                            $fechaVuelta,
+                            $tramo,
+                            $reservaIda
+                        );
+                        ?>
 
                         <input
                             type="hidden"
@@ -1419,151 +1619,59 @@ $precioTotal = $totalPasajeros * (float) $vuelo["precioVuelo"];
                             value="<?php echo $menores; ?>"
                         >
 
-                        <input
-                            type="hidden"
-                            name="tipoViaje"
-                            value="<?php echo htmlspecialchars($tipoViaje); ?>"
-                        >
-
-                        <input
-                            type="hidden"
-                            name="origen"
-                            value="<?php echo htmlspecialchars($origen); ?>"
-                        >
-
-                        <input
-                            type="hidden"
-                            name="destino"
-                            value="<?php echo htmlspecialchars($destino); ?>"
-                        >
-
-                        <input
-                            type="hidden"
-                            name="fechaIda"
-                            value="<?php echo htmlspecialchars($fechaIda); ?>"
-                        >
-
-                        <input
-                            type="hidden"
-                            name="fechaVuelta"
-                            value="<?php echo htmlspecialchars($fechaVuelta); ?>"
-                        >
-
-                        <input
-                            type="hidden"
-                            name="tramo"
-                            value="<?php echo htmlspecialchars($tramo); ?>"
-                        >
-
-                        <input
-                            type="hidden"
-                            name="reservaIda"
-                            value="<?php echo $reservaIda; ?>"
-                        >
-
 
                         <!-- CONSERVAR ADULTOS -->
 
-                        <?php
-                        for ($i = 0; $i < $adultos; $i++) {
-                        ?>
+                        <?php for ($i = 0; $i < $adultos; $i++) { ?>
 
-                            <input
-                                type="hidden"
-                                name="nombreAdulto[]"
-                                value="<?php
-                                    echo valorArray(
-                                        $_POST["nombreAdulto"] ?? [],
-                                        $i
-                                    );
-                                ?>"
-                            >
+                            <?php foreach (
+                                [
+                                    "nombreAdulto",
+                                    "apellidoAdulto",
+                                    "emailAdulto",
+                                    "fechaAdulto"
+                                ] as $campo
+                            ) { ?>
 
-                            <input
-                                type="hidden"
-                                name="apellidoAdulto[]"
-                                value="<?php
-                                    echo valorArray(
-                                        $_POST["apellidoAdulto"] ?? [],
-                                        $i
-                                    );
-                                ?>"
-                            >
+                                <input
+                                    type="hidden"
+                                    name="<?php echo escaparVuelo($campo); ?>[]"
+                                    value="<?php
+                                        echo escaparVuelo(
+                                            $_POST[$campo][$i] ?? ""
+                                        );
+                                    ?>"
+                                >
 
-                            <input
-                                type="hidden"
-                                name="emailAdulto[]"
-                                value="<?php
-                                    echo valorArray(
-                                        $_POST["emailAdulto"] ?? [],
-                                        $i
-                                    );
-                                ?>"
-                            >
-
-                            <input
-                                type="hidden"
-                                name="fechaAdulto[]"
-                                value="<?php
-                                    echo valorArray(
-                                        $_POST["fechaAdulto"] ?? [],
-                                        $i
-                                    );
-                                ?>"
-                            >
+                            <?php } ?>
 
                         <?php } ?>
 
 
                         <!-- CONSERVAR MENORES -->
 
-                        <?php
-                        for ($i = 0; $i < $menores; $i++) {
-                        ?>
+                        <?php for ($i = 0; $i < $menores; $i++) { ?>
 
-                            <input
-                                type="hidden"
-                                name="nombreMenor[]"
-                                value="<?php
-                                    echo valorArray(
-                                        $_POST["nombreMenor"] ?? [],
-                                        $i
-                                    );
-                                ?>"
-                            >
+                            <?php foreach (
+                                [
+                                    "nombreMenor",
+                                    "apellidoMenor",
+                                    "emailMenor",
+                                    "fechaMenor"
+                                ] as $campo
+                            ) { ?>
 
-                            <input
-                                type="hidden"
-                                name="apellidoMenor[]"
-                                value="<?php
-                                    echo valorArray(
-                                        $_POST["apellidoMenor"] ?? [],
-                                        $i
-                                    );
-                                ?>"
-                            >
+                                <input
+                                    type="hidden"
+                                    name="<?php echo escaparVuelo($campo); ?>[]"
+                                    value="<?php
+                                        echo escaparVuelo(
+                                            $_POST[$campo][$i] ?? ""
+                                        );
+                                    ?>"
+                                >
 
-                            <input
-                                type="hidden"
-                                name="emailMenor[]"
-                                value="<?php
-                                    echo valorArray(
-                                        $_POST["emailMenor"] ?? [],
-                                        $i
-                                    );
-                                ?>"
-                            >
-
-                            <input
-                                type="hidden"
-                                name="fechaMenor[]"
-                                value="<?php
-                                    echo valorArray(
-                                        $_POST["fechaMenor"] ?? [],
-                                        $i
-                                    );
-                                ?>"
-                            >
+                            <?php } ?>
 
                         <?php } ?>
 
@@ -1575,10 +1683,17 @@ $precioTotal = $totalPasajeros * (float) $vuelo["precioVuelo"];
                             Reservar
                         </button>
 
+
                         <p class="mensaje-reserva">
+
                             <i class="bi bi-clock"></i>
-                            Una vez realizada la reserva, tendrás 30 minutos para completar el pago.
-                            Pasado ese tiempo, la reserva se cancelará automáticamente.
+
+                            Una vez realizada la reserva,
+                            tendrás 30 minutos para completar el pago.
+
+                            Pasado ese tiempo, la reserva
+                            se cancelará automáticamente.
+
                         </p>
 
                     </form>
@@ -1588,28 +1703,80 @@ $precioTotal = $totalPasajeros * (float) $vuelo["precioVuelo"];
             <?php } ?>
 
 
-            <!-- NO ESTÁ REGISTRADO-->
+            <!-- =========================
+                 PASO 4 - REGISTRO
+            ========================= -->
 
             <?php if ($pasoFormulario === 4) { ?>
 
-                <div class="tarjeta-reserva">
+                <div
+                    class="tarjeta-reserva tarjeta-registro"
+                    id="necesitas-registrarte"
+                >
 
-                    <div class="modal-icono">
+                    <!-- VOLVER A LOS PASAJEROS -->
 
+                    <form
+                        method="POST"
+                        action="#datos-pasajeros"
+                        class="form-volver-registro"
+                    >
+
+                        <input
+                            type="hidden"
+                            name="accion"
+                            value="volverDatos"
+                        >
+
+                        <?php
+                        camposContextoVuelo(
+                            $codVuelo,
+                            $tipoViaje,
+                            $origen,
+                            $destino,
+                            $fechaIda,
+                            $fechaVuelta,
+                            $tramo,
+                            $reservaIda
+                        );
+                        ?>
+
+                        <input
+                            type="hidden"
+                            name="adultos"
+                            value="<?php echo $adultos; ?>"
+                        >
+
+                        <input
+                            type="hidden"
+                            name="menores"
+                            value="<?php echo $menores; ?>"
+                        >
+
+                        <button
+                            type="submit"
+                            class="reporte-volver"
+                        >
+                            <i class="bi bi-arrow-left"></i>
+                            Volver a los pasajeros
+                        </button>
+
+                    </form>
+
+
+                    <div class="icono-registro">
                         <i class="bi bi-person-circle"></i>
-
                     </div>
 
 
-                    <h2>
-                        Necesitás registrarte
-                    </h2>
+                    <h2>Necesitás registrarte</h2>
 
 
                     <p>
                         Para continuar con la reserva
                         tenés que crear una cuenta.
                     </p>
+
 
                     <p>
                         No vas a perder los datos de tu vuelo
@@ -1649,9 +1816,7 @@ $precioTotal = $totalPasajeros * (float) $vuelo["precioVuelo"];
 
 <?php include "includes/footer.php"; ?>
 
-<script src="/js/bootstrap.bundle.min.js"></script>
-
+<script src="js/bootstrap.bundle.min.js"></script>
 
 </body>
-
 </html>

@@ -285,20 +285,6 @@
             box-shadow: 0 0 0 6px rgba(120, 120, 120, 0.16);
         }
 
-        /* Reserva que se acaba de crear */
-        .reserva-destacada td {
-            background-color: #fff4e8 !important;
-            border-top: 2px solid #9c673e;
-            border-bottom: 2px solid #9c673e;
-        }
-
-        .reserva-destacada td:first-child {
-            border-left: 2px solid #9c673e;
-        }
-
-        .reserva-destacada td:last-child {
-            border-right: 2px solid #9c673e;
-        }
 
         .marca-reserva-nueva {
             display: inline-block;

@@ -3,7 +3,7 @@
 require_once __DIR__ . '/../../includes/verificarRol.php';
 verificarRol('usuario');
 
-include "../../php/consultasReservas.php";
+require_once __DIR__ . "/../../php/consultasReservas.php";
 
 
 if (!isset($_GET["id"])) {
@@ -74,7 +74,7 @@ if (!$reserva) {
 
     <link
         rel="stylesheet"
-        href="../../css/estilosAdmin.css"
+        href="../../css/estilos-usuario.css"
     >
 
     <link rel="stylesheet" href="../../css/navbar.css">

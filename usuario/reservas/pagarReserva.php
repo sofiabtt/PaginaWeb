@@ -1,5 +1,9 @@
 <?php
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 require_once __DIR__ . '/../../includes/verificarRol.php';
 verificarRol('usuario');
 require_once __DIR__ . "/../../php/consultasReservas.php";
@@ -79,7 +83,7 @@ $ultimosGuardados = "";
 
 $consulta = $conexion->prepare(
     "SELECT medioPago, entidadPago, datoPago, ultimosDigitos
-     FROM PreferenciasPago WHERE codUsuario = ?"
+     FROM preferenciasPago WHERE codUsuario = ?"
 );
 $consulta->bind_param("i", $codUsuario);
 $consulta->execute();
@@ -111,7 +115,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["csrf"])) {
     } elseif ($dato === "") {
         $error = "Completá todos los datos del medio de pago.";
     } elseif (!$esPendiente) {
-        $error = "Esta reserva ya no está pendiente de pago.";
+        if ($reserva["estadoReserva"] !== "confirmada") {
+            $error = "Esta reserva ya no está disponible para pagar.";
+        }
     } else {
         //Confirmar la reserva (solo si sigue pendiente de pago)
         $actualizar = $conexion->prepare(
@@ -137,7 +143,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["csrf"])) {
                 $dato = mb_substr($dato, 0, 100);
 
                 $guardar = $conexion->prepare(
-                    "INSERT INTO PreferenciasPago
+                    "INSERT INTO preferenciasPago
                         (codUsuario, medioPago, entidadPago, datoPago, ultimosDigitos)
                      VALUES (?, ?, ?, ?, ?)
                      ON DUPLICATE KEY UPDATE
@@ -148,7 +154,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["csrf"])) {
                 );
                 $guardar->bind_param("issss", $codUsuario, $metodoSeleccionado, $entidad, $dato, $ultimos);
             } else {
-                $guardar = $conexion->prepare("DELETE FROM PreferenciasPago WHERE codUsuario = ?");
+                $guardar = $conexion->prepare("DELETE FROM preferenciasPago WHERE codUsuario = ?");
                 $guardar->bind_param("i", $codUsuario);
             }
             $guardar->execute();
@@ -234,9 +240,22 @@ $queryVolver = $contexto ? "?" . http_build_query($contexto) : "";
             <?php endif; ?>
 
             <?php if (!$esPendiente): ?>
-                <div class="alert alert-info" role="status">
-                    Esta reserva ya no está pendiente de pago.
-                </div>
+
+                <?php if ($reserva["estadoReserva"] === "confirmada"): ?>
+
+                    <div class="alert alert-success" role="status">
+                        <i class="bi bi-check-circle-fill"></i>
+                        ¡Compra realizada con éxito! Tu reserva está confirmada.
+                    </div>
+
+                <?php else: ?>
+
+                    <div class="alert alert-danger" role="alert">
+                        Esta reserva ya no está disponible para pagar.
+                    </div>
+
+                <?php endif; ?>
+
             <?php else: ?>
                 <form method="POST" action="pagarReserva.php">
                     <input type="hidden" name="id" value="<?= (int) $id ?>">

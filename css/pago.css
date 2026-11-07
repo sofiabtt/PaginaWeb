@@ -280,3 +280,182 @@ body {
 @supports not selector(:has(*)) {
     .pago-datos { display: block; }
 }
+
+/* =========================================
+   RESPONSIVE PAGO - TABLETS
+========================================= */
+
+@media (max-width: 991.98px) {
+
+    .pago-contenedor {
+        padding: 35px 20px;
+    }
+
+    .pago-card {
+        width: 100%;
+        max-width: 700px;
+        padding: 30px;
+    }
+}
+
+
+/* =========================================
+   RESPONSIVE PAGO - CELULARES
+========================================= */
+
+@media (max-width: 767.98px) {
+
+    .pago-contenedor {
+        padding: 25px 15px;
+        width: 100%;
+    }
+
+    .pago-card {
+        width: 100%;
+        max-width: 100%;
+        padding: 24px 18px;
+        border-radius: 15px;
+    }
+
+    /* ENCABEZADO */
+
+    .pago-card h1 {
+        font-size: 24px;
+        line-height: 1.3;
+    }
+
+    .pago-subtitulo {
+        font-size: 14px;
+        line-height: 1.5;
+        margin-bottom: 20px;
+    }
+
+    /* RESUMEN DE RESERVA */
+
+    .pago-resumen {
+        padding: 8px 15px;
+        margin-bottom: 22px;
+    }
+
+    .pago-resumen > div {
+        flex-direction: column;
+        gap: 4px;
+        padding: 12px 0;
+    }
+
+    .pago-resumen dt {
+        font-size: 13px;
+    }
+
+    .pago-resumen dd {
+        font-size: 15px;
+        text-align: left;
+        overflow-wrap: anywhere;
+    }
+
+    .pago-total {
+        font-size: 20px;
+    }
+
+    /* MÉTODOS DE PAGO */
+
+    .pago-metodos legend {
+        font-size: 17px;
+    }
+
+    .pago-opcion {
+        padding: 13px;
+        gap: 10px;
+    }
+
+    .pago-opcion > i {
+        font-size: 20px;
+    }
+
+    /* FORMULARIO */
+
+    .pago-datos {
+        padding: 16px;
+    }
+
+    .pago-fila {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .pago-datos .form-control,
+    .pago-datos .form-select {
+        width: 100%;
+        min-width: 0;
+        font-size: 16px;
+    }
+
+    /* DATOS DE TRANSFERENCIA */
+
+    .pago-cuenta {
+        padding: 12px;
+    }
+
+    .pago-cuenta p {
+        flex-direction: column;
+        gap: 3px;
+    }
+
+    .pago-cuenta strong {
+        text-align: left;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+    }
+
+    /* RECORDAR DATOS */
+
+    .pago-recordar {
+        align-items: flex-start;
+    }
+
+    .pago-recordar input {
+        margin-top: 3px;
+    }
+
+    /* BOTÓN CONFIRMAR PAGO */
+
+    .pago-boton {
+        width: 100%;
+        min-height: 50px;
+        padding: 13px;
+        font-size: 15px;
+    }
+
+    .pago-aviso {
+        font-size: 13px;
+        line-height: 1.5;
+    }
+}
+
+
+/* =========================================
+   CELULARES MUY PEQUEÑOS
+========================================= */
+
+@media (max-width: 400px) {
+
+    .pago-contenedor {
+        padding: 15px 10px;
+    }
+
+    .pago-card {
+        padding: 20px 14px;
+    }
+
+    .pago-card h1 {
+        font-size: 22px;
+    }
+
+    .pago-opcion {
+        padding: 12px 10px;
+    }
+
+    .pago-boton {
+        font-size: 14px;
+    }
+}

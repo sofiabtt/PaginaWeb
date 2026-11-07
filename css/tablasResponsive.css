@@ -18,6 +18,17 @@
     padding: 8px 15px;
 }
 
+/* TABLAS RESPONSIVE SIN SCROLL HORIZONTAL */
+
+.tabla-contenedor.tabla-tarjetas {
+    overflow-x: visible;
+}
+
+.tabla-contenedor.tabla-tarjetas table {
+    min-width: 0;
+    width: 100%;
+}
+
 /* =====================================
    ENCABEZADOS Y BOTONES RESPONSIVE
 ===================================== */
@@ -166,19 +177,9 @@
     }
 
     .tabla-contenedor.tabla-tarjetas .acciones-tabla .btn {
-        flex: 1 1 60px;
+        flex: 1 1 auto;
         text-align: center;
-    }
-
-    /* Paginación */
-
-    .paginacion-tablas {
-        margin-top: 20px;
-    }
-
-    .paginacion-tablas .btn {
-        font-size: 13px;
-        padding: 8px 12px;
+        white-space: nowrap;
     }
 
     /* Los campos de aeropuerto ocupan todo el ancho */

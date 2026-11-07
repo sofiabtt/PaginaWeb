@@ -370,7 +370,10 @@ body {
     margin: 0;
 }
 
-/* MODAL CANCELAR RESERVA */
+
+/* =========================
+   MODAL CANCELAR RESERVA
+========================= */
 
 .modal-cancelar {
     display: none;
@@ -454,7 +457,12 @@ body {
     background: #845536;
 }
 
-/* FILAS DE RESERVAS */
+
+/* =========================
+   TABLA DE RESERVAS
+========================= */
+
+/* FILAS */
 
 .fila-reserva {
     cursor: pointer;
@@ -465,7 +473,62 @@ body {
     background-color: #f2f2f2;
 }
 
-/* DETALLE DE RESERVA */
+/* RESERVAS RECIÉN CREADAS */
+
+/*
+   No se aplica ningún fondo ni borde especial.
+   Todas las reservas mantienen el diseño de la tabla.
+   La reserva nueva se identifica mediante su etiqueta.
+*/
+
+/* PRECIO */
+
+.gestion-reservas .precio-reserva {
+    white-space: nowrap;
+    min-width: 100px;
+}
+
+/* TIEMPO RESTANTE */
+
+.tiempo-pago {
+    margin-top: 7px;
+    color: #684028;
+    font-size: 13px;
+    font-weight: 600;
+
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.tiempo-pago i {
+    font-size: 14px;
+}
+
+/* ETIQUETA DE RESERVA NUEVA */
+
+.marca-reserva-nueva {
+    display: inline-block;
+
+    margin-top: 6px;
+    padding: 2px 7px;
+
+    background-color: #f3ebe6;
+    color: #684028;
+
+    border: 1px solid #d8c1b2;
+    border-radius: 6px;
+
+    font-size: 11px;
+    font-weight: 600;
+
+    white-space: nowrap;
+}
+
+
+/* =========================
+   DETALLE DE RESERVA
+========================= */
 
 .detalle-reserva-card {
     background: white;
@@ -477,8 +540,10 @@ body {
 
 .detalle-reserva-encabezado {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
+    gap: 12px;
 }
 
 .detalle-reserva-label {
@@ -515,10 +580,13 @@ body {
 
 .precio-detalle {
     color: #7b4a2e;
-    font-size: 21px !important;
+    font-size: 21px;
 }
 
-/* SCROLL NORMAL EN PÁGINAS DE USUARIO */
+
+/* =========================
+   SCROLL NORMAL
+========================= */
 
 html,
 body {
@@ -533,42 +601,406 @@ body {
     overflow: visible;
 }
 
-.tiempo-pago {
-    margin-top: 7px;
-    color: #684028;
-    font-size: 13px;
-    font-weight: 600;
 
-    display: flex;
-    align-items: center;
-    gap: 5px;
+/* =========================================
+   RESPONSIVE - TABLET
+========================================= */
+
+@media (max-width: 991.98px) {
+
+    .contenido-admin {
+        padding: 110px 25px 40px;
+        width: 100%;
+    }
+
+    .encabezado-contenido {
+        gap: 15px;
+        margin-bottom: 25px;
+    }
+
+    .detalle-reserva-card {
+        padding: 25px;
+    }
+
+    .detalle-reserva-grid {
+        gap: 20px;
+    }
+
 }
 
-.tiempo-pago i {
-    font-size: 14px;
+/* =========================================
+   RESPONSIVE - CELULARES
+========================================= */
+
+@media (max-width: 767.98px) {
+
+    /* CONTENIDO GENERAL */
+
+    .contenido-admin {
+        padding: 105px 15px 30px;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .encabezado-contenido {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        margin-bottom: 20px;
+    }
+
+    .encabezado-contenido h1 {
+        font-size: 26px;
+    }
+
+    .encabezado-contenido p {
+        font-size: 14px;
+    }
+
+
+    /* =========================
+       GESTIÓN DE RESERVAS
+    ========================= */
+
+    .gestion-reservas {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    /* CONTENEDOR DE LA TABLA */
+
+    .gestion-reservas .tabla-contenedor {
+        width: 100%;
+        max-width: 100%;
+        padding: 0;
+        background: transparent;
+        border: none;
+        border-radius: 0;
+        box-shadow: none;
+        overflow: visible;
+    }
+
+
+    /* TABLA CONVERTIDA EN TARJETAS */
+
+    .gestion-reservas .tabla-contenedor table,
+    .gestion-reservas .tabla-contenedor tbody {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        margin: 0;
+    }
+
+    .gestion-reservas .tabla-contenedor thead {
+        display: none;
+    }
+
+
+    /* CADA RESERVA */
+
+    .gestion-reservas .tabla-contenedor tr.fila-reserva {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+
+        padding: 16px;
+        margin-bottom: 16px;
+
+        background: white;
+        border: none;
+        border-radius: 16px;
+
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
+    }
+
+
+    /* DATOS DE CADA RESERVA */
+
+    .gestion-reservas .tabla-contenedor tr.fila-reserva td {
+        display: block;
+        position: relative;
+
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+
+        padding: 13px 0 13px 82px;
+
+        border: none;
+        border-bottom: 1px solid #eee;
+
+        background: transparent;
+
+        text-align: right;
+        font-size: 14px;
+        line-height: 1.6;
+
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+
+
+    /* ETIQUETAS */
+
+    .gestion-reservas tr.fila-reserva td:nth-child(1)::before {
+        content: "Código";
+    }
+
+    .gestion-reservas tr.fila-reserva td:nth-child(2)::before {
+        content: "Vuelo";
+    }
+
+    .gestion-reservas tr.fila-reserva td:nth-child(3)::before {
+        content: "Salida";
+    }
+
+    .gestion-reservas tr.fila-reserva td:nth-child(4)::before {
+        content: "Precio";
+    }
+
+    .gestion-reservas tr.fila-reserva td:nth-child(5)::before {
+        content: "Estado";
+    }
+
+    .gestion-reservas .tabla-contenedor
+    tr.fila-reserva td:nth-child(-n+5)::before {
+        position: absolute;
+        top: 13px;
+        left: 0;
+
+        width: 70px;
+
+        font-size: 13px;
+        font-weight: 700;
+        color: #684028;
+
+        text-align: left;
+    }
+
+
+    /* CÓDIGO Y ETIQUETA DE RESERVA NUEVA */
+
+    .gestion-reservas .tabla-contenedor
+    tr.fila-reserva td:first-child {
+        text-align: right;
+    }
+
+    .gestion-reservas .marca-reserva-nueva {
+        display: inline-block;
+
+        max-width: 100%;
+        width: auto;
+
+        padding: 5px 9px;
+        margin-top: 7px;
+
+        border-radius: 20px;
+
+        font-size: 11px;
+        line-height: 1.4;
+
+        white-space: normal;
+        text-align: center;
+        overflow-wrap: normal;
+    }
+
+
+    /* NOMBRE DEL VUELO */
+
+    .gestion-reservas .tabla-contenedor
+    tr.fila-reserva td:nth-child(2) {
+        line-height: 1.6;
+    }
+
+    .gestion-reservas .tabla-contenedor
+    tr.fila-reserva td:nth-child(2) small {
+        font-size: 12px;
+        color: #666;
+    }
+
+
+    /* FECHA Y PRECIO */
+
+    .gestion-reservas .tabla-contenedor
+    tr.fila-reserva td:nth-child(3),
+    .gestion-reservas .tabla-contenedor
+    tr.fila-reserva td:nth-child(4) {
+        font-size: 13px;
+    }
+
+    .gestion-reservas .precio-reserva {
+        min-width: 0;
+        white-space: normal;
+    }
+
+
+    /* ESTADO */
+
+    .gestion-reservas .tabla-contenedor
+    tr.fila-reserva td:nth-child(5) .badge {
+        display: inline-block;
+        max-width: 100%;
+
+        white-space: normal;
+        text-align: center;
+        line-height: 1.4;
+    }
+
+
+    /* TIEMPO RESTANTE */
+
+    .gestion-reservas .tiempo-pago {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        flex-wrap: wrap;
+
+        gap: 5px;
+        max-width: 100%;
+
+        margin-top: 8px;
+
+        font-size: 12px;
+        line-height: 1.5;
+
+        text-align: right;
+        white-space: normal;
+    }
+
+
+    /* COLUMNA DE ACCIONES */
+
+    .gestion-reservas .tabla-contenedor
+    tr.fila-reserva td:last-child {
+        display: block;
+
+        width: 100%;
+        padding: 14px 0 0;
+
+        border-bottom: none;
+    }
+
+
+    /* BOTONES DE RESERVA */
+
+    .gestion-reservas .acciones-reserva {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+
+        width: 100%;
+        gap: 10px;
+
+        min-height: 0;
+    }
+
+    .gestion-reservas .acciones-reserva form {
+        width: 100%;
+        margin: 0;
+    }
+
+    .gestion-reservas .acciones-reserva .btn,
+    .gestion-reservas .acciones-reserva button {
+        display: block;
+
+        width: 100%;
+        max-width: 100%;
+
+        padding: 12px 15px;
+
+        font-size: 14px;
+        font-weight: 600;
+
+        text-align: center;
+        white-space: normal;
+    }
+
+
+    /* =========================
+       DETALLE DE RESERVA
+    ========================= */
+
+    .detalle-reserva-card {
+        padding: 20px;
+        margin-top: 20px;
+        border-radius: 15px;
+    }
+
+    .detalle-reserva-encabezado {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .detalle-reserva-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .detalle-item strong {
+        font-size: 16px;
+        overflow-wrap: anywhere;
+    }
+
+    .precio-detalle {
+        font-size: 20px;
+    }
+
+
+    /* =========================
+       MODAL CANCELAR RESERVA
+    ========================= */
+
+    .modal-cancelar {
+        padding: 15px;
+    }
+
+    .modal-cancelar-contenido {
+        width: 100%;
+        max-width: 400px;
+        padding: 25px 18px;
+    }
+
+    .modal-cancelar-contenido h3 {
+        font-size: 22px;
+    }
+
+    .modal-cancelar-botones {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .btn-volver,
+    .btn-confirmar-cancelacion {
+        padding: 12px 18px;
+    }
+
 }
 
-.marca-reserva-nueva {
-    display: inline-block;
 
-    margin-top: 6px;
-    padding: 2px 7px;
+/* =========================================
+   RESPONSIVE - CELULARES PEQUEÑOS
+========================================= */
 
-    background-color: #f3ebe6;
-    color: #684028;
+@media (max-width: 400px) {
 
-    border: 1px solid #d8c1b2;
-    border-radius: 6px;
+    .encabezado-contenido h1 {
+        font-size: 23px;
+    }
 
-    font-size: 11px;
-    font-weight: 600;
+    .gestion-reservas .tabla-contenedor tr.fila-reserva {
+        padding: 14px;
+    }
 
-    white-space: nowrap;
-}
+    .gestion-reservas .tabla-contenedor tr.fila-reserva td {
+        padding-left: 72px;
+        font-size: 13px;
+    }
 
-/* PRECIO EN TABLA DE RESERVAS */
+    .gestion-reservas .tabla-contenedor
+    tr.fila-reserva td:nth-child(-n+5)::before {
+        width: 62px;
+        font-size: 12px;
+    }
 
-.gestion-reservas .precio-reserva {
-    white-space: nowrap;
-    min-width: 100px;
 }

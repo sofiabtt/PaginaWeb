@@ -32,7 +32,7 @@ $seleccionandoVuelta =
 
     <title>Nuvia - Vuelos</title>
 
-    <link rel="icon" type="image/png" href="/imagenes/logo.png">
+    <link rel="icon" type="image/png" href="imagenes/logo.png">
 
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/bootstrap-icons.css">
@@ -1664,31 +1664,7 @@ $seleccionandoVuelta =
                                 >
 
                                     No hay vuelos disponibles
-                                    para
-
-
-                                    <?php
-
-                                    echo htmlspecialchars(
-                                        $destino
-                                    );
-
-                                    ?>
-
-
-                                    →
-
-
-                                    <?php
-
-                                    echo htmlspecialchars(
-                                        $origen
-                                    );
-
-                                    ?>
-
-
-                                    en la fecha seleccionada.
+                                    para esta ruta y fecha. 
 
                                 </p>
 

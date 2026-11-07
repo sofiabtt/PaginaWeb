@@ -127,7 +127,6 @@ function obtenerReservasUsuario($conexion, $codUsuario)
          INNER JOIN vuelos v ON v.codVuelo = r.codVuelo
          INNER JOIN aerolineas a ON a.codAerolinea = v.codAerolinea
          WHERE r.codUsuario = ?
-           AND r.estadoReserva <> 'cancelada'
          ORDER BY v.fechaSalidaVuelo, v.horaSalidaVuelo"
     );
 

@@ -162,12 +162,14 @@ body > main {
    CONTRASEÑA
 ========================================= */
 
-.grupo-contrasena {
+.grupo-contrasena,
+.barra-contra {
     display: flex;
     width: 100%;
 }
 
-.grupo-contrasena .form-control {
+.grupo-contrasena .form-control,
+.barra-contra .form-control {
     flex: 1;
     min-width: 0;
 
@@ -180,18 +182,20 @@ body > main {
     align-items: center;
     justify-content: center;
 
-    width: 70px;
-    min-width: 70px;
+    width: 60px;
+    min-width: 60px;
 
     background-color: white;
 
-    font-size: 24px;
+    font-size: 20px;
 
     border: 1px solid #ced4da;
     border-left: 0;
 
     border-top-right-radius: 12px;
     border-bottom-right-radius: 12px;
+
+    cursor: pointer;
 }
 
 .boton-ojo:hover {

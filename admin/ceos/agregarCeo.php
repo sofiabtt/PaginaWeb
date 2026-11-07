@@ -11,20 +11,20 @@ require '../../vendor/autoload.php';
 
 // .ENV
 
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../../..');
+$rutaEnv = file_exists(__DIR__ . '/../../.env')
+    ? __DIR__ . '/../..'
+    : __DIR__ . '/../../..';
 
+$dotenv = Dotenv\Dotenv::createImmutable($rutaEnv);
 $dotenv->load();
 
 
 // CONEXIÓN Y CONSULTAS
 
-include "../../php/conexionBD.php";
-
-include "../../php/consultasAerolineas.php";
-
-include "../../php/consultasCeos.php";
-
-include "../../php/consultasActividad.php";
+require_once __DIR__ . "/../../php/conexionBD.php";
+require_once __DIR__ . "/../../php/consultasAerolineas.php";
+require_once __DIR__ . "/../../php/consultasCeos.php";
+require_once __DIR__ . "/../../php/consultasActividad.php";
 
 
 // Variable para mostrar errores
@@ -448,7 +448,7 @@ $consultaAerolineas =
         </section>
 
 
-        <section class="tabla-contenedor">
+        <section class="tabla-contenedor formulario-ceo">
 
 
             <?php if ($error != "") { ?>
