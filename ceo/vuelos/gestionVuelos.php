@@ -24,6 +24,7 @@ $codAerolinea = $aerolinea["codAerolinea"];
 // OBTENER VUELOS
 $resultado = obtenerVuelosPorAerolinea($conexion,$codAerolinea);
 
+require_once __DIR__ . '/../../php/conexionBD.php';
 ?>
 
 <!DOCTYPE html>
@@ -34,60 +35,33 @@ $resultado = obtenerVuelosPorAerolinea($conexion,$codAerolinea);
 
     <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Nuvia - CEO</title>
 
-
-    <link
-        rel="icon"
-        href="../../imagenes/logo.png"
-        type="image/png"
-    >
-
+    <link rel="icon" href="<?= htmlspecialchars(urlApp('imagenes/logo.png'), ENT_QUOTES, 'UTF-8') ?>" type="image/png">
 
     <!-- Bootstrap -->
-
-    <link
-        rel="stylesheet"
-        href="../../css/bootstrap.min.css"
-    >
-
+    <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/bootstrap.min.css'), ENT_QUOTES, 'UTF-8') ?>">
 
     <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/bootstrap-icons.css'), ENT_QUOTES, 'UTF-8') ?>">
 
-    <link
-        rel="stylesheet"
-        href="../../css/bootstrap-icons.css"
-    >
-
-
-    <!-- CSS del administrador -->
-
-    <link
-        rel="stylesheet"
-        href="../../css/estilosAdmin.css"
-    >
-
-    <link rel="stylesheet" href="../../css/navbar.css">
-    <link rel="stylesheet" href="../../css/footer.css">
+    <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/estilosAdmin.css'), ENT_QUOTES, 'UTF-8') ?>">
+    <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/tablasResponsive.css'), ENT_QUOTES, 'UTF-8') ?>">
+    <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/navbar.css'), ENT_QUOTES, 'UTF-8') ?>">
+    <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/footer.css'), ENT_QUOTES, 'UTF-8') ?>">
 
 </head>
 
 
 <body>
 
-
     <!-- NAVBAR -->
 
-    <?php include "/ceo/includes/navbarCeo.php"; ?>
-
+    <?php include __DIR__ . "/../includes/navbarCeo.php"; ?>
 
     <main class="contenido-admin">
-
 
         <!-- ENCABEZADO -->
 
@@ -112,10 +86,7 @@ $resultado = obtenerVuelosPorAerolinea($conexion,$codAerolinea);
 
                     <!-- VUELOS DADOS DE BAJA -->
 
-                    <a
-                        href="vuelosInactivos.php"
-                        class="btn btn-outline-secondary"
-                    >
+                    <a href="vuelosInactivos.php" class="btn btn-outline-secondary">
 
                         <i class="bi bi-archive"></i>
 
@@ -126,10 +97,7 @@ $resultado = obtenerVuelosPorAerolinea($conexion,$codAerolinea);
 
                     <!-- CREAR VUELO -->
 
-                    <a
-                        href="crearVuelo.php"
-                        class="btn btn-primary"
-                    >
+                    <a href="crearVuelo.php" class="btn btn-primary">
 
                         <i class="bi bi-plus-lg"></i>
 
@@ -149,228 +117,169 @@ $resultado = obtenerVuelosPorAerolinea($conexion,$codAerolinea);
 
         <section class="actividad-admin">
 
-            <div class="tabla-contenedor">
+            <div class="tabla-contenedor tabla-tarjetas">
 
-                <div class="table-responsive">
+                <table class="table align-middle">
 
-                    <table class="table align-middle">
+                    <thead>
 
-                        <thead>
+                        <tr>
 
-                            <tr>
+                            <th>
+                                Código
+                            </th>
 
-                                <th>
-                                    Código
-                                </th>
+                            <th class="columna-aeropuerto">
+                                Origen
+                            </th>
 
-                                <th class="columna-aeropuerto">
-                                    Origen
-                                </th>
+                            <th class="columna-aeropuerto">
+                                Destino
+                            </th>
 
-                                <th class="columna-aeropuerto">
-                                    Destino
-                                </th>
+                            <th>
+                                Fecha
+                            </th>
 
-                                <th>
-                                    Fecha
-                                </th>
+                            <th>
+                                Hora
+                            </th>
 
-                                <th>
-                                    Hora
-                                </th>
+                            <th>
+                                Precio
+                            </th>
 
-                                <th>
-                                    Precio
-                                </th>
+                            <th>
+                                Asientos disponibles
+                            </th>
 
-                                <th>
-                                    Asientos disponibles
-                                </th>
+                            <th>
+                                Acciones
+                            </th>
 
-                                <th>
-                                    Acciones
-                                </th>
+                        </tr>
 
-                            </tr>
+                    </thead>
 
-                        </thead>
 
+                    <tbody>
 
-                        <tbody>
 
+                        <?php if ($resultado->num_rows > 0) { ?>
 
-                            <?php if ($resultado->num_rows > 0) { ?>
 
-
-                                <?php while ($vuelo = $resultado->fetch_assoc()) { ?>
-
-
-                                    <tr>
-
-
-                                        <!-- CÓDIGO -->
-
-                                        <td>
-
-                                            <?php
-                                            echo $vuelo["codVuelo"];
-                                            ?>
-
-                                        </td>
-
-
-                                        <!-- ORIGEN -->
-
-                                        <td class="columna-aeropuerto">
-
-                                            <?php
-                                            echo htmlspecialchars(
-                                                $vuelo["origenVuelo"]
-                                            );
-                                            ?>
-
-                                        </td>
-
-
-                                        <!-- DESTINO -->
-
-                                        <td class="columna-aeropuerto">
-
-                                            <?php
-                                            echo htmlspecialchars(
-                                                $vuelo["destinoVuelo"]
-                                            );
-                                            ?>
-
-                                        </td>
-
-
-                                        <!-- FECHA -->
-
-                                        <td>
-
-                                            <?php
-                                            echo date(
-                                                "d/m/Y",
-                                                strtotime(
-                                                    $vuelo["fechaSalidaVuelo"]
-                                                )
-                                            );
-                                            ?>
-
-                                        </td>
-
-
-                                        <!-- HORA -->
-
-                                        <td>
-
-                                            <?php
-                                            echo htmlspecialchars(
-                                                $vuelo["horaSalidaVuelo"]
-                                            );
-                                            ?>
-
-                                        </td>
-
-
-                                        <!-- PRECIO -->
-
-                                        <td>
-
-                                            $
-
-                                            <?php
-                                            echo number_format(
-                                                $vuelo["precioVuelo"],
-                                                0,
-                                                ",",
-                                                "."
-                                            );
-                                            ?>
-
-                                        </td>
-
-
-                                        <!-- ASIENTOS -->
-
-                                        <td>
-
-                                            <?php
-                                            echo $vuelo["asientosDisponibles"];
-                                            ?>
-
-                                        </td>
-
-
-                                        <!-- ACCIONES -->
-
-                                        <td>
-
-                                            <!-- VER -->
-
-                                            <a
-                                                href="verVuelo.php?id=<?php echo $vuelo["codVuelo"]; ?>"
-                                                class="btn btn-sm btn-outline-secondary"
-                                                title="Ver vuelo"
-                                            >
-                                                <i class="bi bi-eye"></i>
-                                            </a>
-
-
-                                            <!-- MODIFICAR -->
-
-                                            <a
-                                                href="modificarVuelo.php?id=<?php echo $vuelo["codVuelo"]; ?>"
-                                                class="btn btn-sm btn-outline-primary"
-                                                title="Modificar vuelo"
-                                            >
-                                                <i class="bi bi-pencil"></i>
-                                            </a>
-
-
-                                            <!-- ELIMINAR -->
-
-                                            <a
-                                                href="eliminarVuelo.php?id=<?php echo $vuelo["codVuelo"]; ?>"
-                                                class="btn btn-sm btn-outline-danger"
-                                                title="Eliminar vuelo"
-                                            >
-                                                <i class="bi bi-trash"></i>
-                                            </a>
-
-                                        </td>
-
-
-                                    </tr>
-
-
-                                <?php } ?>
-
-
-                            <?php } else { ?>
+                            <?php while ($vuelo = $resultado->fetch_assoc()) { ?>
 
 
                                 <tr>
 
-                                    <td
-                                        colspan="8"
-                                        class="text-center py-4"
-                                    >
 
-                                        <i
-                                            class="bi bi-airplane"
-                                            style="font-size: 30px;"
-                                        ></i>
+                                    <!-- CÓDIGO -->
 
-                                        <p class="mt-2 mb-0">
+                                    <td data-label="Código">
 
-                                            No hay vuelos registrados
-                                            para tu aerolínea.
-
-                                        </p>
+                                        <?php echo $vuelo["codVuelo"]; ?>
 
                                     </td>
+
+
+                                    <!-- ORIGEN -->
+
+                                    <td data-label="Origen" class="columna-aeropuerto">
+
+                                        <?php echo htmlspecialchars($vuelo["origenVuelo"]);?>
+
+                                    </td>
+
+
+                                    <!-- DESTINO -->
+
+                                    <td data-label="Destino" class="columna-aeropuerto">
+
+                                        <?php echo htmlspecialchars($vuelo["destinoVuelo"]); ?>
+
+                                    </td>
+
+
+                                    <!-- FECHA -->
+
+                                    <td data-label="Fecha">
+
+                                        <?php echo date("d/m/Y", strtotime($vuelo["fechaSalidaVuelo"]));?>
+
+                                    </td>
+
+
+                                    <!-- HORA -->
+
+                                    <td data-label="Hora">
+
+                                        <?php echo htmlspecialchars($vuelo["horaSalidaVuelo"]); ?>
+
+                                    </td>
+
+
+                                    <!-- PRECIO -->
+
+                                    <td data-label="Precio">
+
+                                        $
+
+                                        <?php echo number_format($vuelo["precioVuelo"],0,",","."); ?>
+
+                                    </td>
+
+
+                                    <!-- ASIENTOS -->
+
+                                    <td data-label="Asientos disponibles">
+
+                                        <?php echo $vuelo["asientosDisponibles"]; ?>
+
+                                    </td>
+
+
+                                    <!-- ACCIONES -->
+
+                                    <td data-label="Acciones" class="acciones-tabla">
+
+                                        <!-- VER -->
+
+                                        <a
+                                            href="verVuelo.php?id=<?php echo $vuelo["codVuelo"]; ?>"
+                                            class="btn btn-sm btn-outline-secondary"
+                                            title="Ver vuelo"
+                                        >
+                                            <i class="bi bi-eye"></i>
+                                            Ver
+                                        </a>
+
+
+                                        <!-- MODIFICAR -->
+
+                                        <a
+                                            href="modificarVuelo.php?id=<?php echo $vuelo["codVuelo"]; ?>"
+                                            class="btn btn-sm btn-outline-primary"
+                                            title="Modificar vuelo"
+                                        >
+                                            <i class="bi bi-pencil"></i>
+                                            Modificar
+                                        </a>
+
+
+                                        <!-- ELIMINAR -->
+
+                                        <a
+                                            href="eliminarVuelo.php?id=<?php echo $vuelo["codVuelo"]; ?>"
+                                            class="btn btn-sm btn-outline-danger"
+                                            title="Eliminar vuelo"
+                                        >
+                                            <i class="bi bi-trash"></i>
+                                            Eliminar
+                                        </a>
+
+                                    </td>
+
 
                                 </tr>
 
@@ -378,11 +287,39 @@ $resultado = obtenerVuelosPorAerolinea($conexion,$codAerolinea);
                             <?php } ?>
 
 
-                        </tbody>
+                        <?php } else { ?>
 
-                    </table>
 
-                </div>
+                            <tr>
+
+                                <td
+                                    colspan="8"
+                                    class="text-center py-4"
+                                >
+
+                                    <i
+                                        class="bi bi-airplane"
+                                        style="font-size: 30px;"
+                                    ></i>
+
+                                    <p class="mt-2 mb-0">
+
+                                        No hay vuelos registrados
+                                        para tu aerolínea.
+
+                                    </p>
+
+                                </td>
+
+                            </tr>
+
+
+                        <?php } ?>
+
+
+                    </tbody>
+
+                </table>
 
             </div>
 
@@ -392,11 +329,9 @@ $resultado = obtenerVuelosPorAerolinea($conexion,$codAerolinea);
 
     </main>
 
-    <?php include "/includes/footer.php"; ?>
+    <?php include __DIR__ . "/../../includes/footer.php"; ?>
 
-    <script
-        src="/js/bootstrap.bundle.min.js">
-    </script>
+    <script src="<?= htmlspecialchars(urlApp('js/bootstrap.bundle.min.js'), ENT_QUOTES, 'UTF-8') ?>"></script>
 
 
 </body>

@@ -33,6 +33,13 @@ body {
     margin-bottom: 40px;
 }
 
+.encabezado-contenido h1 {
+    color: #684028;
+    font-size: 32px;
+    font-weight: 700;
+}
+
+
 
 /* ==========================================
    3. TABLAS GENERALES
@@ -44,6 +51,13 @@ body {
     padding: 25px;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
     min-height: 150px;
+}
+
+.tabla-contenedor h2 {
+    color: #684028;
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 20px;
 }
 
 .tabla-contenedor table {
@@ -873,6 +887,191 @@ body {
 
     .tabla-contenedor {
         padding: 12px;
+    }
+
+}
+
+/* ==========================================
+   FORMULARIOS CEO 
+========================================== */
+
+/* Tablets */
+@media (max-width: 768px) {
+
+    .perfil-card {
+        padding: 30px 25px;
+        margin: 30px auto;
+    }
+
+    .perfil-campos {
+        gap: 20px;
+    }
+
+}
+
+/* Celulares */
+@media (max-width: 576px) {
+
+    .perfil-card {
+        padding: 25px 18px;
+        margin: 25px auto;
+        border-radius: 14px;
+        width: 100%;
+    }
+
+    .perfil-campos {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .perfil-campos > div {
+        min-width: 0;
+        width: 100%;
+    }
+
+    .perfil-card .form-label {
+        font-size: 14px;
+    }
+
+    .perfil-card .form-control,
+    .perfil-card .form-select {
+        width: 100%;
+        min-width: 0;
+        font-size: 16px;
+    }
+
+    .perfil-acciones {
+        flex-direction: column-reverse;
+        gap: 12px;
+    }
+
+    .perfil-acciones .btn {
+        width: 100%;
+        margin: 0 !important;
+    }
+
+}
+
+/* Celulares pequeños */
+@media (max-width: 380px) {
+
+    .perfil-card {
+        padding: 20px 14px;
+    }
+
+}
+
+
+/* ==========================================
+   PERFIL DE USUARIO
+========================================== */
+
+.tarjeta-perfil {
+    max-width: 850px;
+    width: 100%;
+}
+
+/* Tablets */
+@media (max-width: 768px) {
+
+    .tarjeta-perfil .card-body {
+        padding: 30px 25px !important;
+    }
+
+    .tarjeta-perfil h2 {
+        font-size: 22px;
+    }
+
+}
+
+/* Celulares */
+@media (max-width: 576px) {
+
+    .tarjeta-perfil .card-body {
+        padding: 25px 18px !important;
+    }
+
+    .tarjeta-perfil h2 {
+        font-size: 20px;
+    }
+
+    .tarjeta-perfil p {
+        font-size: 14px;
+    }
+
+    .tarjeta-perfil .row {
+        --bs-gutter-y: 1rem;
+    }
+
+    .tarjeta-perfil .form-label {
+        font-size: 14px;
+    }
+
+    .tarjeta-perfil .form-control {
+        font-size: 16px;
+        min-width: 0;
+    }
+
+    .tarjeta-perfil .input-group {
+        width: 100%;
+    }
+
+    .tarjeta-perfil .btn {
+        width: 100%;
+    }
+
+}
+
+/* Celulares pequeños */
+@media (max-width: 380px) {
+
+    .tarjeta-perfil .card-body {
+        padding: 20px 14px !important;
+    }
+
+    .tarjeta-perfil .input-group-text {
+        padding: 8px;
+    }
+
+}
+
+
+/* ==========================================
+   DETALLE DE VUELO
+========================================== */
+
+.tarjeta-detalle-vuelo {
+    width: 100%;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+}
+
+.tarjeta-detalle-vuelo h2 {
+    font-size: 24px;
+}
+
+@media (max-width: 576px) {
+
+    .encabezado-contenido h1 {
+        font-size: 26px;
+    }
+
+    .tarjeta-detalle-vuelo {
+        padding: 18px;
+    }
+
+    .tarjeta-detalle-vuelo h2 {
+        font-size: 20px;
+        margin-bottom: 20px !important;
+    }
+
+    .tarjeta-detalle-vuelo p {
+        font-size: 14px;
+        line-height: 1.6;
+    }
+
+    .tarjeta-detalle-vuelo .btn {
+        width: 100%;
     }
 
 }

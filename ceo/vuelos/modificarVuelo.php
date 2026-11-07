@@ -115,6 +115,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 }
 
+require_once __DIR__ . '/../../php/conexionBD.php';
 ?>
 
 
@@ -125,53 +126,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>
         Nuvia - Modificar vuelo
     </title>
 
 
-    <link
-        rel="icon"
-        href="../../imagenes/logo.png"
-        type="image/png"
-    >
+    <link rel="icon" href="<?= htmlspecialchars(urlApp('imagenes/logo.png'), ENT_QUOTES, 'UTF-8') ?>" type="image/png">
 
-
-    <link
-        rel="stylesheet"
-        href="../../css/bootstrap.min.css"
-    >
-
-
-    <link
-        rel="stylesheet"
-        href="../../css/bootstrap-icons.css"
-    >
-
-
-    <link
-        rel="stylesheet"
-        href="../../css/estilosAdmin.css"
-    >
-
-    <link rel="stylesheet" href="../../css/footer.css">
+    <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/bootstrap.min.css'), ENT_QUOTES, 'UTF-8') ?>">
+    <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/bootstrap-icons.css'), ENT_QUOTES, 'UTF-8') ?>">
+    <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/estilosAdmin.css'), ENT_QUOTES, 'UTF-8') ?>">
+    <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/navbar.css'), ENT_QUOTES, 'UTF-8') ?>">
+    <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/footer.css'), ENT_QUOTES, 'UTF-8') ?>">
 
 </head>
 
 
 <body>
 
-
-    <?php include "/ceo/includes/navbarCeo.php"; ?>
-
+    <?php include __DIR__ . "/../includes/navbarCeo.php"; ?>
 
     <main class="contenido-admin">
-
 
         <section class="bienvenida-admin">
 
@@ -187,7 +164,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
         <section class="perfil-card">
-
 
             <?php if (isset($error)) { ?>
 
@@ -449,12 +425,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     </main>
 
-    <?php include "/includes/footer.php"; ?>
+    <?php include __DIR__ . "/../../includes/footer.php"; ?>
 
-    <script
-        src="/js/bootstrap.bundle.min.js"
-    ></script>
-
+    <script src="<?= htmlspecialchars(urlApp('js/bootstrap.bundle.min.js'), ENT_QUOTES, 'UTF-8') ?>"></script>
 
 </body>
 

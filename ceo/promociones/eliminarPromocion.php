@@ -3,10 +3,10 @@
 require_once __DIR__ . '/../../includes/verificarRol.php';
 verificarRol('ceo');
 
-include "../../php/conexionBD.php";
-include "../../php/consultasCeos.php";
-include "../../php/consultasAerolineas.php";
-include "../../php/consultasPromociones.php";
+require_once __DIR__ . '/../../php/conexionBD.php';
+require_once __DIR__ . '/../../php/consultasCeos.php';
+require_once __DIR__ . '/../../php/consultasAerolineas.php';
+require_once __DIR__ . '/../../php/consultasPromociones.php';
 
 verificarCeo();
 $codUsuario = obtenerCodCeo();
@@ -82,31 +82,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </title>
 
 
-    <link
-        rel="icon"
-        href="../../imagenes/logo.png"
-        type="image/png"
-    >
+    <link rel="icon" href="<?= htmlspecialchars(urlApp('imagenes/logo.png'), ENT_QUOTES, 'UTF-8') ?>" type="image/png">
 
-
-    <link
-        rel="stylesheet"
-        href="../../css/bootstrap.min.css"
-    >
-
-
-    <link
-        rel="stylesheet"
-        href="../../css/bootstrap-icons.css"
-    >
-
-
-    <link
-        rel="stylesheet"
-        href="../../css/estilosAdmin.css"
-    >
-
-    <link rel="stylesheet" href="../../css/footer.css">
+    <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/bootstrap.min.css'), ENT_QUOTES, 'UTF-8') ?>">
+    <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/bootstrap-icons.css'), ENT_QUOTES, 'UTF-8') ?>">
+    <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/estilosAdmin.css'), ENT_QUOTES, 'UTF-8') ?>">
+    <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/navbar.css'), ENT_QUOTES, 'UTF-8') ?>">
+    <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/footer.css'), ENT_QUOTES, 'UTF-8') ?>">
 
 </head>
 
@@ -114,7 +96,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
 
 
-    <?php include "/ceo/includes/navbarCeo.php"; ?>
+    <?php include __DIR__ . "/../includes/navbarCeo.php"; ?>
 
 
     <main class="contenido-admin">
@@ -221,11 +203,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     </main>
 
-    <?php include "/includes/footer.php"; ?>
+    <?php include __DIR__ . "/../../includes/navbarCeo.php"; ?>
 
-    <script
-        src="/js/bootstrap.bundle.min.js"
-    ></script>
+    <script src="<?= htmlspecialchars(urlApp('js/bootstrap.bundle.min.js'), ENT_QUOTES, 'UTF-8') ?>"></script>
 
 
 </body>

@@ -91,6 +91,7 @@ function claseEstadoReserva($estado)
     return "bg-secondary";
 }
 
+require_once __DIR__ . '/../../php/conexionBD.php';
 ?>
 
 <!DOCTYPE html>
@@ -103,12 +104,13 @@ function claseEstadoReserva($estado)
 
     <title>Nuvia - Reportes</title>
 
-    <link rel="icon" href="../../imagenes/logo.png" type="image/png">
-    <link rel="stylesheet" href="../../css/bootstrap.min.css">
-    <link rel="stylesheet" href="../../css/bootstrap-icons.css">
-    <link rel="stylesheet" href="../../css/estilosAdmin.css">
-    <link rel="stylesheet" href="../../css/navbar.css">
-    <link rel="stylesheet" href="../../css/footer.css">
+    <link rel="icon" href="<?= htmlspecialchars(urlApp('imagenes/logo.png'), ENT_QUOTES, 'UTF-8')?>" type="image/png">
+    <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/bootstrap.min.css'), ENT_QUOTES, 'UTF-8')?>">
+    <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/bootstrap-icons.css'), ENT_QUOTES, 'UTF-8')?>">
+    <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/estilosAdmin.css'), ENT_QUOTES, 'UTF-8')?>">
+    <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/tablasResponsive.css'), ENT_QUOTES, 'UTF-8') ?>">
+    <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/navbar.css'), ENT_QUOTES, 'UTF-8') ?>">
+    <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/footer.css'), ENT_QUOTES, 'UTF-8') ?>">
 
     <style>
         @media print {
@@ -138,10 +140,10 @@ function claseEstadoReserva($estado)
 
 <body>
 
-    <?php include "/ceo/includes/navbarCeo.php"; ?>
+    <?php include __DIR__ . "/../includes/navbarCeo.php"; ?> 
 
     <main class="contenido-admin">
-        <section class="encabezado-contenido">
+        <section class="encabezado-contenido encabezado-reportes">
             <div>
 
                 <h1>Reportes</h1>
@@ -162,7 +164,7 @@ function claseEstadoReserva($estado)
         <!-- FILTROS -->
         <section class="tabla-contenedor mb-4 d-print-none">
             <form method="GET" class="row g-3 p-3 align-items-end">
-                <div class="col-md-3">
+                <div class="col-12 col-sm-6 col-xl-3">
                     <label for="desde" class="form-label">
                         Reservas desde
                     </label>
@@ -170,7 +172,7 @@ function claseEstadoReserva($estado)
                     <input type="date" class="form-control" id="desde" name="desde" max="<?php echo $hoy; ?>" value="<?php echo htmlspecialchars($desde); ?>">
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-12 col-sm-6 col-xl-3">
                     <label for="hasta" class="form-label">
                         Reservas hasta
                     </label>
@@ -178,7 +180,7 @@ function claseEstadoReserva($estado)
                     <input type="date" class="form-control" id="hasta" name="hasta" max="<?php echo $hoy; ?>" value="<?php echo htmlspecialchars($hasta); ?>">
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-12 col-sm-6 col-xl-3">
                     <label for="estado" class="form-label">
                         Estado
                     </label>
@@ -196,15 +198,19 @@ function claseEstadoReserva($estado)
                     </select>
                 </div>
 
-                <div class="col-md-3">
-                    <button type="submit" class="btn btn-primary">
-                        <i class="bi bi-funnel"></i>
-                        Filtrar
-                    </button>
+                <div class="col-12 col-sm-6 col-xl-3 acciones-filtros">
+                    <div class="d-flex flex-wrap gap-2">
 
-                    <a href="reportes.php" class="btn btn-secondary">
-                        Limpiar
-                    </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-funnel"></i>
+                            Filtrar
+                        </button>
+
+                        <a href="reportes.php" class="btn btn-secondary">
+                            Limpiar
+                        </a>
+
+                    </div>
                 </div>
             </form>
         </section>
@@ -218,7 +224,7 @@ function claseEstadoReserva($estado)
         <?php } ?>
 
         <!-- RESUMEN -->
-        <section class="resumen-admin">
+        <section class="resumen-admin resumen-reportes">
             <h2>Resumen</h2>
             <div class="resumen-grid">
                 <article class="resumen-item">
@@ -277,7 +283,7 @@ function claseEstadoReserva($estado)
 
 
         <!-- VENTAS POR VUELO -->
-        <section class="tabla-contenedor mb-4">
+        <section class="tabla-contenedor tabla-tarjetas mb-4">
 
             <h2 class="h5 p-3 mb-0">Ventas confirmadas por vuelo</h2>
 
@@ -308,18 +314,18 @@ function claseEstadoReserva($estado)
                     <?php while ($fila = $ventasPorVuelo->fetch_assoc()) { ?>
 
                         <tr>
-                            <td>#<?php echo $fila["codVuelo"]; ?></td>
-                            <td>
+                            <td data-label="Vuelo">#<?php echo $fila["codVuelo"]; ?></td>
+                            <td data-label="Ruta">
                                 <?php echo htmlspecialchars($fila["origenVuelo"]); ?>
                                 <i class="bi bi-arrow-right"></i>
                                 <?php echo htmlspecialchars($fila["destinoVuelo"]); ?>
                             </td>
-                            <td>
+                            <td data-label="Salida">
                                 <?php echo date("d/m/Y", strtotime($fila["fechaSalidaVuelo"])); ?>
                             </td>
-                            <td><?php echo (int) $fila["reservas"]; ?></td>
-                            <td><?php echo (int) $fila["pasajeros"]; ?></td>
-                            <td>
+                            <td data-label="Reservas"><?php echo (int) $fila["reservas"]; ?></td>
+                            <td data-label="Pasajeros"><?php echo (int) $fila["pasajeros"]; ?></td>
+                            <td data-label="Ingresos">
                                 $<?php echo number_format((float) $fila["ingresos"], 2, ",", "."); ?>
                             </td>
                         </tr>
@@ -332,7 +338,7 @@ function claseEstadoReserva($estado)
 
 
         <!-- DETALLE DE RESERVAS -->
-        <section class="tabla-contenedor">
+        <section class="tabla-contenedor tabla-tarjetas">
 
             <h2 class="h5 p-3 mb-0">Detalle de reservas</h2>
 
@@ -351,43 +357,50 @@ function claseEstadoReserva($estado)
                 <tbody>
 
                     <?php if ($reservas->num_rows === 0) { ?>
-
                         <tr>
                             <td colspan="6" class="text-center text-muted">
                                 No hay reservas para los filtros seleccionados.
                             </td>
                         </tr>
-
                     <?php } ?>
 
                     <?php while ($r = $reservas->fetch_assoc()) { ?>
-
                         <tr>
-                            <td>#<?php echo $r["codReserva"]; ?></td>
-                            <td>
+                            <td data-label="Reserva">
+                                #<?php echo $r["codReserva"]; ?>
+                            </td>
+
+                            <td data-label="Fecha de reserva">
                                 <?php echo date("d/m/Y H:i", strtotime($r["fechaReserva"])); ?>
                             </td>
-                            <td>
+
+                            <td data-label="Vuelo">
                                 <?php echo htmlspecialchars($r["origenVuelo"]); ?>
                                 <i class="bi bi-arrow-right"></i>
                                 <?php echo htmlspecialchars($r["destinoVuelo"]); ?>
+
                                 <br>
+
                                 <small class="text-muted">
                                     <?php echo date("d/m/Y", strtotime($r["fechaSalidaVuelo"])); ?>
                                     <?php echo htmlspecialchars($r["horaSalidaVuelo"]); ?>
                                 </small>
                             </td>
-                            <td><?php echo (int) $r["cantidadPasajerosReserva"]; ?></td>
-                            <td>
+
+                            <td data-label="Pasajeros">
+                                <?php echo (int) $r["cantidadPasajerosReserva"]; ?>
+                            </td>
+
+                            <td data-label="Estado">
                                 <span class="badge <?php echo claseEstadoReserva($r["estadoReserva"]); ?>">
                                     <?php echo ucfirst(htmlspecialchars($r["estadoReserva"])); ?>
                                 </span>
                             </td>
-                            <td>
+
+                            <td data-label="Importe">
                                 $<?php echo number_format((float) $r["precioFinalReserva"], 2, ",", "."); ?>
                             </td>
                         </tr>
-
                     <?php } ?>
 
                 </tbody>
@@ -395,8 +408,8 @@ function claseEstadoReserva($estado)
         </section>
     </main>
 
-    <?php include "/includes/footer.php"; ?>
-    <script src="/js/bootstrap.bundle.min.js"></script>
+    <?php include __DIR__ . "/../../includes/footer.php"; ?> 
+    <script src="<?= htmlspecialchars(urlApp('js/bootstrap.bundle.min.js'), ENT_QUOTES, 'UTF-8') ?>"></script>
 
     <script>
         const desde = document.getElementById("desde");

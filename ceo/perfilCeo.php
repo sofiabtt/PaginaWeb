@@ -95,18 +95,19 @@ $ceo = obtenerUsuario($conexion, $codCeo);
 
     <title>Nuvia - Ceo</title>
 
-    <link rel="stylesheet" href="../css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/bootstrap-icons.css">
-    <link rel="icon" type="image/png" href="../imagenes/logo.png">
-    <link rel="stylesheet" href="../css/estilosAdmin.css">
-    <link rel="stylesheet" href="../css/navbar.css">
-    <link rel="stylesheet" href="../css/footer.css">
+    <link rel="icon" type="image/png" href="<?= htmlspecialchars(urlApp('imagenes/logo.png'), ENT_QUOTES, 'UTF-8') ?>">
+
+    <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/bootstrap.min.css'), ENT_QUOTES, 'UTF-8') ?>">
+    <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/bootstrap-icons.css'), ENT_QUOTES, 'UTF-8') ?>">
+    <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/estilosAdmin.css'), ENT_QUOTES, 'UTF-8') ?>">
+    <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/navbar.css'), ENT_QUOTES, 'UTF-8') ?>">
+    <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/footer.css'), ENT_QUOTES, 'UTF-8') ?>"> 
 
 </head>
 
 <body>
 
-    <?php include "includes/navbarCeo.php"; ?>
+    <?php include __DIR__ . "/includes/navbarCeo.php"; ?> 
 
     <main class="contenido-admin">
 
@@ -132,7 +133,7 @@ $ceo = obtenerUsuario($conexion, $codCeo);
         
         <section class="container-fluid px-0">
 
-            <div class="card border-0 shadow-sm mx-auto" style="max-width: 850px">
+            <div class="card border-0 shadow-sm mx-auto tarjeta-perfil">
 
                 <div class="card-body text-center p-4 p-md-5">
 
@@ -276,7 +277,7 @@ $ceo = obtenerUsuario($conexion, $codCeo);
 
     <?php include __DIR__ . "/../includes/footer.php"; ?>
 
-    <script src="/js/bootstrap.bundle.min.js"></script> 
+    <script src="<?= htmlspecialchars(urlApp('js/bootstrap.bundle.min.js'), ENT_QUOTES, 'UTF-8') ?>"></script>
 
     <script>
 

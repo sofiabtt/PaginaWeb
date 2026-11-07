@@ -133,6 +133,7 @@ if (!$consultaAeropuertos) {
 
 }
 
+require_once __DIR__ . '/../../php/conexionBD.php';
 ?>
 
 
@@ -143,60 +144,32 @@ if (!$consultaAeropuertos) {
 
     <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Nuvia - CEO</title>
 
-
-    <link
-        rel="icon"
-        href="../../imagenes/logo.png"
-        type="image/png"
-    >
-
+    <link rel="icon" href="<?= htmlspecialchars(urlApp('imagenes/logo.png'), ENT_QUOTES, 'UTF-8') ?>" type="image/png">
 
     <!-- Bootstrap -->
-
-    <link
-        rel="stylesheet"
-        href="../../css/bootstrap.min.css"
-    >
-
+    <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/bootstrap.min.css'), ENT_QUOTES, 'UTF-8') ?>">
 
     <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/bootstrap-icons.css'), ENT_QUOTES, 'UTF-8') ?>">
 
-    <link
-        rel="stylesheet"
-        href="../../css/bootstrap-icons.css"
-    >
-
-
-    <!-- Estilos del administrador -->
-
-    <link
-        rel="stylesheet"
-        href="../../css/estilosAdmin.css"
-    >
-
-    <link rel="stylesheet" href="../../css/navbar.css">
-    <link rel="stylesheet" href="../../css/footer.css">
+    <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/estilosAdmin.css'), ENT_QUOTES, 'UTF-8') ?>">
+    <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/navbar.css'), ENT_QUOTES, 'UTF-8') ?>">
+    <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/footer.css'), ENT_QUOTES, 'UTF-8') ?>">
 
 </head>
 
 
 <body>
 
-
     <!-- NAVBAR -->
 
-    <?php include "/ceo/includes/navbarCeo.php"; ?>
-
+    <?php include __DIR__ . "/../includes/navbarCeo.php"; ?> 
 
     <main class="contenido-admin">
-
 
         <!-- ENCABEZADO -->
 
@@ -217,7 +190,6 @@ if (!$consultaAeropuertos) {
 
         <section class="perfil-card">
 
-
             <?php if (!empty($error)) { ?>
 
                 <div class="alert alert-danger" role="alert">
@@ -232,7 +204,6 @@ if (!$consultaAeropuertos) {
 
 
             <form method="POST">
-
 
                 <!-- ORIGEN Y DESTINO -->
 
@@ -306,20 +277,6 @@ if (!$consultaAeropuertos) {
 
                                         ?>
                                     >
-
-                                        <?php
-
-                                        echo htmlspecialchars(
-                                            $aeropuerto["nombreCiudad"]
-                                            . " ("
-                                            . $aeropuerto["codigoIATA"]
-                                            . ") - "
-                                            . $aeropuerto["nombrePais"]
-                                        );
-
-                                        ?>
-
-                                    </option>
 
                                         <?php
 
@@ -665,25 +622,18 @@ if (!$consultaAeropuertos) {
 
                     </button>
 
-
                 </div>
-
 
             </form>
 
-
         </section>
-
 
     </main>
 
-    <?php include "/includes/footer.php"; ?>
+    <?php include __DIR__ . "/../../includes/footer.php"; ?>
 
-    <script
-        src="/js/bootstrap.bundle.min.js">
-    </script>
-
+    <script src="<?= htmlspecialchars(urlApp('js/bootstrap.bundle.min.js'), ENT_QUOTES, 'UTF-8') ?>"></script>
 
 </body>
 
-</html>
+</html> 

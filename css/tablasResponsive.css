@@ -18,146 +18,13 @@
     padding: 8px 15px;
 }
 
-
 /* =====================================
-   TABLAS RESPONSIVE - CELULARES
+   ENCABEZADOS Y BOTONES RESPONSIVE
 ===================================== */
 
-@media (max-width: 767px) {
+/* Tablets y celulares */
 
-    /* Contenedor */
-
-    .tabla-contenedor.tabla-tarjetas {
-        background: transparent;
-        box-shadow: none;
-        padding: 0;
-        overflow-x: visible;
-    }
-
-
-    /* Tabla */
-
-    .tabla-tarjetas table {
-        display: block;
-        width: 100%;
-        min-width: 0;
-        border: none;
-    }
-
-    .tabla-tarjetas tbody {
-        display: block;
-        width: 100%;
-    }
-
-
-    /* Ocultar encabezados visualmente,
-       manteniéndolos para lectores de pantalla */
-
-    .tabla-tarjetas thead {
-        position: absolute;
-        width: 1px;
-        height: 1px;
-        padding: 0;
-        margin: -1px;
-        overflow: hidden;
-        clip: rect(0, 0, 0, 0);
-        white-space: nowrap;
-        border: 0;
-    }
-
-
-    /* Cada fila se convierte en tarjeta */
-
-    .tabla-tarjetas tbody tr {
-        display: block;
-        width: 100%;
-
-        background: white;
-
-        border: 1px solid #e5e5e5;
-        border-radius: 14px;
-
-        padding: 16px;
-
-        margin-bottom: 15px;
-
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-    }
-
-
-    /* Cada celda */
-
-    .tabla-tarjetas tbody td {
-        display: block;
-        width: 100%;
-
-        padding: 9px 0;
-
-        border: none;
-
-        font-size: 14px;
-
-        overflow-wrap: anywhere;
-    }
-
-
-    /* Nombre del campo */
-
-    .tabla-tarjetas tbody td::before {
-        content: attr(data-label);
-
-        display: block;
-
-        font-weight: 600;
-        font-size: 12px;
-
-        color: #684028;
-
-        margin-bottom: 4px;
-    }
-
-
-    /* Separación entre datos */
-
-    .tabla-tarjetas tbody td:not(:last-child) {
-        border-bottom: 1px solid #f0f0f0;
-    }
-
-
-    /* Botones */
-
-    .tabla-tarjetas .acciones-tabla {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-        align-items: center;
-    }
-
-    .tabla-tarjetas .acciones-tabla::before {
-        flex-basis: 100%;
-    }
-
-    .tabla-tarjetas .acciones-tabla .btn {
-        flex: 1 1 auto;
-        text-align: center;
-        white-space: normal;
-    }
-
-
-    /* Paginación */
-
-    .paginacion-tablas {
-        margin-top: 20px;
-    }
-
-    .paginacion-tablas .btn {
-        font-size: 13px;
-        padding: 8px 12px;
-    }
-
-}
-
-@media (max-width: 767px) {
+@media (max-width: 1276px) {
 
     .encabezado-contenido {
         display: flex;
@@ -172,12 +39,334 @@
 
     .encabezado-contenido > div:last-child {
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
+        flex-wrap: wrap;
         gap: 10px;
     }
 
     .encabezado-contenido > div:last-child a {
+        flex: 1 1 220px;
+        text-align: center;
+        white-space: nowrap;
+    }
+
+}
+
+/* Celulares */
+
+@media (max-width: 767px) {
+
+    .encabezado-contenido > div:last-child {
+        flex-direction: column;
+    }
+
+    .encabezado-contenido > div:last-child a {
         width: 100%;
+        flex: none;
+    }
+
+}
+
+
+/* =====================================
+   TABLAS RESPONSIVE - TABLETS Y CELULARES
+===================================== */
+
+@media (max-width: 1276px) {
+
+    /* Contenedor */
+
+    .tabla-contenedor.tabla-tarjetas {
+        width: 100%;
+        max-width: 100%;
+        overflow: visible;
+        background: transparent;
+        box-shadow: none;
+        padding: 0;
+    }
+
+    /* Tabla */
+
+    .tabla-contenedor.tabla-tarjetas table {
+        display: block;
+        width: 100%;
+        min-width: 0;
+        border: none;
+        overflow: visible;
+    }
+
+    /* Ocultar encabezados */
+
+    .tabla-contenedor.tabla-tarjetas thead {
+        display: none;
+    }
+
+    /* Cuerpo */
+
+    .tabla-contenedor.tabla-tarjetas tbody {
+        display: block;
+        width: 100%;
+    }
+
+    .tabla-contenedor.tabla-tarjetas tbody tr {
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+        background: white;
+        border: 1px solid #e5e5e5;
+        border-radius: 14px;
+        padding: 16px;
+        margin-bottom: 15px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    }
+
+    /* Datos de cada tarjeta */
+
+    .tabla-contenedor.tabla-tarjetas tbody td {
+        display: block;
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+        box-sizing: border-box;
+        padding: 9px 0;
+        border: none;
+        font-size: 14px;
+        overflow-wrap: anywhere;
+    }
+
+    /* Nombre de cada campo */
+
+    .tabla-contenedor.tabla-tarjetas tbody td::before {
+        content: attr(data-label);
+        display: block;
+        width: 100%;
+        font-weight: 600;
+        font-size: 12px;
+        color: #684028;
+        margin-bottom: 4px;
+    }
+
+    /* Separadores */
+
+    .tabla-contenedor.tabla-tarjetas tbody td:not(:last-child) {
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    /* Acciones */
+
+    .tabla-contenedor.tabla-tarjetas tbody td.acciones-tabla {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .tabla-contenedor.tabla-tarjetas tbody td.acciones-tabla::before {
+        flex-basis: 100%;
+    }
+
+    .tabla-contenedor.tabla-tarjetas .acciones-tabla .btn {
+        flex: 1 1 60px;
         text-align: center;
     }
+
+    /* Paginación */
+
+    .paginacion-tablas {
+        margin-top: 20px;
+    }
+
+    .paginacion-tablas .btn {
+        font-size: 13px;
+        padding: 8px 12px;
+    }
+
+    /* Los campos de aeropuerto ocupan todo el ancho */
+
+    .tabla-contenedor.tabla-tarjetas tbody td.columna-aeropuerto {
+        display: block !important;
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: none !important;
+        box-sizing: border-box;
+    }
+
+}
+
+
+
+/* =====================================
+   ANCHO DE COLUMNAS - ESCRITORIO
+===================================== */
+
+@media (min-width: 1277px) {
+
+    .tabla-contenedor table {
+        width: 100%;
+        table-layout: fixed;
+    }
+
+    /* Código */
+    .tabla-contenedor table th:nth-child(1),
+    .tabla-contenedor table td:nth-child(1) {
+        width: 5%;
+    }
+
+    /* Origen */
+    .tabla-contenedor table th:nth-child(2),
+    .tabla-contenedor table td:nth-child(2) {
+        width: 16%;
+    }
+
+    /* Destino */
+    .tabla-contenedor table th:nth-child(3),
+    .tabla-contenedor table td:nth-child(3) {
+        width: 16%;
+    }
+
+    /* Fecha */
+    .tabla-contenedor table th:nth-child(4),
+    .tabla-contenedor table td:nth-child(4) {
+        width: 8%;
+    }
+
+    /* Hora */
+    .tabla-contenedor table th:nth-child(5),
+    .tabla-contenedor table td:nth-child(5) {
+        width: 5%;
+    }
+
+    /* Precio */
+    .tabla-contenedor table th:nth-child(6),
+    .tabla-contenedor table td:nth-child(6) {
+        width: 8%;
+    }
+
+    /* Asientos */
+    .tabla-contenedor table th:nth-child(7),
+    .tabla-contenedor table td:nth-child(7) {
+        width: 9%;
+    }
+
+    /* Acciones */
+    .tabla-contenedor table th:nth-child(8),
+    .tabla-contenedor table td:nth-child(8) {
+        width: 19%;
+    }
+
+    .tabla-contenedor table th,
+    .tabla-contenedor table td {
+        padding: 12px 8px;
+        vertical-align: middle;
+    }
+
+    .tabla-contenedor table td {
+        overflow-wrap: break-word;
+    }
+
+    .tabla-contenedor .acciones-tabla {
+        white-space: nowrap;
+    }
+
+    .tabla-contenedor table td.acciones-tabla {
+    white-space: nowrap;
+    padding-left: 4px;
+    padding-right: 4px;
+    }
+
+    .tabla-contenedor table td.acciones-tabla .btn {
+        margin: 1px;
+    }
+
+}
+
+
+/* =====================================
+   ACCIONES DE TABLAS - ESCRITORIO
+===================================== */
+
+@media (min-width: 1277px) {
+
+    .tabla-contenedor .acciones-tabla {
+        white-space: nowrap;
+        min-width: 200px;
+    }
+
+    .tabla-contenedor .acciones-tabla .btn {
+        display: inline-flex;
+        align-items: center;
+        white-space: nowrap;
+        margin: 2px;
+    }
+
+}
+
+
+/* =====================================
+   REPORTES CEO - RESPONSIVE
+===================================== */
+
+/* Tablets y celulares */
+
+@media (max-width: 1276px) {
+
+    /* Encabezado */
+
+    .encabezado-reportes {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 20px;
+    }
+
+    .encabezado-reportes > button {
+        width: 100%;
+    }
+
+    /* Filtros */
+
+    .acciones-filtros .d-flex {
+        width: 100%;
+    }
+
+    .acciones-filtros .btn {
+        flex: 1;
+    }
+
+    /* Resumen */
+
+    .resumen-reportes .resumen-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+}
+
+/* Celulares */
+
+@media (max-width: 576px) {
+
+    .encabezado-reportes h1 {
+        font-size: 28px;
+    }
+
+    .encabezado-reportes p {
+        font-size: 15px;
+    }
+
+    .resumen-reportes .resumen-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .resumen-reportes .resumen-item {
+        width: 100%;
+    }
+
+    .acciones-filtros .d-flex {
+        flex-direction: column;
+    }
+
+    .acciones-filtros .btn {
+        width: 100%;
+    }
+
 }

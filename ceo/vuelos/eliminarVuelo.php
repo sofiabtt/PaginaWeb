@@ -52,6 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 }
 
+require_once __DIR__ . "/../../php/conexionBD.php"; 
 ?>
 
 <!DOCTYPE html>
@@ -61,35 +62,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Nuvia - Eliminar vuelo</title>
 
-    <link
-        rel="stylesheet"
-        href="../../css/bootstrap.min.css"
-    >
-
-    <link
-        rel="stylesheet"
-        href="../../css/bootstrap-icons.css"
-    >
-
-    <link
-        rel="stylesheet"
-        href="../../css/estilosAdmin.css"
-    >
-
-    <link rel="stylesheet" href="../../css/footer.css">
+    <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/bootstrap.min.css'), ENT_QUOTES, 'UTF-8') ?>">
+    <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/bootstrap-icons.css'), ENT_QUOTES, 'UTF-8') ?>">
+    <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/estilosAdmin.css'), ENT_QUOTES, 'UTF-8') ?>">
+    <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/navbar.css'), ENT_QUOTES, 'UTF-8') ?>">
+    <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/footer.css'), ENT_QUOTES, 'UTF-8') ?>">
 
 </head>
 
 <body>
 
-<?php include "/ceo/includes/navbarCeo.php"; ?>
+<?php include __DIR__ . "/../includes/navbarCeo.php"; ?>
 
 <main class="contenido-admin">
 
@@ -182,9 +169,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 </main>
 
-<?php include "/includes/footer.php"; ?>
+<?php include __DIR__ . "/../../includes/footer.php"; ?>
 
-<script src="/js/bootstrap.bundle.min.js"></script>
+<script src="<?= htmlspecialchars(urlApp('js/bootstrap.bundle.min.js'), ENT_QUOTES, 'UTF-8') ?>"></script>
 
 </body>
 </html>

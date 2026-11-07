@@ -24,6 +24,7 @@ $codAerolinea = $aerolinea["codAerolinea"];
 
 $resultado = obtenerVuelosInactivos($conexion,$codAerolinea);
 
+require_once __DIR__ . '/../../php/conexionBD.php';
 ?>
 
 
@@ -35,10 +36,7 @@ $resultado = obtenerVuelosInactivos($conexion,$codAerolinea);
 
     <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>
         Nuvia - CEO
@@ -46,49 +44,29 @@ $resultado = obtenerVuelosInactivos($conexion,$codAerolinea);
 
 
     <!-- Bootstrap -->
-
-    <link
-        rel="stylesheet"
-        href="../../css/bootstrap.min.css"
-    >
-
+    <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/bootstrap.min.css'), ENT_QUOTES, 'UTF-8') ?>">
 
     <!-- Bootstrap Icons -->
-
-    <link
-        rel="stylesheet"
-        href="../../css/bootstrap-icons.css"
-    >
-
+    <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/bootstrap-icons.css'), ENT_QUOTES, 'UTF-8') ?>">
 
     <!-- CSS administrador -->
+    <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/estilosAdmin.css'), ENT_QUOTES, 'UTF-8') ?>">
+    <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/tablasResponsive.css'), ENT_QUOTES, 'UTF-8') ?>">
 
-    <link
-        rel="stylesheet"
-        href="../../css/estilosAdmin.css"
-    >
-    <!-- CSS de la barra de navegación -->
-    <link rel="stylesheet" href="../../css/navbar.css">
-
-    <link rel="stylesheet" href="../../css/footer.css">
+    <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/navbar.css'), ENT_QUOTES, 'UTF-8') ?>">
+    <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/footer.css'), ENT_QUOTES, 'UTF-8') ?>">
 
     <!-- Favicon -->
-
-    <link
-        rel="icon"
-        type="image/png"
-        href="../../imagenes/logo.png"
-    >
+    <link rel="icon" type="image/png" href="<?= htmlspecialchars(urlApp('imagenes/logo.png'), ENT_QUOTES, 'UTF-8') ?>">
 
 </head>
 
 
 <body>
 
-
     <!-- NAVBAR -->
 
-    <?php include "/ceo/includes/navbarCeo.php"; ?>
+    <?php include __DIR__ . "/../includes/navbarCeo.php"; ?>
 
 
     <main class="contenido-admin">
@@ -128,7 +106,7 @@ $resultado = obtenerVuelosInactivos($conexion,$codAerolinea);
 
         <!-- TABLA -->
 
-        <section class="tabla-contenedor">
+        <section class="tabla-contenedor tabla-tarjetas">
 
             <table class="table align-middle">
 
@@ -180,77 +158,49 @@ $resultado = obtenerVuelosInactivos($conexion,$codAerolinea);
 
                             <tr>
 
-                                <td>
+                                <td data-label="Código">
 
-                                    <?php
-                                    echo $vuelo["codVuelo"];
-                                    ?>
+                                    <?php echo $vuelo["codVuelo"]; ?>
 
                                 </td>
 
 
-                                <td>
+                                <td data-label="Origen">
 
-                                    <?php
-                                    echo htmlspecialchars(
-                                        $vuelo["origenVuelo"]
-                                    );
-                                    ?>
+                                    <?php echo htmlspecialchars($vuelo["origenVuelo"]); ?>
 
                                 </td>
 
 
-                                <td>
+                                <td data-label="Destino">
 
-                                    <?php
-                                    echo htmlspecialchars(
-                                        $vuelo["destinoVuelo"]
-                                    );
-                                    ?>
+                                    <?php echo htmlspecialchars($vuelo["destinoVuelo"]); ?>
 
                                 </td>
 
 
-                                <td>
+                                <td data-label="Fecha de salida">
 
-                                    <?php
-                                    echo date(
-                                        "d/m/Y",
-                                        strtotime(
-                                            $vuelo["fechaSalidaVuelo"]
-                                        )
-                                    );
-                                    ?>
+                                    <?php echo date("d/m/Y", strtotime($vuelo["fechaSalidaVuelo"])); ?>
 
                                 </td>
 
 
-                                <td>
+                                <td data-label="Hora">
 
-                                    <?php
-                                    echo htmlspecialchars(
-                                        $vuelo["horaSalidaVuelo"]
-                                    );
-                                    ?>
+                                    <?php echo htmlspecialchars($vuelo["horaSalidaVuelo"]); ?>
 
                                 </td>
 
 
-                                <td>
+                                <td data-label="Fecha de baja">
 
-                                    <?php
-                                    echo date(
-                                        "d/m/Y H:i",
-                                        strtotime(
-                                            $vuelo["fechaEliminacion"]
-                                        )
-                                    );
-                                    ?>
+                                    <?php echo date("d/m/Y H:i", strtotime($vuelo["fechaEliminacion"]));?>
 
                                 </td>
 
 
-                                <td>
+                                <td data-label="Acciones">
 
                                     <a
                                         href="verVuelo.php?id=<?php echo $vuelo["codVuelo"]; ?>&origen=inactivas"
@@ -297,9 +247,9 @@ $resultado = obtenerVuelosInactivos($conexion,$codAerolinea);
 
     </main>
 
-    <?php include "/includes/footer.php"; ?>
+    <?php include __DIR__ . "/../../includes/footer.php"; ?>
 
-    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="<?= htmlspecialchars(urlApp('js/bootstrap.bundle.min.js'), ENT_QUOTES, 'UTF-8') ?>"></script>
 
 </body>
 

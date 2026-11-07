@@ -3,10 +3,10 @@
 require_once __DIR__ . '/../../includes/verificarRol.php';
 verificarRol('ceo');
 
-include "../../php/conexionBD.php";
-include "../../php/consultasCeos.php";
-include "../../php/consultasAerolineas.php";
-include "../../php/consultasPromociones.php";
+require_once __DIR__ . '/../../php/conexionBD.php';
+require_once __DIR__ . '/../../php/consultasCeos.php';
+require_once __DIR__ . '/../../php/consultasAerolineas.php';
+require_once __DIR__ . '/../../php/consultasPromociones.php';
 
 
 verificarCeo();
@@ -39,40 +39,18 @@ $resultado = obtenerPromocionesPorAerolinea($conexion,$codAerolinea);
 
     <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Nuvia - CEO</title>
 
 
-    <link
-        rel="icon"
-        href="../../imagenes/logo.png"
-        type="image/png"
-    >
-
-
-    <link
-        rel="stylesheet"
-        href="../../css/bootstrap.min.css"
-    >
-
-
-    <link
-        rel="stylesheet"
-        href="../../css/bootstrap-icons.css"
-    >
-
-
-    <link
-        rel="stylesheet"
-        href="../../css/estilosAdmin.css"
-    >
-
-    <link rel="stylesheet" href="/css/navbar.css">
-    <link rel="stylesheet" href="../../css/footer.css">
+    <link rel="icon" href="<?= htmlspecialchars(urlApp('imagenes/logo.png'), ENT_QUOTES, 'UTF-8')?>" type="image/png">
+    <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/bootstrap.min.css'), ENT_QUOTES, 'UTF-8')?>">
+    <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/bootstrap-icons.css'), ENT_QUOTES, 'UTF-8')?>">
+    <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/estilosAdmin.css'), ENT_QUOTES, 'UTF-8')?>">
+    <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/tablasResponsive.css'), ENT_QUOTES, 'UTF-8') ?>">
+    <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/navbar.css'), ENT_QUOTES, 'UTF-8') ?>">
+    <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/footer.css'), ENT_QUOTES, 'UTF-8') ?>">
 
 </head>
 
@@ -80,7 +58,7 @@ $resultado = obtenerPromocionesPorAerolinea($conexion,$codAerolinea);
 <body>
 
 
-    <?php include "/ceo/includes/navbarCeo.php"; ?>
+    <?php include __DIR__ . "/../includes/navbarCeo.php"; ?> 
 
 
     <main class="contenido-admin">
@@ -106,16 +84,12 @@ $resultado = obtenerPromocionesPorAerolinea($conexion,$codAerolinea);
                 </div>
 
 
-                <a
-                    href="crearPromocion.php"
-                    class="btn btn-primary"
-                >
-
-                    <i class="bi bi-plus-lg"></i>
-
-                    Crear promoción
-
-                </a>
+                <div>
+                    <a href="crearPromocion.php" class="btn btn-primary">
+                        <i class="bi bi-plus-lg"></i>
+                        Crear promoción
+                    </a>
+                </div>
 
 
             </div>
@@ -128,14 +102,9 @@ $resultado = obtenerPromocionesPorAerolinea($conexion,$codAerolinea);
         <section class="actividad-admin">
 
 
-            <div class="tabla-contenedor">
-
-
-                <div class="table-responsive">
-
+            <div class="tabla-contenedor tabla-tarjetas">
 
                     <table class="table align-middle">
-
 
                         <thead>
 
@@ -178,7 +147,7 @@ $resultado = obtenerPromocionesPorAerolinea($conexion,$codAerolinea);
                                 <tr>
 
 
-                                    <td>
+                                    <td data-label="Código">
 
                                         <?php
                                         echo $promocion["codPromocion"];
@@ -187,7 +156,7 @@ $resultado = obtenerPromocionesPorAerolinea($conexion,$codAerolinea);
                                     </td>
 
 
-                                    <td>
+                                    <td data-label="Descripción">
 
                                         <?php
 
@@ -200,7 +169,7 @@ $resultado = obtenerPromocionesPorAerolinea($conexion,$codAerolinea);
                                     </td>
 
 
-                                    <td>
+                                    <td data-label="Descuento">
 
                                         <?php
                                         echo $promocion["descuentoPromocion"];
@@ -209,7 +178,7 @@ $resultado = obtenerPromocionesPorAerolinea($conexion,$codAerolinea);
                                     </td>
 
 
-                                    <td>
+                                    <td data-label="Estado">
 
                                         <?php
 
@@ -266,7 +235,7 @@ $resultado = obtenerPromocionesPorAerolinea($conexion,$codAerolinea);
                                     </td>
 
 
-                                    <td>
+                                    <td class="acciones-tabla" data-label="Acciones">
 
 
                                         <a
@@ -276,6 +245,7 @@ $resultado = obtenerPromocionesPorAerolinea($conexion,$codAerolinea);
                                         >
 
                                             <i class="bi bi-pencil"></i>
+                                            Modificar
 
                                         </a>
 
@@ -287,6 +257,7 @@ $resultado = obtenerPromocionesPorAerolinea($conexion,$codAerolinea);
                                         >
 
                                             <i class="bi bi-trash"></i>
+                                            Eliminar
 
                                         </a>
 
@@ -339,20 +310,17 @@ $resultado = obtenerPromocionesPorAerolinea($conexion,$codAerolinea);
                 </div>
 
 
-            </div>
-
-
         </section>
 
 
     </main>
 
-    <?php include "/includes/footer.php"; ?>
+    <?php include __DIR__ . "/../../includes/footer.php"; ?>
 
-    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="<?= htmlspecialchars(urlApp('js/bootstrap.bundle.min.js'), ENT_QUOTES, 'UTF-8') ?>"></script>
 
 
-</body>
+</body> 
 
 </html>
 

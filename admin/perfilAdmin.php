@@ -67,10 +67,7 @@ $admin = obtenerUsuario($conexion, $codAdmin);
 
     <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>
         Nuvia - Administrador
@@ -78,38 +75,18 @@ $admin = obtenerUsuario($conexion, $codAdmin);
 
 
     <!-- Bootstrap -->
-
-    <link
-        rel="stylesheet"
-        href="../css/bootstrap.min.css"
-    >
-
+    <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/bootstrap.min.css'), ENT_QUOTES, 'UTF-8') ?>">
 
     <!-- Bootstrap Icons -->
-
-    <link
-        rel="stylesheet"
-        href="../css/bootstrap-icons.css"
-    >
-
+    <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/bootstrap-icons.css'), ENT_QUOTES, 'UTF-8') ?>">
 
     <!-- CSS del administrador -->
-
-    <link
-        rel="stylesheet"
-        href="../css/estilosAdmin.css"
-    >
-
-    <link rel="stylesheet" href="../css/navbar.css">
-    <link rel="stylesheet" href="../css/footer.css">
+    <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/estilosAdmin.css'), ENT_QUOTES, 'UTF-8') ?>">
+    <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/navbar.css'), ENT_QUOTES, 'UTF-8') ?>">
+    <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/footer.css'), ENT_QUOTES, 'UTF-8') ?>">
 
     <!-- Favicon -->
-
-    <link
-        rel="icon"
-        type="image/png"
-        href="../imagenes/logo.png"
-    >
+    <link rel="icon" type="image/png" href="<?= htmlspecialchars(urlApp('imagenes/logo.png'), ENT_QUOTES, 'UTF-8') ?>">
 
 </head>
 
@@ -119,11 +96,9 @@ $admin = obtenerUsuario($conexion, $codAdmin);
 
     <!-- NAVBAR -->
 
-    <?php include "includes/navbarAdmin.php"; ?>
-
+    <?php include __DIR__ . "/includes/navbarAdmin.php"; ?> 
 
     <main class="contenido-admin">
-
 
         <!-- ENCABEZADO -->
 
@@ -144,7 +119,6 @@ $admin = obtenerUsuario($conexion, $codAdmin);
         </section>
 
 
-
         <!-- MENSAJE -->
 
         <?php if (isset($mensaje)) { ?>
@@ -158,20 +132,13 @@ $admin = obtenerUsuario($conexion, $codAdmin);
         <?php } ?>
 
 
-
         <!-- PERFIL -->
 
         <section class="container-fluid px-0">
 
-
-            <div
-                class="card border-0 shadow-sm mx-auto"
-                style="max-width: 850px;"
-            >
-
+            <div class="card border-0 shadow-sm mx-auto tarjeta-perfil">
 
                 <div class="card-body text-center p-4 p-md-5">
-
 
                     <!-- ICONO ADMIN -->
 

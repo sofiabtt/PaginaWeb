@@ -3,6 +3,8 @@
 require_once __DIR__ . '/../includes/verificarRol.php';
 verificarRol('ceo');
 
+require_once __DIR__ . '/../php/conexionBD.php';
+
 include "../php/consultasCeos.php";
 include "../php/consultasAerolineas.php";
 include "../php/consultasVuelos.php";
@@ -55,60 +57,27 @@ $resultadoProximosVuelos = obtenerProximosVuelos($conexion,$codAerolinea);
 
     <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Nuvia - CEO</title>
 
-    <link
-        rel="icon"
-        href="../imagenes/logo.png"
-        type="image/png"
-    >
+    <link rel="icon" type="image/png" href="<?= htmlspecialchars(urlApp('imagenes/logo.png'), ENT_QUOTES, 'UTF-8') ?>"> 
 
-    <!-- Bootstrap -->
-
-    <link
-        rel="stylesheet"
-        href="../css/bootstrap.min.css"
-    >
-
-    <!-- Bootstrap Icons -->
-
-    <link
-        rel="stylesheet"
-        href="../css/bootstrap-icons.css"
-    >
-
-    <!-- CSS del administrador -->
-
-    <link
-        rel="stylesheet"
-        href="../css/estilosAdmin.css"
-    >
-
-    <link rel="stylesheet" href="../css/tablasResponsive.css">
-
-    <link rel="stylesheet" href="../css/navbar.css">
-
-    <link rel="stylesheet" href="../css/footer.css">
+    <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/bootstrap.min.css'), ENT_QUOTES, 'UTF-8') ?>">
+    <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/bootstrap-icons.css'), ENT_QUOTES, 'UTF-8') ?>">
+    <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/estilosAdmin.css'), ENT_QUOTES, 'UTF-8') ?>">
+    <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/tablasResponsive.css'), ENT_QUOTES, 'UTF-8') ?>">
+    <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/navbar.css'), ENT_QUOTES, 'UTF-8') ?>">
+    <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/footer.css'), ENT_QUOTES, 'UTF-8') ?>">
 
 </head>
 
-
 <body>
 
-
-    <?php include "includes/navbarCeo.php"; ?>
-
+    <?php include __DIR__ . "/includes/navbarCeo.php"; ?> 
 
     <main class="contenido-admin">
-
-
         <!-- BIENVENIDA -->
-
         <section class="bienvenida-admin">
 
             <h1>
@@ -116,22 +85,16 @@ $resultadoProximosVuelos = obtenerProximosVuelos($conexion,$codAerolinea);
             </h1>
 
             <p>
-
                 Desde este espacio puedes gestionar
                 la información de
-
                 <strong>
                     <?php echo htmlspecialchars($aerolinea["nombreAerolinea"]); ?>
                 </strong>.
-
             </p>
 
         </section>
 
-
-
         <!-- RESUMEN -->
-
         <section class="resumen-admin">
 
             <h2>
@@ -141,9 +104,7 @@ $resultadoProximosVuelos = obtenerProximosVuelos($conexion,$codAerolinea);
 
             <div class="resumen-grid">
 
-
                 <!-- VUELOS -->
-
                 <article class="resumen-item">
 
                     <i class="bi bi-airplane"></i>
@@ -156,16 +117,13 @@ $resultadoProximosVuelos = obtenerProximosVuelos($conexion,$codAerolinea);
 
                         <p class="numero-resumen">
 
-                            <?php
-                            echo $cantidadVuelos;
-                            ?>
+                            <?php echo $cantidadVuelos; ?>
 
                         </p>
 
                     </div>
 
                 </article>
-
 
 
                 <!-- PROMOCIONES -->
@@ -275,7 +233,7 @@ $resultadoProximosVuelos = obtenerProximosVuelos($conexion,$codAerolinea);
             </div>
 
 
-            <div class="tabla-contenedor">
+            <div class="tabla-contenedor tabla-tarjetas">
 
                 <table class="table align-middle">
 
@@ -320,51 +278,28 @@ $resultadoProximosVuelos = obtenerProximosVuelos($conexion,$codAerolinea);
 
                                 <tr>
 
-                                    <td>
-                                        <?php
-                                        echo $vuelo["codVuelo"];
-                                        ?>
+                                    <td data-label="Código">
+                                        <?php echo $vuelo["codVuelo"]; ?>
                                     </td>
 
-                                    <td>
-                                        <?php
-                                        echo htmlspecialchars(
-                                            $vuelo["origenVuelo"]
-                                        );
-                                        ?>
+                                    <td data-label="Origen">
+                                        <?php echo htmlspecialchars($vuelo["origenVuelo"]); ?>
                                     </td>
 
-                                    <td>
-                                        <?php
-                                        echo htmlspecialchars(
-                                            $vuelo["destinoVuelo"]
-                                        );
-                                        ?>
+                                    <td data-label="Destino">
+                                        <?php echo htmlspecialchars($vuelo["destinoVuelo"]); ?>
                                     </td>
 
-                                    <td>
-                                        <?php
-                                        echo date(
-                                            "d/m/Y",
-                                            strtotime(
-                                                $vuelo["fechaSalidaVuelo"]
-                                            )
-                                        );
-                                        ?>
+                                    <td data-label="Fecha">
+                                        <?php echo date("d/m/Y", strtotime($vuelo["fechaSalidaVuelo"])); ?>
                                     </td>
 
-                                    <td>
-                                        <?php
-                                        echo htmlspecialchars(
-                                            $vuelo["horaSalidaVuelo"]
-                                        );
-                                        ?>
+                                    <td data-label="Hora">
+                                        <?php echo htmlspecialchars($vuelo["horaSalidaVuelo"]); ?>
                                     </td>
 
-                                    <td>
-                                        <?php
-                                        echo $vuelo["asientosDisponibles"];
-                                        ?>
+                                    <td data-label="Asientos disponibles">
+                                        <?php echo $vuelo["asientosDisponibles"]; ?>
                                     </td>
 
                                 </tr>
@@ -397,11 +332,9 @@ $resultadoProximosVuelos = obtenerProximosVuelos($conexion,$codAerolinea);
 
     </main>
 
-    <?php include __DIR__ . "/../includes/footer.php"; ?>
+    <?php include __DIR__ . "/../includes/footer.php"; ?> 
 
-    <script
-        src="/js/bootstrap.bundle.min.js">
-    </script>
+    <script src="<?= htmlspecialchars(urlApp('js/bootstrap.bundle.min.js'), ENT_QUOTES, 'UTF-8') ?>"></script>
 
 
 </body>
