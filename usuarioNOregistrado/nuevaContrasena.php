@@ -2,7 +2,7 @@
 
 session_start();
 
-include "../php/conexionBD.php";
+require_once __DIR__ . "/../php/conexionBD.php";
 
 $token = $_GET["token"] ?? $_POST["token"] ?? "";
 
@@ -113,7 +113,7 @@ if (
     <link
         rel="icon"
         type="image/png"
-        href="/imagenes/logo.png"
+        href="../imagenes/logo.png"
     >
 
     <link rel="stylesheet" href="../css/bootstrap.min.css">
@@ -132,7 +132,7 @@ if (
 
 <body>
 
-<?php include "/includes/navbar.php"; ?>
+<?php include __DIR__ . "/../includes/navbar.php"; ?>
 
 
 <main class="contenedor-nueva-contrasena">
@@ -241,7 +241,7 @@ if (
 
 </main>
 
-<?php include "/includes/footer.php"; ?>
+<?php include __DIR__ . "/../includes/footer.php"; ?>
 
 <script>
 
@@ -288,7 +288,7 @@ function mostrarConfirmacionContrasena() {
 
 </script>
 
-<script src="/js/bootstrap.bundle.min.js"></script>
+<script src="../js/bootstrap.bundle.min.js"></script>
 
 </body>
 

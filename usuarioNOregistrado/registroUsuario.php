@@ -7,7 +7,11 @@ use PHPMailer\PHPMailer\Exception;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../..');
+$rutaEnv = file_exists(__DIR__ . '/../.env')
+    ? __DIR__ . '/..'
+    : __DIR__ . '/../..';
+
+$dotenv = Dotenv\Dotenv::createImmutable($rutaEnv);
 $dotenv->load();
 
 

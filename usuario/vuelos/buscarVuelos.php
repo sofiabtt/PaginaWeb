@@ -3,7 +3,7 @@
 require_once __DIR__ . '/../../includes/verificarRol.php';
 verificarRol('usuario');
 
-include "../../php/conexionBD.php";
+require_once __DIR__ . "/../../php/conexionBD.php";
 
 $origen = trim($_GET["origen"] ?? "");
 $destino = trim($_GET["destino"] ?? "");
@@ -98,7 +98,7 @@ $resultado = buscarVuelosUsuario(
 
 <body>
 
-    <?php include "/includes/navbar.php"; ?>
+    <?php include __DIR__ . "/../../includes/navbar.php"; ?>
 
     <main class="contenido-admin">
 
@@ -276,9 +276,9 @@ $resultado = buscarVuelosUsuario(
 
     </main>
 
-    <?php include "/includes/footer.php"; ?>
+    <?php include __DIR__ . "/../../includes/footer.php"; ?>
 
-    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="../../js/bootstrap.bundle.min.js"></script>
 
 </body>
 

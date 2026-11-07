@@ -5,7 +5,7 @@ error_reporting(E_ALL);
 
 require_once __DIR__ . '/../../includes/verificarRol.php';
 verificarRol('usuario');
-include "../../php/consultasReservas.php";
+require_once __DIR__ . "/../../php/consultasReservas.php";
 
 
 $codUsuario = (int) $_SESSION["codUsuario"];
@@ -172,7 +172,7 @@ if ($desdeReserva && $reservaDestacada > 0) {
 
     <title>Nuvia - Mis reservas</title>
 
-    <link rel="icon" type="image/png" href="/imagenes/logo.png">
+    <link rel="icon" type="image/png" href="../../imagenes/logo.png">
 
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/bootstrap-icons.css">
@@ -189,7 +189,7 @@ if ($desdeReserva && $reservaDestacada > 0) {
 
 <body>
 
-    <?php include ("/includes/navbar.php"); ?>
+    <?php include __DIR__ . "/../../includes/navbar.php"; ?>
 
 
     <main class="contenido-admin gestion-reservas">
@@ -979,7 +979,7 @@ if ($desdeReserva && $reservaDestacada > 0) {
     </div>
 
 
-    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="../../js/bootstrap.bundle.min.js"></script>
 
 
     <script>
@@ -1008,7 +1008,7 @@ if ($desdeReserva && $reservaDestacada > 0) {
 
     </script>
 
-    <?php include ("/includes/footer.php"); ?>
+    <?php include __DIR__ . "/../../includes/footer.php"; ?>
 
 </body>
 

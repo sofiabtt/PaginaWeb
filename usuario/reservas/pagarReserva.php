@@ -2,7 +2,7 @@
 
 require_once __DIR__ . '/../../includes/verificarRol.php';
 verificarRol('usuario');
-include "../../php/consultasReservas.php";
+require_once __DIR__ . "/../../php/consultasReservas.php";
 
 $codUsuario = (int) $_SESSION["codUsuario"];
 
@@ -182,7 +182,7 @@ $queryVolver = $contexto ? "?" . http_build_query($contexto) : "";
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nuvia - Pagar reserva</title>
-    <link rel="icon" type="image/png" href="/imagenes/logo.png">
+    <link rel="icon" type="image/png" href="../../imagenes/logo.png">
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/bootstrap-icons.css">
     <link rel="stylesheet" href="../../css/navbar.css">
@@ -190,7 +190,7 @@ $queryVolver = $contexto ? "?" . http_build_query($contexto) : "";
     <link rel="stylesheet" href="../../css/pago.css">
 </head>
 <body>
-    <?php include "/includes/navbar.php"; ?>
+    <?php include __DIR__ . "/../../includes/navbar.php"; ?>
 
     <main class="pago-contenedor" id="contenido">
         <section class="pago-card" aria-labelledby="tituloPago">
@@ -367,7 +367,7 @@ $queryVolver = $contexto ? "?" . http_build_query($contexto) : "";
         </section>
     </main>
 
-    <?php include "/includes/footer.php"; ?>
+    <?php include __DIR__ . "/../../includes/footer.php"; ?>
 
     <script>
     const form = document.querySelector("main form");
@@ -387,7 +387,7 @@ $queryVolver = $contexto ? "?" . http_build_query($contexto) : "";
     }
     </script>
     
-    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="../../js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
 

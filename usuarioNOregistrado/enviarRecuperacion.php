@@ -4,11 +4,15 @@ ini_set('display_errors', 1);
 
 session_start();
 
-include "../php/conexionBD.php";
+require_once __DIR__ . "/../php/conexionBD.php";
 
 require "../vendor/autoload.php";
 
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../..');
+$rutaEnv = file_exists(__DIR__ . '/../.env')
+    ? __DIR__ . '/..'
+    : __DIR__ . '/../..';
+
+$dotenv = Dotenv\Dotenv::createImmutable($rutaEnv);
 $dotenv->load();
 
 use PHPMailer\PHPMailer\PHPMailer;
@@ -366,7 +370,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <body>
 
 
-<?php include "/includes/navbar.php"; ?>
+<?php include __DIR__ . "/../includes/navbar.php"; ?>
 
 <main class="contenedor-recuperacion">
 
@@ -441,9 +445,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 </main>
 
-<?php include "/includes/footer.php"; ?>
+<?php include __DIR__ . "/../includes/footer.php"; ?>
 
-<script src="/js/bootstrap.bundle.min.js"></script>
+<script src="../js/bootstrap.bundle.min.js"></script>
 
 </body>
 

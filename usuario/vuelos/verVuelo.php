@@ -2,7 +2,7 @@
 require_once __DIR__ . '/../../includes/verificarRol.php';
 verificarRol('usuario');
 
-include "../../php/consultasVuelos.php";
+require_once __DIR__ . "/../../php/consultasVuelos.php";
 
 
 $codVuelo = filter_input(
@@ -56,7 +56,7 @@ $precioFinal =
     <link rel="stylesheet" href="../../css/footer.css">
 </head>
 <body>
-    <?php include "/includes/navbar.php"; ?>
+    <?php include __DIR__ . "/../../includes/navbar.php"; ?>
     <main class="contenido-admin">
         <section class="encabezado-contenido" style="display: block;">
 
@@ -240,9 +240,9 @@ $precioFinal =
         </section>
     </main>
 
-    <?php include "/includes/footer.php"; ?>
+    <?php include __DIR__ . "/../../includes/footer.php"; ?>
 
-    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="../../js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
 

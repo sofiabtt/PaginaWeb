@@ -18,14 +18,14 @@ body {
     margin: 0;
 
     background-image:
-        linear-gradient(
-            rgba(255, 255, 255, 0.4),
-            rgba(255, 255, 255, 0.4)
-        ),
-        url("../imagenes/fondoIngresoSesion.jpg");
+    linear-gradient(
+        rgba(255, 255, 255, 0.25),
+        rgba(255, 255, 255, 0.25)
+    ),
+    url("../imagenes/avion2.jpg");
 
-    background-size: cover;
-    background-position: center;
+    background-size: auto 230%;
+    background-position: 30% 0%;
     background-repeat: no-repeat;
 
     font-family: 'Montserrat', sans-serif;

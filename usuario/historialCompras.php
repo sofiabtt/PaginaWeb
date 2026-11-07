@@ -3,7 +3,7 @@
 require_once __DIR__ . '/../includes/verificarRol.php';
 verificarRol('usuario');
 
-include "../php/consultasReservas.php";
+require_once __DIR__ . "/../php/consultasReservas.php";
 
 $codUsuario = (int) $_SESSION["codUsuario"];
 
@@ -19,7 +19,7 @@ $resultado = obtenerHistorialCompras($conexion, $codUsuario);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Nuvia - Historial</title>
-    <link rel="icon" type="image/png" href="/imagenes/logo.png">
+    <link rel="icon" type="image/png" href="../imagenes/logo.png">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/bootstrap-icons.css">
     <link rel="stylesheet" href="../css/estilosAdmin.css">
@@ -30,7 +30,7 @@ $resultado = obtenerHistorialCompras($conexion, $codUsuario);
 
 <body>
 
-    <?php include("/includes/navbar.php"); ?>
+    <?php include __DIR__ . "/../includes/navbar.php"; ?>
 
     <main class="contenido-admin">
 
@@ -113,9 +113,9 @@ $resultado = obtenerHistorialCompras($conexion, $codUsuario);
 
     </main>
 
-    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/bootstrap.bundle.min.js"></script>
 
-    <?php include("/includes/footer.php"); ?>
+    <?php include __DIR__ . "/../includes/footer.php"; ?>
 
 </body>
 

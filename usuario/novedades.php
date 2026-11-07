@@ -2,7 +2,7 @@
 require_once __DIR__ . '/../includes/verificarRol.php';
 verificarRol('usuario');
 
-include "../php/consultasNovedades.php";
+require_once __DIR__ . "/../php/consultasNovedades.php";
 
 $resultado = obtenerNovedadesVigentes($conexion);
 
@@ -16,7 +16,7 @@ $resultado = obtenerNovedadesVigentes($conexion);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Nuvia - Novedades</title>
-    <link rel="icon" type="image/png" href="/imagenes/logo.png">
+    <link rel="icon" type="image/png" href="../imagenes/logo.png">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/bootstrap-icons.css">
     <link rel="stylesheet" href="../css/estilosAdmin.css">
@@ -27,7 +27,7 @@ $resultado = obtenerNovedadesVigentes($conexion);
 
 <body>
 
-    <?php include("/includes/navbar.php"); ?>
+   <?php include __DIR__ . "/../includes/navbar.php"; ?>
 
     <main class="contenido-admin">
 
@@ -81,9 +81,9 @@ $resultado = obtenerNovedadesVigentes($conexion);
 
     </main>
 
-    <?php include("/includes/footer.php"); ?>
+    <?php include __DIR__ . "/../includes/footer.php"; ?>
 
-    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/bootstrap.bundle.min.js"></script>
 
 
 </body>

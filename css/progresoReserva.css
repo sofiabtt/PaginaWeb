@@ -116,7 +116,7 @@
 
         .timeline-detalle {
             font-size: 0.92rem;
-            color: #555;
+            color: #6f6f6f;
             line-height: 1.4;
             margin: 0 auto;
             max-width: 220px;
@@ -456,4 +456,52 @@
     background: #d3d3d3 !important;
     border-color: #8f8f8f !important;
     box-shadow: 0 0 0 6px rgba(120, 120, 120, 0.18) !important;
+}
+
+
+/* Indicador móvil: oculto en escritorio */
+.indicador-pasos { display: none; }
+
+@media (max-width: 767.98px) {
+    .progreso-reserva {
+        padding: 15px 20px;
+        margin-bottom: 18px !important;
+    }
+    .progreso-reserva .progreso-titulo { display: none; }
+    .progreso-reserva .timeline-pasos,
+    .progreso-reserva .timeline-pasos.cinco-pasos { gap: 0; }
+    .progreso-reserva .timeline-paso:not(.activo) { display: none; }
+    .progreso-reserva .timeline-paso.activo,
+    .progreso-reserva .timeline-pasos.cinco-pasos .timeline-paso.activo {
+        flex: 0 0 auto;
+        width: 100%;
+        min-width: 0;
+        padding: 0;
+    }
+    .progreso-reserva .timeline-paso.activo::before,
+    .progreso-reserva .timeline-paso.activo .timeline-punto { display: none; }
+    .progreso-reserva .timeline-contenido { text-align: left; }
+    .progreso-reserva .timeline-etiqueta { font-size: 12px; margin-bottom: 4px; }
+    .progreso-reserva .timeline-nombre { font-size: 16px; margin-bottom: 0; }
+    .progreso-reserva .timeline-detalle { display: none; }
+    .progreso-reserva:not(.progreso-ida-vuelta) .timeline-paso.activo .timeline-etiqueta::after { content: " DE 3"; }
+    .progreso-reserva.progreso-ida-vuelta .timeline-paso.activo .timeline-etiqueta::after { content: " DE 5"; }
+    .indicador-pasos {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 12px;
+        margin-top: 14px;
+    }
+    .paso-punto {
+        display: block;
+        width: 11px; height: 11px;
+        border-radius: 50%;
+        background: white; border: 2px solid #c7b8ab;
+    }
+    .paso-punto.completado { background: #9c673e; border-color: #9c673e; }
+    .paso-punto.activo {
+        background: #684028; border-color: #684028;
+        box-shadow: 0 0 0 3px rgba(104, 64, 40, 0.15);
+    }
 }

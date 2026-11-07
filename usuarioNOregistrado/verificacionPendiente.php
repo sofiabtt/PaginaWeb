@@ -28,7 +28,7 @@
 
 <body>
 
-    <?php include("/includes/navbar.php"); ?>
+    <?php include __DIR__ . "/../includes/navbar.php"; ?>
 
 
     <main class="d-flex justify-content-center align-items-center">
@@ -66,9 +66,9 @@
 
     </main>
 
-    <?php include "/includes/footer.php"; ?>
+    <?php include __DIR__ . "/../includes/footer.php"; ?>
 
-    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/bootstrap.bundle.min.js"></script>
 
 </body>
 

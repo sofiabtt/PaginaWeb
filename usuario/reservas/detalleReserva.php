@@ -58,7 +58,7 @@ if (!$reserva) {
     <link
         rel="icon"
         type="image/png"
-        href="/imagenes/logo.png"
+        href="../../imagenes/logo.png"
     >
 
 
@@ -87,11 +87,7 @@ if (!$reserva) {
 <body>
 
 
-<?php
-
-include "/includes/navbar.php";
-
-?>
+<?php include __DIR__ . "/../../includes/navbar.php"; ?>
 
 
 <main class="contenido-admin">
@@ -355,9 +351,9 @@ include "/includes/navbar.php";
 
 </main>
 
-<?php include "/includes/footer.php"; ?>
+<?php include __DIR__ . "/../../includes/footer.php"; ?>
 
-<script src="/js/bootstrap.bundle.min.js"></script>
+<script src="../../js/bootstrap.bundle.min.js"></script>
 
 
 </body>

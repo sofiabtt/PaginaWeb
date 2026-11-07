@@ -3,7 +3,7 @@
 $token = $_GET["token"] ?? "";
 
 if (!preg_match('/^[a-f0-9]{64}$/', $token)) {
-    header("Location: /inicioSesion.php?verificacion=invalida");
+    header("Location: ../inicioSesion.php?verificacion=invalida");
     exit();
 }
 
@@ -25,7 +25,7 @@ if (
     || strtotime($usuario["fechaVerificacion"]) < time()
 ) {
     $conexion->close();
-    header("Location: /inicioSesion.php?verificacion=vencida");
+    header("Location: ../inicioSesion.php?verificacion=vencida");
     exit();
 }
 
@@ -39,5 +39,5 @@ $actualizar->execute();
 $actualizar->close();
 $conexion->close();
 
-header("Location: /inicioSesion.php?verificacion=correcta");
+header("Location: ../inicioSesion.php?verificacion=correcta");
 exit();

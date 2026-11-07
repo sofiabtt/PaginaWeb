@@ -38,11 +38,11 @@ $seleccionandoVuelta =
     <link rel="stylesheet" href="css/bootstrap-icons.css">
 
     <link rel="stylesheet" href="css/estiloshome.css?v=2">
-    <link rel="stylesheet" href="css/estilosResultados.css?v=5">
+    <link rel="stylesheet" href="css/estilosResultados.css?v=6">
     <link rel="stylesheet" href="css/estilos-usuario.css?v=2">
     <link rel="stylesheet" href="css/footer.css">
     <link rel="stylesheet" href="css/navbar.css">
-    <link rel="stylesheet" href="css/progresoReserva.css?v=4">
+    <link rel="stylesheet" href="css/progresoReserva.css?v=5">
 </head>
 
 <body>
@@ -101,7 +101,13 @@ $seleccionandoVuelta =
                         </div>
                     </div>
                 </div>
-            </div>
+            
+                <div class="indicador-pasos" aria-label="Paso 1 de 3">
+                    <span class="paso-punto activo" aria-hidden="true"></span>
+                    <span class="paso-punto" aria-hidden="true"></span>
+                    <span class="paso-punto" aria-hidden="true"></span>
+                </div>
+</div>
 
         <?php elseif ($tipoViaje === "idaVuelta"): ?>
 
@@ -168,7 +174,13 @@ $seleccionandoVuelta =
                     </div>
 
                 </div>
-            </div>
+            
+                <div class="indicador-pasos" aria-label="Paso <?php echo $seleccionandoVuelta ? 3 : 1; ?> de 5">
+                    <?php for ($i = 1; $i <= 5; $i++): ?>
+                        <span class="paso-punto <?php echo $i === ($seleccionandoVuelta ? 3 : 1) ? 'activo' : ($i < ($seleccionandoVuelta ? 3 : 1) ? 'completado' : ''); ?>" aria-hidden="true"></span>
+                    <?php endfor; ?>
+                </div>
+</div>
 
         <?php endif; ?>
 
@@ -312,10 +324,16 @@ $seleccionandoVuelta =
 
             <aside class="col-lg-3">
 
+                <!-- Filtros desplegables solo en pantallas menores a lg -->
+                <button class="btn btn-nuvia w-100 d-lg-none mb-3" type="button"
+                        data-bs-toggle="collapse" data-bs-target="#panelFiltros"
+                        aria-expanded="false" aria-controls="panelFiltros">
+                    <i class="bi bi-funnel"></i> Filtrar vuelos
+                    <i class="bi bi-chevron-down ms-2"></i>
+                </button>
 
-                <div
-                    class="card filtros-vuelos border-0 shadow-sm"
-                >
+                <div class="collapse d-lg-block" id="panelFiltros">
+                    <div class="card filtros-vuelos border-0 shadow-sm">
 
 
                     <div class="card-body p-4">
@@ -799,6 +817,7 @@ $seleccionandoVuelta =
 
                 </div>
 
+                </div> <!-- panelFiltros -->
 
             </aside>
 
@@ -1699,7 +1718,7 @@ $seleccionandoVuelta =
 
 <?php include "includes/footer.php"; ?>
 
-<script src="/js/bootstrap.bundle.min.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
 
 </body>
 

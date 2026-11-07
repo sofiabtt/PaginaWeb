@@ -80,7 +80,7 @@
 
         </section>
         <a href="index.php" class="boton-atras">
-            ← Atrás
+            ← Inicio
         </a>
 
     </main>
