@@ -1,11 +1,12 @@
 <?php
 
 require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/php/conexionBD.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..');
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->safeLoad();
 
 $estadoContacto = '';
@@ -151,7 +152,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     Completá el formulario y contanos en qué podemos ayudarte.
                 </p>
 
-                <form id="formContacto">
+                <form id="formContacto" method="POST" action="">
 
                     <div class="campo-contacto">
                         <label for="nombre">Nombre y apellido</label>
