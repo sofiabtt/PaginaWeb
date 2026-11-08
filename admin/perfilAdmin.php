@@ -1,8 +1,8 @@
 <?php
-
+/*
 require_once __DIR__ . '/../includes/verificarRol.php';
 verificarRol('administrador');
-
+*/
 include "../php/conexionBD.php";
 include "../php/consultasUsuarios.php";
 
@@ -62,12 +62,11 @@ $admin = obtenerUsuario($conexion, $codAdmin);
     <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/bootstrap.min.css'), ENT_QUOTES, 'UTF-8') ?>">
     <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/bootstrap-icons.css'), ENT_QUOTES, 'UTF-8') ?>">
 
-    <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/estilosAdmin.css'), ENT_QUOTES, 'UTF-8') ?>">
-    <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/navbar.css'), ENT_QUOTES, 'UTF-8') ?>">
+    <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/estilos.css'), ENT_QUOTES, 'UTF-8') ?>">
     <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/footer.css'), ENT_QUOTES, 'UTF-8') ?>">
 </head>
 
-<body>
+<body class="nuvia-panel nuvia-navbar">
     <?php include __DIR__ . "/includes/navbarAdmin.php"; ?> 
 
     <main class="contenido-admin">

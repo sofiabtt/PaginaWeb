@@ -23,15 +23,13 @@
 
     <link rel="stylesheet" href="css/estilos.css">
 
-    <link rel="stylesheet" href="css/navbar.css">
-
     <link rel="stylesheet" href="css/footer.css">
 
     <link rel="icon" type="image/png" href="imagenes/logo.png">
 
 </head>
 
-<body>
+<body class="nuvia-registro">
 
     <?php if (isset($_GET["registro"]) && $_GET["registro"] === "pendiente") { ?>
         <div class="alert alert-success position-fixed top-0 start-50 translate-middle-x mt-3" style="z-index: 20;">
@@ -126,7 +124,7 @@
 
     <?php include "includes/footer.php"; ?>
 
-    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>

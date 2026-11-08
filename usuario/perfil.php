@@ -81,15 +81,14 @@ $usuario = obtenerPerfilUsuario(
     <link rel="icon" type="image/png" href="../imagenes/logo.png">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/bootstrap-icons.css">
-    <link rel="stylesheet" href="../css/estilosAdmin.css">
-    <link rel="stylesheet" href="../css/navbar.css">
+    <link rel="stylesheet" href="../css/estilos.css">
+
     <link rel="stylesheet" href="../css/footer.css">
     <link rel="icon" href="../imagenes/logo.png" type="image/png">
 
 </head>
 
-<body>
-
+<body class="nuvia-panel nuvia-navbar">
     <?php include __DIR__ . "/../includes/navbar.php"; ?>
 
     <main class="contenido-admin">

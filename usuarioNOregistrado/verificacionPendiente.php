@@ -15,7 +15,6 @@
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/bootstrap-icons.css">
     <link rel="stylesheet" href="../css/estilos.css">
-    <link rel="stylesheet" href="../css/navbar.css">
     <link rel="stylesheet" href="../css/footer.css">
 
     <link
@@ -26,7 +25,7 @@
 
 </head>
 
-<body>
+<body class="nuvia-navbar">
 
     <?php include __DIR__ . "/../includes/navbar.php"; ?>
 

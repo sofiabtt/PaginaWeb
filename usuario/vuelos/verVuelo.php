@@ -51,11 +51,10 @@ $precioFinal =
     <title>Nuvia - Detalle del vuelo</title>
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/bootstrap-icons.css">
-    <link rel="stylesheet" href="../../css/estilosAdmin.css">
-    <link rel="stylesheet" href="../../css/navbar.css">
+    <link rel="stylesheet" href="../../css/estilos.css">
     <link rel="stylesheet" href="../../css/footer.css">
 </head>
-<body>
+<body class="nuvia-panel nuvia-navbar">
     <?php include __DIR__ . "/../../includes/navbar.php"; ?>
     <main class="contenido-admin">
         <section class="encabezado-contenido" style="display: block;">

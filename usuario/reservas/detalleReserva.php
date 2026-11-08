@@ -60,7 +60,7 @@ if (!$reserva) {
         type="image/png"
         href="../../imagenes/logo.png"
     >
-
+    <link rel="stylesheet" href="css/estilos.css">
 
     <link
         rel="stylesheet"
@@ -72,19 +72,12 @@ if (!$reserva) {
         href="../../css/bootstrap-icons.css"
     >
 
-    <link
-        rel="stylesheet"
-        href="../../css/estilos-usuario.css"
-    >
-
-    <link rel="stylesheet" href="../../css/navbar.css">
-
     <link rel="stylesheet" href="../../css/footer.css">
 
 </head>
 
 
-<body>
+<body class="nuvia-registro nuvia-navbar">
 
 
 <?php include __DIR__ . "/../../includes/navbar.php"; ?>

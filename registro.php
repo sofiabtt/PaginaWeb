@@ -16,15 +16,13 @@
 
     <link rel="stylesheet" href="css/estilos.css">
 
-    <link rel="stylesheet" href="css/navbar.css">
-
     <link rel="stylesheet" href="css/footer.css">
 
     <link rel="icon" type="image/png" href="imagenes/logo.png">
 
 </head>
 
-<body>
+<body class="nuvia-registro">
     <?php include("includes/navbar.php"); ?>
 
     <main class="d-flex justify-content-center align-items-center">
@@ -88,7 +86,7 @@
     <?php include "includes/footer.php"; ?>
 
     <!-- JavaScript de Bootstrap . permite que funcionen los componentes interactivos de Bootstrap,-->
-    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
 
     <script>
     //toma los parámetros que haya en la URL.

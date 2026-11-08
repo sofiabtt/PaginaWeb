@@ -447,10 +447,9 @@ $precioTotal =
 
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/bootstrap-icons.css">
-    <link rel="stylesheet" href="css/estiloshome.css">
-    <link rel="stylesheet" href="css/estilos-usuario.css">
+
+    <link rel="stylesheet" href="css/estilos.css">
     <link rel="stylesheet" href="css/estilosVueloElegido.css">
-    <link rel="stylesheet" href="css/navbar.css">
     <link rel="stylesheet" href="css/progresoReserva.css?v=4">
     <link rel="stylesheet" href="css/footer.css">
 
@@ -564,7 +563,7 @@ $precioTotal =
 
 </head>
 
-<body>
+<body class="nuvia-vuelos">
 
 <?php include "includes/navbar.php"; ?>
 

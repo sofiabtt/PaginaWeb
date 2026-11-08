@@ -1,3 +1,5 @@
+
+/* ====== FORMULARIOS / REGISTRO ====== */
 /* =========================================
    CONFIGURACIÓN GENERAL
 ========================================= */
@@ -8,7 +10,7 @@
     box-sizing: border-box;
 }
 
-body {
+body:where(.nuvia-registro) {
     display: flex;
     flex-direction: column;
     align-items: stretch;
@@ -28,7 +30,7 @@ body {
     background-position: 30% 0%;
     background-repeat: no-repeat;
 
-    font-family: 'Montserrat', sans-serif;
+    font-family: "Montserrat", sans-serif;
 }
 
 
@@ -36,7 +38,7 @@ body {
    MAIN
 ========================================= */
 
-body > main {
+body:where(.nuvia-registro) > main {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -55,7 +57,7 @@ body > main {
    BOTÓN INGRESAR
 ========================================= */
 
-.btn-menu {
+:where(body.nuvia-registro) .btn-menu {
     background: #684028;
     color: white;
 
@@ -68,7 +70,7 @@ body > main {
     text-decoration: none;
 }
 
-.btn-menu:hover {
+:where(body.nuvia-registro) .btn-menu:hover {
     background: #72472c;
     color: white;
 }
@@ -78,7 +80,7 @@ body > main {
    BOTÓN PRINCIPAL
 ========================================= */
 
-.btn-primary {
+:where(body.nuvia-registro) .btn-primary {
     background: #684028;
     border-color: #684028;
     color: white;
@@ -90,7 +92,7 @@ body > main {
     font-weight: bold;
 }
 
-.btn-primary:hover {
+:where(body.nuvia-registro) .btn-primary:hover {
     background: #72472c;
     border-color: #72472c;
     color: white;
@@ -101,7 +103,7 @@ body > main {
    BOTÓN OUTLINE
 ========================================= */
 
-.btn-outline-primary {
+:where(body.nuvia-registro) .btn-outline-primary {
     --bs-btn-color: #684028;
     --bs-btn-border-color: #684028;
 
@@ -122,7 +124,7 @@ body > main {
    FORMULARIO
 ========================================= */
 
-.rectangulo-formulario {
+:where(body.nuvia-registro) .rectangulo-formulario {
     width: 100%;
     max-width: 450px;
 
@@ -136,15 +138,15 @@ body > main {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-.rectangulo-formulario h1 {
+:where(body.nuvia-registro) .rectangulo-formulario h1 {
     font-size: 28px;
 }
 
-.texto-registro {
+:where(body.nuvia-registro) .texto-registro {
     font-size: 13px;
 }
 
-.texto-negro {
+:where(body.nuvia-registro) .texto-negro {
     color: black;
 }
 
@@ -153,7 +155,7 @@ body > main {
    INPUTS
 ========================================= */
 
-.form-control {
+:where(body.nuvia-registro) .form-control {
     border-radius: 12px;
 }
 
@@ -162,14 +164,14 @@ body > main {
    CONTRASEÑA
 ========================================= */
 
-.grupo-contrasena,
-.barra-contra {
+:where(body.nuvia-registro) .grupo-contrasena,
+:where(body.nuvia-registro) .barra-contra {
     display: flex;
     width: 100%;
 }
 
-.grupo-contrasena .form-control,
-.barra-contra .form-control {
+:where(body.nuvia-registro) .grupo-contrasena .form-control,
+:where(body.nuvia-registro) .barra-contra .form-control {
     flex: 1;
     min-width: 0;
 
@@ -177,7 +179,7 @@ body > main {
     border-bottom-right-radius: 0;
 }
 
-.boton-ojo {
+:where(body.nuvia-registro) .boton-ojo {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -198,7 +200,7 @@ body > main {
     cursor: pointer;
 }
 
-.boton-ojo:hover {
+:where(body.nuvia-registro) .boton-ojo:hover {
     background-color: #e5e2e2;
 }
 
@@ -207,7 +209,7 @@ body > main {
    BOTÓN ATRÁS / INICIO
 ========================================= */
 
-.boton-atras {
+:where(body.nuvia-registro) .boton-atras {
     position: static;
     display: inline-block;
 
@@ -225,7 +227,7 @@ body > main {
     font-weight: bold;
 }
 
-.boton-atras:hover {
+:where(body.nuvia-registro) .boton-atras:hover {
     background-color: #86583c;
     color: white;
 }
@@ -235,7 +237,7 @@ body > main {
    ADVERTENCIAS
 ========================================= */
 
-.alerta-en-rojo {
+:where(body.nuvia-registro) .alerta-en-rojo {
     color: red;
     font-size: 12px;
 }
@@ -245,7 +247,7 @@ body > main {
    MENSAJE CONTRASEÑA CREADA
 ========================================= */
 
-.formulario-exito {
+:where(body.nuvia-registro) .formulario-exito {
     min-height: 360px;
 
     display: flex;
@@ -258,11 +260,11 @@ body > main {
    VERIFICACIÓN DE CUENTA
 ========================================= */
 
-.verificacion-contenido {
+:where(body.nuvia-registro) .verificacion-contenido {
     text-align: center;
 }
 
-.icono-verificacion {
+:where(body.nuvia-registro) .icono-verificacion {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -279,7 +281,7 @@ body > main {
     font-size: 40px;
 }
 
-.verificacion-contenido h1 {
+:where(body.nuvia-registro) .verificacion-contenido h1 {
     color: #684028;
 
     font-size: 28px;
@@ -288,7 +290,7 @@ body > main {
     margin-bottom: 15px;
 }
 
-.verificacion-texto {
+:where(body.nuvia-registro) .verificacion-texto {
     color: #444;
 
     font-size: 16px;
@@ -297,13 +299,13 @@ body > main {
     margin-bottom: 10px;
 }
 
-.verificacion-aclaracion {
+:where(body.nuvia-registro) .verificacion-aclaracion {
     color: #555;
     font-size: 14px;
     margin-bottom: 25px;
 }
 
-.verificacion-contenido .btn-primary {
+:where(body.nuvia-registro) .verificacion-contenido .btn-primary {
     min-width: 170px;
 }
 
@@ -315,11 +317,11 @@ body > main {
 
 @media (min-width: 768px) and (max-width: 991px) {
 
-    body > main {
+    body:where(.nuvia-registro) > main {
         padding: 35px 25px;
     }
 
-    .rectangulo-formulario {
+    :where(body.nuvia-registro) .rectangulo-formulario {
         max-width: 450px;
         padding: 30px;
     }
@@ -337,7 +339,7 @@ body > main {
 
     /* FONDO Y ESTRUCTURA */
 
-    body {
+    body:where(.nuvia-registro) {
         height: 100dvh;
         min-height: 0;
 
@@ -355,13 +357,13 @@ body > main {
 
     /* OCULTAR FOOTER EN CELULARES */
 
-    body > footer {
+    body:where(.nuvia-registro) > footer {
         display: none;
     }
 
     /* CONTENEDOR PRINCIPAL */
 
-    body > main {
+    body:where(.nuvia-registro) > main {
         flex: 1 0 auto;
 
         width: 100%;
@@ -375,7 +377,7 @@ body > main {
 
     /* FORMULARIO */
 
-    .rectangulo-formulario {
+    :where(body.nuvia-registro) .rectangulo-formulario {
         width: 100%;
         max-width: 450px;
 
@@ -386,59 +388,59 @@ body > main {
         box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
     }
 
-    .rectangulo-formulario h1 {
+    :where(body.nuvia-registro) .rectangulo-formulario h1 {
         font-size: 24px;
         margin-bottom: 20px;
     }
 
-    .rectangulo-formulario .form-label {
+    :where(body.nuvia-registro) .rectangulo-formulario .form-label {
         font-size: 14px;
     }
 
-    .rectangulo-formulario .form-control {
+    :where(body.nuvia-registro) .rectangulo-formulario .form-control {
         min-width: 0;
         font-size: 14px;
         padding: 11px 12px;
     }
 
-    .rectangulo-formulario form .mb-4 {
+    :where(body.nuvia-registro) .rectangulo-formulario form .mb-4 {
         margin-bottom: 20px;
     }
 
     /* BOTONES DEL FORMULARIO */
 
-    .rectangulo-formulario form .d-flex {
+    :where(body.nuvia-registro) .rectangulo-formulario form .d-flex {
         align-items: flex-end;
         gap: 10px;
     }
 
-    .rectangulo-formulario .btn-primary,
-    .rectangulo-formulario .btn-outline-primary {
+    :where(body.nuvia-registro) .rectangulo-formulario .btn-primary,
+:where(body.nuvia-registro) .rectangulo-formulario .btn-outline-primary {
         padding: 10px 18px;
         font-size: 14px;
         white-space: nowrap;
     }
 
-    .texto-registro {
+    :where(body.nuvia-registro) .texto-registro {
         font-size: 12px;
     }
 
     /* CONTRASEÑA */
 
-    .boton-ojo {
+    :where(body.nuvia-registro) .boton-ojo {
         width: 60px;
         min-width: 60px;
     }
 
     /* BOTÓN ATRÁS */
 
-    .boton-atras {
+    :where(body.nuvia-registro) .boton-atras {
         margin-top: 20px;
     }
 
     /* ALERTAS */
 
-    .alert {
+    :where(body.nuvia-registro) .alert {
         width: 100%;
         max-width: 450px;
 
@@ -455,29 +457,5078 @@ body > main {
 
 @media (max-width: 380px) {
 
-    body > main {
+    body:where(.nuvia-registro) > main {
         padding: 15px 12px;
     }
 
-    .rectangulo-formulario {
+    :where(body.nuvia-registro) .rectangulo-formulario {
         padding: 24px 16px;
     }
 
-    .rectangulo-formulario h1 {
+    :where(body.nuvia-registro) .rectangulo-formulario h1 {
         font-size: 21px;
     }
 
-    .rectangulo-formulario form .d-flex {
+    :where(body.nuvia-registro) .rectangulo-formulario form .d-flex {
         gap: 7px;
     }
 
-    .rectangulo-formulario .btn-primary,
-    .rectangulo-formulario .btn-outline-primary {
+    :where(body.nuvia-registro) .rectangulo-formulario .btn-primary,
+:where(body.nuvia-registro) .rectangulo-formulario .btn-outline-primary {
         padding: 9px 13px;
         font-size: 13px;
     }
 
-    .boton-atras {
+    :where(body.nuvia-registro) .boton-atras {
         margin-top: 15px;
     }
 }
+
+/* ====== USUARIOS / RESERVAS ====== */
+/* =========================
+   CONFIGURACIÓN GENERAL
+========================= */
+
+
+
+body:where(.nuvia-usuario) {
+    font-family: "Montserrat", sans-serif;
+    background: #daf2f7;
+    min-height: 100vh;
+}
+
+/* =========================
+   NAVBAR
+========================= */
+
+:where(body.nuvia-usuario) .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    z-index: 10;
+    padding: 5px 60px;
+    background: white;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.12);
+}
+
+/* =========================
+   LOGO
+========================= */
+
+:where(body.nuvia-usuario) .navbar-brand {
+    margin: 0;
+    padding: 0;
+}
+
+:where(body.nuvia-usuario) .navbar-brand img {
+    object-fit: contain;
+}
+
+/* =========================
+   MENÚ DEL NAVBAR
+========================= */
+
+:where(body.nuvia-usuario) .menu-admin-navbar {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+:where(body.nuvia-usuario) .menu-admin-navbar .nav-link {
+    color: #222;
+    font-weight: 600;
+    text-decoration: none;
+    margin: 0;
+    padding: 10px 0;
+    white-space: nowrap;
+}
+
+:where(body.nuvia-usuario) .menu-admin-navbar .nav-link:hover {
+    color: #684028;
+}
+
+:where(body.nuvia-usuario) .menu-admin-navbar .nav-link.activo {
+    color: #684028;
+}
+
+/* =========================
+   BOTÓN DE USUARIO / ADMIN
+========================= */
+
+:where(body.nuvia-usuario) .usuario-admin {
+    background: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #684028;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+:where(body.nuvia-usuario) .usuario-admin:hover {
+    color: #72472c;
+}
+
+:where(body.nuvia-usuario) .usuario-admin i {
+    font-size: 22px;
+}
+
+/* =========================
+   MENÚ DESPLEGABLE
+========================= */
+
+:where(body.nuvia-usuario) .menu-admin {
+    min-width: 190px;
+    border: none;
+    border-radius: 15px;
+    padding: 8px;
+    background: white;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+:where(body.nuvia-usuario) .menu-admin .dropdown-item {
+    color: #684028;
+    padding: 12px 15px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+:where(body.nuvia-usuario) .menu-admin .dropdown-item i {
+    font-size: 18px;
+}
+
+:where(body.nuvia-usuario) .menu-admin .dropdown-item:hover {
+    background: #b8d8e8;
+    color: #684028;
+}
+
+:where(body.nuvia-usuario) .menu-admin .dropdown-divider {
+    margin: 6px 0;
+    border-color: #eee;
+}
+
+:where(body.nuvia-usuario) .menu-admin-navbar .dropdown {
+    margin-left: 5px;
+}
+
+/* =========================
+   CONTENIDO PRINCIPAL
+========================= */
+
+:where(body.nuvia-usuario) .contenido-admin {
+    padding: 120px 60px 50px;
+    max-width: 1400px;
+    margin: auto;
+}
+
+/* =========================
+   TABLA
+========================= */
+
+ :where(body.nuvia-usuario, body.nuvia-panel) .tabla-contenedor {
+    background: white;
+    border-radius: 18px;
+    padding: 25px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    min-height: 150px;
+}
+
+ :where(body.nuvia-usuario, body.nuvia-panel) .tabla-contenedor table {
+    margin-bottom: 0;
+}
+
+ :where(body.nuvia-usuario, body.nuvia-panel) .tabla-contenedor thead {
+    color: #684028;
+}
+
+/* =========================
+   BOTONES
+========================= */
+
+ :where(body.nuvia-usuario, body.nuvia-panel) .btn-primary {
+    background-color: #684028;
+    border-color: #684028;
+    color: white;
+}
+
+ :where(body.nuvia-usuario, body.nuvia-panel) .btn-primary:hover {
+    background-color: #72472c;
+    border-color: #72472c;
+    color: white;
+}
+
+/* =========================
+   ENCABEZADO DEL CONTENIDO
+========================= */
+
+ :where(body.nuvia-usuario, body.nuvia-panel) .encabezado-contenido {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+/* =========================
+   PERFIL
+========================= */
+
+ :where(body.nuvia-usuario, body.nuvia-panel) .perfil-card {
+    max-width: 850px;
+    margin: 40px auto;
+    background-color: #ffffff;
+    border-radius: 18px;
+    padding: 40px 50px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+ :where(body.nuvia-usuario, body.nuvia-panel) .perfil-header {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+ :where(body.nuvia-usuario, body.nuvia-panel) .perfil-logo {
+    width: 75px;
+    height: 75px;
+    margin: 0 auto 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+ :where(body.nuvia-usuario, body.nuvia-panel) .perfil-logo img {
+    width: 70px;
+    height: 70px;
+    object-fit: contain;
+}
+
+ :where(body.nuvia-usuario, body.nuvia-panel) .perfil-icono {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 18px;
+    border-radius: 50%;
+    background-color: #f3e9df;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    color: #684028;
+}
+
+ :where(body.nuvia-usuario, body.nuvia-panel) .perfil-header h2 {
+    margin-bottom: 8px;
+    font-size: 26px;
+    color: #684028;
+}
+
+ :where(body.nuvia-usuario, body.nuvia-panel) .perfil-header p {
+    margin: 0;
+    color: #555;
+}
+
+ :where(body.nuvia-usuario, body.nuvia-panel) .perfil-campos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+}
+
+ :where(body.nuvia-usuario, body.nuvia-panel) .perfil-form .form-label {
+    font-weight: 600;
+    color: #4d3525;
+    margin-bottom: 8px;
+}
+
+ :where(body.nuvia-usuario, body.nuvia-panel) .campo-icono {
+    position: relative;
+}
+
+ :where(body.nuvia-usuario, body.nuvia-panel) .campo-icono i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #684028;
+    z-index: 2;
+}
+
+ :where(body.nuvia-usuario, body.nuvia-panel) .campo-icono .form-control {
+    padding-left: 42px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    min-height: 45px;
+}
+
+ :where(body.nuvia-usuario, body.nuvia-panel) .campo-icono .form-control:focus {
+    border-color: #684028;
+    box-shadow: 0 0 0 0.2rem rgba(104, 64, 40, 0.15);
+}
+
+ :where(body.nuvia-usuario, body.nuvia-panel) .password-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-top: 30px;
+    padding: 18px;
+    background-color: #f8f5f2;
+    border-radius: 12px;
+}
+
+ :where(body.nuvia-usuario, body.nuvia-panel) .password-icono {
+    width: 45px;
+    height: 45px;
+    min-width: 45px;
+    border-radius: 50%;
+    background-color: #e9ded4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #684028;
+    font-size: 20px;
+}
+
+ :where(body.nuvia-usuario, body.nuvia-panel) .password-info strong {
+    color: #4d3525;
+}
+
+ :where(body.nuvia-usuario, body.nuvia-panel) .password-info p {
+    margin: 4px 0 0;
+    color: #555;
+    font-size: 14px;
+}
+
+ :where(body.nuvia-usuario, body.nuvia-panel) .perfil-acciones {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 30px;
+}
+
+ :where(body.nuvia-usuario, body.nuvia-panel) .perfil-acciones .btn {
+    padding: 10px 22px;
+    border-radius: 9px;
+}
+
+/* =========================
+   CLASES COMPARTIDAS EN LISTADOS
+========================= */
+
+ :where(body.nuvia-usuario, body.nuvia-panel) .texto-novedad {
+    max-width: 300px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+ :where(body.nuvia-usuario, body.nuvia-panel) .columna-aeropuerto {
+    width: 22%;
+    max-width: 250px;
+    white-space: normal;
+    word-wrap: break-word;
+}
+
+
+/* =========================
+   SOLO USUARIO
+========================= */
+
+/* ACCIONES DE RESERVA */
+
+:where(body.nuvia-usuario) .acciones-reserva {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 38px;
+}
+
+:where(body.nuvia-usuario) .acciones-reserva form {
+    margin: 0;
+}
+
+
+/* =========================
+   MODAL CANCELAR RESERVA
+========================= */
+
+:where(body.nuvia-usuario) .modal-cancelar {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.45);
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+:where(body.nuvia-usuario) .modal-cancelar-contenido {
+    background: white;
+    width: 90%;
+    max-width: 430px;
+    padding: 35px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.2);
+}
+
+:where(body.nuvia-usuario) .modal-cancelar-icono {
+    font-size: 50px;
+    color: #a56f48;
+    margin-bottom: 15px;
+}
+
+:where(body.nuvia-usuario) .modal-cancelar-contenido h3 {
+    margin-bottom: 15px;
+    font-size: 26px;
+}
+
+:where(body.nuvia-usuario) .modal-cancelar-contenido p {
+    margin-bottom: 5px;
+}
+
+:where(body.nuvia-usuario) .texto-modal-secundario {
+    color: #555;
+    font-size: 14px;
+}
+
+:where(body.nuvia-usuario) .modal-cancelar-botones {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin-top: 25px;
+}
+
+:where(body.nuvia-usuario) .modal-cancelar-botones form {
+    margin: 0;
+}
+
+:where(body.nuvia-usuario) .btn-volver,
+:where(body.nuvia-usuario) .btn-confirmar-cancelacion {
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+:where(body.nuvia-usuario) .btn-volver {
+    background: #eeeeee;
+    color: #333;
+}
+
+:where(body.nuvia-usuario) .btn-confirmar-cancelacion {
+    background: #a56f48;
+    color: white;
+}
+
+:where(body.nuvia-usuario) .btn-volver:hover {
+    background: #dddddd;
+}
+
+:where(body.nuvia-usuario) .btn-confirmar-cancelacion:hover {
+    background: #845536;
+}
+
+
+/* =========================
+   TABLA DE RESERVAS
+========================= */
+
+/* FILAS */
+
+:where(body.nuvia-usuario) .fila-reserva {
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+:where(body.nuvia-usuario) .fila-reserva:hover td {
+    background-color: #f2f2f2;
+}
+
+/* RESERVAS RECIÉN CREADAS */
+
+/*
+   No se aplica ningún fondo ni borde especial.
+   Todas las reservas mantienen el diseño de la tabla.
+   La reserva nueva se identifica mediante su etiqueta.
+*/
+
+/* PRECIO */
+
+:where(body.nuvia-usuario) .gestion-reservas .precio-reserva {
+    white-space: nowrap;
+    min-width: 100px;
+}
+
+/* TIEMPO RESTANTE */
+
+:where(body.nuvia-usuario) .tiempo-pago {
+    margin-top: 7px;
+    color: #684028;
+    font-size: 13px;
+    font-weight: 600;
+
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+:where(body.nuvia-usuario) .tiempo-pago i {
+    font-size: 14px;
+}
+
+/* ETIQUETA DE RESERVA NUEVA */
+
+:where(body.nuvia-usuario) .marca-reserva-nueva {
+    display: inline-block;
+
+    margin-top: 6px;
+    padding: 2px 7px;
+
+    background-color: #f3ebe6;
+    color: #684028;
+
+    border: 1px solid #d8c1b2;
+    border-radius: 6px;
+
+    font-size: 11px;
+    font-weight: 600;
+
+    white-space: nowrap;
+}
+
+
+/* =========================
+   DETALLE DE RESERVA
+========================= */
+
+:where(body.nuvia-usuario) .detalle-reserva-card {
+    background: white;
+    border-radius: 20px;
+    padding: 32px;
+    margin-top: 30px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+:where(body.nuvia-usuario) .detalle-reserva-encabezado {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+}
+
+:where(body.nuvia-usuario) .detalle-reserva-label {
+    color: #555;
+    font-size: 14px;
+}
+
+:where(body.nuvia-usuario) .detalle-reserva-encabezado h2 {
+    margin-top: 4px;
+    margin-bottom: 0;
+}
+
+:where(body.nuvia-usuario) .detalle-reserva-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+    margin-top: 25px;
+}
+
+:where(body.nuvia-usuario) .detalle-item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+:where(body.nuvia-usuario) .detalle-item span {
+    color: #555;
+    font-size: 14px;
+}
+
+:where(body.nuvia-usuario) .detalle-item strong {
+    font-size: 17px;
+}
+
+:where(body.nuvia-usuario) .precio-detalle {
+    color: #7b4a2e;
+    font-size: 21px;
+}
+
+
+/* =========================
+   SCROLL NORMAL
+========================= */
+
+html:where(:has(body.nuvia-usuario)),
+body:where(.nuvia-usuario) {
+    height: auto;
+    min-height: 100%;
+    overflow-y: auto;
+}
+
+:where(body.nuvia-usuario) .contenido-admin {
+    height: auto;
+    min-height: 100vh;
+    overflow: visible;
+}
+
+
+/* =========================================
+   RESPONSIVE - TABLET
+========================================= */
+
+@media (max-width: 991.98px) {
+
+    :where(body.nuvia-usuario) .contenido-admin {
+        padding: 110px 25px 40px;
+        width: 100%;
+    }
+
+    :where(body.nuvia-usuario) .encabezado-contenido {
+        gap: 15px;
+        margin-bottom: 25px;
+    }
+
+    :where(body.nuvia-usuario) .detalle-reserva-card {
+        padding: 25px;
+    }
+
+    :where(body.nuvia-usuario) .detalle-reserva-grid {
+        gap: 20px;
+    }
+
+}
+
+/* =========================================
+   RESPONSIVE - CELULARES
+========================================= */
+
+@media (max-width: 767.98px) {
+
+    /* CONTENIDO GENERAL */
+
+    :where(body.nuvia-usuario) .contenido-admin {
+        padding: 105px 15px 30px;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    :where(body.nuvia-usuario) .encabezado-contenido {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        margin-bottom: 20px;
+    }
+
+    :where(body.nuvia-usuario) .encabezado-contenido h1 {
+        font-size: 26px;
+    }
+
+    :where(body.nuvia-usuario) .encabezado-contenido p {
+        font-size: 14px;
+    }
+
+
+    /* =========================
+       GESTIÓN DE RESERVAS
+    ========================= */
+
+    :where(body.nuvia-usuario) .gestion-reservas {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    /* CONTENEDOR DE LA TABLA */
+
+    :where(body.nuvia-usuario) .gestion-reservas .tabla-contenedor {
+        width: 100%;
+        max-width: 100%;
+        padding: 0;
+        background: transparent;
+        border: none;
+        border-radius: 0;
+        box-shadow: none;
+        overflow: visible;
+    }
+
+
+    /* TABLA CONVERTIDA EN TARJETAS */
+
+    :where(body.nuvia-usuario) .gestion-reservas .tabla-contenedor table,
+:where(body.nuvia-usuario) .gestion-reservas .tabla-contenedor tbody {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        margin: 0;
+    }
+
+    :where(body.nuvia-usuario) .gestion-reservas .tabla-contenedor thead {
+        display: none;
+    }
+
+
+    /* CADA RESERVA */
+
+    :where(body.nuvia-usuario) .gestion-reservas .tabla-contenedor tr.fila-reserva {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+
+        padding: 16px;
+        margin-bottom: 16px;
+
+        background: white;
+        border: none;
+        border-radius: 16px;
+
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
+    }
+
+
+    /* DATOS DE CADA RESERVA */
+
+    :where(body.nuvia-usuario) .gestion-reservas .tabla-contenedor tr.fila-reserva td {
+        display: block;
+        position: relative;
+
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+
+        padding: 13px 0 13px 82px;
+
+        border: none;
+        border-bottom: 1px solid #eee;
+
+        background: transparent;
+
+        text-align: right;
+        font-size: 14px;
+        line-height: 1.6;
+
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+
+
+    /* ETIQUETAS */
+
+    :where(body.nuvia-usuario) .gestion-reservas tr.fila-reserva td:nth-child(1)::before {
+        content: "Código";
+    }
+
+    :where(body.nuvia-usuario) .gestion-reservas tr.fila-reserva td:nth-child(2)::before {
+        content: "Vuelo";
+    }
+
+    :where(body.nuvia-usuario) .gestion-reservas tr.fila-reserva td:nth-child(3)::before {
+        content: "Salida";
+    }
+
+    :where(body.nuvia-usuario) .gestion-reservas tr.fila-reserva td:nth-child(4)::before {
+        content: "Precio";
+    }
+
+    :where(body.nuvia-usuario) .gestion-reservas tr.fila-reserva td:nth-child(5)::before {
+        content: "Estado";
+    }
+
+    :where(body.nuvia-usuario) .gestion-reservas .tabla-contenedor
+    tr.fila-reserva td:nth-child(-n/**/+5)::before {
+        position: absolute;
+        top: 13px;
+        left: 0;
+
+        width: 70px;
+
+        font-size: 13px;
+        font-weight: 700;
+        color: #684028;
+
+        text-align: left;
+    }
+
+
+    /* CÓDIGO Y ETIQUETA DE RESERVA NUEVA */
+
+    :where(body.nuvia-usuario) .gestion-reservas .tabla-contenedor
+    tr.fila-reserva td:first-child {
+        text-align: right;
+    }
+
+    :where(body.nuvia-usuario) .gestion-reservas .marca-reserva-nueva {
+        display: inline-block;
+
+        max-width: 100%;
+        width: auto;
+
+        padding: 5px 9px;
+        margin-top: 7px;
+
+        border-radius: 20px;
+
+        font-size: 11px;
+        line-height: 1.4;
+
+        white-space: normal;
+        text-align: center;
+        overflow-wrap: normal;
+    }
+
+
+    /* NOMBRE DEL VUELO */
+
+    :where(body.nuvia-usuario) .gestion-reservas .tabla-contenedor
+    tr.fila-reserva td:nth-child(2) {
+        line-height: 1.6;
+    }
+
+    :where(body.nuvia-usuario) .gestion-reservas .tabla-contenedor
+    tr.fila-reserva td:nth-child(2) small {
+        font-size: 12px;
+        color: #666;
+    }
+
+
+    /* FECHA Y PRECIO */
+
+    :where(body.nuvia-usuario) .gestion-reservas .tabla-contenedor
+    tr.fila-reserva td:nth-child(3),
+:where(body.nuvia-usuario) .gestion-reservas .tabla-contenedor
+    tr.fila-reserva td:nth-child(4) {
+        font-size: 13px;
+    }
+
+    :where(body.nuvia-usuario) .gestion-reservas .precio-reserva {
+        min-width: 0;
+        white-space: normal;
+    }
+
+
+    /* ESTADO */
+
+    :where(body.nuvia-usuario) .gestion-reservas .tabla-contenedor
+    tr.fila-reserva td:nth-child(5) .badge {
+        display: inline-block;
+        max-width: 100%;
+
+        white-space: normal;
+        text-align: center;
+        line-height: 1.4;
+    }
+
+
+    /* TIEMPO RESTANTE */
+
+    :where(body.nuvia-usuario) .gestion-reservas .tiempo-pago {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        flex-wrap: wrap;
+
+        gap: 5px;
+        max-width: 100%;
+
+        margin-top: 8px;
+
+        font-size: 12px;
+        line-height: 1.5;
+
+        text-align: right;
+        white-space: normal;
+    }
+
+
+    /* COLUMNA DE ACCIONES */
+
+    :where(body.nuvia-usuario) .gestion-reservas .tabla-contenedor
+    tr.fila-reserva td:last-child {
+        display: block;
+
+        width: 100%;
+        padding: 14px 0 0;
+
+        border-bottom: none;
+    }
+
+
+    /* BOTONES DE RESERVA */
+
+    :where(body.nuvia-usuario) .gestion-reservas .acciones-reserva {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+
+        width: 100%;
+        gap: 10px;
+
+        min-height: 0;
+    }
+
+    :where(body.nuvia-usuario) .gestion-reservas .acciones-reserva form {
+        width: 100%;
+        margin: 0;
+    }
+
+    :where(body.nuvia-usuario) .gestion-reservas .acciones-reserva .btn,
+:where(body.nuvia-usuario) .gestion-reservas .acciones-reserva button {
+        display: block;
+
+        width: 100%;
+        max-width: 100%;
+
+        padding: 12px 15px;
+
+        font-size: 14px;
+        font-weight: 600;
+
+        text-align: center;
+        white-space: normal;
+    }
+
+
+    /* =========================
+       DETALLE DE RESERVA
+    ========================= */
+
+    :where(body.nuvia-usuario) .detalle-reserva-card {
+        padding: 20px;
+        margin-top: 20px;
+        border-radius: 15px;
+    }
+
+    :where(body.nuvia-usuario) .detalle-reserva-encabezado {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    :where(body.nuvia-usuario) .detalle-reserva-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    :where(body.nuvia-usuario) .detalle-item strong {
+        font-size: 16px;
+        overflow-wrap: anywhere;
+    }
+
+    :where(body.nuvia-usuario) .precio-detalle {
+        font-size: 20px;
+    }
+
+
+    /* =========================
+       MODAL CANCELAR RESERVA
+    ========================= */
+
+    :where(body.nuvia-usuario) .modal-cancelar {
+        padding: 15px;
+    }
+
+    :where(body.nuvia-usuario) .modal-cancelar-contenido {
+        width: 100%;
+        max-width: 400px;
+        padding: 25px 18px;
+    }
+
+    :where(body.nuvia-usuario) .modal-cancelar-contenido h3 {
+        font-size: 22px;
+    }
+
+    :where(body.nuvia-usuario) .modal-cancelar-botones {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    :where(body.nuvia-usuario) .btn-volver,
+:where(body.nuvia-usuario) .btn-confirmar-cancelacion {
+        padding: 12px 18px;
+    }
+
+}
+
+
+/* =========================================
+   RESPONSIVE - CELULARES PEQUEÑOS
+========================================= */
+
+@media (max-width: 400px) {
+
+    :where(body.nuvia-usuario) .encabezado-contenido h1 {
+        font-size: 23px;
+    }
+
+    :where(body.nuvia-usuario) .gestion-reservas .tabla-contenedor tr.fila-reserva {
+        padding: 14px;
+    }
+
+    :where(body.nuvia-usuario) .gestion-reservas .tabla-contenedor tr.fila-reserva td {
+        padding-left: 72px;
+        font-size: 13px;
+    }
+
+    :where(body.nuvia-usuario) .gestion-reservas .tabla-contenedor
+    tr.fila-reserva td:nth-child(-n/**/+5)::before {
+        width: 62px;
+        font-size: 12px;
+    }
+
+}
+
+
+
+
+/*==========================================
+============================================
+============================================*/
+/* =========================================
+   ESTILOS GENERALES
+========================================= */
+
+
+
+html:has(:where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion)) {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: clip;
+}
+
+:where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) {
+    width: 100%;
+    max-width: 100%;
+    align-items: stretch;
+    background-image: url("../imagenes/fondoIngresoSesion.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    font-family: "Montserrat", sans-serif;
+    overflow-x: clip;
+}
+
+:where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) a:focus-visible,
+:where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) button:focus-visible,
+:where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) input:focus-visible,
+:where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) select:focus-visible,
+:where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) textarea:focus-visible {
+    outline: 3px solid #7a482b;
+    outline-offset: 3px;
+}
+
+
+/* =========================================
+   HERO
+========================================= */
+
+:where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .hero {
+    min-height: 100vh;
+    height: auto;
+    background-image: url("../imagenes/avion2.jpg");
+    background-size: auto 180%;
+    background-position: center 100%;
+    background-repeat: no-repeat;
+    position: relative;
+    overflow: hidden;
+}
+
+:where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .hero > * {
+    position: relative;
+    z-index: 1;
+}
+
+:where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.25);
+    z-index: 0;
+    pointer-events: none;
+}
+
+:where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .text-marron {
+    color: #684028;
+}
+
+
+/* =========================================
+   TEXTO
+========================================= */
+
+:where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .contenido {
+    position: absolute;
+    top: 45%;
+    left: 60px;
+    z-index: 2;
+}
+
+:where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .contenido h2 {
+    font-size: 40px;
+    font-weight: 900;
+    color: black;
+    line-height: 1;
+}
+
+:where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .contenido span {
+    font-weight: 300;
+}
+
+
+/* =========================================
+   BUSCADOR
+========================================= */
+
+:where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .titulo-buscador {
+    position: absolute;
+    left: 0;
+    top: 5px;
+    font-size: 18px;
+    letter-spacing: 0.3px;
+}
+
+:where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .titulo-buscador strong {
+    font-weight: 700;
+    color: #835a40;
+}
+
+:where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .contenedor-buscador {
+    position: absolute;
+    z-index: 3;
+    top: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+}
+
+:where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) #buscador-ing-datos {
+    background: white;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    border-radius: 20px;
+}
+
+
+/* =========================================
+   TIPO DE VIAJE
+========================================= */
+
+:where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .tipo-viaje {
+    padding: 10px;
+    padding-bottom: 10px;
+    background: transparent;
+    font-size: 13px;
+    margin-left: 55%;
+    border: none;
+}
+
+:where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .tipo-viaje label {
+    margin-right: 25px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+
+/* =========================================
+   INPUTS
+========================================= */
+
+:where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .form-control {
+    border: none;
+    border-right: 1px solid #ddd;
+    height: 60px;
+    min-width: 140px;
+}
+
+:where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .form-control:focus {
+    box-shadow: none;
+}
+
+
+/* =========================================
+   BOTÓN BUSCAR
+========================================= */
+
+:where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .buscar {
+    height: 60px;
+    width: 100%;
+    background: #835a40;
+    color: white;
+    border: none;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+:where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .buscar:hover {
+    background: #b1917d;
+}
+
+
+/* =========================================
+   DESTINOS DESTACADOS
+========================================= */
+
+:where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .destinos-destacados {
+    position: absolute;
+    top: 300px;
+    width: 100%;
+    text-align: center;
+}
+
+:where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .titulo-destino {
+    font-size: 25px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    margin-bottom: 30px;
+}
+
+
+/* =========================================
+   CARRUSEL - ESCRITORIO
+========================================= */
+
+:where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .carrusel-destinos {
+    position: relative;
+    width: 100%;
+}
+
+:where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .contenedor-tarjetas {
+    display: flex;
+    justify-content: center;
+    gap: 55px;
+}
+
+:where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .tarjeta-destino {
+    width: 200px;
+    height: 210px;
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    border: none;
+    font-family: inherit;
+    text-align: inherit;
+    padding: 0;
+}
+
+:where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .tarjeta-destino:focus-visible {
+    outline: 3px solid #7a482b;
+    outline-offset: 4px;
+}
+
+:where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .tarjeta-destino img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+    transition: 0.4s;
+}
+
+:where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .tarjeta-destino img:hover {
+    filter: grayscale(100%);
+    transform: scale(0.95);
+}
+
+:where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .tarjeta-destino .titulo-tarjeta {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 24px;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+    width: 90%;
+}
+
+/* Las flechas y los indicadores no se ven en computadora */
+
+:where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .flecha-destino,
+:where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .indicadores-destinos {
+    display: none;
+}
+
+
+/* =========================================
+   FOOTER
+========================================= */
+
+:where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .footer {
+    display: flex;
+    justify-content: center;
+    gap: 90px;
+    padding: 50px 60px;
+    background: white;
+}
+
+:where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .footer-columna {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+:where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .footer .footer-columna a {
+    text-decoration: none;
+    color: #555;
+    font-size: 14px;
+}
+
+:where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .footer-columna h4 {
+    font-size: 16px;
+}
+
+:where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .footer .footer-columna a:hover {
+    color: #835a40 !important;
+}
+
+
+/* =========================================
+   CALENDARIO DEL BUSCADOR
+========================================= */
+
+:where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .flatpickr-day.inRange {
+    background: #dddddd;
+    border-color: #dddddd;
+    box-shadow:
+        -5px 0 0 #dddddd,
+        5px 0 0 #dddddd;
+}
+
+:where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .flatpickr-day.startRange,
+:where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .flatpickr-day.endRange,
+:where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .flatpickr-day.selected {
+    background: #835a40;
+    border-color: #835a40;
+    color: white;
+}
+
+:where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .flatpickr-day.startRange:hover,
+:where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .flatpickr-day.endRange:hover,
+:where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .flatpickr-day.selected:hover {
+    background: #835a40;
+    border-color: #835a40;
+}
+
+:where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) #fechaViaje {
+    font-size: 16px;
+    color: #444;
+    padding-left: 18px;
+}
+
+
+/* =========================================
+   MODAL DE OFERTAS
+========================================= */
+
+:where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .modal-oferta {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+:where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .modal-oferta-contenido {
+    position: relative;
+    width: 90%;
+    max-width: 430px;
+    background: white;
+    padding: 30px;
+    border-radius: 18px;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+}
+
+:where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .modal-oferta-contenido h2 {
+    margin-bottom: 8px;
+}
+
+:where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .destino-oferta {
+    margin-bottom: 25px;
+    color: #666;
+}
+
+:where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .campo-oferta {
+    margin-bottom: 18px;
+}
+
+:where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .campo-oferta label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 7px;
+}
+
+:where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .campo-oferta select,
+:where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .campo-oferta input {
+    width: 100%;
+    padding: 11px 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 15px;
+}
+
+:where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .boton-buscar-oferta {
+    width: 100%;
+    border: none;
+    border-radius: 9px;
+    padding: 12px;
+    background: #7a482b;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+:where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .cerrar-oferta {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    border: none;
+    background: none;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+
+/* =========================================
+   RESPONSIVE - TABLETS
+   768px a 991px
+========================================= */
+
+@media (min-width: 768px) and (max-width: 991px) {
+
+    :where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .hero {
+        height: auto;
+        min-height: 0;
+        background-position: center;
+        padding-bottom: 45px;
+    }
+
+    /* BUSCADOR */
+
+    :where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .contenedor-buscador {
+        position: relative;
+        top: auto;
+        left: auto;
+        transform: none;
+        width: 90%;
+        margin: 35px auto 0;
+    }
+
+    :where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .titulo-buscador {
+        position: static;
+        margin-bottom: 12px;
+        font-size: 18px;
+    }
+
+    :where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .tipo-viaje {
+        margin-left: 0;
+        padding: 10px 0;
+    }
+
+    :where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) #buscador-ing-datos .row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    :where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) #buscador-ing-datos .row > div {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+    }
+
+    :where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .form-control {
+        width: 100%;
+        min-width: 0;
+        border-right: none;
+        border-bottom: 1px solid #ddd;
+    }
+
+    :where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .buscar {
+        height: 55px;
+    }
+
+    /* DESTINOS */
+
+    :where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .destinos-destacados {
+        position: relative;
+        top: auto;
+        margin-top: 65px;
+        padding: 0 30px 20px;
+    }
+
+    :where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .contenedor-tarjetas {
+        display: grid;
+        grid-template-columns: repeat(2, 200px);
+        justify-content: center;
+        gap: 30px;
+    }
+
+    :where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .tarjeta-destino {
+        width: 200px;
+        height: 210px;
+    }
+
+    /* FOOTER */
+
+    :where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .footer {
+        flex-wrap: wrap;
+        gap: 35px;
+        padding: 35px 25px;
+    }
+
+}
+
+
+/* =========================================
+   RESPONSIVE - CELULARES
+   Hasta 767px
+========================================= */
+
+@media (max-width: 767px) {
+
+    /* =====================================
+       HERO
+    ===================================== */
+
+    :where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .hero {
+        height: auto;
+        min-height: 0;
+        background-size: cover;
+        background-position: center top;
+        padding-bottom: 35px;
+    }
+
+
+    /* =====================================
+       BUSCADOR
+    ===================================== */
+
+    :where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .contenedor-buscador {
+        position: relative;
+        top: auto;
+        left: auto;
+        transform: none;
+        width: 92%;
+        max-width: 100%;
+        margin: 25px auto 0;
+    }
+
+    :where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .titulo-buscador {
+        position: static;
+        font-size: 17px;
+        line-height: 1.5;
+        margin-bottom: 12px;
+    }
+
+    :where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .tipo-viaje {
+        margin-left: 0;
+        padding: 10px 0;
+        font-size: 13px;
+    }
+
+    :where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .tipo-viaje label {
+        margin-right: 15px;
+        font-size: 13px;
+    }
+
+
+    /* =====================================
+       FORMULARIO
+    ===================================== */
+
+    :where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) #buscador-ing-datos {
+        width: 100%;
+        max-width: 100%;
+        border-radius: 15px;
+    }
+
+    :where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) #buscador-ing-datos .row {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        margin: 0;
+    }
+
+    :where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) #buscador-ing-datos .row > div {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        padding: 0;
+    }
+
+    :where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .form-control {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        height: 52px;
+        border-right: none;
+        border-bottom: 1px solid #eee;
+        font-size: 14px;
+    }
+
+    :where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) #fechaViaje {
+        font-size: 14px;
+    }
+
+    :where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .buscar {
+        width: 100%;
+        height: 50px;
+        font-size: 23px;
+        border-radius: 0 0 15px 15px;
+    }
+
+
+    /* =====================================
+       DESTINOS
+    ===================================== */
+
+    :where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .destinos-destacados {
+        position: relative;
+        top: auto;
+        width: 100%;
+        max-width: 100%;
+        margin-top: 45px;
+        padding: 0 15px 10px;
+    }
+
+    :where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .titulo-destino {
+        font-size: 22px;
+        margin-bottom: 22px;
+        padding: 0 10px;
+    }
+
+
+    /* =====================================
+       CARRUSEL
+    ===================================== */
+
+    :where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .carrusel-destinos {
+        position: relative;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    :where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .contenedor-tarjetas {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        align-items: stretch;
+
+        gap: 0;
+
+        width: 100%;
+        max-width: 100%;
+
+        margin: 0;
+        padding: 0;
+
+        overflow-x: auto;
+        overflow-y: hidden;
+
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+
+        overscroll-behavior-x: contain;
+    }
+
+    :where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .contenedor-tarjetas::-webkit-scrollbar {
+        display: none;
+    }
+
+
+    /* UNA TARJETA POR VEZ */
+
+    :where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .tarjeta-destino {
+        flex: 0 0 100%;
+
+        width: 100%;
+        min-width: 100%;
+        max-width: 100%;
+
+        height: 230px;
+
+        margin: 0;
+        padding: 0;
+
+        border-radius: 18px;
+
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+    }
+
+    :where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .tarjeta-destino img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 18px;
+    }
+
+    :where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .tarjeta-destino .titulo-tarjeta {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+
+        width: 90%;
+
+        font-size: 23px;
+        font-weight: 600;
+
+        color: white;
+        text-align: center;
+
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+    }
+
+    /* EVITAR HOVER EN PANTALLAS TÁCTILES */
+
+    :where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .tarjeta-destino img:hover {
+        filter: none;
+        transform: none;
+    }
+
+
+    /* =====================================
+       FLECHAS DEL CARRUSEL
+    ===================================== */
+
+    :where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .flecha-destino {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+
+        width: 34px;
+        height: 42px;
+
+        border: none;
+        border-radius: 10px;
+
+        background: rgba(255, 255, 255, 0.85);
+        color: #684028;
+
+        font-size: 22px;
+        font-weight: bold;
+
+        cursor: pointer;
+        z-index: 5;
+    }
+
+    :where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .flecha-anterior {
+        left: 8px;
+    }
+
+    :where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .flecha-siguiente {
+        right: 8px;
+    }
+
+    :where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .flecha-destino:hover {
+        background: white;
+    }
+
+    :where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .flecha-destino:focus-visible {
+        outline: 3px solid #684028;
+        outline-offset: 2px;
+    }
+
+
+    /* =====================================
+       INDICADORES DEL CARRUSEL
+    ===================================== */
+
+    :where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .indicadores-destinos {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        gap: 9px;
+        margin-top: 17px;
+    }
+
+    :where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .indicador-destino {
+        width: 9px;
+        height: 9px;
+
+        padding: 0;
+
+        border: none;
+        border-radius: 50%;
+
+        background: #c5b6aa;
+
+        cursor: pointer;
+
+        transition:
+            background 0.3s,
+            transform 0.3s;
+    }
+
+    :where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .indicador-destino.activo {
+        background: #835a40;
+        transform: scale(1.25);
+    }
+
+
+    /* =====================================
+       FOOTER
+    ===================================== */
+
+    :where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .footer {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+
+        width: 100%;
+        max-width: 100%;
+
+        gap: 25px 15px;
+        padding: 30px 20px;
+    }
+
+    :where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .footer-columna {
+        min-width: 0;
+        gap: 8px;
+    }
+
+    :where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .footer-columna h4 {
+        font-size: 14px;
+    }
+
+    :where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .footer .footer-columna a {
+        font-size: 12px;
+        overflow-wrap: anywhere;
+    }
+
+
+    /* =====================================
+       MODAL DE OFERTAS
+    ===================================== */
+
+    :where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .modal-oferta {
+        padding: 15px;
+        overflow-y: auto;
+    }
+
+    :where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .modal-oferta-contenido {
+        width: 100%;
+        max-width: 430px;
+        padding: 25px 20px;
+        margin: auto;
+    }
+
+    :where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .modal-oferta-contenido h2 {
+        font-size: 22px;
+        padding-right: 20px;
+    }
+
+    :where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .destino-oferta {
+        font-size: 14px;
+        overflow-wrap: anywhere;
+    }
+
+    :where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .campo-oferta select,
+:where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .campo-oferta input {
+        font-size: 14px;
+        max-width: 100%;
+    }
+
+}
+
+
+/* =========================================
+   CELULARES PEQUEÑOS
+   Hasta 380px
+========================================= */
+
+@media (max-width: 380px) {
+
+    :where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .contenedor-buscador {
+        width: 94%;
+    }
+
+    :where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .hero {
+        padding-top: 15px;
+    }
+
+    :where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .titulo-buscador {
+        font-size: 15px;
+    }
+
+    :where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .tipo-viaje label {
+        margin-right: 8px;
+        font-size: 12px;
+    }
+
+    :where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .destinos-destacados {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    :where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .titulo-destino {
+        font-size: 20px;
+    }
+
+    :where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .tarjeta-destino {
+        height: 200px;
+    }
+
+    :where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .tarjeta-destino .titulo-tarjeta {
+        font-size: 20px;
+    }
+
+    :where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .flecha-destino {
+        width: 30px;
+        height: 38px;
+        font-size: 19px;
+    }
+
+    :where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .footer {
+        padding: 25px 15px;
+        gap: 20px 12px;
+    }
+
+}
+
+
+/* =========================================
+   ACCESIBILIDAD
+   REDUCIR ANIMACIONES
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    :where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .contenedor-tarjetas {
+        scroll-behavior: auto;
+    }
+
+    :where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .tarjeta-destino img {
+        transition: none;
+    }
+
+    :where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .indicador-destino {
+        transition: none;
+    }
+
+}
+
+/* ==================================================================
+    =================================================================
+    =================================================================
+   ================================================================== */
+/* ==========================================
+   1. CONFIGURACIÓN GENERAL
+========================================== */
+
+
+
+ body.nuvia-panel {
+    font-family: "Montserrat", sans-serif;
+    background: #daf2f7;
+    min-height: 100vh;
+}
+
+
+/* ==========================================
+   2. CONTENIDO PRINCIPAL
+========================================== */
+
+ :where(body.nuvia-panel) .contenido-admin {
+    padding: 60px 60px 120px;
+    max-width: 1400px;
+    width: 100%;
+    margin: auto;
+}
+
+
+
+ :where(body.nuvia-panel) .encabezado-contenido h1 {
+    color: #684028;
+    font-size: 32px;
+    font-weight: 700;
+}
+
+
+
+/* ==========================================
+   3. TABLAS GENERALES
+========================================== */
+
+
+
+ :where(body.nuvia-panel) .tabla-contenedor h2 {
+    color: #684028;
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+
+
+
+
+
+/* ==========================================
+   4. BOTONES
+========================================== */
+
+
+
+
+
+/* Botón presionado */
+
+ :where(body.nuvia-panel) .btn-primary:active,
+:where(body.nuvia-panel) .btn-primary.active,
+:where(body.nuvia-panel) .btn-primary:first-child:active {
+    background-color: #72472c;
+    border-color: #72472c;
+    color: white;
+}
+
+/* Botón con foco */
+
+ :where(body.nuvia-panel) .btn-primary:focus,
+:where(body.nuvia-panel) .btn-primary:focus-visible {
+    background-color: #684028;
+    border-color: #684028;
+    color: white;
+    box-shadow: 0 0 0 0.25rem rgba(104, 64, 40, 0.25);
+}
+
+/* Variables de Bootstrap */
+
+ :where(body.nuvia-panel) .btn-primary {
+    --bs-btn-bg: #684028;
+    --bs-btn-border-color: #684028;
+
+    --bs-btn-hover-bg: #72472c;
+    --bs-btn-hover-border-color: #72472c;
+
+    --bs-btn-active-bg: #72472c;
+    --bs-btn-active-border-color: #72472c;
+
+    --bs-btn-color: #ffffff;
+    --bs-btn-hover-color: #ffffff;
+    --bs-btn-active-color: #ffffff;
+}
+
+
+/* ==========================================
+   5. PERFIL
+========================================== */
+
+/* Contenedor */
+
+
+
+/* Encabezado */
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Formulario */
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Información de contraseña */
+
+
+
+
+
+
+
+
+
+/* Acciones */
+
+
+
+
+
+
+/* ==========================================
+   6. LISTADOS
+========================================== */
+
+/* Novedades */
+
+
+
+/* Aeropuertos */
+
+
+
+/* Vuelos */
+
+ :where(body.nuvia-panel) .precio-vuelo {
+    white-space: nowrap;
+}
+
+/* FORMULARIO AGREGAR CEO */
+
+ :where(body.nuvia-panel) .formulario-ceo {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 30px;
+}
+
+/* ==========================================
+   7. PANEL PRINCIPAL DEL ADMINISTRADOR
+========================================== */
+
+/* Bienvenida */
+
+ :where(body.nuvia-panel) .bienvenida-admin {
+    margin-bottom: 45px;
+}
+
+ :where(body.nuvia-panel) .bienvenida-admin h1 {
+    color: #684028;
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+ :where(body.nuvia-panel) .bienvenida-admin p {
+    color: #666;
+    font-size: 17px;
+    margin: 0;
+}
+
+/* Resumen */
+
+ :where(body.nuvia-panel) .resumen-admin {
+    margin-bottom: 45px;
+}
+
+ :where(body.nuvia-panel) .resumen-admin h2,
+:where(body.nuvia-panel) .actividad-admin h2 {
+    color: #333;
+    font-size: 26px;
+    margin-bottom: 25px;
+}
+
+ :where(body.nuvia-panel) .resumen-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+ :where(body.nuvia-panel) .resumen-item {
+    background: white;
+    min-height: 120px;
+    padding: 25px;
+    border-radius: 18px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+ :where(body.nuvia-panel) .resumen-item > i {
+    font-size: 32px;
+    color: #684028;
+}
+
+ :where(body.nuvia-panel) .resumen-item h3 {
+    font-size: 15px;
+    color: #555;
+    margin-bottom: 8px;
+}
+
+ :where(body.nuvia-panel) .numero-resumen {
+    color: #684028;
+    font-size: 28px;
+    font-weight: bold;
+    margin: 0;
+}
+
+/* Actividad reciente */
+
+ :where(body.nuvia-panel) .actividad-admin {
+    margin-bottom: 40px;
+}
+
+ :where(body.nuvia-panel) .encabezado-seccion p {
+    color: #666;
+    margin-bottom: 20px;
+}
+
+/* Iconos */
+
+ :where(body.nuvia-panel) .icono {
+    width: 75px;
+    height: 75px;
+    background-color: #f3e9df;
+    color: #684028;
+    font-size: 34px;
+}
+
+
+/* ==========================================
+   8. GESTIÓN DE REPORTES
+========================================== */
+
+/* Contenedor */
+
+ :where(body.nuvia-panel) .reportes-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 25px;
+    margin-top: 35px;
+}
+
+/* Tarjetas */
+
+ :where(body.nuvia-panel) .reporte-card {
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 35px 30px;
+
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    min-width: 0;
+
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+ :where(body.nuvia-panel) .reporte-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+}
+
+/* Iconos */
+
+ :where(body.nuvia-panel) .reporte-card-icono {
+    width: 65px;
+    height: 65px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #f3e9df;
+    color: #684028;
+
+    border-radius: 15px;
+    margin-bottom: 25px;
+}
+
+ :where(body.nuvia-panel) .reporte-card-icono i {
+    font-size: 30px;
+}
+
+/* Títulos */
+
+ :where(body.nuvia-panel) .reporte-card h2 {
+    color: #684028;
+    font-size: 21px;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+/* Descripciones */
+
+ :where(body.nuvia-panel) .reporte-card p {
+    color: #555555;
+    font-size: 14px;
+    line-height: 1.7;
+
+    margin-bottom: 30px;
+    flex-grow: 1;
+}
+
+/* Botones */
+
+ :where(body.nuvia-panel) .reporte-card .btn {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    padding: 12px 20px;
+    border-radius: 10px;
+
+    font-weight: 600;
+
+    background: #684028;
+    border-color: #684028;
+    color: #ffffff;
+
+    text-decoration: none;
+}
+
+ :where(body.nuvia-panel) .reporte-card .btn:hover {
+    background: #72472c;
+    border-color: #72472c;
+    color: #ffffff;
+}
+
+ :where(body.nuvia-panel) .reporte-card .btn:focus-visible {
+    outline: 3px solid #684028;
+    outline-offset: 3px;
+}
+
+
+/* ==========================================
+   9. AJUSTES GENERALES DE RESPONSIVIDAD
+========================================== */
+
+/* Evita que los elementos excedan el ancho disponible */
+
+ :where(body.nuvia-panel) .contenido-admin {
+    min-width: 0;
+}
+
+/* Tarjetas del resumen */
+
+ :where(body.nuvia-panel) .resumen-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+ :where(body.nuvia-panel) .resumen-item {
+    min-width: 0;
+}
+
+ :where(body.nuvia-panel) .resumen-item > div {
+    min-width: 0;
+}
+
+ :where(body.nuvia-panel) .resumen-item h3 {
+    overflow-wrap: break-word;
+}
+
+ :where(body.nuvia-panel) .numero-resumen {
+    overflow-wrap: anywhere;
+}
+
+/* Tablas */
+
+ :where(body.nuvia-panel) .tabla-contenedor {
+    width: 100%;
+    min-width: 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+ :where(body.nuvia-panel) .tabla-contenedor table {
+    min-width: 750px;
+    width: 100%;
+}
+
+
+/* ==========================================
+   10. DISEÑO RESPONSIVE
+========================================== */
+
+
+/* ------------------------------------------
+   10.1 NOTEBOOKS Y TABLETS GRANDES
+   Máximo: 1100px
+------------------------------------------ */
+
+@media (max-width: 1100px) {
+
+     :where(body.nuvia-panel) .contenido-admin {
+        padding: 45px 35px 100px;
+    }
+
+     :where(body.nuvia-panel) .resumen-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+    }
+
+     :where(body.nuvia-panel) .bienvenida-admin h1 {
+        font-size: 32px;
+    }
+
+     :where(body.nuvia-panel) .resumen-admin h2,
+:where(body.nuvia-panel) .actividad-admin h2 {
+        font-size: 24px;
+    }
+
+}
+
+
+/* ------------------------------------------
+   10.2 TABLETS - REPORTES
+   Máximo: 991px
+------------------------------------------ */
+
+@media (max-width: 991px) {
+
+     :where(body.nuvia-panel) .reportes-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 20px;
+    }
+
+}
+
+
+/* ------------------------------------------
+   10.3 TABLETS
+   Máximo: 768px
+------------------------------------------ */
+
+@media (max-width: 768px) {
+
+     :where(body.nuvia-panel) .contenido-admin {
+        padding: 35px 25px 80px;
+    }
+
+     :where(body.nuvia-panel) .bienvenida-admin {
+        margin-bottom: 35px;
+    }
+
+     :where(body.nuvia-panel) .bienvenida-admin h1 {
+        font-size: 28px;
+    }
+
+     :where(body.nuvia-panel) .bienvenida-admin p {
+        font-size: 16px;
+    }
+
+     :where(body.nuvia-panel) .resumen-admin {
+        margin-bottom: 35px;
+    }
+
+     :where(body.nuvia-panel) .resumen-admin h2,
+:where(body.nuvia-panel) .actividad-admin h2 {
+        font-size: 22px;
+        margin-bottom: 20px;
+    }
+
+     :where(body.nuvia-panel) .resumen-item {
+        min-height: 110px;
+        padding: 20px;
+        gap: 14px;
+    }
+
+     :where(body.nuvia-panel) .resumen-item > i {
+        font-size: 28px;
+    }
+
+     :where(body.nuvia-panel) .numero-resumen {
+        font-size: 25px;
+    }
+
+     :where(body.nuvia-panel) .tabla-contenedor {
+        padding: 18px;
+    }
+
+}
+
+
+/* ------------------------------------------
+   10.4 CELULARES Y TABLETS PEQUEÑAS
+   Máximo: 767px
+------------------------------------------ */
+
+@media (max-width: 767px) {
+
+    /* REPORTES */
+
+     :where(body.nuvia-panel) .reportes-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        margin-top: 25px;
+    }
+
+     :where(body.nuvia-panel) .reporte-card {
+        padding: 28px 25px;
+    }
+
+     :where(body.nuvia-panel) .reporte-card h2 {
+        font-size: 20px;
+    }
+
+     :where(body.nuvia-panel) .reporte-card-icono {
+        width: 55px;
+        height: 55px;
+        margin-bottom: 20px;
+    }
+
+     :where(body.nuvia-panel) .reporte-card-icono i {
+        font-size: 26px;
+    }
+
+
+    /* TABLAS DE ACTIVIDAD Y PROMOCIONES */
+
+     :where(body.nuvia-panel) .actividad-admin,
+:where(body.nuvia-panel) .actividad-admin .tabla-contenedor,
+:where(body.nuvia-panel) .tabla-contenedor:has(.tabla-promociones) {
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+     :where(body.nuvia-panel) .actividad-admin .tabla-contenedor,
+:where(body.nuvia-panel) .tabla-contenedor:has(.tabla-promociones),
+:where(body.nuvia-panel) .tabla-contenedor:has(.tabla-promociones) .table-responsive {
+        overflow-x: hidden;
+    }
+
+     :where(body.nuvia-panel) .tabla-actividad,
+:where(body.nuvia-panel) .tabla-promociones {
+        width: 100% !important;
+        min-width: 0 !important;
+        table-layout: auto;
+    }
+
+     :where(body.nuvia-panel) .tabla-actividad thead,
+:where(body.nuvia-panel) .tabla-promociones thead {
+        display: none;
+    }
+
+     :where(body.nuvia-panel) .tabla-actividad,
+:where(body.nuvia-panel) .tabla-actividad tbody,
+:where(body.nuvia-panel) .tabla-actividad tr,
+:where(body.nuvia-panel) .tabla-actividad td,
+:where(body.nuvia-panel) .tabla-promociones,
+:where(body.nuvia-panel) .tabla-promociones tbody,
+:where(body.nuvia-panel) .tabla-promociones tr,
+:where(body.nuvia-panel) .tabla-promociones td {
+        display: block;
+        width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+    }
+
+     :where(body.nuvia-panel) .tabla-actividad tr,
+:where(body.nuvia-panel) .tabla-promociones tr {
+        background: #ffffff;
+        border: 1px solid #dddddd;
+        border-radius: 12px;
+        padding: 12px;
+        margin-bottom: 15px;
+    }
+
+     :where(body.nuvia-panel) .tabla-actividad td,
+:where(body.nuvia-panel) .tabla-promociones td {
+        display: block;
+        padding: 10px 5px;
+        text-align: left;
+        overflow-wrap: anywhere;
+        white-space: normal;
+    }
+
+     :where(body.nuvia-panel) .tabla-actividad td::before,
+:where(body.nuvia-panel) .tabla-promociones td::before {
+        content: attr(data-label);
+        display: block;
+        font-weight: 600;
+        color: #333333;
+        margin-bottom: 5px;
+    }
+
+     :where(body.nuvia-panel) .tabla-actividad td:last-child,
+:where(body.nuvia-panel) .tabla-promociones td:last-child {
+        border-bottom: none;
+    }
+
+     :where(body.nuvia-panel) .tabla-promociones td[data-label="Acciones"] .btn {
+        margin: 3px;
+    }
+
+    /* Filas sin datos */
+
+     :where(body.nuvia-panel) .tabla-actividad td[colspan],
+:where(body.nuvia-panel) .tabla-promociones td[colspan] {
+        text-align: center;
+    }
+
+     :where(body.nuvia-panel) .tabla-actividad td[colspan]::before,
+:where(body.nuvia-panel) .tabla-promociones td[colspan]::before {
+        display: none;
+    }
+
+}
+
+
+/* ------------------------------------------
+   10.5 CELULARES
+   Máximo: 576px
+------------------------------------------ */
+
+@media (max-width: 576px) {
+
+     :where(body.nuvia-panel) .contenido-admin {
+        padding: 30px 18px 65px;
+    }
+
+     :where(body.nuvia-panel) .bienvenida-admin {
+        margin-bottom: 30px;
+    }
+
+     :where(body.nuvia-panel) .bienvenida-admin h1 {
+        font-size: 25px;
+        line-height: 1.3;
+    }
+
+     :where(body.nuvia-panel) .bienvenida-admin p {
+        font-size: 15px;
+        line-height: 1.6;
+    }
+
+     :where(body.nuvia-panel) .resumen-admin {
+        margin-bottom: 30px;
+    }
+
+     :where(body.nuvia-panel) .resumen-admin h2,
+:where(body.nuvia-panel) .actividad-admin h2 {
+        font-size: 20px;
+        margin-bottom: 18px;
+    }
+
+     :where(body.nuvia-panel) .resumen-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+     :where(body.nuvia-panel) .resumen-item {
+        min-height: 100px;
+        padding: 20px;
+    }
+
+     :where(body.nuvia-panel) .resumen-item > i {
+        font-size: 30px;
+    }
+
+     :where(body.nuvia-panel) .resumen-item h3 {
+        font-size: 14px;
+    }
+
+     :where(body.nuvia-panel) .numero-resumen {
+        font-size: 24px;
+    }
+
+     :where(body.nuvia-panel) .encabezado-seccion p {
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+     :where(body.nuvia-panel) .tabla-contenedor {
+        padding: 15px;
+        border-radius: 14px;
+    }
+
+}
+
+
+/* ------------------------------------------
+   10.6 CELULARES PEQUEÑOS
+   Máximo: 380px
+------------------------------------------ */
+
+@media (max-width: 380px) {
+
+     :where(body.nuvia-panel) .contenido-admin {
+        padding: 25px 12px 55px;
+    }
+
+     :where(body.nuvia-panel) .bienvenida-admin h1 {
+        font-size: 22px;
+    }
+
+     :where(body.nuvia-panel) .bienvenida-admin p {
+        font-size: 14px;
+    }
+
+     :where(body.nuvia-panel) .resumen-admin h2,
+:where(body.nuvia-panel) .actividad-admin h2 {
+        font-size: 19px;
+    }
+
+     :where(body.nuvia-panel) .resumen-item {
+        padding: 17px;
+        gap: 12px;
+    }
+
+     :where(body.nuvia-panel) .numero-resumen {
+        font-size: 22px;
+    }
+
+     :where(body.nuvia-panel) .tabla-contenedor {
+        padding: 12px;
+    }
+
+}
+
+/* ==========================================
+   FORMULARIOS CEO 
+========================================== */
+
+/* Tablets */
+@media (max-width: 768px) {
+
+     :where(body.nuvia-panel) .perfil-card {
+        padding: 30px 25px;
+        margin: 30px auto;
+    }
+
+     :where(body.nuvia-panel) .perfil-campos {
+        gap: 20px;
+    }
+
+}
+
+/* Celulares */
+@media (max-width: 576px) {
+
+     :where(body.nuvia-panel) .perfil-card {
+        padding: 25px 18px;
+        margin: 25px auto;
+        border-radius: 14px;
+        width: 100%;
+    }
+
+     :where(body.nuvia-panel) .perfil-campos {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+     :where(body.nuvia-panel) .perfil-campos > div {
+        min-width: 0;
+        width: 100%;
+    }
+
+     :where(body.nuvia-panel) .perfil-card .form-label {
+        font-size: 14px;
+    }
+
+     :where(body.nuvia-panel) .perfil-card .form-control,
+:where(body.nuvia-panel) .perfil-card .form-select {
+        width: 100%;
+        min-width: 0;
+        font-size: 16px;
+    }
+
+     :where(body.nuvia-panel) .perfil-acciones {
+        flex-direction: column-reverse;
+        gap: 12px;
+    }
+
+     :where(body.nuvia-panel) .perfil-acciones .btn {
+        width: 100%;
+        margin: 0 !important;
+    }
+
+}
+
+/* Celulares pequeños */
+@media (max-width: 380px) {
+
+     :where(body.nuvia-panel) .perfil-card {
+        padding: 20px 14px;
+    }
+
+}
+
+
+/* ==========================================
+   PERFIL DE USUARIO
+========================================== */
+
+ :where(body.nuvia-panel) .tarjeta-perfil {
+    max-width: 850px;
+    width: 100%;
+}
+
+/* Tablets */
+@media (max-width: 768px) {
+
+     :where(body.nuvia-panel) .tarjeta-perfil .card-body {
+        padding: 30px 25px !important;
+    }
+
+     :where(body.nuvia-panel) .tarjeta-perfil h2 {
+        font-size: 22px;
+    }
+
+}
+
+/* Celulares */
+@media (max-width: 576px) {
+
+     :where(body.nuvia-panel) .tarjeta-perfil .card-body {
+        padding: 25px 18px !important;
+    }
+
+     :where(body.nuvia-panel) .tarjeta-perfil h2 {
+        font-size: 20px;
+    }
+
+     :where(body.nuvia-panel) .tarjeta-perfil p {
+        font-size: 14px;
+    }
+
+     :where(body.nuvia-panel) .tarjeta-perfil .row {
+        --bs-gutter-y: 1rem;
+    }
+
+     :where(body.nuvia-panel) .tarjeta-perfil .form-label {
+        font-size: 14px;
+    }
+
+     :where(body.nuvia-panel) .tarjeta-perfil .form-control {
+        font-size: 16px;
+        min-width: 0;
+    }
+
+     :where(body.nuvia-panel) .tarjeta-perfil .input-group {
+        width: 100%;
+    }
+
+     :where(body.nuvia-panel) .tarjeta-perfil .btn {
+        width: 100%;
+    }
+
+}
+
+/* Celulares pequeños */
+@media (max-width: 380px) {
+
+     :where(body.nuvia-panel) .tarjeta-perfil .card-body {
+        padding: 20px 14px !important;
+    }
+
+     :where(body.nuvia-panel) .tarjeta-perfil .input-group-text {
+        padding: 8px;
+    }
+
+}
+
+
+/* ==========================================
+   DETALLE DE VUELO
+========================================== */
+
+ :where(body.nuvia-panel) .tarjeta-detalle-vuelo {
+    width: 100%;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+}
+
+ :where(body.nuvia-panel) .tarjeta-detalle-vuelo h2 {
+    font-size: 24px;
+}
+
+@media (max-width: 576px) {
+
+     :where(body.nuvia-panel) .encabezado-contenido h1 {
+        font-size: 26px;
+    }
+
+     :where(body.nuvia-panel) .tarjeta-detalle-vuelo {
+        padding: 18px;
+    }
+
+     :where(body.nuvia-panel) .tarjeta-detalle-vuelo h2 {
+        font-size: 20px;
+        margin-bottom: 20px !important;
+    }
+
+     :where(body.nuvia-panel) .tarjeta-detalle-vuelo p {
+        font-size: 14px;
+        line-height: 1.6;
+    }
+
+     :where(body.nuvia-panel) .tarjeta-detalle-vuelo .btn {
+        width: 100%;
+    }
+
+}
+
+
+/* ================================================================
+   NAVBAR UNIFICADO — antiguo navbar.css
+   Solo para paginas que antes cargaban navbar.css:
+   agregar la clase nuvia-navbar al <body>, sin quitar las existentes.
+   ================================================================ */
+
+/* =========================================
+   FUENTE
+========================================= */
+
+@font-face {
+    font-family: "Montserrat";
+    src: url("fonts/Montserrat/Montserrat-Medium.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+
+/* =========================================
+   GENERAL
+========================================= */
+
+html:has(body.nuvia-navbar) {
+    scroll-behavior: smooth;
+    scroll-padding-top: 20px;
+}
+
+:where(body.nuvia-navbar) i {
+    font-size: 15px !important;
+}
+
+
+/* =========================================
+   NAVBAR - ESCRITORIO
+========================================= */
+
+:where(body.nuvia-navbar) .navbar {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+
+    min-height: 80px;
+    padding: 5px 12px;
+
+    background: #fff;
+
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.12);
+
+    flex: 0 0 auto;
+    align-self: stretch;
+
+    z-index: 1000;
+}
+
+:where(body.nuvia-navbar) .navbar > .container-fluid {
+    width: 100%;
+    max-width: 100%;
+}
+
+
+/* LOGO */
+
+:where(body.nuvia-navbar) .navbar-brand {
+    display: flex;
+    align-items: center;
+
+    margin: 0;
+    padding-right: 56px;
+}
+
+:where(body.nuvia-navbar) .navbar-brand img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+}
+
+:where(body.nuvia-navbar) .navbar-brand h1 {
+    line-height: 1;
+    margin: 0 0 0 12px;
+
+    font-family: "Montserrat", sans-serif;
+    font-weight: 400;
+    font-size: 26px;
+
+    letter-spacing: 0.1px;
+}
+
+
+/* =========================================
+   ENLACES DE NAVEGACIÓN
+========================================= */
+
+:where(body.nuvia-navbar) .navbar-nav-general {
+    margin-left: auto;
+    padding-right: 14px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 26px;
+}
+
+:where(body.nuvia-navbar) .nav-link {
+    color: #222;
+    font-weight: 600;
+    text-decoration: none;
+
+    margin: 0;
+    letter-spacing: 0.7px;
+}
+
+:where(body.nuvia-navbar) .nav-link:hover {
+    color: #684028;
+}
+
+
+/* =========================================
+   BOTONES DE ACCESO
+========================================= */
+
+:where(body.nuvia-navbar) .btn-iniciosesion {
+    background-color: transparent;
+    color: #835a40;
+
+    border: 2px solid #835a40;
+    border-radius: 20px;
+
+    font-weight: bold;
+
+    padding: 7px 15px;
+
+    text-decoration: none;
+}
+
+:where(body.nuvia-navbar) .btn-iniciosesion:hover {
+    background-color: #835a40;
+    color: white;
+}
+
+:where(body.nuvia-navbar) .btn-registro {
+    background: #835a40;
+    color: white;
+
+    border: none;
+    border-radius: 20px;
+
+    padding: 10px 20px;
+
+    font-weight: bold;
+    text-decoration: none;
+}
+
+:where(body.nuvia-navbar) .btn-registro:hover {
+    background-color: #b1917d;
+    color: white;
+}
+
+:where(body.nuvia-navbar) .opciones-acceso {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+}
+
+
+/* =========================================
+   USUARIO
+========================================= */
+
+:where(body.nuvia-navbar) .usuario-mobile {
+    display: none;
+}
+
+:where(body.nuvia-navbar) .saludo {
+    color: #684028;
+    font-size: 16px;
+    font-weight: bold;
+
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+:where(body.nuvia-navbar) .saludo i {
+    font-size: 22px;
+}
+
+:where(body.nuvia-navbar) .info-usuario {
+    background: transparent;
+    border: none;
+
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    color: #684028;
+
+    font-size: 16px;
+    font-weight: bold;
+
+    padding: 10px;
+
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+:where(body.nuvia-navbar) .info-usuario:hover {
+    color: #72472c;
+}
+
+:where(body.nuvia-navbar) .info-usuario i {
+    font-size: 22px;
+}
+
+
+/* =========================================
+   MENÚ DESPLEGABLE DEL USUARIO
+========================================= */
+
+:where(body.nuvia-navbar) .menu-usuarios {
+    min-width: 190px;
+
+    border: none;
+    border-radius: 15px;
+
+    padding: 8px;
+
+    background: white;
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+:where(body.nuvia-navbar) .menu-usuarios .dropdown-item {
+    color: #684028;
+
+    padding: 12px 15px;
+    border-radius: 10px;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    font-size: 14px;
+    font-weight: 600;
+}
+
+:where(body.nuvia-navbar) .menu-usuarios .dropdown-item:hover {
+    background: #b8d8e8;
+    color: #684028;
+}
+
+:where(body.nuvia-navbar) .menu-usuarios .dropdown-divider {
+    margin: 6px 0;
+    border-color: #ddd;
+}
+
+
+/* =========================================
+   TABLETS Y CELULARES
+   Menos de 1200px
+========================================= */
+
+@media (max-width: 1199.98px) {
+
+
+    /* NAVBAR */
+
+    :where(body.nuvia-navbar) .navbar {
+        height: auto;
+        min-height: 65px;
+
+        padding: 8px 15px;
+    }
+
+    :where(body.nuvia-navbar) .navbar > .container-fluid {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+
+        width: 100%;
+        max-width: 100%;
+
+        padding: 0;
+    }
+
+    /* LOGO */
+
+    :where(body.nuvia-navbar) .navbar-brand {
+        display: flex;
+        align-items: center;
+
+        margin: 0;
+        padding: 0;
+
+        max-width: calc(100% - 65px);
+    }
+
+    :where(body.nuvia-navbar) .navbar-brand img {
+        width: 45px;
+        height: 45px;
+    }
+
+    :where(body.nuvia-navbar) .navbar-brand h1 {
+        font-size: 22px;
+        margin-left: 8px;
+    }
+
+    /* BOTÓN HAMBURGUESA */
+
+    :where(body.nuvia-navbar) .navbar-toggler {
+        margin-left: auto;
+
+        padding: 6px 9px;
+
+        border: 1px solid #ddd;
+        border-radius: 8px;
+
+        box-shadow: none;
+    }
+
+    :where(body.nuvia-navbar) .navbar-toggler:focus {
+        box-shadow: 0 0 0 2px rgba(131, 90, 64, 0.2);
+    }
+
+    :where(body.nuvia-navbar) .navbar-toggler-icon {
+        width: 22px;
+        height: 22px;
+    }
+
+    /* CONTENIDO DESPLEGABLE */
+
+    :where(body.nuvia-navbar) .navbar-collapse {
+        flex-basis: 100%;
+        width: 100%;
+
+        padding: 15px 0 10px;
+
+        border-top: 1px solid #eee;
+        margin-top: 10px;
+    }
+
+    /* USUARIO MOBILE */
+
+    :where(body.nuvia-navbar) .usuario-mobile {
+        display: block;
+
+        width: 100%;
+
+        padding: 0 0 12px;
+        margin-bottom: 5px;
+
+        border-bottom: 1px solid #eee;
+    }
+
+    :where(body.nuvia-navbar) .usuario-mobile a {
+        display: block;
+        padding: 8px 5px;
+        font-size: 14px;
+        font-weight: 600;
+        letter-spacing: 0.3px;
+    }
+
+    :where(body.nuvia-navbar) .usuario-mobile hr {
+        margin: 6px 0;
+        border-color: #ddd;
+    }
+
+    /* ENLACES */
+
+    :where(body.nuvia-navbar) .navbar-nav-general {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+
+        margin: 0;
+        padding: 8px 0;
+
+        gap: 0;
+
+        width: 100%;
+    }
+
+    :where(body.nuvia-navbar) .navbar-nav-general .nav-link {
+        display: block;
+
+        width: 100%;
+        padding: 10px 5px;
+
+        font-size: 14px;
+        letter-spacing: 0.3px;
+
+        border-radius: 6px;
+    }
+
+    :where(body.nuvia-navbar) .navbar-nav-general .nav-link:hover,
+:where(body.nuvia-navbar) .usuario-mobile .nav-link:hover {
+        background: #f7f2ee;
+        color: #684028;
+    }
+
+    /* OPCIONES DE CUENTA */
+
+    :where(body.nuvia-navbar) .opciones-cuenta {
+        display: none;
+    }
+
+    /* ACCESO */
+
+    :where(body.nuvia-navbar) .opciones-acceso {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+
+        width: 100%;
+
+        gap: 0;
+        margin: 0;
+
+        padding: 8px 0;
+    }
+
+    :where(body.nuvia-navbar) .opciones-acceso .nav-link {
+        display: block;
+        width: 100%;
+
+        padding: 10px 5px;
+
+        font-size: 14px;
+    }
+
+    :where(body.nuvia-navbar) .opciones-acceso .btn-iniciosesion,
+:where(body.nuvia-navbar) .opciones-acceso .btn-registro {
+        display: block;
+
+        width: 100%;
+
+        background: transparent;
+
+        border: none;
+        border-radius: 6px;
+
+        padding: 10px 5px;
+
+        color: #222;
+
+        font-size: 14px;
+        font-weight: 600;
+
+        text-align: left;
+    }
+
+    :where(body.nuvia-navbar) .opciones-acceso .btn-iniciosesion:hover,
+:where(body.nuvia-navbar) .opciones-acceso .btn-registro:hover {
+        background: #f7f2ee;
+        color: #684028;
+    }
+
+
+}
+
+
+/* =========================================
+   CELULARES
+========================================= */
+
+@media (max-width: 767px) {
+
+
+    :where(body.nuvia-navbar) .navbar {
+        min-height: 60px;
+        padding: 8px 12px;
+    }
+
+    :where(body.nuvia-navbar) .navbar-brand img {
+        width: 42px;
+        height: 42px;
+    }
+
+    :where(body.nuvia-navbar) .navbar-brand h1 {
+        font-size: 20px;
+    }
+
+    :where(body.nuvia-navbar) .navbar-collapse {
+        padding: 12px 0 8px;
+    }
+
+    :where(body.nuvia-navbar) .navbar-nav-general {
+        padding: 5px 0;
+    }
+
+    :where(body.nuvia-navbar) .navbar-nav-general .nav-link {
+        padding: 9px 5px;
+        font-size: 14px;
+    }
+
+    :where(body.nuvia-navbar) .opciones-acceso {
+        padding: 5px 0;
+    }
+
+    :where(body.nuvia-navbar) .opciones-acceso .nav-link,
+:where(body.nuvia-navbar) .opciones-acceso .btn-iniciosesion,
+:where(body.nuvia-navbar) .opciones-acceso .btn-registro {
+        padding: 9px 5px;
+        font-size: 14px;
+    }
+
+    :where(body.nuvia-navbar) .menu-usuarios {
+        max-width: 100%;
+    }
+
+
+}
+
+
+/* =========================================
+   CELULARES PEQUEÑOS
+========================================= */
+
+@media (max-width: 380px) {
+
+
+    :where(body.nuvia-navbar) .navbar {
+        padding: 7px 10px;
+    }
+
+    :where(body.nuvia-navbar) .navbar-brand img {
+        width: 38px;
+        height: 38px;
+    }
+
+    :where(body.nuvia-navbar) .navbar-brand h1 {
+        font-size: 18px;
+    }
+
+    :where(body.nuvia-navbar) .navbar-toggler {
+        padding: 5px 7px;
+    }
+
+
+}
+
+
+/* =========================================
+   NAVBAR RESPONSIVE - CORRECCIONES
+========================================= */
+
+@media (max-width: 1199.98px) {
+
+
+    :where(body.nuvia-navbar) .navbar {
+        min-height: 60px;
+        padding: 8px 12px;
+    }
+
+    :where(body.nuvia-navbar) .navbar-collapse {
+        width: 100%;
+        padding: 8px 0;
+        margin-top: 8px;
+    }
+
+    /* Evitar que el menú cerrado ocupe espacio */
+
+    :where(body.nuvia-navbar) .navbar-collapse:not(.show):not(.collapsing) {
+        display: none;
+    }
+
+    /* Enlaces del menú */
+
+    :where(body.nuvia-navbar) .navbar-nav-general {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+
+        width: 100%;
+        gap: 0;
+
+        margin: 0;
+        padding: 0;
+    }
+
+    :where(body.nuvia-navbar) .navbar-nav-general .nav-link {
+        display: block;
+        width: 100%;
+
+        padding: 8px 5px;
+        margin: 0;
+
+        font-size: 14px;
+        line-height: 1.4;
+    }
+
+    /* Inicio de sesión y registro */
+
+    :where(body.nuvia-navbar) .opciones-acceso {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+
+        width: 100%;
+        gap: 0;
+
+        padding: 0;
+        margin: 0;
+    }
+
+    :where(body.nuvia-navbar) .opciones-acceso .nav-link,
+:where(body.nuvia-navbar) .opciones-acceso .btn-iniciosesion,
+:where(body.nuvia-navbar) .opciones-acceso .btn-registro {
+        display: block;
+
+        width: 100%;
+
+        padding: 8px 5px;
+        margin: 0;
+
+        font-size: 14px;
+        line-height: 1.4;
+    }
+
+    /* Si los enlaces están dentro de elementos li */
+
+    :where(body.nuvia-navbar) .navbar-nav-general li,
+:where(body.nuvia-navbar) .opciones-acceso li {
+        margin: 0;
+        padding: 0;
+    }
+
+    /* Botón hamburguesa */
+
+    :where(body.nuvia-navbar) .navbar-toggler {
+        cursor: pointer;
+        margin-left: auto;
+    }
+
+
+}
+
+
+/* =========================================
+   PERFIL VISIBLE EN NAVBAR RESPONSIVE
+========================================= */
+
+:where(body.nuvia-navbar) .acciones-navbar-mobile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    margin-left: auto;
+}
+
+:where(body.nuvia-navbar) .perfil-navbar-mobile {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    max-width: 130px;
+
+    color: #684028;
+    font-size: 14px;
+    font-weight: 600;
+
+    text-decoration: none;
+}
+
+:where(body.nuvia-navbar) .perfil-navbar-mobile:hover {
+    color: #72472c;
+}
+
+:where(body.nuvia-navbar) .perfil-navbar-mobile i {
+    font-size: 22px;
+}
+
+:where(body.nuvia-navbar) .perfil-navbar-mobile span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+@media (max-width: 1199.98px) {
+
+
+    :where(body.nuvia-navbar) .navbar-toggler {
+        margin-left: 0;
+    }
+
+
+}
+
+/* ================================================================
+   ACERCA DE NOSOTROS — estilos de acercaDeNosotros.css
+   Aplicables solo a body.nuvia-nosotros
+   ================================================================ */
+
+
+
+
+body.nuvia-nosotros {
+    background-color: #daf2f7;
+    font-family: "Montserrat", sans-serif;
+}
+
+:where(body.nuvia-nosotros) .contenedor-nosotros {
+    width: 100%;
+    max-width: 1150px;
+    margin: 0 auto;
+    padding: 55px 25px 70px;
+}
+
+/* Presentación */
+
+:where(body.nuvia-nosotros) .presentacion-nosotros {
+    text-align: center;
+    max-width: 850px;
+    margin: 0 auto 65px;
+}
+
+:where(body.nuvia-nosotros) .subtitulo-nosotros {
+    color: #835a40;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+:where(body.nuvia-nosotros) .presentacion-nosotros h1 {
+    color: #684028;
+    font-size: 32px;
+    font-weight: 700;
+    margin: 15px 0 20px;
+}
+
+:where(body.nuvia-nosotros) .presentacion-nosotros p {
+    color: #111;
+    font-size: 16px;
+    line-height: 1.8;
+}
+
+/* Quiénes somos */
+
+:where(body.nuvia-nosotros) .seccion-nosotros {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 16px;
+    margin-bottom: 45px;
+}
+
+:where(body.nuvia-nosotros) .contenido-seccion {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+}
+
+:where(body.nuvia-nosotros) .texto-seccion {
+    flex: 1;
+}
+
+:where(body.nuvia-nosotros) .texto-seccion h2,
+:where(body.nuvia-nosotros) .seccion-objetivo h2,
+:where(body.nuvia-nosotros) .encabezado-servicios h2,
+:where(body.nuvia-nosotros) .seccion-funcionamiento h2 {
+    color: #76492e;
+    font-size: 23px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+:where(body.nuvia-nosotros) .texto-seccion p {
+    color: #111;
+    font-size: 14px;
+    line-height: 1.9;
+    margin-bottom: 15px;
+}
+
+:where(body.nuvia-nosotros) .imagen-seccion {
+    width: 220px;
+    min-width: 220px;
+    height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #daf2f7;
+    border-radius: 50%;
+    padding: 30px;
+}
+
+:where(body.nuvia-nosotros) .imagen-seccion img {
+    width: 100%;
+    max-width: 160px;
+    height: auto;
+    object-fit: contain;
+}
+
+/* Objetivo */
+
+:where(body.nuvia-nosotros) .seccion-objetivo {
+    text-align: center;
+    background-color: #835a40;
+    border-radius: 16px;
+    padding: 40px 55px;
+    margin-bottom: 65px;
+}
+
+:where(body.nuvia-nosotros) .seccion-objetivo h2 {
+    color: #fff;
+}
+
+:where(body.nuvia-nosotros) .seccion-objetivo p {
+    color: #fff;
+    font-size: 15px;
+    line-height: 1.8;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Servicios */
+
+:where(body.nuvia-nosotros) .seccion-servicios {
+    margin-bottom: 70px;
+}
+
+:where(body.nuvia-nosotros) .encabezado-servicios {
+    text-align: center;
+    max-width: 750px;
+    margin: 0 auto 35px;
+}
+
+:where(body.nuvia-nosotros) .encabezado-servicios p,
+:where(body.nuvia-nosotros) .descripcion-funcionamiento {
+    color: #111;
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+/* =====================================
+   CARRUSEL DE SERVICIOS
+===================================== */
+
+:where(body.nuvia-nosotros) .carrusel-servicios {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+}
+
+:where(body.nuvia-nosotros) .servicios-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+}
+
+:where(body.nuvia-nosotros) .tarjeta-servicio {
+    background-color: #fff;
+    padding: 28px 24px;
+    border-radius: 13px;
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+:where(body.nuvia-nosotros) .tarjeta-servicio:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 7px 18px rgba(0, 0, 0, 0.08);
+}
+
+/* Flechas e indicadores ocultos en escritorio */
+
+:where(body.nuvia-nosotros) .flecha-servicio,
+:where(body.nuvia-nosotros) .indicadores-servicios {
+    display: none;
+}
+
+:where(body.nuvia-nosotros) .tarjeta-servicio {
+    background-color: #fff;
+    padding: 28px 24px;
+    border-radius: 13px;
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+:where(body.nuvia-nosotros) .tarjeta-servicio:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 7px 18px rgba(0, 0, 0, 0.08);
+}
+
+:where(body.nuvia-nosotros) .icono-servicio {
+    width: 55px;
+    height: 55px;
+    margin: 0 auto 18px;
+    border-radius: 50%;
+    background-color: #daf2f7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+:where(body.nuvia-nosotros) .icono-servicio i {
+    color: #835a40;
+    font-size: 24px;
+}
+
+:where(body.nuvia-nosotros) .tarjeta-servicio h3 {
+    color: #684028;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+:where(body.nuvia-nosotros) .tarjeta-servicio p {
+    color: #111;
+    font-size: 13px;
+    line-height: 1.7;
+    margin-bottom: 0;
+}
+
+/* Funcionamiento */
+
+:where(body.nuvia-nosotros) .seccion-funcionamiento {
+    text-align: center;
+    margin-bottom: 65px;
+}
+
+:where(body.nuvia-nosotros) .descripcion-funcionamiento {
+    max-width: 750px;
+    margin: 0 auto 35px;
+}
+
+:where(body.nuvia-nosotros) .pasos-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+:where(body.nuvia-nosotros) .paso {
+    padding: 25px 20px;
+    text-align: left;
+    border-left: 3px solid #835a40;
+    background-color: rgba(255, 255, 255, 0.65);
+    border-radius: 0 12px 12px 0;
+}
+
+:where(body.nuvia-nosotros) .numero-paso {
+    display: block;
+    color: #835a40;
+    font-size: 25px;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+:where(body.nuvia-nosotros) .paso h3 {
+    color: #684028;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+:where(body.nuvia-nosotros) .paso p {
+    color: #222;
+    font-size: 13px;
+    line-height: 1.7;
+    margin-bottom: 0;
+}
+
+/* Cierre */
+
+:where(body.nuvia-nosotros) .cierre-nosotros {
+    text-align: center;
+    background-color: #fff;
+    border-radius: 16px;
+    padding: 40px 25px;
+}
+
+:where(body.nuvia-nosotros) .cierre-nosotros h2 {
+    color: #684028;
+    font-size: 23px;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+:where(body.nuvia-nosotros) .cierre-nosotros p {
+    color: #111;
+    font-size: 14px;
+    line-height: 1.8;
+    margin-bottom: 25px;
+}
+
+:where(body.nuvia-nosotros) .boton-explorar {
+    display: inline-block;
+    background-color: #835a40;
+    color: #fff;
+    text-decoration: none;
+    padding: 13px 28px;
+    border-radius: 7px;
+    font-size: 14px;
+    font-weight: 600;
+    transition: background-color 0.2s;
+}
+
+:where(body.nuvia-nosotros) .boton-explorar:hover {
+    background-color: #b1917d;
+    color: #fff;
+}
+
+:where(body.nuvia-nosotros) .boton-explorar:focus-visible {
+    outline: 3px solid #684028;
+    outline-offset: 4px;
+}
+
+/* Responsive */
+
+@media (max-width: 991px) {
+
+    :where(body.nuvia-nosotros) .contenido-seccion {
+        gap: 25px;
+    }
+
+    :where(body.nuvia-nosotros) .imagen-seccion {
+        width: 180px;
+        min-width: 180px;
+        height: 180px;
+    }
+
+}
+
+@media (max-width: 767px) {
+
+    :where(body.nuvia-nosotros) .contenedor-nosotros {
+        padding: 40px 20px 50px;
+    }
+
+    :where(body.nuvia-nosotros) .presentacion-nosotros {
+        margin-bottom: 40px;
+    }
+
+    :where(body.nuvia-nosotros) .contenido-seccion {
+        flex-direction: column-reverse;
+        text-align: center;
+    }
+
+    :where(body.nuvia-nosotros) .imagen-seccion {
+        width: 150px;
+        min-width: 150px;
+        height: 150px;
+    }
+
+    :where(body.nuvia-nosotros) .seccion-nosotros {
+        padding: 30px 22px;
+    }
+
+    :where(body.nuvia-nosotros) .seccion-objetivo {
+        padding: 35px 25px;
+    }
+
+    :where(body.nuvia-nosotros) .pasos-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    :where(body.nuvia-nosotros) .paso {
+        text-align: center;
+        border-left: none;
+        border-top: 3px solid #835a40;
+        border-radius: 0 0 12px 12px;
+    }
+
+    /* =====================================
+    CARRUSEL EN CELULARES
+    ===================================== */
+
+    :where(body.nuvia-nosotros) .carrusel-servicios {
+        padding: 0;
+    }
+
+    :where(body.nuvia-nosotros) .servicios-grid {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        align-items: stretch;
+        gap: 0;
+        width: 100%;
+        max-width: 100%;
+        margin: 0;
+        padding: 0;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        overscroll-behavior-x: contain;
+    }
+
+    :where(body.nuvia-nosotros) .servicios-grid::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* Una tarjeta por vez */
+
+    :where(body.nuvia-nosotros) .tarjeta-servicio {
+        flex: 0 0 100%;
+        width: 100%;
+        min-width: 100%;
+        max-width: 100%;
+        min-height: 230px;
+        margin: 0;
+        padding: 30px 35px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border-radius: 15px;
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+        transition: none;
+    }
+
+    :where(body.nuvia-nosotros) .tarjeta-servicio:hover {
+        transform: none;
+        box-shadow: none;
+    }
+
+    /* Flechas */
+
+    :where(body.nuvia-nosotros) .flecha-servicio {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 34px;
+        height: 42px;
+        padding: 0;
+        border: none;
+        border-radius: 9px;
+        background: rgba(255, 255, 255, 0.9);
+        color: #684028;
+        font-size: 19px;
+        font-weight: bold;
+        cursor: pointer;
+        z-index: 5;
+    }
+
+    :where(body.nuvia-nosotros) .flecha-anterior-servicio {
+        left: 8px;
+    }
+
+    :where(body.nuvia-nosotros) .flecha-siguiente-servicio {
+        right: 8px;
+    }
+
+    :where(body.nuvia-nosotros) .flecha-servicio:focus-visible,
+:where(body.nuvia-nosotros) .indicador-servicio:focus-visible {
+        outline: 3px solid #684028;
+        outline-offset: 3px;
+    }
+
+    /* Indicadores */
+
+    :where(body.nuvia-nosotros) .indicadores-servicios {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 9px;
+        margin-top: 18px;
+    }
+
+    :where(body.nuvia-nosotros) .indicador-servicio {
+        width: 9px;
+        height: 9px;
+        padding: 0;
+        border: none;
+        border-radius: 50%;
+        background: #c5b6aa;
+        cursor: pointer;
+        transition: background 0.3s, transform 0.3s;
+    }
+
+    :where(body.nuvia-nosotros) .indicador-servicio.activo {
+        background: #835a40;
+        transform: scale(1.25);
+    }
+}
+
+@media (max-width: 576px) {
+
+    :where(body.nuvia-nosotros) .contenedor-nosotros {
+        padding: 35px 16px 45px;
+    }
+
+    :where(body.nuvia-nosotros) .presentacion-nosotros h1 {
+        font-size: 20px;
+    }
+
+    :where(body.nuvia-nosotros) .presentacion-nosotros p {
+        font-size: 13px;
+    }
+
+    :where(body.nuvia-nosotros) .subtitulo-nosotros {
+        font-size: 11px;
+    }
+
+    :where(body.nuvia-nosotros) .texto-seccion h2,
+:where(body.nuvia-nosotros) .seccion-objetivo h2,
+:where(body.nuvia-nosotros) .encabezado-servicios h2,
+:where(body.nuvia-nosotros) .seccion-funcionamiento h2 {
+        font-size: 16px;
+    }
+
+    :where(body.nuvia-nosotros) .texto-seccion p,
+:where(body.nuvia-nosotros) .seccion-objetivo p {
+        font-size: 13px;
+    }
+
+    :where(body.nuvia-nosotros) .tarjeta-servicio {
+        padding: 25px 20px;
+    }
+
+    :where(body.nuvia-nosotros) .cierre-nosotros {
+        padding: 30px 20px;
+    }
+
+    :where(body.nuvia-nosotros) .cierre-nosotros h2 {
+        font-size: 19px;
+    }
+
+    :where(body.nuvia-nosotros) .cierre-nosotros p {
+        font-size: 13px;
+    }
+
+}
+
+/* Mantener el tamaño original de los iconos de servicios frente a la regla general del navbar */
+body.nuvia-nosotros .icono-servicio i { font-size: 24px !important; }
+
+/* ======================================================
+   CONTACTO — estilos específicos para contacto.php
+   ====================================================== */
+
+/* ESTILOS GENERALES */
+
+:where(body.nuvia-contacto) .contacto {
+    background: #daf2f7;
+    padding: 55px 7% 120px;
+    min-height: 70vh;
+    font-family: "Montserrat", sans-serif;
+    color: #333;
+}
+
+/* ENCABEZADO */
+
+:where(body.nuvia-contacto) .contacto-encabezado {
+    max-width: 760px;
+    margin: 0 auto 40px;
+    text-align: center;
+}
+
+:where(body.nuvia-contacto) .contacto-encabezado h2 {
+    font-size: clamp(28px, 4vw, 40px);
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: #292929;
+}
+
+:where(body.nuvia-contacto) .contacto-encabezado p {
+    color: #555;
+    font-size: 16px;
+    line-height: 1.8;
+    margin: 0;
+}
+
+/* DISTRIBUCIÓN */
+
+:where(body.nuvia-contacto) .contacto-contenido {
+    max-width: 1120px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.3fr 0.9fr;
+    gap: 30px;
+    align-items: stretch;
+}
+
+/* FORMULARIO */
+
+:where(body.nuvia-contacto) .contacto-formulario {
+    background: #fff;
+    padding: 38px;
+    border-radius: 18px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+}
+
+:where(body.nuvia-contacto) .contacto-formulario h3,
+:where(body.nuvia-contacto) .ayuda-intro h3 {
+    font-size: 23px;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+:where(body.nuvia-contacto) .contacto-descripcion {
+    color: #555;
+    font-size: 14px;
+    line-height: 1.7;
+    margin-bottom: 28px;
+}
+
+:where(body.nuvia-contacto) .campo-contacto {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    margin-bottom: 21px;
+}
+
+:where(body.nuvia-contacto) .campo-contacto label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #383838;
+}
+
+:where(body.nuvia-contacto) .campo-contacto input,
+:where(body.nuvia-contacto) .campo-contacto select,
+:where(body.nuvia-contacto) .campo-contacto textarea {
+    width: 100%;
+    padding: 13px 15px;
+    border: 1px solid #dedbd8;
+    border-radius: 9px;
+    background: #fff;
+    color: #333;
+    font: inherit;
+    font-size: 14px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+:where(body.nuvia-contacto) .campo-contacto input,
+:where(body.nuvia-contacto) .campo-contacto select {
+    min-height: 48px;
+}
+
+:where(body.nuvia-contacto) .campo-contacto textarea {
+    resize: vertical;
+    min-height: 130px;
+}
+
+:where(body.nuvia-contacto) .campo-contacto input:focus,
+:where(body.nuvia-contacto) .campo-contacto select:focus,
+:where(body.nuvia-contacto) .campo-contacto textarea:focus {
+    outline: none;
+    border-color: #835a40;
+    box-shadow: 0 0 0 3px rgba(131, 90, 64, 0.12);
+}
+
+:where(body.nuvia-contacto) .campo-contacto input::placeholder,
+:where(body.nuvia-contacto) .campo-contacto textarea::placeholder {
+    color: #555;
+}
+
+/* BOTÓN */
+
+:where(body.nuvia-contacto) .boton-contacto {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+    padding: 15px 20px;
+    border: none;
+    border-radius: 25px;
+    background: #835a40;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+}
+
+:where(body.nuvia-contacto) .boton-contacto:hover {
+    background: #68452f;
+    transform: translateY(-1px);
+}
+
+:where(body.nuvia-contacto) .boton-contacto:focus-visible {
+    outline: 3px solid #b8d8e8;
+    outline-offset: 3px;
+}
+
+:where(body.nuvia-contacto) .estado-contacto {
+    margin: 15px 0 0;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+:where(body.nuvia-contacto) .estado-error {
+    color: #a12b2b;
+}
+
+/* PANEL DE AYUDA */
+
+:where(body.nuvia-contacto) .contacto-ayuda {
+    padding: 35px;
+    border-radius: 18px;
+    background: #f2f8fa;
+}
+
+:where(body.nuvia-contacto) .ayuda-icono {
+    width: 52px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    color: #835a40;
+    border-radius: 14px;
+    font-size: 25px;
+    margin-bottom: 22px;
+}
+
+:where(body.nuvia-contacto) .ayuda-intro {
+    margin-bottom: 35px;
+}
+
+:where(body.nuvia-contacto) .ayuda-intro h3 {
+    line-height: 1.4;
+}
+
+:where(body.nuvia-contacto) .ayuda-intro p,
+:where(body.nuvia-contacto) .ayuda-item p {
+    color: #555;
+    font-size: 14px;
+    line-height: 1.8;
+    margin: 0;
+}
+
+:where(body.nuvia-contacto) .ayuda-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 17px;
+    margin-bottom: 28px;
+}
+
+:where(body.nuvia-contacto) .ayuda-item > i {
+    color: #835a40;
+    font-size: 23px;
+    margin-top: 2px;
+}
+
+:where(body.nuvia-contacto) .ayuda-item h4 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 7px;
+}
+
+:where(body.nuvia-contacto) .ayuda-nota {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 16px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.75);
+}
+
+:where(body.nuvia-contacto) .ayuda-nota i {
+    color: #835a40;
+    margin-top: 2px;
+}
+
+:where(body.nuvia-contacto) .ayuda-nota p {
+    color: #555;
+    font-size: 12px;
+    line-height: 1.7;
+    margin: 0;
+}
+
+/* DISEÑO RESPONSIVE */
+
+@media (max-width: 900px) {
+    :where(body.nuvia-contacto) .contacto {
+        padding: 40px 5%;
+    }
+
+    :where(body.nuvia-contacto) .contacto-contenido {
+        grid-template-columns: 1fr;
+        max-width: 650px;
+    }
+}
+
+@media (max-width: 480px) {
+    :where(body.nuvia-contacto) .contacto {
+        padding: 35px 16px;
+    }
+
+    :where(body.nuvia-contacto) .contacto-encabezado {
+        margin-bottom: 28px;
+    }
+
+    :where(body.nuvia-contacto) .contacto-encabezado p {
+        font-size: 14px;
+    }
+
+    :where(body.nuvia-contacto) .contacto-formulario,
+:where(body.nuvia-contacto) .contacto-ayuda {
+        padding: 24px 20px;
+        border-radius: 14px;
+    }
+
+    :where(body.nuvia-contacto) .contacto-formulario h3,
+:where(body.nuvia-contacto) .ayuda-intro h3 {
+        font-size: 20px;
+    }
+}
+
+/* ================================================================
+   PREGUNTAS FRECUENTES — estilos de preguntasFrecuentes.css
+   Aplicables únicamente a body.nuvia-preguntas
+   ================================================================ */
+
+
+body.nuvia-preguntas {
+    background-color: #daf2f7;
+    font-family: "Montserrat", sans-serif;
+}
+
+:where(body.nuvia-preguntas) .contenedor-preguntas {
+    width: 100%;
+    max-width: 1050px;
+    margin: 0 auto;
+    padding: 55px 25px 70px;
+    flex: 1;
+}
+
+:where(body.nuvia-preguntas) .encabezado-preguntas {
+    text-align: center;
+    margin-bottom: 45px;
+}
+
+:where(body.nuvia-preguntas) .encabezado-preguntas h1 {
+    color: #684028;
+    font-size: 30px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+:where(body.nuvia-preguntas) .encabezado-preguntas p {
+    color: #555;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+:where(body.nuvia-preguntas) .seccion-preguntas h2 {
+    color: #76492e;
+    font-size: 20px;
+    font-weight: 600;
+    margin: 35px 0 15px;
+}
+
+:where(body.nuvia-preguntas) .accordion {
+    border-radius: 14px;
+    overflow: hidden;
+}
+
+:where(body.nuvia-preguntas) .accordion-item {
+    border: 1px solid #e1e5eb;
+}
+
+:where(body.nuvia-preguntas) .accordion-button {
+    color: #292929;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 20px;
+    background-color: #fff;
+}
+
+:where(body.nuvia-preguntas) .accordion-button:not(.collapsed) {
+    color: #835a40;
+    background-color: #f0f4f9;
+    box-shadow: none;
+}
+
+:where(body.nuvia-preguntas) .accordion-button:focus {
+    box-shadow: none;
+    border-color: #d5dce5;
+}
+
+:where(body.nuvia-preguntas) .accordion-body {
+    color: #555;
+    font-size: 15px;
+    line-height: 1.7;
+    padding: 20px;
+    background-color: #fff;
+}
+
+:where(body.nuvia-preguntas) .volver-inicio {
+    text-align: center;
+    margin-top: 45px;
+}
+
+:where(body.nuvia-preguntas) .volver-inicio a {
+    display: inline-block;
+    background-color: #835a40;
+    color: white;
+    text-decoration: none;
+    padding: 12px 25px;
+    border-radius: 7px;
+    transition: background-color 0.2s;
+}
+
+:where(body.nuvia-preguntas) .volver-inicio a:hover {
+    background-color: #b1917d;
+}
+
+/* Accesibilidad: navegación mediante teclado */
+
+:where(body.nuvia-preguntas) a:focus-visible,
+:where(body.nuvia-preguntas) button:focus-visible {
+    outline: 3px solid #7a482b;
+    outline-offset: 4px;
+}
+
+/* Evita que el foco quede oculto detrás de otros elementos */
+:where(body.nuvia-preguntas) .accordion-button:focus {
+    outline: 3px solid #7a482b !important;
+    outline-offset: -3px;
+    box-shadow: 0 0 0 3px rgba(122, 72, 43, 0.25) !important;
+    position: relative;
+    z-index: 2;
+}
+
+@media (max-width: 576px) {
+
+    :where(body.nuvia-preguntas) .contenedor-preguntas {
+        padding: 35px 16px 50px;
+    }
+
+    :where(body.nuvia-preguntas) .encabezado-preguntas h1 {
+        font-size: 20px;
+    }
+
+    :where(body.nuvia-preguntas) .encabezado-preguntas p {
+        font-size: 12px;
+    }
+
+    :where(body.nuvia-preguntas) .seccion-preguntas h2 {
+        font-size: 17px;
+        margin-top: 27px;
+    }
+
+    :where(body.nuvia-preguntas) .accordion-button {
+        font-size: 12px;
+        padding: 16px;
+    }
+
+    :where(body.nuvia-preguntas) .accordion-body {
+        font-size: 12px;
+        padding: 16px;
+    }
+
+    :where(body.nuvia-preguntas) .volver-inicio {
+        font-size: 14px;
+    }
+
+}
+body.nuvia-preguntas { display: flex; flex-direction: column; min-height: 100vh; }
+
+/* =============================================================
+   PAGO DE RESERVAS — antiguo pago.css
+   Aplicable solo a pagarReserva.php mediante body.nuvia-pago
+   ============================================================= */
+
+body.nuvia-pago {
+    --pago-marron: #835a40;
+    --pago-marron-oscuro: #6f4933;
+    --pago-texto: #39291f;
+    --pago-suave: #5f574f;
+    --pago-borde: #d9d2cb;
+    --pago-fondo: #daf2f7;
+}
+
+body.nuvia-pago {
+    min-height: 100vh;
+    background: var(--pago-fondo);
+    font-family: "Montserrat", sans-serif;
+}
+
+:where(body.nuvia-pago) .pago-contenedor {
+    padding: 48px 16px;
+}
+
+:where(body.nuvia-pago) .pago-card {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 36px;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .08);
+}
+
+:where(body.nuvia-pago) .pago-volver {
+    display: inline-block;
+    color: var(--pago-marron);
+    text-decoration: none;
+    padding: 4px 0;
+}
+
+:where(body.nuvia-pago) .pago-volver:hover { text-decoration: underline; }
+
+:where(body.nuvia-pago) .pago-card h1 {
+    margin: 18px 0 4px;
+    color: var(--pago-texto);
+    font-size: 28px;
+    font-weight: 700;
+}
+
+:where(body.nuvia-pago) .pago-subtitulo {
+    color: var(--pago-suave);
+    margin-bottom: 24px;
+}
+
+/* ---------- Resumen ---------- */
+:where(body.nuvia-pago) .pago-resumen {
+    margin: 0 0 28px;
+    padding: 6px 20px;
+    background: #f8f5f2;
+    border-radius: 14px;
+}
+
+:where(body.nuvia-pago) .pago-resumen > div {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 12px 0;
+    border-bottom: 1px solid #e8e1da;
+}
+
+:where(body.nuvia-pago) .pago-resumen > div:last-child { border-bottom: 0; }
+
+:where(body.nuvia-pago) .pago-resumen dt { color: var(--pago-suave); font-weight: 400; }
+:where(body.nuvia-pago) .pago-resumen dd { margin: 0; font-weight: 700; text-align: right; color: var(--pago-texto); }
+
+:where(body.nuvia-pago) .pago-total {
+    color: var(--pago-marron) !important;
+    font-size: 22px;
+}
+
+/* ---------- Medios de pago ---------- */
+:where(body.nuvia-pago) .pago-metodos {
+    border: 0;
+    padding: 0;
+    margin: 0 0 20px;
+}
+
+:where(body.nuvia-pago) .pago-metodos legend {
+    margin-bottom: 12px;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--pago-texto);
+}
+
+:where(body.nuvia-pago) .pago-opcion {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    border: 1px solid var(--pago-borde);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: border-color .15s, background-color .15s;
+}
+
+:where(body.nuvia-pago) .pago-opcion:hover { border-color: var(--pago-marron); }
+
+:where(body.nuvia-pago) .pago-opcion > i {
+    font-size: 22px;
+    color: var(--pago-marron);
+}
+
+:where(body.nuvia-pago) .pago-opcion input,
+:where(body.nuvia-pago) .pago-recordar input {
+    accent-color: var(--pago-marron);
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+}
+
+:where(body.nuvia-pago) .pago-opcion:has(input:checked) {
+    border-color: var(--pago-marron);
+    background: #fbf8f6;
+    box-shadow: inset 0 0 0 1px var(--pago-marron);
+}
+
+:where(body.nuvia-pago) .pago-opcion:has(input:focus-visible) {
+    outline: 3px solid #1a73e8;
+    outline-offset: 2px;
+}
+
+/* ---------- Panel de datos ---------- */
+:where(body.nuvia-pago) .pago-datos {
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid var(--pago-borde);
+    border-radius: 14px;
+    background: #fdfcfb;
+}
+
+:where(body.nuvia-pago) .pago-datos[hidden],
+:where(body.nuvia-pago) .pago-otra[hidden],
+:where(body.nuvia-pago) .pago-boton-cargando[hidden],
+:where(body.nuvia-pago) .pago-boton-texto[hidden] { display: none; }
+
+:where(body.nuvia-pago) .pago-datos .form-label {
+    margin-top: 14px;
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: var(--pago-texto);
+}
+
+:where(body.nuvia-pago) .pago-datos > .form-label:first-child,
+:where(body.nuvia-pago) .pago-datos > .pago-ayuda + .form-label,
+:where(body.nuvia-pago) .pago-fila .form-label { margin-top: 0; }
+
+:where(body.nuvia-pago) .pago-datos > .pago-ayuda + .form-label { margin-top: 0; }
+
+:where(body.nuvia-pago) .pago-fila {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-top: 14px;
+}
+
+:where(body.nuvia-pago) .pago-otra { margin-top: 2px; }
+
+:where(body.nuvia-pago) .pago-ayuda {
+    margin: 0 0 12px;
+    font-size: 14px;
+    color: var(--pago-suave);
+}
+
+:where(body.nuvia-pago) .pago-cuenta {
+    padding: 14px 16px;
+    margin-bottom: 8px;
+    background: #f8f5f2;
+    border-radius: 10px;
+    border-left: 4px solid var(--pago-marron);
+}
+
+:where(body.nuvia-pago) .pago-cuenta p {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin: 4px 0;
+    font-size: 15px;
+}
+
+:where(body.nuvia-pago) .pago-cuenta span { color: var(--pago-suave); }
+:where(body.nuvia-pago) .pago-cuenta strong { word-break: break-all; text-align: right; }
+
+:where(body.nuvia-pago) .pago-datos .form-control,
+:where(body.nuvia-pago) .pago-datos .form-select {
+    min-height: 46px;
+}
+
+:where(body.nuvia-pago) .pago-datos .form-control:focus,
+:where(body.nuvia-pago) .pago-datos .form-select:focus {
+    border-color: var(--pago-marron);
+    box-shadow: 0 0 0 .25rem rgba(131, 90, 64, .25);
+}
+
+:where(body.nuvia-pago) .pago-error {
+    margin-top: 6px;
+    font-size: 14px;
+    color: #b02a37;
+}
+
+:where(body.nuvia-pago) .pago-error::before {
+    content: "⚠︎ ";
+}
+
+/* ---------- Recordar / aviso ---------- */
+:where(body.nuvia-pago) .pago-recordar {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin: 18px 0 10px;
+    cursor: pointer;
+}
+
+:where(body.nuvia-pago) .pago-aviso {
+    color: var(--pago-suave);
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+:where(body.nuvia-pago) .pago-aviso i { color: var(--pago-marron); }
+
+/* ---------- Botón ---------- */
+:where(body.nuvia-pago) .pago-boton {
+    width: 100%;
+    min-height: 52px;
+    padding: 14px;
+    border: 0;
+    border-radius: 12px;
+    background: var(--pago-marron);
+    color: #fff;
+    font-size: 17px;
+    font-weight: 700;
+    transition: background-color .15s;
+}
+
+:where(body.nuvia-pago) .pago-boton:hover:not(:disabled) { background: var(--pago-marron-oscuro); }
+
+:where(body.nuvia-pago) .pago-boton:disabled {
+    background: #a98f7e;
+    cursor: wait;
+}
+
+:where(body.nuvia-pago) .pago-boton:focus-visible,
+:where(body.nuvia-pago) .pago-volver:focus-visible,
+:where(body.nuvia-pago) .pago-recordar input:focus-visible {
+    outline: 3px solid #1a73e8;
+    outline-offset: 3px;
+}
+
+:where(body.nuvia-pago) .alert[tabindex="-1"]:focus { outline: none; }
+
+@media  (prefers-reduced-motion: reduce) {
+
+    :where(body.nuvia-pago) .pago-opcion,
+:where(body.nuvia-pago) .pago-boton { transition: none; }
+
+}
+
+@media  (max-width: 576px) {
+
+    :where(body.nuvia-pago) .pago-card { padding: 24px 18px; }
+    :where(body.nuvia-pago) .pago-fila { grid-template-columns: 1fr; }
+    :where(body.nuvia-pago) .pago-resumen > div { flex-direction: column; gap: 2px; }
+    :where(body.nuvia-pago) .pago-resumen dd { text-align: left; }
+
+}
+
+
+/* ---------- Mostrar el panel del medio elegido ---------- */
+:where(body.nuvia-pago) .pago-datos { display: none; }
+
+:where(body.nuvia-pago) .pago-metodos:has(input[value="tarjeta"]:checked) ~ .pago-datos[data-pago="tarjeta"],
+:where(body.nuvia-pago) .pago-metodos:has(input[value="transferencia"]:checked) ~ .pago-datos[data-pago="transferencia"],
+:where(body.nuvia-pago) .pago-metodos:has(input[value="billetera"]:checked) ~ .pago-datos[data-pago="billetera"] {
+    display: block;
+}
+
+/* Navegadores muy viejos sin :has(): se muestran todos los paneles */
+@supports  not selector(:has(*)) {
+
+    :where(body.nuvia-pago) .pago-datos { display: block; }
+
+}
+
+/* =========================================
+   RESPONSIVE PAGO - TABLETS
+========================================= */
+
+@media  (max-width: 991.98px) {
+
+
+    :where(body.nuvia-pago) .pago-contenedor {
+        padding: 35px 20px;
+    }
+
+    :where(body.nuvia-pago) .pago-card {
+        width: 100%;
+        max-width: 700px;
+        padding: 30px;
+    }
+
+}
+
+
+/* =========================================
+   RESPONSIVE PAGO - CELULARES
+========================================= */
+
+@media  (max-width: 767.98px) {
+
+
+    :where(body.nuvia-pago) .pago-contenedor {
+        padding: 25px 15px;
+        width: 100%;
+    }
+
+    :where(body.nuvia-pago) .pago-card {
+        width: 100%;
+        max-width: 100%;
+        padding: 24px 18px;
+        border-radius: 15px;
+    }
+
+    /* ENCABEZADO */
+
+    :where(body.nuvia-pago) .pago-card h1 {
+        font-size: 24px;
+        line-height: 1.3;
+    }
+
+    :where(body.nuvia-pago) .pago-subtitulo {
+        font-size: 14px;
+        line-height: 1.5;
+        margin-bottom: 20px;
+    }
+
+    /* RESUMEN DE RESERVA */
+
+    :where(body.nuvia-pago) .pago-resumen {
+        padding: 8px 15px;
+        margin-bottom: 22px;
+    }
+
+    :where(body.nuvia-pago) .pago-resumen > div {
+        flex-direction: column;
+        gap: 4px;
+        padding: 12px 0;
+    }
+
+    :where(body.nuvia-pago) .pago-resumen dt {
+        font-size: 13px;
+    }
+
+    :where(body.nuvia-pago) .pago-resumen dd {
+        font-size: 15px;
+        text-align: left;
+        overflow-wrap: anywhere;
+    }
+
+    :where(body.nuvia-pago) .pago-total {
+        font-size: 20px;
+    }
+
+    /* MÉTODOS DE PAGO */
+
+    :where(body.nuvia-pago) .pago-metodos legend {
+        font-size: 17px;
+    }
+
+    :where(body.nuvia-pago) .pago-opcion {
+        padding: 13px;
+        gap: 10px;
+    }
+
+    :where(body.nuvia-pago) .pago-opcion > i {
+        font-size: 20px;
+    }
+
+    /* FORMULARIO */
+
+    :where(body.nuvia-pago) .pago-datos {
+        padding: 16px;
+    }
+
+    :where(body.nuvia-pago) .pago-fila {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    :where(body.nuvia-pago) .pago-datos .form-control,
+:where(body.nuvia-pago) .pago-datos .form-select {
+        width: 100%;
+        min-width: 0;
+        font-size: 16px;
+    }
+
+    /* DATOS DE TRANSFERENCIA */
+
+    :where(body.nuvia-pago) .pago-cuenta {
+        padding: 12px;
+    }
+
+    :where(body.nuvia-pago) .pago-cuenta p {
+        flex-direction: column;
+        gap: 3px;
+    }
+
+    :where(body.nuvia-pago) .pago-cuenta strong {
+        text-align: left;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+    }
+
+    /* RECORDAR DATOS */
+
+    :where(body.nuvia-pago) .pago-recordar {
+        align-items: flex-start;
+    }
+
+    :where(body.nuvia-pago) .pago-recordar input {
+        margin-top: 3px;
+    }
+
+    /* BOTÓN CONFIRMAR PAGO */
+
+    :where(body.nuvia-pago) .pago-boton {
+        width: 100%;
+        min-height: 50px;
+        padding: 13px;
+        font-size: 15px;
+    }
+
+    :where(body.nuvia-pago) .pago-aviso {
+        font-size: 13px;
+        line-height: 1.5;
+    }
+
+}
+
+
+/* =========================================
+   CELULARES MUY PEQUEÑOS
+========================================= */
+
+@media  (max-width: 400px) {
+
+
+    :where(body.nuvia-pago) .pago-contenedor {
+        padding: 15px 10px;
+    }
+
+    :where(body.nuvia-pago) .pago-card {
+        padding: 20px 14px;
+    }
+
+    :where(body.nuvia-pago) .pago-card h1 {
+        font-size: 22px;
+    }
+
+    :where(body.nuvia-pago) .pago-opcion {
+        padding: 12px 10px;
+    }
+
+    :where(body.nuvia-pago) .pago-boton {
+        font-size: 14px;
+    }
+
+}
+
+/* Conservar tamaños de iconos de pago frente a la regla global del navbar */
+body.nuvia-pago .pago-opcion > i { font-size: 22px !important; }
+@media (max-width: 767.98px) { body.nuvia-pago .pago-opcion > i { font-size: 20px !important; } }

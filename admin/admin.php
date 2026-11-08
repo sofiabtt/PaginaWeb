@@ -1,8 +1,8 @@
 <?php
-
+/*
 require_once __DIR__ . '/../includes/verificarRol.php';
 verificarRol('administrador');
-
+*/
 include "../php/conexionBD.php";
 include "../php/consultasAerolineas.php";
 include "../php/consultasPromociones.php";
@@ -38,12 +38,11 @@ $resultadoActividad = obtenerActividadesRecientes($conexion);
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/bootstrap-icons.css">
 
-    <link rel="stylesheet" href="../css/estilosAdmin.css">
-    <link rel="stylesheet" href="../css/navbar.css">
+    <link rel="stylesheet" href="../css/estilos.css">
     <link rel="stylesheet" href="../css/footer.css">
 </head>
 
-<body>
+<body class="nuvia-panel nuvia-navbar">
     <?php include "includes/navbarAdmin.php"; ?>
 
     <main class="contenido-admin">

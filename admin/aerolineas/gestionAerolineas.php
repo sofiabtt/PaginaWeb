@@ -7,6 +7,7 @@ error_reporting(E_ALL);
 require_once __DIR__ . '/../../includes/verificarRol.php';
 verificarRol('administrador');
 
+
 include "../../php/consultasAerolineas.php";
 
 require_once __DIR__ . '/../../php/paginacion.php';
@@ -43,15 +44,15 @@ $resultado = obtenerAerolineasActivasPaginadas(
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/bootstrap-icons.css">
 
-    <link rel="stylesheet" href="../../css/estilosAdmin.css">
-    <link rel="stylesheet" href="../../css/navbar.css">
+    <link rel="stylesheet" href="../../css/estilos.css">
+
     <link rel="stylesheet" href="../../css/footer.css">
     <link rel="stylesheet" href="../../css/paginacion.css">
     <link rel="stylesheet" href="../../css/tablasResponsive.css">
 
 </head>
 
-<body>
+<body class="nuvia-panel">
 
     <?php include __DIR__ . '/../includes/navbarAdmin.php'; ?>
 

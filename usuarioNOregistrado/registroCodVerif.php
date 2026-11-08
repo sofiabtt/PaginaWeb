@@ -16,14 +16,12 @@ session_start();
 
         <link rel="stylesheet" href="../css/estilos.css">
 
-        <link rel="stylesheet" href="../css/navbar.css">
-
         <link rel="stylesheet" href="../css/footer.css">
 
         <link rel="icon" type="image/png" href="../imagenes/logo.png">
         
     </head>
-    <body>
+    <body class="nuvia-navbar">
 
         <?php include __DIR__ . "/../includes/navbar.php"; ?>
         

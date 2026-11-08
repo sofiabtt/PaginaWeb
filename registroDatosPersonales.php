@@ -14,12 +14,11 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/bootstrap-icons.css">
     <link rel="stylesheet" href="css/estilos.css">
-    <link rel="stylesheet" href="css/navbar.css">
     <link rel="stylesheet" href="css/footer.css">
     <link rel="icon" type="image/png" href="imagenes/logo.png">
 </head>
 
-<body>
+<body class="nuvia-registro">
 
     <?php include("includes/navbar.php"); ?>
 
@@ -310,8 +309,7 @@
     </script>
 
 
-    <script src="/js/bootstrap.bundle.min.js"></script>
-
+    <script src="js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

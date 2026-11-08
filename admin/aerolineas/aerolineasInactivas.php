@@ -24,13 +24,12 @@ $resultado = obtenerAerolineasInactivas($conexion);
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/bootstrap-icons.css">
 
-    <link rel="stylesheet" href="../../css/estilosAdmin.css">
-    <link rel="stylesheet" href="../../css/navbar.css">
+    <link rel="stylesheet" href="../../css/estilos.css">
     <link rel="stylesheet" href="../../css/footer.css">
 
 </head>
 
-<body>
+<body class="nuvia-panel">
 
     <?php include __DIR__ . '/../includes/navbarAdmin.php'; ?>
 

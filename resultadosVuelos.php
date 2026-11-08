@@ -36,16 +36,15 @@ $seleccionandoVuelta =
 
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/bootstrap-icons.css">
+    
+    <link rel="stylesheet" href="css/estilos.css">
 
-    <link rel="stylesheet" href="css/estiloshome.css?v=2">
     <link rel="stylesheet" href="css/estilosResultados.css?v=6">
-    <link rel="stylesheet" href="css/estilos-usuario.css?v=2">
     <link rel="stylesheet" href="css/footer.css">
-    <link rel="stylesheet" href="css/navbar.css">
     <link rel="stylesheet" href="css/progresoReserva.css?v=5">
 </head>
 
-<body>
+<body class="nuvia-vuelos">
 
 <?php include ("includes/navbar.php"); ?>
 

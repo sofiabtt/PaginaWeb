@@ -53,11 +53,9 @@ $consultaOrigenes = $conexion->query("
 
     <link rel="stylesheet" href="css/estiloshome.css?v=3">
 
-    <link rel="stylesheet" href="css/estilos-usuario.css?v=2">
+    <link rel="stylesheet" href="css/estilos.css">
 
     <link rel="stylesheet" href="css/footer.css">
-
-    <link rel="stylesheet" href="css/navbar.css">
 
     <link
         rel="stylesheet"
@@ -65,7 +63,7 @@ $consultaOrigenes = $conexion->query("
     >
 </head>
 
-<body>
+<body class="nuvia-home nuvia-navbar">
 
 <?php include("includes/navbar.php"); ?>
 

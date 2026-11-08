@@ -1,6 +1,8 @@
 <?php
+
 require_once __DIR__ . '/../../includes/verificarRol.php';
 verificarRol('administrador');
+
 ?>
 
 <!DOCTYPE html>
@@ -16,13 +18,12 @@ verificarRol('administrador');
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/bootstrap-icons.css">
 
-    <link rel="stylesheet" href="../../css/navbar.css">
     <link rel="stylesheet" href="../../css/footer.css">
-    <link rel="stylesheet" href="../../css/estilosAdmin.css">
+    <link rel="stylesheet" href="../../css/estilos.css">
     <link rel="stylesheet" href="../../css/reportesResponsive.css">
 </head>
 
-<body>
+<body class="nuvia-panel nuvia-navbar">
     <?php include __DIR__ . '/../includes/navbarAdmin.php'; ?>
 
     <main class="container reporte-contenido">

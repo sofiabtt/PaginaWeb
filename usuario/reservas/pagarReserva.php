@@ -6,6 +6,7 @@ error_reporting(E_ALL);
 
 require_once __DIR__ . '/../../includes/verificarRol.php';
 verificarRol('usuario');
+
 require_once __DIR__ . "/../../php/consultasReservas.php";
 
 $codUsuario = (int) $_SESSION["codUsuario"];
@@ -191,11 +192,10 @@ $queryVolver = $contexto ? "?" . http_build_query($contexto) : "";
     <link rel="icon" type="image/png" href="../../imagenes/logo.png">
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/bootstrap-icons.css">
-    <link rel="stylesheet" href="../../css/navbar.css">
+    <link rel="stylesheet" href="../../css/estilos.css">
     <link rel="stylesheet" href="../../css/footer.css">
-    <link rel="stylesheet" href="../../css/pago.css">
 </head>
-<body>
+<body class="nuvia-pago nuvia-navbar">
     <?php include __DIR__ . "/../../includes/navbar.php"; ?>
 
     <main class="pago-contenedor" id="contenido">

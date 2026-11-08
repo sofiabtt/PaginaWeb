@@ -118,12 +118,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/bootstrap-icons.css">
-    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/estilos.css">
     <link rel="stylesheet" href="css/footer.css">
-    <link rel="stylesheet" href="css/contacto.css">
 </head>
 
-<body>
+<body class="nuvia-contacto nuvia-navbar">
 
     <?php include("includes/navbar.php"); ?>
 

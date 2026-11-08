@@ -208,18 +208,16 @@ $reservasPaginadas = array_slice(
 
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/bootstrap-icons.css">
-
-    <link rel="stylesheet" href="../../css/estilos-usuario.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="../../css/estilos.css">
 
     <link rel="stylesheet" href="../../css/progresoReserva.css?v=4">
-
-    <link rel="stylesheet" href="../../css/navbar.css">
 
     <link rel="stylesheet" href="../../css/footer.css">
 
 </head>
 
-<body>
+<body class="nuvia-registro nuvia-navbar">
 
     <?php include __DIR__ . "/../../includes/navbar.php"; ?>
 
