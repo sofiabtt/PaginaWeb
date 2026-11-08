@@ -75,12 +75,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/bootstrap-icons.css">
 
-    <link rel="stylesheet" href="../../css/estilos.css">
+    <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/estilos.css'), ENT_QUOTES, 'UTF-8') ?>?v=20261108">
     <link rel="stylesheet" href="../../css/footer.css">
 
 </head>
 
-<body class="nuvia-panel">
+<body class="nuvia-panel nuvia-navbar">
 
     <?php include __DIR__ . '/../includes/navbarAdmin.php'; ?>
 
