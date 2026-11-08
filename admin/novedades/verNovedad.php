@@ -5,7 +5,12 @@ verificarRol('administrador');
 include "../../php/conexionBD.php";
 include "../../php/consultasNovedades.php";
 
-$id = $_GET["id"];
+$id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+
+if (!$id) {
+    header("Location: gestionNovedades.php");
+    exit;
+}
 
 $origen = $_GET["origen"] ?? "";
 
@@ -27,7 +32,7 @@ $novedad = obtenerNovedad($conexion, $id);
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/bootstrap-icons.css">
 
-    <link rel="stylesheet" href="../../css/estilos.css">
+    <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/estilos.css'), ENT_QUOTES, 'UTF-8') ?>?v=20261108">
 
     <link rel="stylesheet" href="../../css/footer.css">
 </head>
