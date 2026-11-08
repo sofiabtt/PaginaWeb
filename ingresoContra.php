@@ -1,9 +1,8 @@
 <?php 
-    session_start();
+    require_once __DIR__ . '/php/conexionBD.php';
 
-    if (isset($_SESSION["codUsuario"])) {
-        header("Location: index.php");
-        exit();
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
     }
 
 ?>
@@ -34,7 +33,7 @@
 
     </head>
 
-    <body>
+    <body class="nuvia-registro nuvia-navbar">
 
         <?php include("includes/navbar.php"); ?>
         
@@ -116,7 +115,7 @@
 
     </main>
 
-    <<?php include "includes/footer.php"; ?>
+    <?php include "includes/footer.php"; ?>
 
     <script>
         function mostrarContrasena() {
