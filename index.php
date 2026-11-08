@@ -53,7 +53,7 @@ $consultaOrigenes = $conexion->query("
 
     <link rel="stylesheet" href="css/estiloshome.css?v=3">
 
-    <link rel="stylesheet" href="css/estilos.css">
+    <link rel="stylesheet" href="/css/estilos.css?v=20261108-final">
 
     <link rel="stylesheet" href="css/footer.css">
 
