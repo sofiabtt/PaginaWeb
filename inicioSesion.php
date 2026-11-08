@@ -1,9 +1,13 @@
-<?php 
-    session_start();
+<?php
+    require_once __DIR__ . '/php/conexionBD.php';
+
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
 
     if (isset($_SESSION["codUsuario"])) {
-    header("Location: index.php");
-    exit();
+        header("Location: index.php");
+        exit();
     }
 ?>
 
@@ -29,7 +33,7 @@
 
 </head>
 
-<body class="nuvia-registro">
+<body class="nuvia-registro nuvia-navbar">
 
     <?php if (isset($_GET["registro"]) && $_GET["registro"] === "pendiente") { ?>
         <div class="alert alert-success position-fixed top-0 start-50 translate-middle-x mt-3" style="z-index: 20;">
