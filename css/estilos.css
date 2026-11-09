@@ -1,3 +1,38 @@
+/* =====================================
+   TIPOGRAFÍA MONTSERRAT
+===================================== */
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('fonts/Montserrat/Montserrat-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('fonts/Montserrat/Montserrat-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('fonts/Montserrat/Montserrat-SemiBold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('fonts/Montserrat/Montserrat-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
 
 /* ====== FORMULARIOS / REGISTRO ====== */
 /* =========================================
@@ -6921,4 +6956,475 @@ body.nuvia-pago .pago-opcion > i { font-size: 22px !important; }
         margin-bottom: 20px;
     }
 
+}
+
+/* CONTACTO */
+
+
+/* ESTILOS GENERALES */
+
+.contacto {
+    background: #daf2f7;
+    padding: 55px 7% 120px;
+    min-height: 70vh;
+    font-family: 'Montserrat', sans-serif;
+    color: #333;
+}
+
+/* ENCABEZADO */
+
+.contacto-encabezado {
+    max-width: 760px;
+    margin: 0 auto 40px;
+    text-align: center;
+}
+
+.contacto-encabezado h2 {
+    font-size: clamp(28px, 4vw, 40px);
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: #292929;
+}
+
+.contacto-encabezado p {
+    color: #555;
+    font-size: 16px;
+    line-height: 1.8;
+    margin: 0;
+}
+
+/* DISTRIBUCIÓN */
+
+.contacto-contenido {
+    max-width: 1120px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.3fr 0.9fr;
+    gap: 30px;
+    align-items: stretch;
+}
+
+/* FORMULARIO */
+
+.contacto-formulario {
+    background: #fff;
+    padding: 38px;
+    border-radius: 18px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+}
+
+.contacto-formulario h3,
+.ayuda-intro h3 {
+    font-size: 23px;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.contacto-descripcion {
+    color: #555;
+    font-size: 14px;
+    line-height: 1.7;
+    margin-bottom: 28px;
+}
+
+.campo-contacto {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    margin-bottom: 21px;
+}
+
+.campo-contacto label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #383838;
+}
+
+.campo-contacto input,
+.campo-contacto select,
+.campo-contacto textarea {
+    width: 100%;
+    padding: 13px 15px;
+    border: 1px solid #dedbd8;
+    border-radius: 9px;
+    background: #fff;
+    color: #333;
+    font: inherit;
+    font-size: 14px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.campo-contacto input,
+.campo-contacto select {
+    min-height: 48px;
+}
+
+.campo-contacto textarea {
+    resize: vertical;
+    min-height: 130px;
+}
+
+.campo-contacto input:focus,
+.campo-contacto select:focus,
+.campo-contacto textarea:focus {
+    outline: none;
+    border-color: #835a40;
+    box-shadow: 0 0 0 3px rgba(131, 90, 64, 0.12);
+}
+
+.campo-contacto input::placeholder,
+.campo-contacto textarea::placeholder {
+    color: #555;
+}
+
+/* BOTÓN */
+
+.boton-contacto {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+    padding: 15px 20px;
+    border: none;
+    border-radius: 25px;
+    background: #835a40;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.boton-contacto:hover {
+    background: #68452f;
+    transform: translateY(-1px);
+}
+
+.boton-contacto:focus-visible {
+    outline: 3px solid #b8d8e8;
+    outline-offset: 3px;
+}
+
+.estado-contacto {
+    margin: 15px 0 0;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.estado-error {
+    color: #a12b2b;
+}
+
+/* PANEL DE AYUDA */
+
+.contacto-ayuda {
+    padding: 35px;
+    border-radius: 18px;
+    background: #f2f8fa;
+}
+
+.ayuda-icono {
+    width: 52px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    color: #835a40;
+    border-radius: 14px;
+    font-size: 25px;
+    margin-bottom: 22px;
+}
+
+.ayuda-intro {
+    margin-bottom: 35px;
+}
+
+.ayuda-intro h3 {
+    line-height: 1.4;
+}
+
+.ayuda-intro p,
+.ayuda-item p {
+    color: #555;
+    font-size: 14px;
+    line-height: 1.8;
+    margin: 0;
+}
+
+.ayuda-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 17px;
+    margin-bottom: 28px;
+}
+
+.ayuda-item > i {
+    color: #835a40;
+    font-size: 23px;
+    margin-top: 2px;
+}
+
+.ayuda-item h4 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 7px;
+}
+
+.ayuda-nota {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 16px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.75);
+}
+
+.ayuda-nota i {
+    color: #835a40;
+    margin-top: 2px;
+}
+
+.ayuda-nota p {
+    color: #555;
+    font-size: 12px;
+    line-height: 1.7;
+    margin: 0;
+}
+
+/* DISEÑO RESPONSIVE */
+
+@media (max-width: 900px) {
+    .contacto {
+        padding: 40px 5%;
+    }
+
+    .contacto-contenido {
+        grid-template-columns: 1fr;
+        max-width: 650px;
+    }
+}
+
+@media (max-width: 480px) {
+    .contacto {
+        padding: 35px 16px;
+    }
+
+    .contacto-encabezado {
+        margin-bottom: 28px;
+    }
+
+    .contacto-encabezado p {
+        font-size: 14px;
+    }
+
+    .contacto-formulario,
+    .contacto-ayuda {
+        padding: 24px 20px;
+        border-radius: 14px;
+    }
+
+    .contacto-formulario h3,
+    .ayuda-intro h3 {
+        font-size: 20px;
+    }
+}
+
+/* ==========================================
+   RECUPERACIÓN DE CONTRASEÑA
+========================================== */
+
+/* Contenedores */
+
+.contenedor-recuperacion,
+.contenedor-nueva-contrasena {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 60px 20px 50px;
+}
+
+.contenedor-nueva-contrasena {
+    background: #dff6fb;
+    padding-top: 55px;
+}
+
+/* Tarjetas */
+
+.tarjeta-recuperacion,
+.tarjeta-nueva-contrasena {
+    width: 100%;
+    max-width: 430px;
+    background: white;
+    padding: 38px 36px;
+    border-radius: 18px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+}
+
+.tarjeta-nueva-contrasena {
+    max-width: 440px;
+    padding: 36px;
+}
+
+/* Títulos */
+
+.tarjeta-recuperacion h1,
+.tarjeta-nueva-contrasena h1 {
+    margin: 0 0 12px;
+    font-size: 30px;
+    font-weight: 600;
+    color: #222;
+}
+
+.tarjeta-nueva-contrasena h1 {
+    margin-bottom: 28px;
+}
+
+/* Descripción */
+
+.descripcion-recuperacion {
+    margin-bottom: 28px;
+    color: #666;
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+/* Campos */
+
+.campo-recuperacion,
+.campo-nueva-contrasena {
+    margin-bottom: 22px;
+}
+
+.campo-nueva-contrasena {
+    margin-bottom: 20px;
+}
+
+.campo-recuperacion label,
+.campo-nueva-contrasena label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #333;
+}
+
+.campo-recuperacion input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #ccc;
+    border-radius: 9px;
+    font-size: 15px;
+    outline: none;
+}
+
+.campo-recuperacion input:focus,
+.grupo-contrasena input:focus {
+    border-color: #7a482b;
+    box-shadow: 0 0 0 3px rgba(122, 72, 43, 0.10);
+}
+
+/* Campo de nueva contraseña */
+
+.grupo-contrasena {
+    display: flex;
+    width: 100%;
+}
+
+.grupo-contrasena input {
+    flex: 1;
+    min-width: 0;
+    height: 48px;
+    padding: 0 14px;
+    border: 1px solid #ced4da;
+    border-right: none;
+    border-radius: 9px 0 0 9px;
+    font-size: 15px;
+    outline: none;
+}
+
+/* Botón para mostrar contraseña */
+
+.boton-ojo-recuperacion {
+    width: 58px;
+    min-width: 58px;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: white;
+    color: #222;
+    border: 1px solid #ced4da;
+    border-radius: 0 9px 9px 0;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.boton-ojo-recuperacion:hover {
+    background: #f1f1f1;
+}
+
+/* Botones principales */
+
+.boton-recuperacion,
+.boton-cambiar-contrasena {
+    width: 100%;
+    padding: 13px;
+    border: none;
+    border-radius: 9px;
+    background-color: #7a482b;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.boton-recuperacion {
+    border-radius: 10px;
+}
+
+.boton-cambiar-contrasena {
+    margin-top: 4px;
+}
+
+.boton-recuperacion:hover,
+.boton-cambiar-contrasena:hover {
+    background-color: #653a23;
+}
+
+/* Volver al login */
+
+.volver-login {
+    display: block;
+    margin-top: 20px;
+    text-align: center;
+    color: #7a482b;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.volver-login:hover {
+    text-decoration: underline;
+}
+
+/* Mensajes */
+
+.contenedor-recuperacion .mensaje-exito {
+    padding: 12px 14px;
+    margin-bottom: 20px;
+    background-color: #e9f7ee;
+    border-radius: 9px;
+    color: #276738;
+}
+
+.contenedor-recuperacion .mensaje-error,
+.contenedor-nueva-contrasena .mensaje-error-recuperacion {
+    padding: 12px 14px;
+    margin-bottom: 20px;
+    background-color: #fdeaea;
+    border-radius: 9px;
+    color: #9b2c2c;
 }
