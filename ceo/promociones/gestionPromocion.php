@@ -7,6 +7,7 @@ require_once __DIR__ . '/../../php/conexionBD.php';
 require_once __DIR__ . '/../../php/consultasCeos.php';
 require_once __DIR__ . '/../../php/consultasAerolineas.php';
 require_once __DIR__ . '/../../php/consultasPromociones.php';
+require_once __DIR__ . '/../../php/paginacion.php';
 
 
 verificarCeo();
@@ -27,8 +28,24 @@ $codAerolinea = $aerolinea["codAerolinea"];
 
 // OBTENER PROMOCIONES
 
-$resultado = obtenerPromocionesPorAerolinea($conexion,$codAerolinea);
+$resultado = obtenerPromocionesPorAerolinea($conexion, $codAerolinea);
 
+$totalPromociones = $resultado->num_rows;
+
+// CONFIGURAR PAGINACIÓN
+
+$paginacion = configurarPaginacion($totalPromociones, 10);
+
+$pagina = $paginacion["pagina"];
+$totalPaginas = $paginacion["totalPaginas"];
+$offset = $paginacion["offset"];
+$porPagina = $paginacion["porPagina"];
+
+// OBTENER PROMOCIONES DE LA PÁGINA ACTUAL
+
+$promociones = $resultado->fetch_all(MYSQLI_ASSOC);
+
+$promocionesPagina = array_slice($promociones, $offset, $porPagina);
 ?>
 
 <!DOCTYPE html>
@@ -36,53 +53,34 @@ $resultado = obtenerPromocionesPorAerolinea($conexion,$codAerolinea);
 <html lang="es">
 
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Nuvia - CEO</title>
-
-
     <link rel="icon" href="<?= htmlspecialchars(urlApp('imagenes/logo.png'), ENT_QUOTES, 'UTF-8')?>" type="image/png">
+
     <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/bootstrap.min.css'), ENT_QUOTES, 'UTF-8')?>">
     <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/bootstrap-icons.css'), ENT_QUOTES, 'UTF-8')?>">
     <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/estilos.css'), ENT_QUOTES, 'UTF-8')?>">
-    <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/tablasResponsive.css'), ENT_QUOTES, 'UTF-8') ?>">
-
-    <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/footer.css'), ENT_QUOTES, 'UTF-8') ?>">
-
+   
 </head>
 
 
 <body class="nuvia-panel nuvia-navbar">
 
-
     <?php include __DIR__ . "/../includes/navbarCeo.php"; ?> 
-
 
     <main class="contenido-admin">
 
-
         <section class="bienvenida-admin">
-
-
             <div class="encabezado-contenido">
-
-
                 <div>
-
-                    <h1>
-                        Gestión de promociones
-                    </h1>
-
+                    <h1> Gestión de promociones</h1>
                     <p>
                         Administra las promociones
                         de tu aerolínea.
                     </p>
-
                 </div>
-
 
                 <div>
                     <a href="crearPromocion.php" class="btn btn-primary">
@@ -90,84 +88,43 @@ $resultado = obtenerPromocionesPorAerolinea($conexion,$codAerolinea);
                         Crear promoción
                     </a>
                 </div>
-
-
             </div>
-
-
         </section>
 
-
-
         <section class="actividad-admin">
-
-
             <div class="tabla-contenedor tabla-tarjetas">
-
                     <table class="table align-middle">
-
                         <thead>
-
                             <tr>
-
-                                <th>
-                                    Código
-                                </th>
-
-                                <th>
-                                    Descripción
-                                </th>
-
-                                <th>
-                                    Descuento
-                                </th>
-
-                                <th>
-                                    Estado
-                                </th>
-
-                                <th>
-                                    Acciones
-                                </th>
-
+                                <th> Código </th>
+                                <th> Descripción </th>
+                                <th> Descuento </th>
+                                <th> Estado </th>
+                                <th> Acciones </th>
                             </tr>
 
                         </thead>
 
-
                         <tbody>
 
+                        <?php if ($totalPromociones > 0) { ?>
 
-                        <?php if ($resultado->num_rows > 0) { ?>
-
-
-                            <?php while ($promocion = $resultado->fetch_assoc()) { ?>
-
+                            <?php foreach ($promocionesPagina as $promocion) { ?>
 
                                 <tr>
-
-
                                     <td data-label="Código">
-
                                         <?php
                                         echo $promocion["codPromocion"];
                                         ?>
-
                                     </td>
 
-
                                     <td data-label="Descripción">
-
                                         <?php
-
                                         echo htmlspecialchars(
                                             $promocion["descripcionPromocion"]
                                         );
-
                                         ?>
-
                                     </td>
-
 
                                     <td data-label="Descuento">
 
@@ -177,9 +134,7 @@ $resultado = obtenerPromocionesPorAerolinea($conexion,$codAerolinea);
 
                                     </td>
 
-
                                     <td data-label="Estado">
-
                                         <?php
 
                                         if (
@@ -188,13 +143,11 @@ $resultado = obtenerPromocionesPorAerolinea($conexion,$codAerolinea);
                                         ) {
 
                                         ?>
-
                                             <span
                                                 class="badge bg-warning text-dark"
                                             >
                                                 Pendiente
                                             </span>
-
                                         <?php
 
                                         } elseif (
@@ -203,19 +156,14 @@ $resultado = obtenerPromocionesPorAerolinea($conexion,$codAerolinea);
                                         ) {
 
                                         ?>
-
                                             <span
                                                 class="badge bg-success"
                                             >
                                                 Aprobada
                                             </span>
-
                                         <?php
-
                                         } else {
-
                                         ?>
-
                                             <span
                                                 class="badge bg-danger"
                                             >
@@ -225,94 +173,62 @@ $resultado = obtenerPromocionesPorAerolinea($conexion,$codAerolinea);
                                                 );
                                                 ?>
                                             </span>
-
                                         <?php
-
                                         }
-
                                         ?>
-
                                     </td>
 
-
                                     <td class="acciones-tabla" data-label="Acciones">
-
 
                                         <a
                                             href="modificarPromocion.php?id=<?php echo $promocion["codPromocion"]; ?>"
                                             class="btn btn-sm btn-outline-primary"
                                             title="Modificar promoción"
                                         >
-
                                             <i class="bi bi-pencil"></i>
                                             Modificar
-
                                         </a>
-
 
                                         <a
                                             href="eliminarPromocion.php?id=<?php echo $promocion["codPromocion"]; ?>"
                                             class="btn btn-sm btn-outline-danger"
                                             title="Eliminar promoción"
                                         >
-
                                             <i class="bi bi-trash"></i>
                                             Eliminar
-
                                         </a>
-
-
                                     </td>
-
-
                                 </tr>
-
 
                             <?php } ?>
 
-
                         <?php } else { ?>
 
-
                             <tr>
-
                                 <td
                                     colspan="5"
                                     class="text-center py-4"
                                 >
-
                                     <i
                                         class="bi bi-percent"
                                         style="font-size: 30px;"
                                     ></i>
 
                                     <p>
-
                                         No hay promociones registradas
                                         para tu aerolínea.
-
                                     </p>
-
                                 </td>
-
                             </tr>
-
 
                         <?php } ?>
 
-
                         </tbody>
 
-
                     </table>
-
-
                 </div>
-
-
+                <?php include __DIR__ . '/../../php/paginacionVista.php'; ?>
         </section>
-
-
     </main>
 
     <?php include __DIR__ . "/../../includes/footer.php"; ?>

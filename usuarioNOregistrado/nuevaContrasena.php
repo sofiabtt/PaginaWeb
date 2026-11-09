@@ -119,7 +119,6 @@ if (
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/estilos.css">
     <link rel="stylesheet" href="../css/estilosRecuperacion.css">
-    <link rel="stylesheet" href="../css/footer.css">
 
     <link
         rel="stylesheet"

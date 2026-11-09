@@ -1,6 +1,6 @@
 <?php
 
-include "conexionBD.php";
+require_once __DIR__ . '/conexionBD.php';
 
 function filtrosReporteCeo($codAerolinea, $desde, $hasta, $estado)
 {
@@ -113,5 +113,39 @@ function obtenerVentasPorVuelo($conexion, $codAerolinea, $desde = "", $hasta = "
     $stmt->bind_param($tipos, ...$params);
     $stmt->execute();
 
+    return $stmt->get_result();
+}
+
+function obtenerOcupacionVuelosAerolinea($conexion, $codAerolinea, $desde = '', $hasta = '')
+{
+    $sql = "SELECT v.codVuelo, v.origenVuelo, v.destinoVuelo,
+                   v.fechaSalidaVuelo, v.horaSalidaVuelo, v.asientosDisponibles,
+                   COALESCE(SUM(CASE WHEN r.estadoReserva = 'confirmada'
+                       THEN r.cantidadPasajerosReserva ELSE 0 END), 0) AS confirmados,
+                   COALESCE(SUM(CASE WHEN r.estadoReserva = 'pendiente de pago'
+                       THEN r.cantidadPasajerosReserva ELSE 0 END), 0) AS pendientes
+            FROM vuelos v
+            LEFT JOIN reservas r ON r.codVuelo = v.codVuelo
+            WHERE v.codAerolinea = ?";
+    $tipos = 'i';
+    $params = [$codAerolinea];
+
+    if ($desde !== '') {
+        $sql .= ' AND v.fechaSalidaVuelo >= ?';
+        $tipos .= 's';
+        $params[] = $desde;
+    }
+    if ($hasta !== '') {
+        $sql .= ' AND v.fechaSalidaVuelo <= ?';
+        $tipos .= 's';
+        $params[] = $hasta;
+    }
+
+    $sql .= " GROUP BY v.codVuelo, v.origenVuelo, v.destinoVuelo,
+                       v.fechaSalidaVuelo, v.horaSalidaVuelo, v.asientosDisponibles
+              ORDER BY v.fechaSalidaVuelo DESC, v.horaSalidaVuelo DESC, v.codVuelo DESC";
+    $stmt = $conexion->prepare($sql);
+    $stmt->bind_param($tipos, ...$params);
+    $stmt->execute();
     return $stmt->get_result();
 }

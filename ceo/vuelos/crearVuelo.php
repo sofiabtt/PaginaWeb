@@ -158,8 +158,6 @@ require_once __DIR__ . '/../../php/conexionBD.php';
 
     <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/estilos.css'), ENT_QUOTES, 'UTF-8') ?>">
 
-    <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/footer.css'), ENT_QUOTES, 'UTF-8') ?>">
-
 </head>
 
 
@@ -464,11 +462,8 @@ require_once __DIR__ . '/../../php/conexionBD.php';
                                 class="form-control"
                                 id="fecha"
                                 name="fecha"
-                                value="<?php
-                                    echo isset($_POST["fecha"])
-                                        ? htmlspecialchars($_POST["fecha"])
-                                        : "";
-                                ?>"
+                                min="<?= date('Y-m-d') ?>"
+                                value="<?= htmlspecialchars($_POST['fecha'] ?? '', ENT_QUOTES, 'UTF-8') ?>"
                                 required
                             >
 

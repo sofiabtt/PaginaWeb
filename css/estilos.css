@@ -1084,6 +1084,54 @@ body:where(.nuvia-usuario) {
     overflow: visible;
 }
 
+/* =========================================
+   PAGINACIÓN DE TABLAS
+========================================= */
+
+.paginacion-tablas {
+    margin-top: 25px;
+    text-align: center;
+}
+
+.paginacion-tablas p {
+    font-size: 14px;
+    color: #444;
+    margin-bottom: 12px;
+}
+
+.paginacion-tablas .btn {
+    color: #444;
+    background-color: #fff;
+    border: 1px solid #666;
+    border-radius: 8px;
+    padding: 8px 15px;
+}
+
+.paginacion-tablas .btn:hover {
+    color: #fff;
+    background-color: #555;
+    border-color: #555;
+}
+
+.paginacion-tablas .btn:focus-visible {
+    outline: 3px solid #835a40;
+    outline-offset: 3px;
+}
+
+
+@media (max-width: 1276px) {
+
+    .paginacion-tablas {
+        margin-top: 20px;
+    }
+
+    .paginacion-tablas .btn {
+        font-size: 13px;
+        padding: 8px 12px;
+    }
+
+}
+
 
 /* =========================================
    RESPONSIVE - TABLET
@@ -1488,17 +1536,9 @@ body:where(.nuvia-usuario) {
 
 }
 
-
-
-
-/*==========================================
-============================================
-============================================*/
 /* =========================================
    ESTILOS GENERALES
 ========================================= */
-
-
 
 html:has(:where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion)) {
     width: 100%;
@@ -1510,10 +1550,6 @@ html:has(:where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion)) {
     width: 100%;
     max-width: 100%;
     align-items: stretch;
-    background-image: url("../imagenes/fondoIngresoSesion.jpg");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
     min-height: 100vh;
     margin: 0;
     display: flex;
@@ -1521,6 +1557,7 @@ html:has(:where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion)) {
     font-family: "Montserrat", sans-serif;
     overflow-x: clip;
 }
+
 
 :where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) a:focus-visible,
 :where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) button:focus-visible,
@@ -1763,35 +1800,87 @@ html:has(:where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion)) {
 
 
 /* =========================================
-   FOOTER
+   FOOTER - ESTILOS GENERALES
 ========================================= */
 
-:where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .footer {
-    display: flex;
-    justify-content: center;
-    gap: 90px;
-    padding: 50px 60px;
-    background: white;
+.footer {
+    width: 100%;
+    padding: 30px 0;
+    background: #fff;
 }
 
-:where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .footer-columna {
+.footer-columna {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 6px;
+    margin-bottom: 25px;
 }
 
-:where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .footer .footer-columna a {
+.footer-logo {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.footer-logo img {
+    max-width: 80px;
+    height: auto;
+}
+
+.footer-columna ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-columna a {
     text-decoration: none;
     color: #555;
     font-size: 14px;
+    line-height: 1.8;
+    transition: color 0.2s;
 }
 
-:where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .footer-columna h4 {
+.footer-columna a:hover {
+    color: #835a40;
+    text-decoration: underline;
+}
+
+.footer-columna h3,
+.footer-columna h4 {
     font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: #333;
+    letter-spacing: 0.5px;
 }
 
-:where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .footer .footer-columna a:hover {
-    color: #835a40 !important;
+.footer-final {
+    margin-top: 30px;
+    padding: 15px 0 20px;
+    border-top: 2px solid #e0e0e0;
+    width: 100%;
+}
+
+.footer-final p {
+    margin: 0;
+    font-size: 14px;
+    color: #666;
+}
+
+.footer-final a {
+    color: #666;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.footer-final a:hover {
+    color: #835a40;
+    text-decoration: underline;
+}
+
+.footer .separator {
+    margin: 0 10px;
+    color: #ccc;
 }
 
 
@@ -1983,11 +2072,22 @@ html:has(:where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion)) {
     }
 
     /* FOOTER */
+        .footer {
+        padding: 30px 20px;
+    }
 
-    :where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .footer {
-        flex-wrap: wrap;
-        gap: 35px;
-        padding: 35px 25px;
+    .footer .container,
+    .footer .container-fluid {
+        max-width: 100%;
+    }
+
+    .footer-columna {
+        margin-bottom: 20px;
+    }
+
+    .footer-final {
+        margin-top: 15px;
+        text-align: center;
     }
 
 }
@@ -2292,36 +2392,6 @@ html:has(:where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion)) {
 
 
     /* =====================================
-       FOOTER
-    ===================================== */
-
-    :where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .footer {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-
-        width: 100%;
-        max-width: 100%;
-
-        gap: 25px 15px;
-        padding: 30px 20px;
-    }
-
-    :where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .footer-columna {
-        min-width: 0;
-        gap: 8px;
-    }
-
-    :where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .footer-columna h4 {
-        font-size: 14px;
-    }
-
-    :where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .footer .footer-columna a {
-        font-size: 12px;
-        overflow-wrap: anywhere;
-    }
-
-
-    /* =====================================
        MODAL DE OFERTAS
     ===================================== */
 
@@ -2351,6 +2421,111 @@ html:has(:where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion)) {
 :where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .campo-oferta input {
         font-size: 14px;
         max-width: 100%;
+    }
+
+    /* footer */
+    .footer {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        padding: 30px 0 20px;
+        background: #fff;
+    }
+
+    .footer .container,
+    .footer .container-fluid {
+        width: 100%;
+        max-width: 100%;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    /* COLUMNAS */
+
+    .footer .row {
+        display: flex;
+        flex-wrap: wrap;
+        margin-left: 0;
+        margin-right: 0;
+        width: 100%;
+    }
+
+    .footer .row > div {
+        min-width: 0;
+    }
+
+    .footer-columna {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 7px;
+        width: 100%;
+        min-width: 0;
+        margin-bottom: 25px;
+        padding: 0;
+    }
+
+    .footer-columna h4 {
+        font-size: 15px;
+        font-weight: 600;
+        margin-bottom: 8px;
+        line-height: 1.4;
+    }
+
+    .footer-columna ul {
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        text-align: center;
+    }
+
+    .footer-columna li {
+        margin-bottom: 5px;
+    }
+
+    .footer-columna a {
+        font-size: 13px;
+        line-height: 1.6;
+        overflow-wrap: anywhere;
+    }
+
+    /* LOGO */
+
+    .footer-logo {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .footer-logo img {
+        max-width: 70px;
+        height: auto;
+    }
+
+    /* PARTE FINAL */
+
+    .footer-final {
+        width: 100%;
+        max-width: 100%;
+        margin-top: 10px;
+        padding: 20px 10px 10px;
+        border-top: 1px solid #e0e0e0;
+        text-align: center;
+    }
+
+    .footer-final p {
+        font-size: 12px;
+        line-height: 1.8;
+        overflow-wrap: anywhere;
+    }
+
+    .footer-final a {
+        font-size: 12px;
+        display: inline;
+    }
+
+    .footer .separator {
+        margin: 0 5px;
     }
 
 }
@@ -2403,9 +2578,23 @@ html:has(:where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion)) {
         font-size: 19px;
     }
 
-    :where(body.nuvia-home, body.nuvia-vuelos, body.nuvia-recuperacion) .footer {
-        padding: 25px 15px;
-        gap: 20px 12px;
+    .footer .container,
+    .footer .container-fluid {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .footer-columna h4 {
+        font-size: 14px;
+    }
+
+    .footer-columna a {
+        font-size: 12px;
+    }
+
+    .footer-final p,
+    .footer-final a {
+        font-size: 11px;
     }
 
 }
@@ -5532,3 +5721,1204 @@ body.nuvia-pago {
 /* Conservar tamaños de iconos de pago frente a la regla global del navbar */
 body.nuvia-pago .pago-opcion > i { font-size: 22px !important; }
 @media (max-width: 767.98px) { body.nuvia-pago .pago-opcion > i { font-size: 20px !important; } }
+
+
+/* ====================================================
+   TABLAS RESPONSIVE Y REPORTES CEO (integrado)
+   Paginación: se reutiliza la definida arriba.
+==================================================== */
+
+/* TABLAS RESPONSIVE SIN SCROLL HORIZONTAL */
+
+.tabla-contenedor.tabla-tarjetas {
+    overflow-x: visible;
+}
+
+.tabla-contenedor.tabla-tarjetas table {
+    min-width: 0;
+    width: 100%;
+}
+
+/* =====================================
+   ENCABEZADOS Y BOTONES RESPONSIVE
+===================================== */
+
+/* Tablets y celulares */
+
+@media (max-width: 1276px) {
+
+    .encabezado-contenido {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 20px;
+    }
+
+    .encabezado-contenido > div {
+        width: 100%;
+    }
+
+    .encabezado-contenido > div:last-child {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .encabezado-contenido > div:last-child a {
+        flex: 1 1 220px;
+        text-align: center;
+        white-space: nowrap;
+    }
+
+}
+
+/* Celulares */
+
+@media (max-width: 767px) {
+
+    .encabezado-contenido > div:last-child {
+        flex-direction: column;
+    }
+
+    .encabezado-contenido > div:last-child a {
+        width: 100%;
+        flex: none;
+    }
+
+}
+
+
+/* =====================================
+   TABLAS RESPONSIVE - TABLETS Y CELULARES
+===================================== */
+
+@media (max-width: 1276px) {
+
+    /* Contenedor */
+
+    .tabla-contenedor.tabla-tarjetas {
+        width: 100%;
+        max-width: 100%;
+        overflow: visible;
+        background: transparent;
+        box-shadow: none;
+        padding: 0;
+    }
+
+    /* Tabla */
+
+    .tabla-contenedor.tabla-tarjetas table {
+        display: block;
+        width: 100%;
+        min-width: 0;
+        border: none;
+        overflow: visible;
+    }
+
+    /* Ocultar encabezados */
+
+    .tabla-contenedor.tabla-tarjetas thead {
+        display: none;
+    }
+
+    /* Cuerpo */
+
+    .tabla-contenedor.tabla-tarjetas tbody {
+        display: block;
+        width: 100%;
+    }
+
+    .tabla-contenedor.tabla-tarjetas tbody tr {
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+        background: white;
+        border: 1px solid #e5e5e5;
+        border-radius: 14px;
+        padding: 16px;
+        margin-bottom: 15px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    }
+
+    /* Datos de cada tarjeta */
+
+    .tabla-contenedor.tabla-tarjetas tbody td {
+        display: block;
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+        box-sizing: border-box;
+        padding: 9px 0;
+        border: none;
+        background-color: #ffffff;
+        box-shadow: none;
+        font-size: 14px;
+        overflow-wrap: anywhere;
+    }
+
+    /* Nombre de cada campo */
+
+    .tabla-contenedor.tabla-tarjetas tbody td::before {
+        content: attr(data-label);
+        display: block;
+        width: 100%;
+        font-weight: 600;
+        font-size: 12px;
+        color: #684028;
+        margin-bottom: 4px;
+    }
+
+    /* Separadores */
+
+    .tabla-contenedor.tabla-tarjetas tbody td:not(:last-child) {
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    /* Acciones */
+
+    .tabla-contenedor.tabla-tarjetas tbody td.acciones-tabla {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .tabla-contenedor.tabla-tarjetas tbody td.acciones-tabla::before {
+        flex-basis: 100%;
+    }
+
+    .tabla-contenedor.tabla-tarjetas .acciones-tabla .btn {
+        flex: 1 1 auto;
+        text-align: center;
+        white-space: nowrap;
+    }
+
+    /* Los campos de aeropuerto ocupan todo el ancho */
+
+    .tabla-contenedor.tabla-tarjetas tbody td.columna-aeropuerto {
+        display: block !important;
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: none !important;
+        box-sizing: border-box;
+    }
+
+}
+
+
+
+/* =====================================
+   ANCHO DE COLUMNAS - ESCRITORIO
+===================================== */
+
+@media (min-width: 1277px) {
+
+    .tabla-contenedor:not(.tabla-ocupacion):not(.tabla-reporte-ventas) table {
+        width: 100%;
+        table-layout: fixed;
+    }
+
+    /* Código */
+    .tabla-contenedor:not(.tabla-ocupacion):not(.tabla-reporte-ventas) table th:nth-child(1),
+    .tabla-contenedor:not(.tabla-ocupacion):not(.tabla-reporte-ventas) table td:nth-child(1) {
+        width: 5%;
+    }
+
+    /* Origen */
+    .tabla-contenedor:not(.tabla-ocupacion):not(.tabla-reporte-ventas) table th:nth-child(2),
+    .tabla-contenedor:not(.tabla-ocupacion):not(.tabla-reporte-ventas) table td:nth-child(2) {
+        width: 16%;
+    }
+
+    /* Destino */
+    .tabla-contenedor:not(.tabla-ocupacion):not(.tabla-reporte-ventas) table th:nth-child(3),
+    .tabla-contenedor:not(.tabla-ocupacion):not(.tabla-reporte-ventas) table td:nth-child(3) {
+        width: 16%;
+    }
+
+    /* Fecha */
+    .tabla-contenedor:not(.tabla-ocupacion):not(.tabla-reporte-ventas) table th:nth-child(4),
+    .tabla-contenedor:not(.tabla-ocupacion):not(.tabla-reporte-ventas) table td:nth-child(4) {
+        width: 8%;
+    }
+
+    /* Hora */
+    .tabla-contenedor:not(.tabla-ocupacion):not(.tabla-reporte-ventas) table th:nth-child(5),
+    .tabla-contenedor:not(.tabla-ocupacion):not(.tabla-reporte-ventas) table td:nth-child(5) {
+        width: 5%;
+    }
+
+    /* Precio */
+    .tabla-contenedor:not(.tabla-ocupacion):not(.tabla-reporte-ventas) table th:nth-child(6),
+    .tabla-contenedor:not(.tabla-ocupacion):not(.tabla-reporte-ventas) table td:nth-child(6) {
+        width: 8%;
+    }
+
+    /* Asientos */
+    .tabla-contenedor:not(.tabla-ocupacion):not(.tabla-reporte-ventas) table th:nth-child(7),
+    .tabla-contenedor:not(.tabla-ocupacion):not(.tabla-reporte-ventas) table td:nth-child(7) {
+        width: 9%;
+    }
+
+    /* Acciones */
+    .tabla-contenedor:not(.tabla-ocupacion):not(.tabla-reporte-ventas) table th:nth-child(8),
+    .tabla-contenedor:not(.tabla-ocupacion):not(.tabla-reporte-ventas) table td:nth-child(8) {
+        width: 19%;
+    }
+
+    .tabla-contenedor:not(.tabla-ocupacion):not(.tabla-reporte-ventas) table th,
+    .tabla-contenedor:not(.tabla-ocupacion):not(.tabla-reporte-ventas) table td {
+        padding: 12px 8px;
+        vertical-align: middle;
+    }
+
+    .tabla-contenedor:not(.tabla-ocupacion):not(.tabla-reporte-ventas) table td {
+        overflow-wrap: break-word;
+    }
+
+    .tabla-contenedor .acciones-tabla {
+        white-space: nowrap;
+    }
+
+    .tabla-contenedor:not(.tabla-ocupacion):not(.tabla-reporte-ventas) table td.acciones-tabla {
+    white-space: nowrap;
+    padding-left: 4px;
+    padding-right: 4px;
+    }
+
+    .tabla-contenedor:not(.tabla-ocupacion):not(.tabla-reporte-ventas) table td.acciones-tabla .btn {
+        margin: 1px;
+    }
+
+}
+
+
+/* =====================================
+   ACCIONES DE TABLAS - ESCRITORIO
+===================================== */
+
+@media (min-width: 1277px) {
+
+    .tabla-contenedor .acciones-tabla {
+        white-space: nowrap;
+        min-width: 200px;
+    }
+
+    .tabla-contenedor .acciones-tabla .btn {
+        display: inline-flex;
+        align-items: center;
+        white-space: nowrap;
+        margin: 2px;
+    }
+
+}
+
+
+/* =====================================
+   REPORTES CEO - RESPONSIVE
+===================================== */
+
+/* Tablets y celulares */
+
+@media (max-width: 1276px) {
+
+    /* Encabezado */
+
+    .encabezado-reportes {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 20px;
+    }
+
+    .encabezado-reportes > button {
+        width: 100%;
+    }
+
+    /* Filtros */
+
+    .acciones-filtros .d-flex {
+        width: 100%;
+    }
+
+    .acciones-filtros .btn {
+        flex: 1;
+    }
+
+    /* Resumen */
+
+    .resumen-reportes .resumen-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+}
+
+/* Celulares */
+
+@media (max-width: 576px) {
+
+    .encabezado-reportes h1 {
+        font-size: 28px;
+    }
+
+    .encabezado-reportes p {
+        font-size: 15px;
+    }
+
+    .resumen-reportes .resumen-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .resumen-reportes .resumen-item {
+        width: 100%;
+    }
+
+    .acciones-filtros .d-flex {
+        flex-direction: column;
+    }
+
+    .acciones-filtros .btn {
+        width: 100%;
+    }
+
+}
+
+/* =====================================
+   TABLA DE OCUPACIÓN - REPORTES CEO
+===================================== */
+
+/* ESCRITORIO */
+
+@media (min-width: 1277px) {
+
+    .tabla-contenedor.tabla-ocupacion table {
+        width: 100%;
+        table-layout: fixed;
+    }
+
+    /* Vuelo */
+    .tabla-contenedor.tabla-ocupacion th:nth-child(1),
+    .tabla-contenedor.tabla-ocupacion td:nth-child(1) {
+        width: 6%;
+    }
+
+    /* Ruta */
+    .tabla-contenedor.tabla-ocupacion th:nth-child(2),
+    .tabla-contenedor.tabla-ocupacion td:nth-child(2) {
+        width: 28%;
+    }
+
+    /* Salida */
+    .tabla-contenedor.tabla-ocupacion th:nth-child(3),
+    .tabla-contenedor.tabla-ocupacion td:nth-child(3) {
+        width: 14%;
+    }
+
+    /* Capacidad */
+    .tabla-contenedor.tabla-ocupacion th:nth-child(4),
+    .tabla-contenedor.tabla-ocupacion td:nth-child(4) {
+        width: 10%;
+    }
+
+    /* Confirmados */
+    .tabla-contenedor.tabla-ocupacion th:nth-child(5),
+    .tabla-contenedor.tabla-ocupacion td:nth-child(5) {
+        width: 11%;
+    }
+
+    /* Pendientes */
+    .tabla-contenedor.tabla-ocupacion th:nth-child(6),
+    .tabla-contenedor.tabla-ocupacion td:nth-child(6) {
+        width: 11%;
+    }
+
+    /* Disponibles */
+    .tabla-contenedor.tabla-ocupacion th:nth-child(7),
+    .tabla-contenedor.tabla-ocupacion td:nth-child(7) {
+        width: 11%;
+    }
+
+    /* Ocupación */
+    .tabla-contenedor.tabla-ocupacion th:nth-child(8),
+    .tabla-contenedor.tabla-ocupacion td:nth-child(8) {
+        width: 9%;
+    }
+
+    /* Encabezados */
+    .tabla-contenedor.tabla-ocupacion th {
+        font-size: 13px;
+        white-space: normal;
+        overflow-wrap: anywhere;
+        text-align: center;
+    }
+
+    /* Datos */
+    .tabla-contenedor.tabla-ocupacion td {
+        font-size: 14px;
+        text-align: center;
+        overflow-wrap: anywhere;
+    }
+
+    /* Ruta */
+    .tabla-contenedor.tabla-ocupacion td:nth-child(2) {
+        text-align: left;
+        line-height: 1.5;
+    }
+
+}
+
+/* =====================================
+   REPORTES CEO - IMPRESIÓN
+===================================== */
+
+@media print {
+
+    body.nuvia-panel:is(:has(#tituloPorVuelo), :has(#tituloTabla)) nav,
+    body.nuvia-panel:is(:has(#tituloPorVuelo), :has(#tituloTabla)) footer,
+    body.nuvia-panel:is(:has(#tituloPorVuelo), :has(#tituloTabla)) .no-imprimir,
+    body.nuvia-panel:is(:has(#tituloPorVuelo), :has(#tituloTabla)) .paginacion-tablas {
+        display: none !important;
+    }
+
+    body.nuvia-panel:is(:has(#tituloPorVuelo), :has(#tituloTabla)) main {
+        margin: 0 !important;
+        padding: 0 !important;
+        max-width: 100% !important;
+    }
+
+    body.nuvia-panel:is(:has(#tituloPorVuelo), :has(#tituloTabla)) .tabla-contenedor {
+        overflow: visible !important;
+        box-shadow: none !important;
+    }
+
+    body.nuvia-panel:is(:has(#tituloPorVuelo), :has(#tituloTabla)) .tabla-contenedor:not(.tabla-ocupacion):not(.tabla-reporte-ventas) table {
+        display: table !important;
+        width: 100% !important;
+        border-collapse: collapse;
+        font-size: 10px;
+    }
+
+    body.nuvia-panel:is(:has(#tituloPorVuelo), :has(#tituloTabla)) .tabla-contenedor thead {
+        display: table-header-group !important;
+    }
+
+    body.nuvia-panel:is(:has(#tituloPorVuelo), :has(#tituloTabla)) .tabla-contenedor tbody {
+        display: table-row-group !important;
+    }
+
+    body.nuvia-panel:is(:has(#tituloPorVuelo), :has(#tituloTabla)) .tabla-contenedor tr {
+        display: table-row !important;
+        break-inside: avoid;
+    }
+
+    body.nuvia-panel:is(:has(#tituloPorVuelo), :has(#tituloTabla)) .tabla-contenedor th,
+    body.nuvia-panel:is(:has(#tituloPorVuelo), :has(#tituloTabla)) .tabla-contenedor td {
+        display: table-cell !important;
+        width: auto !important;
+        border: 1px solid #999;
+        padding: 5px;
+    }
+
+    body.nuvia-panel:is(:has(#tituloPorVuelo), :has(#tituloTabla)) .tabla-contenedor td::before {
+        display: none !important;
+    }
+}
+
+
+/* =====================================
+   REPORTE DE VENTAS CEO - ESCRITORIO
+===================================== */
+
+@media (min-width: 1277px) {
+
+    .tabla-contenedor.tabla-reporte-ventas table {
+        table-layout: auto;
+        width: 100%;
+    }
+
+    .tabla-contenedor.tabla-reporte-ventas th,
+    .tabla-contenedor.tabla-reporte-ventas td {
+        width: auto;
+        min-width: 0;
+        overflow-wrap: anywhere;
+        vertical-align: middle;
+    }
+
+}
+
+/* ===================================================
+   REPORTES - ESTILOS INTEGRADOS (ANTES reporte.css)
+   =================================================== */
+
+/* ==========================================
+   REPORTES - NUVIA
+========================================== */
+
+
+/* ==========================================
+   CONTENIDO PRINCIPAL
+========================================== */
+
+.reporte-contenido {
+    max-width: 1400px;
+    width: 100%;
+    padding: 45px 35px 100px;
+    margin: 0 auto;
+    min-width: 0;
+}
+
+
+/* ==========================================
+   ENCABEZADO
+========================================== */
+
+.reporte-encabezado {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 25px;
+    margin-bottom: 30px;
+}
+
+.reporte-encabezado > div {
+    min-width: 0;
+}
+
+.reporte-volver {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 18px;
+    color: #555;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.reporte-volver:hover {
+    color: #684028;
+}
+
+.reporte-encabezado h1 {
+    color: #684028;
+    font-size: 30px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.reporte-descripcion {
+    color: #555;
+    font-size: 14px;
+    margin: 0;
+}
+
+.reporte-btn-imprimir {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    white-space: nowrap;
+    padding: 10px 18px;
+    border-radius: 9px;
+}
+
+
+/* ==========================================
+   FILTROS
+========================================== */
+
+.reporte-filtros {
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 18px;
+    margin-bottom: 30px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+}
+
+.reporte-filtros .form-label {
+    font-weight: 600;
+    font-size: 14px;
+    color: #684028;
+    margin-bottom: 8px;
+}
+
+.reporte-filtros .form-control,
+.reporte-filtros .form-select,
+.reporte-filtros .input-group-text {
+    min-height: 43px;
+    border-color: #dddddd;
+}
+
+.reporte-filtros .input-group-text {
+    background-color: #ffffff;
+    color: #684028;
+}
+
+.reporte-filtros .form-control:focus,
+.reporte-filtros .form-select:focus {
+    border-color: #684028;
+    box-shadow: 0 0 0 0.2rem rgba(104, 64, 40, 0.15);
+}
+
+.reporte-botones-filtro {
+    display: flex;
+    gap: 10px;
+}
+
+.reporte-botones-filtro .btn-primary {
+    flex: 1;
+    background-color: #684028;
+    border-color: #684028;
+    color: white;
+}
+
+.reporte-botones-filtro .btn-primary:hover {
+    background-color: #72472c;
+    border-color: #72472c;
+}
+
+.reporte-botones-filtro .btn-outline-secondary {
+    flex-shrink: 0;
+}
+
+
+/* ==========================================
+   TABLA
+========================================== */
+
+.reporte-tabla {
+    background: white;
+    border-radius: 18px;
+    padding: 25px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    min-width: 0;
+}
+
+.reporte-tabla .table-responsive {
+    overflow-x: auto;
+}
+
+.reporte-tabla table {
+    width: 100%;
+    min-width: 750px;
+    margin-bottom: 0;
+}
+
+.reporte-tabla thead th {
+    background-color: #684028;
+    color: white;
+    font-weight: 600;
+    padding: 15px 12px;
+    white-space: nowrap;
+}
+
+.reporte-tabla tbody td {
+    padding: 15px 12px;
+    vertical-align: middle;
+    color: #444;
+    overflow-wrap: anywhere;
+}
+
+.reporte-tabla tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.reporte-tabla .badge {
+    font-size: 12px;
+    padding: 7px 10px;
+    font-weight: 500;
+}
+
+.reporte-sin-resultados {
+    padding: 35px !important;
+    text-align: center;
+    color: #555 !important;
+}
+
+
+/* ==========================================
+   PAGINACIÓN
+========================================== */
+
+.reporte-paginacion {
+    margin-top: 25px;
+}
+
+.reporte-paginacion .pagination {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 0;
+}
+
+.reporte-paginacion .page-link {
+    color: #684028;
+    border: 1px solid #dddddd;
+    border-radius: 8px;
+    padding: 8px 12px;
+}
+
+.reporte-paginacion .page-link:hover {
+    background-color: #f3e9df;
+    color: #684028;
+    border-color: #684028;
+}
+
+.reporte-paginacion .page-item.active .page-link {
+    background-color: #684028;
+    border-color: #684028;
+    color: white;
+}
+
+.reporte-paginacion .page-item.disabled .page-link {
+    color: #999;
+}
+
+
+/* ==========================================
+   MEMBRETE PARA IMPRESIÓN
+========================================== */
+
+.reporte-membrete {
+    display: none;
+}
+
+/* ==========================================
+   TABLAS - CELDAS BLANCAS SIN FRANJAS
+========================================== */
+
+/* Bootstrap 5.3 dibuja el rayado con --bs-table-bg-type. */
+.tabla-contenedor.tabla-tarjetas table.table,
+.reporte-tabla table.table {
+    --bs-table-bg: #ffffff;
+    --bs-table-striped-bg: #ffffff;
+    --bs-table-bg-type: #ffffff;
+    --bs-table-accent-bg: #ffffff;
+}
+
+/* Se conserva el borde inferior de cada celda. */
+.tabla-contenedor.tabla-tarjetas table.table > :not(caption) > * > *,
+.reporte-tabla table.table > :not(caption) > * > * {
+    background-color: #ffffff;
+    --bs-table-bg-type: transparent;
+    --bs-table-bg-state: transparent;
+    box-shadow: none;
+}
+
+/* ==========================================
+   TABLETS
+========================================== */
+
+@media (max-width: 991px) {
+
+    .reporte-contenido {
+        padding: 35px 25px 80px;
+    }
+
+    .reporte-encabezado h1 {
+        font-size: 27px;
+    }
+
+    .reporte-filtros {
+        padding: 20px;
+    }
+
+    .reporte-tabla {
+        padding: 20px;
+    }
+
+}
+
+
+/* ==========================================
+   CELULARES
+========================================== */
+
+@media (max-width: 767px) {
+
+    /* CONTENIDO */
+
+    .reporte-contenido {
+        padding: 25px 15px 65px;
+    }
+
+
+    /* ENCABEZADO */
+
+    .reporte-encabezado {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 20px;
+        margin-bottom: 25px;
+    }
+
+    .reporte-encabezado h1 {
+        font-size: 25px;
+    }
+
+    .reporte-btn-imprimir {
+        width: 100%;
+    }
+
+
+    /* FILTROS */
+
+    .reporte-filtros {
+        padding: 20px;
+        margin-bottom: 25px;
+        border-radius: 14px;
+    }
+
+    .reporte-botones-filtro {
+        width: 100%;
+    }
+
+
+    /* TABLA COMO TARJETAS */
+
+    .reporte-tabla {
+        background: transparent;
+        box-shadow: none;
+        border: none;
+        border-radius: 0;
+        padding: 0;
+    }
+
+    .reporte-tabla .table-responsive {
+        overflow: visible;
+    }
+
+    .reporte-tabla table,
+    .reporte-tabla tbody,
+    .reporte-tabla tr,
+    .reporte-tabla td {
+        display: block;
+        width: 100%;
+    }
+
+    .reporte-tabla table {
+        min-width: 0;
+        background: transparent;
+    }
+
+    .reporte-tabla thead {
+        display: none;
+    }
+
+    .reporte-tabla tbody tr {
+        background: #ffffff;
+        border: 1px solid #e9e9e9;
+        border-radius: 14px;
+        padding: 12px 18px;
+        margin-bottom: 15px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    }
+
+    .reporte-tabla tbody td {
+        display: block;
+        width: 100%;
+        padding: 9px 0;
+        border: none;
+        border-bottom: 1px solid #eeeeee;
+        text-align: left;
+        min-width: 0;
+        overflow-wrap: anywhere;
+        background-color: white;
+        box-shadow: none;
+    }
+
+    .reporte-tabla tbody td:not(:last-child) {
+        border-bottom: 1px solid #eeeeee;
+    }
+
+    .reporte-tabla tbody td:last-child {
+        border-bottom: none;
+    }
+
+    .reporte-tabla tbody td::before {
+        content: attr(data-label);
+        display: block;
+        width: 100%;
+        color: #684028;
+        font-weight: 600;
+        font-size: 12px;
+        text-align: left;
+        margin-bottom: 4px;
+    }
+
+    .reporte-tabla tbody td .badge {
+        white-space: normal;
+        text-align: center;
+    }
+
+    .reporte-tabla tbody td.reporte-sin-resultados {
+        display: block;
+        text-align: center;
+        padding: 20px !important;
+        border: none;
+    }
+
+    .reporte-tabla tbody td.reporte-sin-resultados::before {
+        display: none;
+    }
+
+
+    /* PAGINACIÓN */
+
+    .reporte-paginacion {
+        margin-top: 20px;
+    }
+
+    .reporte-paginacion .page-link {
+        padding: 8px 10px;
+        font-size: 13px;
+    }
+
+}
+
+
+/* ==========================================
+   CELULARES PEQUEÑOS
+========================================== */
+
+@media (max-width: 380px) {
+
+    .reporte-contenido {
+        padding: 20px 12px 55px;
+    }
+
+    .reporte-encabezado h1 {
+        font-size: 23px;
+    }
+
+    .reporte-filtros {
+        padding: 15px;
+    }
+
+    .reporte-tabla tbody tr {
+        padding: 10px 14px;
+    }
+
+    .reporte-tabla tbody td {
+        font-size: 13px;
+        gap: 8px;
+    }
+
+}
+
+
+/* ==========================================
+   IMPRESIÓN
+========================================== */
+
+@media print {
+
+    /* El tamaño y los márgenes de papel se configuran al imprimir. */
+
+    /* OCULTAR ELEMENTOS INNECESARIOS */
+
+    body:has(.reporte-contenido) nav,
+    body:has(.reporte-contenido) .navbar,
+    body:has(.reporte-contenido) footer,
+    body:has(.reporte-contenido) .reporte-encabezado,
+    body:has(.reporte-contenido) .reporte-filtros,
+    body:has(.reporte-contenido) .reporte-paginacion,
+    body:has(.reporte-contenido) .btn,
+    body:has(.reporte-contenido) form {
+        display: none !important;
+    }
+
+
+    /* PÁGINA */
+
+    body:has(.reporte-contenido) {
+        background: white !important;
+        color: black !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        font-size: 10pt;
+    }
+
+    .reporte-contenido {
+        display: block !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+
+    /* MEMBRETE */
+
+    .reporte-membrete {
+        display: block !important;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #999;
+    }
+
+    .reporte-membrete h2 {
+        font-size: 16pt;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+
+    .reporte-membrete p {
+        font-size: 10pt;
+        margin-bottom: 4px;
+    }
+
+
+    /* TABLA TRADICIONAL */
+
+    .reporte-tabla {
+        display: block !important;
+        background: white !important;
+        border: none !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    .reporte-tabla .table-responsive {
+        overflow: visible !important;
+    }
+
+    .reporte-tabla table {
+        display: table !important;
+        width: 100% !important;
+        min-width: 0 !important;
+        border-collapse: collapse !important;
+    }
+
+    .reporte-tabla thead {
+        display: table-header-group !important;
+    }
+
+    .reporte-tabla tbody {
+        display: table-row-group !important;
+    }
+
+    .reporte-tabla tr {
+        display: table-row !important;
+        background: white !important;
+        border: none !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        break-inside: avoid;
+    }
+
+    .reporte-tabla th,
+    .reporte-tabla td {
+        display: table-cell !important;
+        width: auto !important;
+        padding: 7px 8px !important;
+        border: 1px solid #cccccc !important;
+        text-align: left !important;
+        vertical-align: middle !important;
+        color: black !important;
+        font-size: 9pt;
+    }
+
+    .reporte-tabla thead th {
+        background: #eeeeee !important;
+        color: black !important;
+        font-weight: 700;
+    }
+
+    .reporte-tabla td::before {
+        display: none !important;
+        content: none !important;
+    }
+
+
+    /* BADGES */
+
+    .reporte-tabla .badge {
+        background: transparent !important;
+        color: black !important;
+        border: 1px solid #555 !important;
+        font-size: 9pt;
+        padding: 4px 6px;
+    }
+
+}
+
+/* ==========================================
+   TABLAS PARA IMPRESIÓN
+========================================== */
+
+/* En pantalla mostramos solamente la tabla paginada */
+
+@media screen {
+
+    .reporte-tabla-impresion {
+        display: none !important;
+    }
+
+}
+
+
+/* Al imprimir mostramos la tabla completa */
+
+@media print {
+
+    /* Ocultar la tabla paginada */
+    .reporte-tabla-pantalla {
+        display: none !important;
+    }
+
+    /* Mostrar la tabla completa */
+    .reporte-tabla-impresion {
+        display: block !important;
+        width: 100% !important;
+    }
+
+    /* Ocultar controles */
+    .reporte-filtros,
+    .reporte-paginacion,
+    .reporte-btn-imprimir,
+    nav.pagination,
+    .pagination,
+    .reporte-volver {
+        display: none !important;
+    }
+
+    /* Formato de tabla */
+    .reporte-tabla-impresion table {
+        width: 100% !important;
+        border-collapse: collapse;
+        font-size: 10px;
+    }
+
+    .reporte-tabla-impresion th,
+    .reporte-tabla-impresion td {
+        border: 1px solid #999 !important;
+        padding: 5px !important;
+        color: #000 !important;
+        background: #fff !important;
+        overflow-wrap: anywhere;
+    }
+
+    /* Repetir encabezados en cada hoja */
+    .reporte-tabla-impresion thead {
+        display: table-header-group;
+    }
+
+    /* Evitar cortar filas */
+    .reporte-tabla-impresion tr {
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+
+    /* Membrete */
+    .reporte-tabla-impresion .reporte-membrete {
+        display: block !important;
+        margin-bottom: 20px;
+    }
+
+}

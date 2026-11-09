@@ -40,7 +40,6 @@ $seleccionandoVuelta =
     <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/estilos.css'), ENT_QUOTES, 'UTF-8') ?>?v=20261108">
 
     <link rel="stylesheet" href="css/estilosResultados.css?v=6">
-    <link rel="stylesheet" href="css/footer.css">
     <link rel="stylesheet" href="css/progresoReserva.css?v=5">
 </head>
 

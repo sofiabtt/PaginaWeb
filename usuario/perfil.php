@@ -82,8 +82,6 @@ $usuario = obtenerPerfilUsuario(
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/bootstrap-icons.css">
     <link rel="stylesheet" href="../css/estilos.css">
-
-    <link rel="stylesheet" href="../css/footer.css">
     <link rel="icon" href="../imagenes/logo.png" type="image/png">
 
 </head>

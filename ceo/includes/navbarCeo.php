@@ -51,7 +51,7 @@ if (isset($_SESSION["tipoUsuario"])) {
                     Promociones
                 </a>
 
-                <a class="nav-link" href="<?= htmlspecialchars(urlApp('ceo/reportes/reportes.php'), ENT_QUOTES, 'UTF-8') ?>">
+                <a class="nav-link" href="<?= htmlspecialchars(urlApp('ceo/reportes/gestionReportes.php'), ENT_QUOTES, 'UTF-8') ?>">
                     Reportes
                 </a>
 

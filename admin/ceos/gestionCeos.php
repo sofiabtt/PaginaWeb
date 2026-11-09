@@ -56,10 +56,6 @@ $consulta = obtenerCeosPaginados(
 
     <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/estilos.css'), ENT_QUOTES, 'UTF-8') ?>?v=20261108">
 
-    <link rel="stylesheet" href="../../css/footer.css">
-    <link rel="stylesheet" href="../../css/tablasResponsive.css">
-    <link rel="stylesheet" href="../../css/paginacion.css">
-
 </head>
 
 <body class="nuvia-panel nuvia-navbar">

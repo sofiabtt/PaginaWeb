@@ -72,8 +72,6 @@ if (!$reserva) {
         href="../../css/bootstrap-icons.css"
     >
 
-    <link rel="stylesheet" href="../../css/footer.css">
-
 </head>
 
 

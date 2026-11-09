@@ -7,6 +7,8 @@ include "../../php/consultasCeos.php";
 include "../../php/consultasAerolineas.php";
 include "../../php/consultasVuelos.php";
 
+require_once __DIR__ . '/../../php/paginacion.php';
+
 verificarCeo();
 $codUsuario = obtenerCodCeo();
 
@@ -22,7 +24,22 @@ if (!$aerolinea) {
 $codAerolinea = $aerolinea["codAerolinea"];
 
 // OBTENER VUELOS
-$resultado = obtenerVuelosPorAerolinea($conexion,$codAerolinea);
+$resultado = obtenerVuelosPorAerolinea($conexion, $codAerolinea);
+
+// CONFIGURAR PAGINACIÓN
+$totalVuelos = $resultado->num_rows;
+
+$paginacion = configurarPaginacion($totalVuelos, 10);
+
+$pagina = $paginacion["pagina"];
+$totalPaginas = $paginacion["totalPaginas"];
+$offset = $paginacion["offset"];
+$porPagina = $paginacion["porPagina"];
+
+// OBTENER VUELOS DE LA PÁGINA ACTUAL
+$vuelos = $resultado->fetch_all(MYSQLI_ASSOC);
+
+$vuelosPagina = array_slice($vuelos, $offset, $porPagina);
 
 require_once __DIR__ . '/../../php/conexionBD.php';
 ?>
@@ -48,9 +65,7 @@ require_once __DIR__ . '/../../php/conexionBD.php';
     <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/bootstrap-icons.css'), ENT_QUOTES, 'UTF-8') ?>">
 
     <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/estilos.css'), ENT_QUOTES, 'UTF-8') ?>">
-    <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/tablasResponsive.css'), ENT_QUOTES, 'UTF-8') ?>">
-
-    <link rel="stylesheet" href="<?= htmlspecialchars(urlApp('css/footer.css'), ENT_QUOTES, 'UTF-8') ?>">
+   
 
 </head>
 
@@ -165,10 +180,9 @@ require_once __DIR__ . '/../../php/conexionBD.php';
                     <tbody>
 
 
-                        <?php if ($resultado->num_rows > 0) { ?>
+                        <?php if ($totalVuelos > 0) { ?>
 
-
-                            <?php while ($vuelo = $resultado->fetch_assoc()) { ?>
+                            <?php foreach ($vuelosPagina as $vuelo) { ?>
 
 
                                 <tr>
@@ -323,6 +337,7 @@ require_once __DIR__ . '/../../php/conexionBD.php';
 
             </div>
 
+            <?php include __DIR__ . '/../../php/paginacionVista.php'; ?>
 
         </section>
 
