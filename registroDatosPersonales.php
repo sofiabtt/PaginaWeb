@@ -1,3 +1,9 @@
+<?php
+
+require_once __DIR__ . '/php/conexionBD.php';
+
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -17,7 +23,7 @@
     <link rel="icon" type="image/png" href="imagenes/logo.png">
 </head>
 
-<body class="nuvia-registro">
+<body class="nuvia-registro nuvia-navbar">
 
     <?php include("includes/navbar.php"); ?>
 
